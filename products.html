@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600&display=swap" />
+    <script src="https://kit.fontawesome.com/bbf95eaa40.js" crossorigin="anonymous"></script>
+    <title>Products</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .filter-line{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 90%;
+        }
+        .container-fluid {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" style="font-family:'Newsreader', serif;">
+        <div class="row pt-5">
+            <div class="row text-center pt-5">
+                <h1>
+                    Tất cả sản phẩm
+                </h1>
+            </div>
+            <div class="filter-line">
+                <button class="btn" 
+                        type="button" 
+                        data-bs-toggle="offcanvas" 
+                        data-bs-target="#offcanvasFilter" 
+                        aria-controls="offcanvasFilter">
+                        Bộ lọc <i class="fa-solid fa-filter"></i>
+                </button>
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-arrow-down-a-z"></i> Sắp xếp
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Giá tăng dần</a></li>
+                        <li><a class="dropdown-item" href="#">Giá giảm dần</a></li>
+                        <li><a class="dropdown-item" href="#">Tên: A - Z</a></li>
+                        <li><a class="dropdown-item" href="#">Tên: Z - A</a></li>
+                    </ul>
+                </div>
+            </div>
+
+              
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasFilterLabel">BỘ LỌC</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div>
+                        <p>Danh mục sản phẩm</p>
+                        <a href="#" style="text-decoration: none;">Sản phẩm khuyến mãi</a>
+                        <br>
+                        <a href="#" style="text-decoration: none;">Sản phẩm nổi bật</a>
+                        <br>
+                        <a href="#" style="text-decoration: none;">Tất cả sản phẩm</a>
+                        <br>
+                        <hr>
+                    </div>
+                    <div>
+                        <p>Nhà cung cấp</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Khác
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                              Luxe Fashion
+                            </label>
+                        </div>
+                        <hr>
+                    </div>
+                    <div>
+                        <p>Lọc giá</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Dưới 1.000.000đ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                1.000.000đ - 2.000.000đ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                2.000.000đ - 3.000.000đ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Trên 3.000.000đ
+                            </label>
+                        </div>
+                        <hr>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+            <div class="row p-5 text-center">
+                <div class="col-3">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 ">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 pt-5">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 pt-5">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 pt-5">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 pt-5">
+                    <div class="card m-1">
+                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Áo thun cho nam
+                            </p>
+                            <div class="row d-flex">
+                                <span>100.000</span>
+                                <span>THÊM VÀO GIỎ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary float-right">Xem thêm sản phẩm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+    </script>
+
+
+</body>
+
+</html>
