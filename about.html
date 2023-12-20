@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Spectral' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b7cad2323d.js" crossorigin="anonymous"></script>
+    <title>Giới thiệu</title>
+
+    <style>
+        body {
+            color: #252a2b;
+            line-height: 1.45;
+            font-size: 14px;
+            background: #ffffff;
+            font-family: "Spectral", sans-serif;
+            overflow-x: hidden;
+            position: initial;
+        }
+
+        a {
+            color: #252a2b;
+            text-decoration: none;
+            outline: none;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .topbar {
+            text-align: center;
+            font-weight: 500;
+            font-size: 13px;
+            padding: 8px 0;
+            position: relative;
+            display: block;
+            overflow: hidden;
+            background: #ffffff;
+            color: #000000;
+            border-bottom: 1px solid #dfe2e6;
+        }
+
+        .topbar-text {
+            color: black;
+        }
+
+        .topbar-bottom {
+            background: #193d87;
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        .topbar-bottom .box-content {
+            padding: 6px 0;
+        }
+
+        .topbar-bottom .hotline a {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .topbar-bottom .contact a {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .navbar {
+            background: #ffffff;
+            color: #000000;
+            font-size: 13px;
+        }
+
+        .navbar .box-content {
+            padding: 6px 0;
+        }
+
+        .home {
+            width: 200px;
+        }
+
+        .nav-box {
+            width: 800px;
+        }
+
+        .util {
+            width: 200px;
+        }
+
+        .intro-banner {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("https://theme.hstatic.net/200000680615/1001104472/14/about01_banner_bkg.jpg");
+            height: 300px;
+        }
+
+        .banner-headtext {
+            font-size: 30px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .banner-text {
+            font-weight: 600;
+            color: white;
+        }
+
+        .content-text-title-f {
+            letter-spacing: 5px;
+        }
+
+        .text-column {
+            width: 450px;
+        }
+
+        .content-image {
+            width: 45%;
+            height: 45%;
+        }
+
+        .icon-item {
+            width: 210px;
+        }
+
+        .subscription-container {
+            background-color: #1c4290;
+            height: 80px;
+        }
+
+        .subscription-input {
+            width: 300px;
+        }
+
+        .subscription-input-container {
+            height: 40px;
+        }
+
+        .subscription-title {
+            padding: 0;
+            margin: 0;
+            position: relative;
+            font-size: 15px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .subscription-input {
+            margin-top: 20px;
+        }
+
+        .subscription-button {
+            font-weight: 700;
+            white-space: nowrap;
+            height: 35px;
+            border-radius: 20px;
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+            overflow: hidden;
+            line-height: normal;
+            color: #fff;
+            border: 0;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            outline: none !important;
+            transition: all 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+            background: #161718;
+            font-size: small;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            line-height: 30px;
+            font-size: 14px;
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            display: block;
+            text-align: center;
+            border-radius: 50%;
+            transition: 0.4s;
+            text-decoration: none;
+            outline: none;
+        }
+
+        .social-ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+            padding-left: 0 !important;
+        }
+
+        .address-ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+            padding-left: 0 !important;
+        }
+
+        .social-li {
+            margin-right: 5px;
+        }
+
+        .footer-container {
+            background: #193d87;
+            position: relative;
+            font-size: 16px;
+            color: white;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .footer-link {
+            color: #ffffff;
+        }
+
+        .footer-end {
+            background: #1c4290;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="topbar">
+            <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide carousel-fade"
+                data-bs-ride="true" data-bs-touch="true">
+                <div class="carousel-inner ">
+                    <div class="carousel-item active">
+                        <span class="topbar-text d-block w-100">Khuyến mãi khủng giảm tới <strong>35%</strong> tất cả
+                            sản phẩm</span>
+                    </div>
+                    <div class="carousel-item">
+                        <span class="topbar-text d-block w-100">SALE hot chào lương về - Freeship đơn 0đ</span>
+                    </div>
+                    <div class="carousel-item">
+                        <span class="topbar-text d-block w-100">Miễn phí vận chuyển với đơn hàng trên <b>500k</b></span>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="topbar-bottom">
+            <div class="container-fluid">
+                <div class="box-content d-flex align-items-center justify-content-center">
+                    <div class="box-left d-flex flex-wrap align-items-center">
+                        <div class="hotline">
+                            <span>Hotline: <a href="tel:1900636000">1900.636.000</a> (8h - 12h, 13h30 - 17h)</span>
+                        </div>
+                        <div class="contact" style="border-left: 1px solid gray; margin-left: 15px; padding-left: 15px">
+                            <a href="/pages/lien-he">Liên hệ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar">
+            <div class="container-fluid">
+                <div class="box-content d-flex align-items-between justify-content-between w-100">
+                    <div class="home fs-4">
+                        <a href="/"><b>Home</b></a>
+                    </div>
+                    <div class="nav-box box-left d-flex flex-wrap justify-content-around align-items-between">
+                        <div class="nav-item fs-6 d-flex align-items-center">
+                            <a href="/">Trang chủ <i
+                                    class="nav-item-arrow fa-solid fa-greater-than fa-rotate-90 fa-xs"></i></a>
+                        </div>
+                        <div class="nav-item fs-6 d-flex align-items-center">
+                            <a href="/">Sản phẩm <i
+                                    class="nav-item-arrow fa-solid fa-greater-than fa-rotate-90 fa-xs"></i></a>
+                        </div>
+                        <div class="nav-item fs-6 d-flex align-items-center">
+                            <a href="/">Trang sản phẩm <i
+                                    class="nav-item-arrow fa-solid fa-greater-than fa-rotate-90 fa-xs"></i></a>
+                        </div>
+                        <div class="nav-item fs-6 d-flex align-items-center">
+                            <a href="/">Giới thiệu <i
+                                    class="nav-item-arrow fa-solid fa-greater-than fa-rotate-90 fa-xs"></i></a>
+                        </div>
+                    </div>
+                    <div class="util d-flex flex-wrap justify-content-around align-items-between">
+                        <div class="util-item d-flex align-items-center">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="util-item d-flex align-items-center">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="util-item d-flex align-items-center">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="util-item d-flex align-items-center">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="intro-content w-100">
+            <div class="intro-banner w-100 d-flex flex-column justify-content-center ps-5">
+                <div class="fs-2 banner-headtext">
+                    Giới thiệu
+                </div>
+                <div>
+                    <a class="banner-text" href="/">Trang chủ</a> / <a class="banner-text">Giới thiệu</a>
+                </div>
+            </div>
+        </div>
+        <div class="content d-flex flex-column flex-wrap text-center mt-5">
+            <span class="content-text-title-f text-uppercase fs-6">Về chúng tôi</span>
+            <span class="content-text-title-s text-uppercase fw-bold fs-4 mt-2">Thương hiệu luxe mode</span>
+            <div class="text-container d-flex flex-row flex-wrap justify-content-around text-start mt-5 ms-5 me-5">
+                <span class="text-column">
+                    Trong suốt 6 thập kỷ qua, chúng tôi luôn nỗ lực tạo dựng mối quan hệ hợp tác tốt đẹp với các đối tác
+                    trên cơ sở mang lại lợi ích song phương, không ngừng phát triển hoạt động kinh doanh của mình, mang
+                    đến cho khách hàng sản phẩm và dịch vụ với chất lượng tốt nhất. Chúng tôi luôn chào đón tất cả các
+                    đối tác cùng chia sẻ tầm nhìn và khát khao thành công.
+                </span>
+                <span class="text-column">
+                    Luxe Mode – đối tác tin cậy mang lại sự thịnh vượng cho doanh nghiệp của bạn
+                    <br> <br>
+                    Với hệ thống phân phối trải dài từ Bắc vào Nam, sự đa dạng về chủng loại, độc đáo về kiểu dáng, dẫn
+                    đầu về xu hướng, nhiều sự lựa chọn về mức giá đã đang và sẽ chiếm được sự tin tưởng và yêu mến của
+                    khách hàng trên toàn quốc.
+                </span>
+            </div>
+            <div class="text-container d-flex flex-row justify-content-around text-start mt-5"
+                style="margin-left: 100px;">
+                <img class="content-image"
+                    src="https://theme.hstatic.net/200000680615/1001104472/14/about01_introduce1_img.jpg?v=306" alt="">
+                <div class="d-flex flex-column flex-wrap align-items-center text-center mt-4">
+                    <span class="content-text-title-f text-uppercase fs-6">Thông điệp từ chúng tôi</span>
+                    <span class="content-text-title-s text-uppercase fw-bold fs-4 mt-2">Câu chuyện thương hiệu</span>
+                    <span class="w-75 text-start mt-5">
+                        Trong suốt 6 thập kỷ qua, chúng tôi luôn nỗ lực tạo dựng mối quan hệ hợp tác tốt đẹp với các đối
+                        tác trên cơ sở mang lại lợi ích song phương, không ngừng phát triển hoạt động kinh doanh của
+                        mình, mang đến cho khách hàng sản phẩm và dịch vụ với chất lượng tốt nhất. Chúng tôi luôn chào
+                        đón tất cả các đối tác cùng chia sẻ tầm nhìn và khát khao thành công.
+                        <br> <br>
+                        Thương hiệu Việt yêu thích nhất 2023.
+                    </span>
+                </div>
+            </div>
+            <div class="text-container d-flex flex-row justify-content-around text-start mt-5">
+                <div class="d-flex flex-column flex-wrap align-items-center text-center mt-4">
+                    <span class="content-text-title-f text-uppercase fs-6">Thông điệp từ chúng tôi</span>
+                    <span class="content-text-title-s text-uppercase fw-bold fs-4 mt-2">Câu chuyện thương hiệu</span>
+                    <span class="w-75 text-start mt-5">
+                        Trong suốt 6 thập kỷ qua, chúng tôi luôn nỗ lực tạo dựng mối quan hệ hợp tác tốt đẹp với các đối
+                        tác trên cơ sở mang lại lợi ích song phương, không ngừng phát triển hoạt động kinh doanh của
+                        mình, mang đến cho khách hàng sản phẩm và dịch vụ với chất lượng tốt nhất. Chúng tôi luôn chào
+                        đón tất cả các đối tác cùng chia sẻ tầm nhìn và khát khao thành công.
+                        <br> <br>
+                        Thương hiệu Việt yêu thích nhất 2020.
+                    </span>
+                </div>
+                <img class="content-image"
+                    src="https://theme.hstatic.net/200000680615/1001104472/14/about01_introduce2_img.jpg?v=306" alt="">
+            </div>
+            <div class="icon-container d-flex flex-row justify-content-around mt-5">
+                <div class="icon-item d-flex flex-column flex-wrap align-items-center text-center">
+                    <img class="mb-4"
+                        src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_1_ico.png?v=306"
+                        class=" lazyloaded"
+                        data-src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_1_ico.png?v=306"
+                        alt="TRẢ GÓP 0% LÃI SUẤT">
+                    <span class="text-uppercase fs-6">Trả góp 0% lãi suất</span>
+                    <span class="content-text-title-s mt-1" style="font-size: small;">Áp dụng dễ dàng qua thẻ tín dụng
+                        của hơn 20 ngân hàng</span>
+                </div>
+                <div class="icon-item d-flex flex-column flex-wrap align-items-center text-center">
+                    <img class="mb-4"
+                        src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_2_ico.png?v=306"
+                        class=" lazyloaded"
+                        data-src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_2_ico.png?v=306"
+                        alt="GIAO HÀNG 3H">
+                    <span class="text-uppercase fs-6">Giao hàng 3H</span>
+                    <span class="content-text-title-s mt-1" style="font-size: small;">Sở hữu ngay món trang sức yêu
+                        thích chỉ trong vòng 3 giờ</span>
+                </div>
+                <div class="icon-item d-flex flex-column flex-wrap align-items-center text-center">
+                    <img class="mb-4"
+                        src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_3_ico.png?v=306"
+                        class=" lazyloaded"
+                        data-src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_3_ico.png?v=306"
+                        alt="NGƯỜI BẠN VÀNG">
+                    <span class="text-uppercase fs-6">Người bạn vàng</span>
+                    <span class="content-text-title-s mt-1" style="font-size: small;">Giải pháp tài chính cầm đồ; thu
+                        mua kim cương, túi hiệu và đồng hồ cơ</span>
+                </div>
+                <div class="icon-item d-flex flex-column flex-wrap align-items-center text-center">
+                    <img class="mb-4"
+                        src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_4_ico.png?v=306"
+                        class=" lazyloaded"
+                        data-src="//theme.hstatic.net/200000680615/1001104472/14/about01_services_4_ico.png?v=306"
+                        alt="ƯU ĐÃI ĐẾN 2 TRIỆU">
+                    <span class="text-uppercase fs-6">Ưu đãi đến 2 triệu</span>
+                    <span class="content-text-title-s mt-1" style="font-size: small;">Đặt online - nhận ưu đãi tại
+                        showroom</span>
+                </div>
+            </div>
+        </div>
+        <div class="subscription-container d-flex flex-row align-items-center justify-content-between ps-5 mt-5 pe-5">
+            <div class="subscription-input-container d-flex flex-row align-items-center justify-content-around">
+                <span class="subscription-title">Đăng ký nhận tin</span>
+                <div class="subscription-input input-group ms-3 mb-3 me-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-envelope"></i></span>
+                    <input type="email" class="form-control" placeholder="Nhập email của bạn" aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+                <button type="submit" class="button dark cta-submitform newsletter-btn subscription-button"
+                    fdprocessedid="rqn9r">Đăng ký</button>
+            </div>
+            <div class="newsletter-block newsletter-social d-flex flex-row align-items-center justify-content-around">
+                <div class="newsletter-content">
+                    <ul class="social-ul">
+                        <li class="social-li"><a href="/" target="_blank" rel="noopener" title="Facebook"
+                                aria-label="Facebook"><i class="fa fa-facebook social-icon"></i></a></li>
+                        <li class="social-li"><a href="/" target="_blank" rel="noopener" title="Twitter"
+                                aria-label="Twitter"><i class="fa fa-twitter social-icon"></i></a></li>
+                        <li class="social-li"><a href="/" target="_blank" rel="noopener" title="Instagram"
+                                aria-label="Instagram"><i class="fa fa-instagram social-icon"></i></a></li>
+                        <li class="social-li"><a href="/" target="_blank" rel="noopener" title="Google Plus"
+                                aria-label="Google Plus"><i class="fa fa-google-plus social-icon"></i></a></li>
+                        <li class="social-li"><a href="/" target="_blank" rel="noopener" title="Youtube"
+                                aria-label="Youtube"><i class="fa fa-youtube-play social-icon"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12 col-12 widget-footer">
+                        <h4 class="title-footer">Về Luxe Mode</h4>
+                        <div class="content-footer block-collapse row">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <p>Với các giải pháp công nghệ tốt nhất, Haravan là tất cả những gì bạn cần để xây
+                                    dựng
+                                    thương hiệu online, thành công trong bán lẻ và marketing đột phá.</p>
+                                <div class="address-footer">
+                                    <ul class="address-ul">
+                                        <li class="contact-1"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            Tầng 4,
+                                            tòa nhà Flemington, số 182, đường Lê Đại Hành, phường 15, quận 11, Tp.
+                                            Hồ Chí
+                                            Minh.</li>
+                                        <li class="contact-2"><i class="fa fa-phone" aria-hidden="true"></i>
+                                            1900.000.XXX
+                                        </li>
+                                        <li class="contact-4"><i class="fa fa-envelope" aria-hidden="true"></i>
+                                            hi@luxe-mode.abc</li>
+                                    </ul>
+                                </div>
+                                <ul class="footerNav-social d-md-none">
+                                    <li><a href="/" target="_blank" rel="noopener" title="Facebook"
+                                            aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="/" target="_blank" rel="noopener" title="Twitter"
+                                            aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="/" target="_blank" rel="noopener" title="Instagram"
+                                            aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="/" target="_blank" rel="noopener" title="Google Plus"
+                                            aria-label="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="/" target="_blank" rel="noopener" title="Youtube"
+                                            aria-label="Youtube"><i class="fa fa-youtube-play"></i></a></li>
+                                </ul>
+                                <div class="footer-payment">
+                                    <div class="payment-title">Phương thức thanh toán</div>
+                                    <ul class="payment-icon social-ul">
+                                        <li class="social-li"><img class=" ls-is-cached lazyloaded"
+                                                data-src="//theme.hstatic.net/200000680615/1001104472/14/payment_1_img.png?v=306"
+                                                src="//theme.hstatic.net/200000680615/1001104472/14/payment_1_img.png?v=306"
+                                                alt="zalo pay" title="zalo pay"></li>
+                                        <li class="social-li"><img class=" ls-is-cached lazyloaded"
+                                                data-src="//theme.hstatic.net/200000680615/1001104472/14/payment_2_img.png?v=306"
+                                                src="//theme.hstatic.net/200000680615/1001104472/14/payment_2_img.png?v=306"
+                                                alt="onepay" title="onepay"></li>
+                                        <li class="social-li"><img class=" ls-is-cached lazyloaded"
+                                                data-src="//theme.hstatic.net/200000680615/1001104472/14/payment_3_img.png?v=306"
+                                                src="//theme.hstatic.net/200000680615/1001104472/14/payment_3_img.png?v=306"
+                                                alt="vn-pay" title="vn-pay"></li>
+                                        <li class="social-li"><img class=" ls-is-cached lazyloaded"
+                                                data-src="//theme.hstatic.net/200000680615/1001104472/14/payment_4_img.png?v=306"
+                                                src="//theme.hstatic.net/200000680615/1001104472/14/payment_4_img.png?v=306"
+                                                alt="kredivo" title="kredivo"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12 widget-footer">
+                        <h4 class="title-footer">Hỗ trợ khách hàng</h4>
+                        <div class="content-footer block-collapse">
+                            <ul class="footerNav-link">
+                                <li class="item">
+                                    <a class="footer-link" href="/collections/onsale" title="Sản phẩm khuyến mãi">Sản
+                                        phẩm khuyến
+                                        mãi</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/collections/hot-products" title="Sản phẩm nổi bật">Sản
+                                        phẩm nổi
+                                        bật</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/collections/all" title="Tất cả sản phẩm">Tất cả sản
+                                        phẩm</a>
+                                </li>
+                            </ul>
+                            <div class="footer-shipment">
+                                <h4 class="shipment-title">Phương thức vận chuyển</h4>
+                                <ul class="shipment-icon social-ul">
+                                    <li class="social-li"><img class="social-li ls-is-cached lazyloaded"
+                                            data-src="//theme.hstatic.net/200000680615/1001104472/14/shipment_1_img.png?v=306"
+                                            src="//theme.hstatic.net/200000680615/1001104472/14/shipment_1_img.png?v=306"
+                                            alt="ghn" title="ghn"></li>
+                                    <li class="social-li"><img class="social-li ls-is-cached lazyloaded"
+                                            data-src="//theme.hstatic.net/200000680615/1001104472/14/shipment_2_img.png?v=306"
+                                            src="//theme.hstatic.net/200000680615/1001104472/14/shipment_2_img.png?v=306"
+                                            alt="ninjavan" title="ninjavan"></li>
+                                    <li class="social-li"><img class="social-li ls-is-cached lazyloaded"
+                                            data-src="//theme.hstatic.net/200000680615/1001104472/14/shipment_3_img.png?v=306"
+                                            src="//theme.hstatic.net/200000680615/1001104472/14/shipment_3_img.png?v=306"
+                                            alt="ahamove" title="ahamove"></li>
+                                    <li class="social-li"><img class="social-li ls-is-cached lazyloaded"
+                                            data-src="//theme.hstatic.net/200000680615/1001104472/14/shipment_4_img.png?v=306"
+                                            src="//theme.hstatic.net/200000680615/1001104472/14/shipment_4_img.png?v=306"
+                                            alt="j&amp;t" title="j&amp;t"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12 widget-footer">
+                        <h4 class="title-footer">Liên kết</h4>
+                        <div class="content-footer block-collapse">
+                            <ul class="footerNav-link">
+                                <li class="item">
+                                    <a class="footer-link" href="/" title="Trang chủ">Trang chủ</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/collections/all" title="Sản phẩm">Sản phẩm</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/collections/all" title="Trang sản phẩm">Trang sản
+                                        phẩm</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/about-us" title="Giới thiệu">Giới thiệu</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/about-us" title="Trang nội dung">Trang nội
+                                        dung</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/chuong-trinh-khuyen-mai-black-friday"
+                                        title="Landing page">Landing
+                                        page</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12 widget-footer">
+                        <h4 class="title-footer">Chính sách</h4>
+                        <div class="content-footer block-collapse">
+                            <ul class="footerNav-link">
+                                <li class="item">
+                                    <a class="footer-link" href="/search" title="Tìm kiếm">Tìm kiếm</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/about-us" title="Giới thiệu">Giới thiệu</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/chinh-sach-doi-tra"
+                                        title="Chính sách đổi trả">Chính sách đổi
+                                        trả</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/chinh-sach-bao-mat"
+                                        title="Chính sách bảo mật">Chính sách bảo
+                                        mật</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/dieu-khoan-dich-vu"
+                                        title="Điều khoản dịch vụ">Điều khoản dịch
+                                        vụ</a>
+                                </li>
+                                <li class="item">
+                                    <a class="footer-link" href="/pages/lien-he" title="Liên hệ">Liên hệ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row footer-end text-center">
+                    <p style="padding-top: 15px;">Copyright © 2023
+                        <a class="footer-link" href=""> Luxe Mode</a>.
+                        <a class="footer-link" href="">Powered by 123</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
