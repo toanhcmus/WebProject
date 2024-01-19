@@ -10,5 +10,4 @@ module.exports = {
             next(error);
         }
     }
-
 }
