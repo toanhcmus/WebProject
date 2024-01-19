@@ -7,5 +7,4 @@ module.exports = {
             next(error);
         }
     }
-
 }
