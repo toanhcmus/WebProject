@@ -272,30 +272,36 @@
 
 
 
-            <div class="row text-center pt-5">
+            <div class="row text-center pt-5 test">
                 <h1>
                     Sản phẩm nổi bật
                 </h1>
             </div>
-            <template>
-                {{#each items}}
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
+            <div class="cart overflow-y-auto"
+                style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #1f87ef;">
+                <div>giỏ hành</div>
+                <h2 class="calc"></h2>
+            </div>
+
+            <button class="cart-icon">Giỏ hàng</button>
+            {{#each items}}
+            <div class="col-3 pt-5">
+                <div class="card m-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
+                        class="card-img-top product-image" alt="...">
+                    <div class="card-body">
+                        <p class="card-text product-name">
+                            {{this.name}}
+                        </p>
+                        <div class="row d-flex">
+                            <span class="product-price">{{this.price}}</span>
+                            <span class="add-to-cart ">THÊM VÀO GIỎ</span>
                         </div>
                     </div>
                 </div>
-                {{/each}}
-            </template>
+            </div>
+            {{/each}}
+
 
 
 
@@ -347,8 +353,73 @@
                 </div>
             </div>
         </div>
+
 </body>
 <script>
-    
+    $(document).ready(function () {
+        let notify = 0;
+        $('.add-to-cart').click(function () {
+            var productName = $(this).parent().parent().find('.product-name').text();
+            var productPrice = $(this).parent().find('.product-price').text();
+            var productImage = $(this).parent().parent().parent().find('.product-image').attr('src');
+            console.log('Tên sản phẩm: ' + productName);
+            console.log('Giá sản phẩm: ' + productPrice);
+            console.log('URL ảnh sản phẩm: ' + productImage);
+            addToCart(productName, productPrice, productImage);
+            notify++;
+            if (notify > 0) {
+                console.log(notify)
+                $('.notify').show();
+            }
+
+        });
+        function addToCart(name, price, image) {
+            var pro = `<div class="d-flex mt-1">
+                <div class="col-5"><img
+                        src=`+ image + `
+                        class=" product-image" alt="..."></div>
+                <div class="col-5">
+                    <div class="text-start d-flex">
+                        <h3 class="mx-auto">
+                           `+ name + `
+                        </h3>
+                    </div>
+                    <div >
+                        1
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div>X</div>
+                    <div class="product-price">`+ price + `</div>
+                </div>
+            </div>
+                `;
+            $('.cart').append(pro);
+            calc();
+
+
+        }
+        function calc() {
+            let total = 0;
+            var price = 0;
+            $('.cart .product-price').each(function () {
+                price = parseInt($(this).text());
+                total += price;
+            });
+            $('.calc').html(`Tổng tiền: ` + total + ` vnd`);
+        }
+        $('.cart-icon').click(function () {
+            var cart = $('.cart');
+            if (cart.css('right') == '-550px') {
+                $('.cart').animate({ right: '0px' }, 500);
+                
+            } else {
+                $('.cart').animate({ right: '-550px' }, 500);
+            }
+        });
+    });
+
+
 </script>
+
 </html>

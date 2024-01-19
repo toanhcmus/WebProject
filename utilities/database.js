@@ -14,13 +14,8 @@ const cn = {
 const db = pgp(cn);
 
 module.exports = {
-    timkiemTaiKhoan: async (username, password, isAdmin) => {
-        const query = `SELECT * FROM "User" WHERE "Username" = $1 AND "Password" = $2 AND "isAdmin" = $3`;
-        const values = [username, password, isAdmin];
-        const data = await db.query(query, values);
-        if (data.length > 0) {
-            return true;
-        }
-        else return false;
+    sanPhamNoiBat: async () => { 
+        const data =await db.any(`SELECT * FROM "products"`);
+        return data;
     },
 }
