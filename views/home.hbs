@@ -114,128 +114,23 @@
                     Sản phẩm mới ra mắt
                 </h1>
             </div>
-            <div class="row p-5">
-                <div class="col-3">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 ">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
+            {{#each items}}
+            <div class="col-3 pt-5">
+                <div class="card m-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
+                        class="card-img-top product-image" alt="...">
+                    <div class="card-body">
+                        <p class="card-text product-name">
+                            {{this.name}}
+                        </p>
+                        <div class="row d-flex">
+                            <span class="product-price">{{this.price}}</span>
+                            <span class="add-to-cart ">THÊM VÀO GIỎ</span>
                         </div>
                     </div>
                 </div>
             </div>
+            {{/each}}
 
 
 
@@ -277,13 +172,24 @@
                     Sản phẩm nổi bật
                 </h1>
             </div>
-            <div class="cart overflow-y-auto"
-                style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #1f87ef;">
-                <div>giỏ hành</div>
-                <h2 class="calc"></h2>
+            <div class="cart overflow-y-auto "
+                style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #b7f0f3;">
+                <div class=" row d-flex col-12">
+                    <h1 class="col-9 pt-1">Giỏ hàng</h1>
+                    <div class="util-item col-3 cart-icon pt-3    ">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                </div>
+
+                <div class=" row cart-body">
+                </div>
+
+                <h3 class="row calc ps-2 pt-1"></h3>
+                <div>
+                    <button type="button" class="btn btn-primary col-12">Thanh toán</button>
+                </div>
             </div>
 
-            <button class="cart-icon">Giỏ hàng</button>
             {{#each items}}
             <div class="col-3 pt-5">
                 <div class="card m-1">
@@ -373,38 +279,49 @@
             }
 
         });
-        function addToCart(name, price, image) {
-            var pro = `<div class="d-flex mt-1">
-                <div class="col-5"><img
-                        src=`+ image + `
-                        class=" product-image" alt="..."></div>
-                <div class="col-5">
-                    <div class="text-start d-flex">
-                        <h3 class="mx-auto">
-                           `+ name + `
-                        </h3>
+        async function addToCart(name, price, image) {
+            var existingProduct = $('.cart-body').find('.product-name:contains("' + name + '")');
+            if (existingProduct.length > 0) {
+                var quantityInput = existingProduct.parent().parent().parent().find('.count');
+                quantityInput.val(parseInt(quantityInput.val()) + 1);
+            } else {
+                var pro = `<div class="card m-1">
+                <div class="d-flex mt-1 " style="height:120px">
+                    <div class="col-5" >
+                        <img src=`+ image + `class=" product-image " style="width: 100%; height: 100%; object-fit: contain;"   alt="...">
                     </div>
-                    <div >
-                        1
+                    <div class="col-5 ">
+                        <div class="text-start pt-2 d-flex">
+                            <h4 class="product-name">
+                            `+ name + `
+                            </h4>
+                        </div>
+                        <div class=" text-start pt-3">
+                            <input type="number" class="count " value="1">
+                            </input>
+                        </div>
                     </div>
-                </div>
-                <div class="col-2">
-                    <div>X</div>
-                    <div class="product-price">`+ price + `</div>
-                </div>
-            </div>
+                    <div class="col-2">
+                        <div class="pt-1">X</div>
+                        <div class="product-price pt-5 fw-bolder">`+ price + ` vnd</div>
+                    </div>
+                </div> </div>
                 `;
-            $('.cart').append(pro);
-            calc();
+
+                $('.cart-body').append(pro);
+            }
+            await calc();
 
 
         }
         function calc() {
             let total = 0;
             var price = 0;
-            $('.cart .product-price').each(function () {
+            var count = 0;
+            $('.cart-body .product-price').each(function () {
                 price = parseInt($(this).text());
-                total += price;
+                count = $(this).parent().parent().find('.count').val();
+                total += price * count;
             });
             $('.calc').html(`Tổng tiền: ` + total + ` vnd`);
         }
@@ -412,7 +329,7 @@
             var cart = $('.cart');
             if (cart.css('right') == '-550px') {
                 $('.cart').animate({ right: '0px' }, 500);
-                
+
             } else {
                 $('.cart').animate({ right: '-550px' }, 500);
             }
