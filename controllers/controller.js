@@ -2,9 +2,9 @@ const Product=require('../models/Product')
 module.exports = {
     render: async (req, res, next) => {
         try {
-            //const product= await Product.sanPhamNoiBat();
+            const product= await Product.sanPhamNoiBat();
             //console.log(product)
-            res.render('home',{ layout: 'main' });
+            res.render('home',{ layout: 'main' ,items:product});
         }
         catch (error) {
             next(error);

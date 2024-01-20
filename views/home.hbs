@@ -125,7 +125,7 @@
                         </p>
                         <div class="row d-flex">
                             <span class="product-price">{{this.price}}</span>
-                            <span class="add-to-cart ">THÊM VÀO GIỎ</span>
+                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
                         </div>
                     </div>
                 </div>
@@ -201,7 +201,8 @@
                         </p>
                         <div class="row d-flex">
                             <span class="product-price">{{this.price}}</span>
-                            <span class="add-to-cart ">THÊM VÀO GIỎ</span>
+                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+
                         </div>
                     </div>
                 </div>
@@ -260,6 +261,13 @@
             </div>
         </div>
 
+
+
+
+
+        <div class="toast-addToCart"></div>
+
+
 </body>
 <script>
     $(document).ready(function () {
@@ -311,6 +319,27 @@
                 $('.cart-body').append(pro);
             }
             await calc();
+            updateCartNotification();
+            var toast = `
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                       
+                        <strong class="me-auto">Đã thêm vào giỏ hàng thành công</strong>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body" >
+                        <img src="`+image+`" class="rounded me-2"  style="width: 30%; height: 30%; object-fit: contain;" alt="...">
+                        `+name+`
+                    </div>
+                </div>
+            </div>
+            `
+            $('.toast-addToCart').append(toast);
+            var toast1 = $('.toast').last();
+            var toast = new bootstrap.Toast(toast1);
+            toast.show();
 
 
         }
@@ -334,6 +363,16 @@
                 $('.cart').animate({ right: '-550px' }, 500);
             }
         });
+        function updateCartNotification() {
+            var totalItems = 0;
+            $('.cart-body .count').each(function () {
+                totalItems += parseInt($(this).val());
+            });
+            if (totalItems > 0) {
+                $('.cart-notify-badge').show();
+                $('.cart-notify-badge').text(totalItems);
+            }
+        }
     });
 
 
