@@ -1,4 +1,4 @@
-const Product=require('../models/Category')
+const category=require('../models/Category')
 const fs = require('fs');
 const path = require('path');
 
@@ -21,21 +21,21 @@ module.exports = {
             let name = urlObj.searchParams.get("name");
 
             if (deleteCat) {
-                await categoryModel.deleteByID(parseInt(deleteCat));
+                await category.deleteByID(parseInt(deleteCat));
             }
             if (editCat) {
-                await categoryModel.updateCategory(parseInt(editCat), CatName);
+                await category.updateCategory(parseInt(editCat), CatName);
             }
             if (id && name) {
-                await categoryModel.addCategory(id, name);
+                await category.addCategory(id, name);
             }
-            let categories = await categoryModel.getAll();
-            res.render("edit", { categories, title: "Edit" });
+            let categories = await category.getAll();
+            res.render("editCategory", { categories, title: "Edit Category" });
 
         } catch (error) {
 
-            let categories = await categoryModel.getAll();
-            res.render("edit", { categories, error, title: "Edit" });
+            let categories = await category.getAll();
+            res.render("editCategory", { categories, error, title: "Edit Category" });
         }
     },
 }
