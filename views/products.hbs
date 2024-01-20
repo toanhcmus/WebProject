@@ -5,17 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600&display=swap" />
     <script src="https://kit.fontawesome.com/bbf95eaa40.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
     <title>Products</title>
     <style>
         body {
             margin: 0;
             padding: 0;
         }
-        .filter-line{
+
+        .filter-line {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -23,6 +29,7 @@
             margin-right: 20px;
             width: 90%;
         }
+
         .container-fluid {
             margin-bottom: 50px;
         }
@@ -38,28 +45,28 @@
                 </h1>
             </div>
             <div class="filter-line">
-                <button class="btn" 
-                        type="button" 
-                        data-bs-toggle="offcanvas" 
-                        data-bs-target="#offcanvasFilter" 
-                        aria-controls="offcanvasFilter">
-                        Bộ lọc <i class="fa-solid fa-filter"></i>
+                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter"
+                    aria-controls="offcanvasFilter">
+                    Bộ lọc <i class="fa-solid fa-filter"></i>
                 </button>
                 <div class="dropdown">
-                    <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <i class="fa-solid fa-arrow-down-a-z"></i> Sắp xếp
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Giá tăng dần</a></li>
-                        <li><a class="dropdown-item" href="#">Giá giảm dần</a></li>
-                        <li><a class="dropdown-item" href="#">Tên: A - Z</a></li>
-                        <li><a class="dropdown-item" href="#">Tên: Z - A</a></li>
+                        <li><a class="dropdown-item sort-option" href="#" data-sort="price-asc">Giá tăng dần</a></li>
+                        <li><a class="dropdown-item sort-option" href="#" data-sort="price-desc">Giá giảm dần</a></li>
+                        <li><a class="dropdown-item sort-option" href="#" data-sort="name-asc">Tên: A - Z</a></li>
+                        <li><a class="dropdown-item sort-option" href="#" data-sort="name-desc">Tên: Z - A</a></li>
                     </ul>
+
                 </div>
             </div>
 
-              
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilterLabel">
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter"
+                aria-labelledby="offcanvasFilterLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasFilterLabel">BỘ LỌC</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -78,15 +85,15 @@
                     <div>
                         <p>Nhà cung cấp</p>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Khác
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                            <label class="form-check-label" for="flexCheckDefault1">
+                                Khác
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked">
-                              Luxe Fashion
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
+                            <label class="form-check-label" for="flexCheckChecked2">
+                                Luxe Fashion
                             </label>
                         </div>
                         <hr>
@@ -94,32 +101,32 @@
                     <div>
                         <p>Lọc giá</p>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Dưới 1.000.000đ
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
+                            <label class="form-check-label" for="flexCheckDefault3">
+                                Dưới 1.000.000đ
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4">
+                            <label class="form-check-label" for="flexCheckChecked4">
                                 1.000.000đ - 2.000.000đ
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5">
+                            <label class="form-check-label" for="flexCheckChecked5">
                                 2.000.000đ - 3.000.000đ
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6">
+                            <label class="form-check-label" for="flexCheckChecked6">
                                 Trên 3.000.000đ
                             </label>
                         </div>
                         <hr>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -142,15 +149,28 @@
                 </div>
             </div>
             {{/each}}
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary float-right">Xem thêm sản phẩm</button>
-            </div>
         </div>
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary float-right">Xem thêm sản phẩm</button>
+        </div>
+    </div>
     </div>
 
     <script>
-        
+        $(document).ready(function () {
+            $('.sort-option').on('click', function (e) {
+                e.preventDefault(); 
+                var sortType = $(this).data('sort');
+                console.log(sortType); 
+                 $.post("/sort", { sort: sortType }, function (data) {
+                        $('body').html(data);
+                 }).fail(function () {
+                     alert("Error");
+                 });
+            });
+        });
+
+
     </script>
 
 

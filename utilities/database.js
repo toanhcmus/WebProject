@@ -22,6 +22,21 @@ module.exports = {
         const data =await db.any(`SELECT * FROM "products" WHERE "name" ILIKE '%${name}%'`);
         return data;
     },
+    sort: async (option) => { 
+        if(option=="decrease"){
+            const data =await db.any(`SELECT * FROM "products"  ORDER BY "price" DEC`);
+        }
+        else if(option=="increase"){
+            const data =await db.any(`SELECT * FROM "products"  ORDER BY "price" ASC'`);
+        }
+        else if(option=="az"){
+            const data =await db.any(`SELECT * FROM "products"  ORDER BY "name" ASC'`);
+        }
+        else {
+            const data =await db.any(`SELECT * FROM "products"  ORDER BY "name" ASC'`);
+        }
+        return data;
+    },
     insertUser: async (newUser) => {
         const insertUserQuery = 'INSERT INTO "User" ("Username", "Password", "Email", "isAdmin") VALUES ($1, $2, $3, $4)';
         const insertUserValues = [newUser.username, newUser.password, newUser.email, newUser.isAdmin];

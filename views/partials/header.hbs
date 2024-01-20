@@ -130,9 +130,13 @@
                     };
                     $('.search').popover(popoverSettings).popover('show');
                 });
-                $(document).on('click','.search-p',function(){
-                    var nameProduct=$(this).parent().find('.search-name').val();
-                    $.post("/search", { name :nameProduct });
+                $(document).on('click', '.search-p', function () {
+                    var nameProduct = $(this).parent().find('.search-name').val();
+                    $.post("/search", { name: nameProduct }, function (data) {
+                        $('body').html(data);
+                    }).fail(function () {
+                        alert("Error");
+                    });
                 });
             });
         </script>
