@@ -41,7 +41,7 @@ module.exports = {
     sort: async (req, res, next) => {
         try {
             console.log('sort')
-            var data=await Product.search(req.body.sort)
+            var data=await Product.sort(req.body.sort)
             console.log(data)
             res.render('products',{products :data});
         }

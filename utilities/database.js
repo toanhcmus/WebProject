@@ -23,17 +23,19 @@ module.exports = {
         return data;
     },
     sort: async (option) => { 
-        if(option=="decrease"){
-            const data =await db.any(`SELECT * FROM "products"  ORDER BY "price" DEC`);
+        let data;
+        if(option==="decrease"){
+             data =await db.any(`SELECT * FROM "products"  ORDER BY "price" DESC`);
         }
-        else if(option=="increase"){
-            const data =await db.any(`SELECT * FROM "products"  ORDER BY "price" ASC'`);
+        else if(option==="increase"){
+            console.log('incr')
+             data =await db.any(`SELECT * FROM "products"  ORDER BY "price" ASC`);
         }
-        else if(option=="az"){
-            const data =await db.any(`SELECT * FROM "products"  ORDER BY "name" ASC'`);
+        else if(option==="az"){
+             data =await db.any(`SELECT * FROM "products"  ORDER BY "name" ASC`);
         }
         else {
-            const data =await db.any(`SELECT * FROM "products"  ORDER BY "name" ASC'`);
+             data =await db.any(`SELECT * FROM "products"  ORDER BY "name" DESC`);
         }
         return data;
     },
