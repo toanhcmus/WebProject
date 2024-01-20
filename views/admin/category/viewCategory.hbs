@@ -1,0 +1,25 @@
+<a href="/category/edit" style="margin-left: 10px;" class="btn btn-warning">Chỉnh sửa danh mục</a>
+<div class="d-flex">
+    <select class="form-select form-select-sm" aria-label="Small select example" onchange="handleOptionSelect(this)">
+        <option value="" style="display:none">Lựa chọn danh mục</option>
+        {{#each categories}}
+        <option value="{{this.CatID}}">{{this.CatName}}</option>
+        {{/each}}
+    </select>
+</div>
+<script>    
+    function handleOptionSelect(selectElement) {    
+        var selectedOption = selectElement.value;
+        fetch('/home?CatID=' + selectedOption)
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = response.url;
+                } else {
+                    console.error('Error:', response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
