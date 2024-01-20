@@ -11,7 +11,9 @@ router.use('/', express.json());
 
 router.get('/', controller.render);
 router.get('/login', controller.renderLogin);
+router.get('/products', controller.products);
 router.post('/register', accountController.register);
+router.post('/search', controller.search);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/'
 }), (req, res) => {

@@ -124,127 +124,24 @@
             </div>
 
 
-            <div class="row p-5 text-center">
-                <div class="col-3">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
+            {{#each products}}
+            <div class="col-3 pt-5">
+                <div class="card m-1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
+                        class="card-img-top product-image" alt="...">
+                    <div class="card-body">
+                        <p class="card-text product-name">
+                            {{this.name}}
+                        </p>
+                        <div class="row d-flex">
+                            <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 ">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 pt-5">
-                    <div class="card m-1">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text">
-                                Áo thun cho nam
-                            </p>
-                            <div class="row d-flex">
-                                <span>100.000</span>
-                                <span>THÊM VÀO GIỎ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            {{/each}}
             </div>
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-outline-primary float-right">Xem thêm sản phẩm</button>

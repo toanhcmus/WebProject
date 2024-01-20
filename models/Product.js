@@ -9,8 +9,11 @@ module.exports = class Product {
         this.size = raw.size;
         this.item=raw.size;
     }
-    static async sanPhamNoiBat() {
-        return await db.sanPhamNoiBat();
+    static async allProduct() {
+        return await db.allProduct();
+    }
+    static async search(name) {
+        return await db.search(name);
     }
 
     static async getAll(){

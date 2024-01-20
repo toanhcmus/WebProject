@@ -14,8 +14,12 @@ const cn = {
 const db = pgp(cn);
 
 module.exports = {
-    sanPhamNoiBat: async () => { 
+    allProduct: async () => { 
         const data =await db.any(`SELECT * FROM "products"`);
+        return data;
+    },
+    search: async (name) => { 
+        const data =await db.any(`SELECT * FROM "products" WHERE "name" ILIKE '%${name}%'`);
         return data;
     },
     insertUser: async (newUser) => {
