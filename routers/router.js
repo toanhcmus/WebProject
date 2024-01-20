@@ -21,4 +21,6 @@ router.post('/verify', passport.authenticate('myS', {
 });
 router.get('/logout', accountController.logout);
 
+
+
 module.exports = router;

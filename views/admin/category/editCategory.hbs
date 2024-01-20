@@ -1,0 +1,100 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Thêm danh mục
+</button>
+
+<table class="table" id="Table_ID">
+    <thead class="table-primary">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tên danh mục</th>
+            <th scope="col">Các thao tác</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider inforTable">
+        {{#each categories}}
+        <tr>
+            <td>{{this.CatID}}</td>
+            <td><input type="text" value="{{this.CatName}}" id="Name{{this.CatID}}"></td>
+            <td>
+                <button class="btn" onclick="handleEdit(event,{{this.CatID}})">Sửa</button>
+                <button class="btn" onclick="handleDelete(event,{{this.CatID}})">Xoá</button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               <div class="col-md-6">
+                    <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Mã danh mục</span>
+                    <input name="newIDCategory" type="text" class="form-control" aria-describedby="basic-addon1" id="catID">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Tên danh mục</span>
+                        <input name="newCategory" type="text" class="form-control" aria-describedby="basic-addon1" id="catName">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="handleAdd(event)">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        let url = new URL(window.location.href);
+        if (url.search.includes("add")) {
+            url.search = "";
+            window.location.href = url.toString();
+        }
+    }
+
+    function handleDelete(event, CatID) {
+        event.preventDefault();
+        let url = new URL(window.location.href);
+        url.search = "";
+        let params = new URLSearchParams(url.search);
+        params.set("delete", CatID);        
+        url.search = params.toString();
+        window.location.href = url.toString();
+    }
+
+    function handleEdit(event, CatID) {
+        event.preventDefault();
+        let CatName = document.getElementById("Name" + CatID).value;
+        let url = new URL(window.location.href);
+        url.search = "";
+        let params = new URLSearchParams(url.search);
+        params.set("edit", CatID);
+        params.set("CatName", CatName);
+        url.search = params.toString();
+        window.location.href = url.toString();
+    }
+
+    function handleAdd(event) {
+        event.preventDefault();
+        let newID = document.getElementById("catID").value;
+        let newName = document.getElementById("catName").value;
+        let url = new URL(window.location.href);
+        url.search = "";
+        let params = new URLSearchParams(url.search);
+        params.set("id", newID);  
+        params.set("name", newName); 
+        url.search = params.toString();
+
+        window.location.href = url.toString();
+    }
+</script>
