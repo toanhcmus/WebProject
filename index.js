@@ -41,4 +41,10 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
+db = require('./utilities/database');
+
+db.initDatabase().then(() => {
+    app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
+}).catch(err => {
+    console.error(`Failed to initialize database: ${err}`);
+});
