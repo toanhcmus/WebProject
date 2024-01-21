@@ -15,7 +15,9 @@ module.exports = class Product {
     static async search(name) {
         return await db.search(name);
     }
-
+    static async sort(option) {
+        return await db.sort(option);
+    }
     static async getAll(){
         try {
             const data = await db.execute('SELECT * FROM "products"');

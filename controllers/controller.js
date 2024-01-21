@@ -32,8 +32,17 @@ module.exports = {
         try {
             console.log('search')
             var data=await Product.search(req.body.name)
+            res.render('products',{products :data});
+        }
+        catch (error) {
+            next(error);
+        } 
+    },
+    sort: async (req, res, next) => {
+        try {
+            console.log('sort')
+            var data=await Product.sort(req.body.sort)
             console.log(data)
-
             res.render('products',{products :data});
         }
         catch (error) {
