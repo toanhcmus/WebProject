@@ -21,6 +21,8 @@ router.post('/register', accountController.register);
 router.post('/search', controller.search);
 router.post('/addToCart', controller.addToCart);
 router.post('/plus', controller.plus);
+router.post('/minus', controller.minus);
+router.post('/remove', controller.remove);
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/'

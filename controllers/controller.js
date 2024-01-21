@@ -4,8 +4,8 @@ module.exports = {
         try {
             const product = await Product.allProduct();
             //console.log(product)
-            const cart=req.session.cart;
-            res.render('home', { layout: 'main', items: product ,cart:cart});
+            const cart = req.session.cart;
+            res.render('home', { layout: 'main', items: product, cart: cart });
         }
         catch (error) {
             next(error);
@@ -36,9 +36,9 @@ module.exports = {
     },
     products: async (req, res, next) => {
         try {
-            const cart=req.session.cart;
+            const cart = req.session.cart;
             const product = await Product.allProduct();
-            res.render('products', { products: product,cart:cart  });
+            res.render('products', { products: product, cart: cart });
         }
         catch (error) {
             next(error);
@@ -48,9 +48,9 @@ module.exports = {
         try {
             console.log('search')
             var data = await Product.search(req.body.name)
-            const cart=req.session.cart;
+            const cart = req.session.cart;
             console.log(cart)
-            res.render('products', { products: data,cart:cart  });
+            res.render('products', { products: data, cart: cart });
         }
         catch (error) {
             next(error);
@@ -60,9 +60,9 @@ module.exports = {
         try {
             console.log('sort')
             var data = await Product.sort("az")
-            const cart=req.session.cart;
+            const cart = req.session.cart;
             console.log(data)
-            res.render('products', { products: data ,cart:cart });
+            res.render('products', { products: data, cart: cart });
         }
         catch (error) {
             next(error);
@@ -73,8 +73,8 @@ module.exports = {
             console.log('sort')
             var data = await Product.sort("increase")
             console.log(data)
-            const cart=req.session.cart;
-            res.render('products', { products: data ,cart:cart});
+            const cart = req.session.cart;
+            res.render('products', { products: data, cart: cart });
         }
         catch (error) {
             next(error);
@@ -85,9 +85,9 @@ module.exports = {
             console.log('sort')
             var data = await Product.sort("za")
             console.log(data)
-            const cart=req.session.cart;
+            const cart = req.session.cart;
 
-            res.render('products', { products: data,cart:cart  });
+            res.render('products', { products: data, cart: cart });
         }
         catch (error) {
             next(error);
@@ -98,9 +98,9 @@ module.exports = {
             console.log('sort')
             var data = await Product.sort("decrease")
             console.log(data)
-            const cart=req.session.cart;
+            const cart = req.session.cart;
 
-            res.render('products', { products: data,cart:cart   });
+            res.render('products', { products: data, cart: cart });
         }
         catch (error) {
             next(error);
@@ -113,14 +113,14 @@ module.exports = {
                 req.session.cart = [];
             }
             for (let i = 0; i < req.session.cart.length; i++) {
-                if (req.session.cart[i].name === req.body.name) {
+                if (req.session.cart[i].name.trim('') === req.body.name.trim('')) {
                     req.session.cart[i].count = req.body.count;
                     found = true;
                     break;
                 }
             }
-            if(!found){
-                req.session.cart.push({name:req.body.name,price:req.body.price,count:req.body.count,image:req.body.image});
+            if (!found) {
+                req.session.cart.push({ name: req.body.name, price: req.body.price, count: req.body.count, image: req.body.image });
             }
             res.json({});
         }
@@ -134,10 +134,47 @@ module.exports = {
                 req.session.cart = [];
             }
             for (let i = 0; i < req.session.cart.length; i++) {
-                console.log(req.session.cart[i].name)
-                if (req.session.cart[i].name == req.body.name) {
-                    req.session.cart[i].count ++;
-                    console.log('OK')
+                if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
+                    req.session.cart[i].count++;
+                    break;
+                }
+            }
+            res.json({});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    minus: async (req, res, next) => {
+        try {
+            if (!req.session.cart) {
+                req.session.cart = [];
+            }
+            for (let i = 0; i < req.session.cart.length; i++) {
+                if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
+                    if (req.session.cart[i].count == 1) {
+                        req.session.cart.splice(i, 1);
+                    }
+                    else {
+                        req.session.cart[i].count--;
+                    }
+                    break;
+                }
+            }
+            res.json({});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    remove: async (req, res, next) => {
+        try {
+            if (!req.session.cart) {
+                req.session.cart = [];
+            }
+            for (let i = 0; i < req.session.cart.length; i++) {
+                if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
+                        req.session.cart.splice(i, 1);
                     break;
                 }
             }
@@ -147,6 +184,5 @@ module.exports = {
             next(error);
         }
     }
-
 
 }

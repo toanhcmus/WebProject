@@ -88,15 +88,22 @@
         });
         async function addToCart(name, price, image) {
 
-            var existingProduct = $('.cart-body').find('.product-name:contains("' + name + '")');
-            if (existingProduct.length > 0) {
-                var quantityInput = existingProduct.parent().parent().parent().find('.count');
+            var existingProduct = null;
+
+            $('.cart-body .card').each(function () {
+                var productName = $(this).find('.product-name').text().trim('');
+                if (productName === name.trim('')) {
+                    existingProduct = $(this);
+                }
+            });
+            if (existingProduct!=null) {
+                var quantityInput = existingProduct.find('.count');
                 $.post('/addToCart', {
                     name: name,
                     price: price,
                     image: image,
                     count: parseInt(quantityInput.val()) + 1
-                }, function (data) {}).fail(function () {});
+                }, function (data) { }).fail(function () { });
                 quantityInput.val(parseInt(quantityInput.val()) + 1);
             } else {
                 var pro = `<div class="card m-1">
@@ -112,9 +119,10 @@
                         </div>
                         <div class=" text-start pt-3 d-flex">
                             <button class="btn btn-primary" id="plus">+</button>
-                            <input type="text" class="count " value="1" disabled>
+                            <input type="text" class="count " style="width:35px;height:35px" value="1" disabled>
                             </input>
-                            <button class="btn btn-primary id="mult"">-</button>
+                            <button class="btn btn-primary" id="minus">-</button>
+
                         </div>
                     </div>
                     <div class="col-2">
@@ -179,6 +187,10 @@
             }
         });
         $('.cart-body').on('click', '.close', function () {
+            const name = $(this).parent().parent().find('.product-name').text();
+            $.post('/remove', {
+                name: name,
+            }, function (data) { }).fail(function () { });
             $(this).closest('.card').remove();
             calc();
             updateCartNotification();
@@ -197,13 +209,28 @@
             var quantityInput = $(this).closest('.d-flex').find('.count');
             var currentQuantity = parseInt(quantityInput.val());
             quantityInput.val(currentQuantity + 1);
-            alert($(this).parent().parent().find('.product-name').text())
-            const name=$(this).parent().parent().find('.product-name').text();
+            const name = $(this).parent().parent().find('.product-name').text();
             $.post('/plus', {
-                    name: name,
-                }, function (data) {}).fail(function () {});
+                name: name,
+            }, function (data) { }).fail(function () { });
             calc();
-            updateCartNotification(); 
+            updateCartNotification();
+        });
+        $('.cart-body').on('click', '#minus', function () {
+            var quantityInput = $(this).closest('.d-flex').find('.count');
+            var currentQuantity = parseInt(quantityInput.val());
+            if (currentQuantity == 1) {
+                $(this).closest('.card').remove();
+            }
+            else {
+                quantityInput.val(currentQuantity - 1);
+            }
+            const name = $(this).parent().parent().find('.product-name').text();
+            $.post('/minus', {
+                name: name,
+            }, function (data) { }).fail(function () { });
+            calc();
+            updateCartNotification();
         });
 
     });
