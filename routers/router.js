@@ -31,5 +31,6 @@ router.post('/verify', passport.authenticate('myS', {
 });
 router.get('/logout', accountController.logout);
 router.get('/admin/category',categoryController.renderCat);
+router.get('/changePassword', accountController.changePassword);
 
 module.exports = router;

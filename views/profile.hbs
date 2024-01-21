@@ -111,10 +111,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row gutters mt-3 text-center">
+            <div class="row gutters mt-3 text-center mb-3">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="">
-                        <button type="button" id="edit" name="edit" class="btn btn-primary" style="width:130px">Đổi mật khẩu</button>
+                        <button type="button" id="edit" name="edit" class="btn btn-primary" style="width:130px" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Đổi mật khẩu</button>
                         <a href="/logout">
                             <button type="button" id="logout" name="logout" class="btn btn-danger" style="width:130px">Đăng xuất</button>
                         </a>
@@ -133,6 +134,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/changePassword" method="PUT">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Đổi mật khẩu</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="OldPassword-input" class="form-label">Mật khẩu cũ:</label>
+                        <input type="password" class="form-control" id="OldPassword-input" name="cpOldPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="NewPassword-input" class="form-label">Mật khẩu mới:</label>
+                        <input type="password" class="form-control" id="NewPassword-input" name="cpNewPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ConfirmNewPassword-input" class="form-label">Nhập lại mật khẩu mới:</label>
+                        <input type="password" class="form-control" id="ConfirmNewPassword-input" name="cpConfirmNewPassword">
+                    </div>
+                    <input type="text" class="form-control" id="cpUsername-field" name="cpUsername" value="{{ account.username }}" hidden="true">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

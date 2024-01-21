@@ -71,6 +71,36 @@ module.exports = {
             return false;
         }
     },
+    editUser: async (username, newEmail, newPassword) => {
+        const editUserQuery = 'UPDATE "Users" SET "Email" = $1, "Password" = $2 WHERE "Username" = $3';
+        const editUserValues = [newEmail, newPassword, username];
+        try {
+            await db.none(editUserQuery, editUserValues);
+            console.log('User updated');
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    removeUser: async (username) => {
+        const removeUserQuery = 'DELETE FROM "Users" WHERE "Username" = $1';
+        const removeUserValues = [username];
+        try {
+            await db.none(removeUserQuery, removeUserValues);
+            console.log('User removed');
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getAllUsers: async () => {
+        const getAllUsersQuery = 'SELECT * FROM "Users"';
+        try {
+            const getAllUsersResult = await db.any(getAllUsersQuery);
+            return getAllUsersResult;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
     getUser: async (username) => {
         const getUserQuery = 'SELECT * FROM "Users" WHERE "Username" = $1';
         const getUserValues = [username];
