@@ -1,31 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .filter-line {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 90%;
+    }
+    .pt-5 {
+        padding-top: 2rem!important;
+    }
+</style>
 
-<head>
-    
-    <title>Products</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .filter-line {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-left: 20px;
-            margin-right: 20px;
-            width: 90%;
-        }
-
-        .container-fluid {
-            margin-bottom: 50px;
-        }
-    </style>
-</head>
-
-<body>
     <div class="container-fluid" style="font-family:'Newsreader', serif;">
         <div class="row pt-5">
             <div class="row text-center pt-5">
@@ -44,10 +30,10 @@
                         <i class="fa-solid fa-arrow-down-a-z"></i> Sắp xếp
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item sort-option" href="#" data-sort="increase">Giá tăng dần</a></li>
-                        <li><a class="dropdown-item sort-option" href="#" data-sort="decrease">Giá giảm dần</a></li>
-                        <li><a class="dropdown-item sort-option" href="#" data-sort="az">Tên: A - Z</a></li>
-                        <li><a class="dropdown-item sort-option" href="#" data-sort="za">Tên: Z - A</a></li>
+                        <li><a class="dropdown-item sort-option" href="/products/asc" data-sort="increase">Giá tăng dần</a></li>
+                        <li><a class="dropdown-item sort-option" href="/products/des" data-sort="decrease">Giá giảm dần</a></li>
+                        <li><a class="dropdown-item sort-option" href="/products/az" data-sort="az">Tên: A - Z</a></li>
+                        <li><a class="dropdown-item sort-option" href="/products/za" data-sort="za">Tên: Z - A</a></li>
                     </ul>
 
                 </div>
@@ -144,26 +130,3 @@
         </div>
     </div>
     </div>
-
-    
-    
-    <script>
-        
-        $(document).ready(function () {
-            $('.sort-option').on('click', function (e) {
-                e.preventDefault(); 
-                var sortType = $(this).data('sort');
-                console.log(sortType); 
-                 $.post("/sort", { sort: sortType }, function (data) {
-                        $('body').html(data);
-                 }).fail(function () {
-                     alert("Error");
-                 });
-            });
-        });
-
-
-    </script>
-</body>
-
-</html>
