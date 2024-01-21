@@ -127,6 +127,25 @@ module.exports = {
         catch (error) {
             next(error);
         }
+    },
+    plus: async (req, res, next) => {
+        try {
+            if (!req.session.cart) {
+                req.session.cart = [];
+            }
+            for (let i = 0; i < req.session.cart.length; i++) {
+                console.log(req.session.cart[i].name)
+                if (req.session.cart[i].name == req.body.name) {
+                    req.session.cart[i].count ++;
+                    console.log('OK')
+                    break;
+                }
+            }
+            res.json({});
+        }
+        catch (error) {
+            next(error);
+        }
     }
 
 

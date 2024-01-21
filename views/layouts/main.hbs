@@ -73,7 +73,8 @@
 </script>
 <script>
     $(document).ready(function () {
-        let notify = 0;
+        updateCartNotification();
+
         $('.add-to-cart').click(function () {
             var productName = $(this).parent().parent().find('.product-name').text();
             var productPrice = $(this).parent().find('.product-price').text();
@@ -82,11 +83,7 @@
             console.log('Giá sản phẩm: ' + productPrice);
             console.log('URL ảnh sản phẩm: ' + productImage);
             addToCart(productName, productPrice, productImage);
-            notify++;
-            if (notify > 0) {
-                console.log(notify)
-                $('.notify').show();
-            }
+
 
         });
         async function addToCart(name, price, image) {
@@ -99,11 +96,7 @@
                     price: price,
                     image: image,
                     count: parseInt(quantityInput.val()) + 1
-                }, function (data) {
-                    // Handle the response data
-                }).fail(function () {
-                    // Handle the failure
-                });
+                }, function (data) {}).fail(function () {});
                 quantityInput.val(parseInt(quantityInput.val()) + 1);
             } else {
                 var pro = `<div class="card m-1">
@@ -113,13 +106,15 @@
                     </div>
                     <div class="col-5 ">
                         <div class="text-start pt-2 d-flex">
-                            <h4 class="product-name">
+                            <h5 class="product-name">
                             `+ name + `
-                            </h4>
+                            </h5>
                         </div>
-                        <div class=" text-start pt-3">
-                            <input type="number" class="count " value="1">
+                        <div class=" text-start pt-3 d-flex">
+                            <button class="btn btn-primary" id="plus">+</button>
+                            <input type="text" class="count " value="1" disabled>
                             </input>
+                            <button class="btn btn-primary id="mult"">-</button>
                         </div>
                     </div>
                     <div class="col-2">
@@ -132,11 +127,9 @@
                     name: name,
                     price: price,
                     image: image,
-                    count:  1
+                    count: 1
                 }, function (data) {
-                    // Handle the response data
                 }).fail(function () {
-                    // Handle the failure
                 });
                 $('.cart-body').append(pro);
             }
@@ -186,8 +179,6 @@
             }
         });
         $('.cart-body').on('click', '.close', function () {
-            var productQuantity = parseInt($(this).closest('.card').find('.count').val());
-            notify -= productQuantity;
             $(this).closest('.card').remove();
             calc();
             updateCartNotification();
@@ -201,7 +192,19 @@
                 $('.cart-notify-badge').show();
                 $('.cart-notify-badge').text(totalItems);
             }
-        }
+        };
+        $('.cart-body').on('click', '#plus', function () {
+            var quantityInput = $(this).closest('.d-flex').find('.count');
+            var currentQuantity = parseInt(quantityInput.val());
+            quantityInput.val(currentQuantity + 1);
+            alert($(this).parent().parent().find('.product-name').text())
+            const name=$(this).parent().parent().find('.product-name').text();
+            $.post('/plus', {
+                    name: name,
+                }, function (data) {}).fail(function () {});
+            calc();
+            updateCartNotification(); 
+        });
 
     });
 
