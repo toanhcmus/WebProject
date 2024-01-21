@@ -93,6 +93,15 @@ module.exports = {
             return null;
         }
     },
+    allCategory: async () => { 
+        const data = await db.any(`SELECT * FROM "Categories"`);
+        return data;
+    },
+    allCategoryItem: async () => {
+        const data = await db.any(`
+        SELECT * FROM "CategoryItems" `);
+        return data;
+    },
     initDatabase: async function initDatabase() {
         try {
             // Kiểm tra xem database đã tồn tại chưa
