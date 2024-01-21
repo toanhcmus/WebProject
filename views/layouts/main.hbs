@@ -60,7 +60,7 @@
         $(document).on('click', '.search-p', function () {
             var nameProduct = $(this).parent().find('.search-name').val();
             $.post("/search", { name: nameProduct }, function (data) {
-                $('.container').html(data);
+                $('body').html(data);
             }).fail(function () {
                 alert("Error");
             });
