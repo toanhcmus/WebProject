@@ -30,5 +30,198 @@
     </div>
     {{> footer}}
 </body>
+<script>
+            $(function () {
+                
+                $('.search').on('click', function () {
+                    $('.search').popover('dispose');
+                    var inputElement = $('<input >', {
+                        'type': 'text',
+                        'class': 'form-control search-name',
+                        'placeholder': 'Search...',
+                        'aria-label': 'Search'
+                    });
+                    var searchButton = $('<button>', {
+                        'type': 'button',
+                        'class': 'btn btn-primary search-p',
+                        'text': 'Search'
+                    });
+                    var container = $('<div class="d-flex">').append(inputElement, searchButton);
+
+                    var popoverSettings = {
+                        trigger: 'manual',
+                        html: true,
+                        title: 'Search',
+                        placement: 'bottom',
+                        content: container
+                    };
+                    $('.search').popover(popoverSettings).popover('show');
+                });
+                $(document).on('click', '.search-p', function () {
+                    var nameProduct = $(this).parent().find('.search-name').val();
+                    $.post("/search", { name: nameProduct }, function (data) {
+                        $('.container').html(data);
+                    }).fail(function () {
+                        alert("Error");
+                    });
+                     $('.search').popover('dispose');
+                });
+                
+            });
+        </script>
+
+
+
+        <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDKKnJIIrD9T9flxWH_TnjwKgtggCUf6-A",
+        authDomain: "webproject-646b5.firebaseapp.com",
+        projectId: "webproject-646b5",
+        storageBucket: "webproject-646b5.appspot.com",
+        messagingSenderId: "87103126392",
+        appId: "1:87103126392:web:e21cff766c738e8754e68d",
+        measurementId: "G-SWGXFK1SFB"
+    };
+
+    const firebase = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(firebase);
+    $(document).ready(function () {
+        $(document).on('click', '.btnUpload', function () {
+            const file = document.getElementById('photo').files[0];
+            const metadata = {
+                contentType: file.type,
+            }
+            const name = file.name;
+            const storage = getStorage();
+            const storageReference = storageRef(storage,file.name);
+            const uploadImg = uploadBytes(storageReference, file, metadata);
+            uploadImg.then(snapshot => {
+                return getDownloadURL(storageReference);
+            }).then(url => {
+                console.log(url);
+            }).catch(console.error);
+
+        })
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        let notify = 0;
+        $('.add-to-cart').click(function () {
+            var productName = $(this).parent().parent().find('.product-name').text();
+            var productPrice = $(this).parent().find('.product-price').text();
+            var productImage = $(this).parent().parent().parent().find('.product-image').attr('src');
+            console.log('Tên sản phẩm: ' + productName);
+            console.log('Giá sản phẩm: ' + productPrice);
+            console.log('URL ảnh sản phẩm: ' + productImage);
+            addToCart(productName, productPrice, productImage);
+            notify++;
+            if (notify > 0) {
+                console.log(notify)
+                $('.notify').show();
+            }
+
+        });
+        async function addToCart(name, price, image) {
+            var existingProduct = $('.cart-body').find('.product-name:contains("' + name + '")');
+            if (existingProduct.length > 0) {
+                var quantityInput = existingProduct.parent().parent().parent().find('.count');
+                quantityInput.val(parseInt(quantityInput.val()) + 1);
+            } else {
+                var pro = `<div class="card m-1">
+                <div class="d-flex mt-1 " style="height:120px">
+                    <div class="col-5" >
+                        <img src=`+ image + `class=" product-image " style="width: 100%; height: 100%; object-fit: contain;"   alt="...">
+                    </div>
+                    <div class="col-5 ">
+                        <div class="text-start pt-2 d-flex">
+                            <h4 class="product-name">
+                            `+ name + `
+                            </h4>
+                        </div>
+                        <div class=" text-start pt-3">
+                            <input type="number" class="count " value="1">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="pt-1 close">X</div>
+                        <div class="product-price pt-5 fw-bolder">`+ price + ` vnd</div>
+                    </div>
+                </div> </div>
+                `;
+
+                $('.cart-body').append(pro);
+            }
+            await calc();
+            updateCartNotification();
+            var toast = `
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                       
+                        <strong class="me-auto">Đã thêm vào giỏ hàng thành công</strong>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body" >
+                        <img src="`+ image + `" class="rounded me-2"  style="width: 30%; height: 30%; object-fit: contain;" alt="...">
+                        `+ name + `
+                    </div>
+                </div>
+            </div>
+            `
+            $('.toast-addToCart').append(toast);
+            var toast1 = $('.toast').last();
+            var toast = new bootstrap.Toast(toast1);
+            toast.show();
+
+
+        }
+        function calc() {
+            let total = 0;
+            var price = 0;
+            var count = 0;
+            $('.cart-body .product-price').each(function () {
+                price = parseInt($(this).text());
+                count = $(this).parent().parent().find('.count').val();
+                total += price * count;
+            });
+            $('.calc').html(`Tổng tiền: ` + total + ` vnd`);
+        }
+        $('.cart-icon').click(function () {
+            var cart = $('.cart');
+            if (cart.css('right') == '-550px') {
+                $('.cart').animate({ right: '0px' }, 500);
+
+            } else {
+                $('.cart').animate({ right: '-550px' }, 500);
+            }
+        });
+        $('.cart-body').on('click', '.close', function () {
+            $(this).closest('.card').remove();
+            calc();
+            updateCartNotification();
+        });
+        function updateCartNotification() {
+            var totalItems = 0;
+            $('.cart-body .count').each(function () {
+                totalItems += parseInt($(this).val());
+            });
+            if (totalItems > 0) {
+                $('.cart-notify-badge').show();
+                $('.cart-notify-badge').text(totalItems);
+            }
+        }
+
+    });
+
+
+</script>
 
 </html>

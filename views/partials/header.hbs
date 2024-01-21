@@ -85,44 +85,10 @@
                     </div>
                 </div>
             </div>
+            <div class="toast-addToCart"></div>
         </div>
 
-        <script>
-            $(function () {
-                $('.search').on('click', function () {
-                    $('.search').popover('dispose');
-                    var inputElement = $('<input >', {
-                        'type': 'text',
-                        'class': 'form-control search-name',
-                        'placeholder': 'Search...',
-                        'aria-label': 'Search'
-                    });
-                    var searchButton = $('<button>', {
-                        'type': 'button',
-                        'class': 'btn btn-primary search-p',
-                        'text': 'Search'
-                    });
-                    var container = $('<div class="d-flex">').append(inputElement, searchButton);
-
-                    var popoverSettings = {
-                        trigger: 'manual',
-                        html: true,
-                        title: 'Search',
-                        placement: 'bottom',
-                        content: container
-                    };
-                    $('.search').popover(popoverSettings).popover('show');
-                });
-                $(document).on('click', '.search-p', function () {
-                    var nameProduct = $(this).parent().find('.search-name').val();
-                    $.post("/search", { name: nameProduct }, function (data) {
-                        $('body').html(data);
-                    }).fail(function () {
-                        alert("Error");
-                    });
-                });
-            });
-        </script>
+      
 <style>
     body {
         color: #252a2b;
