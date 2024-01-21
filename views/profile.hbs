@@ -88,7 +88,7 @@
         <div class="card-body">
             <div class="row gutters">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-                    <h6 class="mb-2 text-primary">Personal Details</h6>
+                    <h6 class="mb-2 text-primary">Thông tin tài khoản</h6>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
@@ -105,16 +105,19 @@
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                        <label for="role">Role</label>
+                        <label for="role">Vai trò</label>
                         <input type="text" class="form-control" id="role"
-                            value="{{#if isAdmin}}Admin{{else}}Guest{{/if}}" disabled="true">
+                            value="{{#if account.isAdmin}}Admin{{else}}Guest{{/if}}" disabled="true">
                     </div>
                 </div>
             </div>
             <div class="row gutters mt-3 text-center">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="text-right">
-                        <button type="button" id="edit" name="edit" class="btn btn-primary">Đổi mật khẩu</button>
+                    <div class="">
+                        <button type="button" id="edit" name="edit" class="btn btn-primary" style="width:130px">Đổi mật khẩu</button>
+                        <a href="/logout">
+                            <button type="button" id="logout" name="logout" class="btn btn-danger" style="width:130px">Đăng xuất</button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -60,6 +60,17 @@ module.exports = {
             return false;
         }
     },
+    checkEmailExist: async (email) => {
+        const checkEmailExistQuery = 'SELECT "Email" FROM "Users" WHERE "Email" = $1';
+        const checkEmailExistValues = [email];
+        try {
+            const checkEmailExistResult = await db.oneOrNone(checkEmailExistQuery, checkEmailExistValues);
+            return checkEmailExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
     getUser: async (username) => {
         const getUserQuery = 'SELECT * FROM "Users" WHERE "Username" = $1';
         const getUserValues = [username];

@@ -44,6 +44,16 @@ module.exports = {
                     email: body.reqemail
                 });
             }
+            else if (await User.checkEmailExist(body.reqemail)) {
+                res.render('login', {
+                    layout: '',
+                    error: 'That email is already used for another account!',
+                    username: body.requsername,
+                    password: body.reqpassword,
+                    cpassword: body.reqcpassword,
+                    email: body.reqemail
+                });
+            }
             else {
                 const pwHashed = await bcrypt.hash(body.reqpassword, saltRounds);
                 const newUser = new User({ username: body.requsername, password: pwHashed, email: body.reqemail, isAdmin: false });
