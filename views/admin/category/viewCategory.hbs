@@ -1,12 +1,15 @@
 <a href="/">Back</a>
 <a href="/category/edit" style="margin-left: 10px;" class="btn btn-warning">Chỉnh sửa danh mục</a>
 <div class="d-flex">
-    <select class="form-select form-select-sm" aria-label="Small select example" onchange="handleOptionSelect(this)">
-        <option value="" style="display:none">Lựa chọn danh mục</option>
-        {{#each categories}}
-        <option value="{{this.CatID}}">{{this.CatName}}</option>
-        {{/each}}
-    </select>
+ 
+    {{#each categories}}
+  <h2>{{catName}}</h2>
+  <ul>
+    {{#each items}}
+      <li>{{itemName}}</li>
+    {{/each}}
+  </ul>
+{{/each}}
 </div>
 <script>    
     function handleOptionSelect(selectElement) {    

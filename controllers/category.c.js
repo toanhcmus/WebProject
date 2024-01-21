@@ -1,15 +1,22 @@
-const category=require('../models/Category')
+const Category=require('../models/Category')
 const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-    getAll: async (req, res, next) => {
-        try {
-            res.render('admin/category/viewCategory');
-        } catch (error) {
-            return new Error('Error get login');
-        };
-    },
+    renderCat: async (req, res, next) => {
+        try{
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('admin/category/viewCategory',{categories: dataForHbs});
+        }
+        catch (error) {
+            next(error);
+        }
+    },    
     getEdit: async (req, res, next) => {
         try {
             let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;

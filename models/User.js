@@ -19,6 +19,15 @@ module.exports = class User {
     static async getPassword(username) {
         return await db.getPassword(username);
     }
+    static async editUser(username, newEmail, newPassword) {
+        await db.editUser(username, newEmail, newPassword);
+    }
+    static async removeUser(username) {
+        await db.removeUser(username);
+    }
+    static async getAllUsers() {
+        await db.getAllUsers();
+    }
     static async getUser(username) {
         const rs = await db.getUser(username);
         if (rs) {

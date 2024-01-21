@@ -5,7 +5,7 @@ const controller = require('../controllers/controller');
 const accountController = require('../controllers/account');
 const passport = require('passport');
 const auth = require('../mws/auth');
-
+const categoryController = require('../controllers/category.c');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
 
@@ -30,5 +30,7 @@ router.post('/verify', passport.authenticate('myS', {
     }
 });
 router.get('/logout', accountController.logout);
+router.get('/admin/category',categoryController.renderCat);
+router.get('/changePassword', accountController.changePassword);
 
 module.exports = router;
