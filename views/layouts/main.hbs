@@ -30,45 +30,7 @@
     </div>
     {{> footer}}
 </body>
-<script>
-    $(function () {
 
-        $('.search').on('click', function () {
-            $('.search').popover('dispose');
-            var inputElement = $('<input >', {
-                'type': 'text',
-                'class': 'form-control search-name',
-                'placeholder': 'Search...',
-                'aria-label': 'Search'
-            });
-            var searchButton = $('<button>', {
-                'type': 'button',
-                'class': 'btn btn-primary search-p',
-                'text': 'Search'
-            });
-            var container = $('<div class="d-flex">').append(inputElement, searchButton);
-
-            var popoverSettings = {
-                trigger: 'manual',
-                html: true,
-                title: 'Search',
-                placement: 'bottom',
-                content: container
-            };
-            $('.search').popover(popoverSettings).popover('show');
-        });
-        $(document).on('click', '.search-p', function () {
-            var nameProduct = $(this).parent().find('.search-name').val();
-            $.post("/search", { name: nameProduct }, function (data) {
-                $('body').html(data);
-            }).fail(function () {
-                alert("Error");
-            });
-            $('.search').popover('dispose');
-        });
-
-    });
-</script>
 
 
 
@@ -128,9 +90,20 @@
 
         });
         async function addToCart(name, price, image) {
+
             var existingProduct = $('.cart-body').find('.product-name:contains("' + name + '")');
             if (existingProduct.length > 0) {
                 var quantityInput = existingProduct.parent().parent().parent().find('.count');
+                $.post('/addToCart', {
+                    name: name,
+                    price: price,
+                    image: image,
+                    count: parseInt(quantityInput.val()) + 1
+                }, function (data) {
+                    // Handle the response data
+                }).fail(function () {
+                    // Handle the failure
+                });
                 quantityInput.val(parseInt(quantityInput.val()) + 1);
             } else {
                 var pro = `<div class="card m-1">
@@ -155,7 +128,16 @@
                     </div>
                 </div> </div>
                 `;
-
+                $.post('/addToCart', {
+                    name: name,
+                    price: price,
+                    image: image,
+                    count:  1
+                }, function (data) {
+                    // Handle the response data
+                }).fail(function () {
+                    // Handle the failure
+                });
                 $('.cart-body').append(pro);
             }
             await calc();

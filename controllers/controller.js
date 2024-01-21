@@ -1,16 +1,17 @@
-const Product=require('../models/Product')
+const Product = require('../models/Product')
 module.exports = {
     render: async (req, res, next) => {
         try {
-            const product= await Product.allProduct();
+            const product = await Product.allProduct();
             //console.log(product)
-            res.render('home',{ layout: 'main' ,items:product});
+            const cart=req.session.cart;
+            res.render('home', { layout: 'main', items: product ,cart:cart});
         }
         catch (error) {
             next(error);
         }
     },
-    renderAdmin: async(req, res, next) => {
+    renderAdmin: async (req, res, next) => {
         try {
             res.render('admin/dashboard');
         }
@@ -31,71 +32,102 @@ module.exports = {
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
     products: async (req, res, next) => {
         try {
-            const product= await Product.allProduct();
-            res.render('products',{products:product});
+            const cart=req.session.cart;
+            const product = await Product.allProduct();
+            res.render('products', { products: product,cart:cart  });
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
     search: async (req, res, next) => {
         try {
             console.log('search')
-            var data=await Product.search(req.body.name)
-            res.render('products',{products :data});
+            var data = await Product.search(req.body.name)
+            const cart=req.session.cart;
+            console.log(cart)
+            res.render('products', { products: data,cart:cart  });
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
     az: async (req, res, next) => {
         try {
             console.log('sort')
-            var data=await Product.sort("az")
+            var data = await Product.sort("az")
+            const cart=req.session.cart;
             console.log(data)
-            res.render('products',{products :data});
+            res.render('products', { products: data ,cart:cart });
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
     acs: async (req, res, next) => {
         try {
             console.log('sort')
-            var data=await Product.sort("increase")
+            var data = await Product.sort("increase")
             console.log(data)
-            res.render('products',{products :data});
+            const cart=req.session.cart;
+            res.render('products', { products: data ,cart:cart});
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
     za: async (req, res, next) => {
         try {
             console.log('sort')
-            var data=await Product.sort("za")
+            var data = await Product.sort("za")
             console.log(data)
-            res.render('products',{products :data});
+            const cart=req.session.cart;
+
+            res.render('products', { products: data,cart:cart  });
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
     des: async (req, res, next) => {
         try {
             console.log('sort')
-            var data=await Product.sort("decrease")
+            var data = await Product.sort("decrease")
             console.log(data)
-            res.render('products',{products :data});
+            const cart=req.session.cart;
+
+            res.render('products', { products: data,cart:cart   });
         }
         catch (error) {
             next(error);
-        } 
+        }
     },
-    
-    
+    addToCart: async (req, res, next) => {
+        try {
+            let found = false;
+            if (!req.session.cart) {
+                req.session.cart = [];
+            }
+            for (let i = 0; i < req.session.cart.length; i++) {
+                if (req.session.cart[i].name === req.body.name) {
+                    req.session.cart[i].count = req.body.count;
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                req.session.cart.push({name:req.body.name,price:req.body.price,count:req.body.count,image:req.body.image});
+            }
+            res.json({});
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
+
 }

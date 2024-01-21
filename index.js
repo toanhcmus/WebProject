@@ -42,7 +42,12 @@ app.use((err, req, res, next) => {
 });
 
 db = require('./utilities/database');
-
+app.use((req, res, next) => {
+    if (!req.session.cart) {
+        req.session.cart = [];
+    }
+    next();
+});
 db.initDatabase().then(() => {
     app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
 }).catch(err => {

@@ -19,6 +19,7 @@ router.get('/products/az', controller.az);
 router.get('/products/za', controller.za);
 router.post('/register', accountController.register);
 router.post('/search', controller.search);
+router.post('/addToCart', controller.addToCart);
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/'
