@@ -10,18 +10,18 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
 
 router.get('/', controller.render);
+router.get('/admin', controller.renderAdmin);
 router.get('/login', controller.renderLogin);
-router.get('/products', controller.products);
 router.post('/register', accountController.register);
-router.post('/search', controller.search);
-router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/'
 }), (req, res) => {
-    res.redirect('/');
+    if (req.user && req.user.isAdmin) {
+        res.redirect('/admin'); 
+    } else {
+        res.redirect('/');
+    }
 });
 router.get('/logout', accountController.logout);
-
-
 
 module.exports = router;

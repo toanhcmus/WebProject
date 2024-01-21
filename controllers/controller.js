@@ -10,6 +10,14 @@ module.exports = {
             next(error);
         }
     },
+    renderAdmin: async(req, res, next) => {
+        try {
+            res.render('admin/dashboard');
+        }
+        catch (error) {
+            next(error);
+        }
+    },
     renderLogin: async (req, res, next) => {
         try {
             if (req.user || req.session.user) {
