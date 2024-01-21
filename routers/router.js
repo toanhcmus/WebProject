@@ -12,9 +12,13 @@ router.use('/', express.json());
 router.get('/', controller.render);
 router.get('/login', controller.renderLogin);
 router.get('/products', controller.products);
+router.get('/products/asc', controller.acs);
+router.get('/products/des', controller.des);
+router.get('/products/az', controller.az);
+router.get('/products/za', controller.za);
 router.post('/register', accountController.register);
 router.post('/search', controller.search);
-router.post('/sort', controller.sort);
+// router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/'
 }), (req, res) => {

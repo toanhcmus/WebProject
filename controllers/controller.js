@@ -28,7 +28,6 @@ module.exports = {
     products: async (req, res, next) => {
         try {
             const product= await Product.allProduct();
-
             res.render('products',{products:product});
         }
         catch (error) {
@@ -45,10 +44,43 @@ module.exports = {
             next(error);
         } 
     },
-    sort: async (req, res, next) => {
+    az: async (req, res, next) => {
         try {
             console.log('sort')
-            var data=await Product.sort(req.body.sort)
+            var data=await Product.sort("az")
+            console.log(data)
+            res.render('products',{products :data});
+        }
+        catch (error) {
+            next(error);
+        } 
+    },
+    acs: async (req, res, next) => {
+        try {
+            console.log('sort')
+            var data=await Product.sort("increase")
+            console.log(data)
+            res.render('products',{products :data});
+        }
+        catch (error) {
+            next(error);
+        } 
+    },
+    za: async (req, res, next) => {
+        try {
+            console.log('sort')
+            var data=await Product.sort("za")
+            console.log(data)
+            res.render('products',{products :data});
+        }
+        catch (error) {
+            next(error);
+        } 
+    },
+    des: async (req, res, next) => {
+        try {
+            console.log('sort')
+            var data=await Product.sort("decrease")
             console.log(data)
             res.render('products',{products :data});
         }
