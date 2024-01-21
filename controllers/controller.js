@@ -12,7 +12,14 @@ module.exports = {
     },
     renderLogin: async (req, res, next) => {
         try {
-            res.render('login', { layout: '' });
+            if (req.user || req.session.user) {
+                let account = req.user;
+                if (!req.user) account = req.session.user;
+                res.render('profile', { layout: 'main', account: account });
+            }
+            else {
+                res.render('login', { layout: '' });
+            }
         }
         catch (error) {
             next(error);
