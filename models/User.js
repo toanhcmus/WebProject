@@ -13,6 +13,9 @@ module.exports = class User {
     static async checkUsernameExist(username) {
         return await db.checkUsernameExist(username);
     }
+    static async checkEmailExist(email) {
+        return await db.checkEmailExist(email);
+    }
     static async getPassword(username) {
         return await db.getPassword(username);
     }

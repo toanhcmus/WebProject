@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
     getAll: async (req, res, next) => {
         try {
-            res.render('viewCategory');
+            res.render('admin/category/viewCategory');
         } catch (error) {
             return new Error('Error get login');
         };
