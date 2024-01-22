@@ -43,7 +43,7 @@
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json, text/plain, */*',
-                Authorization: `Bearer ${token}`,
+                'Authorization': `${token}`,
             },
             body: JSON.stringify(transferData)
             }).then(response => response.json())

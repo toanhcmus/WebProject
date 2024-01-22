@@ -19,8 +19,8 @@ module.exports = {
     insertBill: async (obj) => {
         try {
             await db.one(
-            'INSERT INTO "HoaDon"("KhachHang", "NgayLap", "ThanhTien") VALUES($1, $2, $3)',
-            [obj.makh, obj.date, obj.total]
+            'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+            [obj.username, obj.date, obj.total, obj.status]
             );
         } catch (err) {
             console.log("insert bill failed");

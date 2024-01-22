@@ -15,7 +15,7 @@ const secret = 'mysecretkey';
 const server = http.createServer(app);
 
 app.use(cookieParser(secret));
-// app.use(cors());
+app.use(cors());
 const sessionMiddleware = session({
     secret: secret,
     resave: false,
