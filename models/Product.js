@@ -49,17 +49,7 @@ module.exports = class Product {
             throw error;
         };
     }
-    static async addProduct () {
-        const res = await db.db.query(
-            `
-            INSERT INTO "Products" ()
-            VALUES ()
-            `,
-            [],
-        );
-
-        return res;
-    }
+    
     static async deleteByID(id){
         const data = await db.db.query(
             `

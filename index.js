@@ -55,6 +55,7 @@ app.use((req, res, next) => {
     }
     next();
 });
+
 db.initDatabase().then(() => {
     // app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
     server.listen(port, function() {
