@@ -92,7 +92,7 @@ module.exports = {
         }
     },
     getAllUsers: async () => {
-        const getAllUsersQuery = 'SELECT * FROM "Users"';
+        const getAllUsersQuery = 'SELECT * FROM "Users" ORDER BY "isAdmin" DESC';
         try {
             const getAllUsersResult = await db.any(getAllUsersQuery);
             return getAllUsersResult;
