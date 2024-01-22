@@ -21,5 +21,14 @@ module.exports = class Category {
    static async updateCategory(catID,catName){
         return await db.updateCategory(catID, catName);
    };
-    
+   static async addItem(itemID, itemName, catID){
+     return await db.addItem(itemID, itemName, catID);
+     };
+     static async updateItem(itemID, itemName, catID){
+          return await db.updateItem(itemID, itemName, catID);
+     };
+     static async deleteItemByID(itemID){
+          return await db.deleteItemByID(itemID);
+     };
+
 };

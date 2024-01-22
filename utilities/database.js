@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const pgp = require('pg-promise')({
-    capSQL: true
 });
 const cn = {
     host: process.env.DBHOST,
@@ -14,6 +13,46 @@ const cn = {
 const db = pgp(cn);
 
 module.exports = {
+    selectAllBills: async () => {
+        const rs = await db.any('SELECT * FROM public."HoaDon"');
+        return rs;
+    },
+    addTTHoaDon: async (MaHoaDon, obj) => {
+        try {
+            await db.none(
+            'INSERT INTO public."ThongTinHoaDon"("MaHoaDon", "MaSach", "SoLuong") VALUES ($1, $2, $3)',
+            [MaHoaDon, obj.bookId, obj.quantity]
+            );
+        } catch (error) {
+            console.error("Error inserting:", error);
+            throw error;
+        }
+    },
+    insertBill: async (obj) => {
+        await db.none(
+        'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+        [obj.username, obj.date, obj.total, obj.status]
+        );
+        
+    },
+    selectHoaDon: async (month, year) => {
+        const rs = await db.any(
+            'SELECT * FROM "HoaDon" WHERE EXTRACT(YEAR FROM "NgayLap") = $1 AND EXTRACT(MONTH FROM "NgayLap") = $2;',
+            [year, month]
+        );
+        return rs;
+    },
+    selectTTHoaDon: async (MaHD) => {
+        const rs = await db.any(
+            'SELECT * FROM "ThongTinHoaDon" WHERE "MaHoaDon" = $1;',
+            [MaHD]
+        );
+        return rs;
+    },
+    updateStatus: async (id, status) => {
+        const updateQuery = 'UPDATE public."HoaDon" SET "TrangThai" = $1 WHERE "id" = $2';
+        await db.none(updateQuery, [status, id]);
+    },
     allProduct: async () => {
         const data = await db.any(`SELECT * FROM "Products"`);
         return data;
@@ -134,15 +173,141 @@ module.exports = {
             return null;
         }
     },
+    insertGoogleUser: async (newUser) => {
+        const insertUserQuery = 'INSERT INTO "GoogleAccount" ("Name", "Email", "Avatar") VALUES ($1, $2, $3) ON CONFLICT ("Email") DO NOTHING';
+        const insertUserValues = [newUser.Name, newUser.Email, newUser.Avatar];
+        try {
+            await db.none(insertUserQuery, insertUserValues);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getGoogleUser: async (Email) => {
+        const getUserQuery = 'SELECT * FROM "GoogleAccount" WHERE "Email" = $1';
+        const getUserValues = [Email];
+        try {
+            const getUserResult = await db.oneOrNone(getUserQuery, getUserValues);
+            return getUserResult;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
+    getAllGoogleUsers: async () => {
+        const getAllUsersQuery = 'SELECT * FROM "GoogleAccount"';
+        try {
+            const getAllUsersResult = await db.any(getAllUsersQuery);
+            return getAllUsersResult;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
     allCategory: async () => {
         const data = await db.any(`SELECT * FROM "Categories"`);
         return data;
     },
+
     allCategoryItem: async () => {
         const data = await db.any(`
-        SELECT * FROM "CategoryItems" `);
+        SELECT * FROM "CategoryItems" ORDER BY "itemID" ASC`);
         return data;
     },
+    deleteByID: async (catID) => {
+        try {
+            const res = await db.query(
+                `
+                DELETE FROM "Categories"
+                WHERE "catID" = $1
+                --CASCADE
+                `,
+                [catID],
+            );
+
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    addCategory: async (catName) => {
+        try {
+            const maxID = await db.oneOrNone('SELECT MAX("catID") FROM "Categories"');
+            const res = await db.query(
+                'INSERT INTO "Categories" ("catID", "catName") VALUES ($1, $2)',
+                [maxID.max + 1, catName]
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    updateCategory: async (catID, catName) => {
+        try {
+            const res = await db.query(
+                `
+                UPDATE "Categories"
+                SET "catName" = $1
+                WHERE "catID" = $2
+                `,
+                [catName, catID],
+            );
+
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    deleteItemByID: async (itemID) => {
+        try {
+            const res = await db.query(
+                `
+                DELETE FROM "CategoryItems"
+                WHERE "itemID" = $1
+                --CASCADE
+                `,
+                [itemID],
+            );
+
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    addItem: async (itemID, itemName, catID) => {
+        try {
+            const res = await db.query(
+                'INSERT INTO "CategoryItems" ("itemID", "itemName", "catID") VALUES ($1, $2, $3)',
+                [itemID, itemName, catID]
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+
+    updateItem: async (itemID, itemName, catID) => {
+        try {
+            const res = await db.query(
+                `
+                UPDATE "CategoryItems"
+                SET "itemName" = $1,"catID" = $2
+                WHERE "itemID" = $3
+                `,
+                [itemName, catID, itemID],
+            );
+
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+
     initDatabase: async function initDatabase() {
         try {
             // Kiểm tra xem database đã tồn tại chưa
@@ -727,6 +892,17 @@ module.exports = {
                 INSERT INTO "Users" ("Username", "Password", "isAdmin", "Email") VALUES
                 ('12', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, '123@ok'),
                 ('Admin', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL);
+
+                -- ----------------------------
+                -- Table structure for GoogleAccount
+                -- ----------------------------
+                DROP TABLE IF EXISTS "GoogleAccount";
+                CREATE TABLE "GoogleAccount" (
+                    "Name" text NOT NULL,
+                    "Email" text PRIMARY KEY,
+                    "Avatar" text
+                );
+
                -- ----------------------------
                -- Table structure for OrderDetails
                -- ----------------------------
@@ -762,6 +938,28 @@ module.exports = {
                  "Total" numeric(19,4) NOT NULL
                )
                ;
+
+               -- ---------CREATE TABLE HOADON
+                DROP TABLE IF EXISTS "HoaDon";
+                CREATE TABLE "HoaDon" (
+                "MaHoaDon" serial NOT NULL PRIMARY KEY,
+                    "username" text,
+                    "NgayLap" timestamp,
+                    "ThanhTien" int4,
+                    "TrangThai" int4
+                )
+                ;
+
+                ---------CREATE TABLE ThongTinHoaDon
+                DROP TABLE IF EXISTS "ThongTinHoaDon";
+                CREATE TABLE "ThongTinHoaDon" (
+                "MaHoaDon" int4 NOT NULL,
+                    "MaThongTinHD" serial PRIMARY KEY,
+                    "MaSP" int4,
+                    "SoLuong" int4
+                )
+                ;
+
                
                -- ----------------------------
                -- Records of Orders

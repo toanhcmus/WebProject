@@ -84,12 +84,12 @@ module.exports = {
         });
     },
     changePassword: async (req, res, next) => {
-        if (req.isAuthenticated() || req.user || req.session.user) {
+        if (req.isAuthenticated() || req.user) {
             const body = req.query;
-            console.log(body.cpOldPassword);
-            console.log(body.cpNewPassword);
-            console.log(body.cpConfirmNewPassword);
-            console.log(body.cpUsername);
+            // console.log(body.cpOldPassword);
+            // console.log(body.cpNewPassword);
+            // console.log(body.cpConfirmNewPassword);
+            // console.log(body.cpUsername);
 
             let error = null;
 
@@ -147,7 +147,7 @@ module.exports = {
         if (!req.isAuthenticated() || req.user == null) {
             return res.redirect('/login');
         }
-        if (req.user.isAdmin == false) {
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
             return res.redirect('/');
         }
         let accountList = await User.getAllUsers();
@@ -161,7 +161,7 @@ module.exports = {
         if (!req.isAuthenticated() || req.user == null) {
             return res.redirect('/login');
         }
-        if (req.user.isAdmin == false) {
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
             return res.redirect('/');
         }
         let toBeDeletedUser = await User.getUser(req.params.Username);
@@ -185,7 +185,7 @@ module.exports = {
         if (!req.isAuthenticated() || req.user == null) {
             return res.redirect('/login');
         }
-        if (req.user.isAdmin == false) {
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
             return res.redirect('/');
         }
         if (await User.checkEmailExist(req.query.MEmail)) {
@@ -225,7 +225,7 @@ module.exports = {
         if (!req.isAuthenticated() || req.user == null) {
             return res.redirect('/login');
         }
-        if (req.user.isAdmin == false) {
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
             return res.redirect('/');
         }
         const body = req.query;

@@ -1,6 +1,12 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Thêm danh mục
-</button>
+<td>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Thêm danh mục
+    </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        Thêm danh mục con
+    </button>
+</td>
+
 
 <table class="table" id="Table_ID">
     <thead class="table-primary">
@@ -8,21 +14,110 @@
             <th scope="col">ID</th>
             <th scope="col">Tên danh mục</th>
             <th scope="col">Các thao tác</th>
+            <th scope="col">Danh mục con</th>
         </tr>
     </thead>
     <tbody class="table-group-divider inforTable">
         {{#each categories}}
         <tr>
             <td>{{this.catID}}</td>
-            <td><input type="text" value="{{this.catName}}" id="Name{{this.catID}}"></td>
             <td>
-                <button class="btn" onclick="handleEdit(event,{{this.catID}})">Sửa</button>
+                <input type="text" value="{{this.catName}}" id="Name{{this.catID}}">
+            </td>
+            <td>
+                <button class="btn" onclick="handleEdit(event,{{this.catID}})">Sửa tên</button>
                 <button class="btn" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
+            </td>
+            <td class="subcategory-list">
+                {{#each items}}
+                    <div>
+                        {{this.itemID}} - {{this.itemName}}                      
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.itemID}}">
+                            Chỉnh sửa
+                        </button>
+                        <button class="btn" onclick="handleDeleteItem(event,'{{this.itemID}}')">Xoá</button>
+                        
+                        <div class="modal fade" id="exampleModal{{this.itemID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon2">Tên</span>
+                                                <input type="text" value="{{this.itemName}}" id="Name{{this.itemID}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon2">Thuộc danh mục</span>
+                                                <select class="form-select form-select-sm" aria-label="Small select example" id="select{{this.itemID}}">
+                                                    <option value="{{this.catID}}" style="display:none">Choose an option</option>
+                                                     {{#each ../../categories}}
+                                                    <option value="{{this.catID}}">{{this.catName}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'{{this.itemID}}')">Lưu thay đổi</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {{/each}}
             </td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm danh mục con</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Mã</span>
+                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="newID">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Tên</span>
+                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="newNameItem">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Thuộc danh mục</span>
+                        <select class="form-select form-select-sm" aria-label="Small select example" id="catItemID">
+                            <option value="" style="display:none">Choose an option</option>
+                            {{#each categories}}
+                            <option value="{{this.catID}}">{{this.catName}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="handleAddItem(event)">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -46,6 +141,7 @@
         </div>
     </div>
 </div>
+
 <div class="toast-container {{#if error}} {{else}} d-none{{/if}}" style="position: absolute; top: 10px; right: 10px;">
     <div class="toast fade show">
         <div class="toast-header">
@@ -58,6 +154,8 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     window.onload = function () {
         let url = new URL(window.location.href);
@@ -77,6 +175,20 @@
         window.location.href = url.toString();
     }
 
+    function handleDeleteItem(event, ItemID){
+        event.preventDefault();
+        let url = new URL(window.location.href);
+        url.search = "";
+        
+        let params = new URLSearchParams(url.search);
+
+        params.set("deleteItem", ItemID);
+        url.search = params.toString();
+
+        //console.log(url)
+        window.location.href = url.toString();
+    }
+
     function handleEdit(event, CatID) {
         event.preventDefault();
         let CatName = document.getElementById("Name" + CatID).value;
@@ -87,20 +199,54 @@
         params.set("catName", CatName);
         url.search = params.toString();
         window.location.href = url.toString();
+        
+    }
+    function handleEditItem(event, itemID) {
+        event.preventDefault();
+        let itemNamenew = document.getElementById("Name" + itemID).value;
+        let itemType = document.getElementById("select"+ itemID).value;
+        let url = new URL(window.location.href);
+        url.search = "";
+        let params = new URLSearchParams(url.search);
+        params.set("editItem", itemID);
+        params.set("itemName", itemNamenew);
+        params.set("catID", itemType);        
+        
+        url.search = params.toString();
+        //console.log(url)
+        window.location.href = url.toString();
+        
+    }
+    function handleAdd(event) {
+        event.preventDefault();
+        let CatName = document.getElementById("addCate").value;
+        let url = new URL(window.location.href);
+        url.search = "";
+        
+        let params = new URLSearchParams(url.search);
+
+        params.set("add", CatName);
+        url.search = params.toString();
+
+        //console.log(url)
+        window.location.href = url.toString();
     }
 
-    function handleAdd(event) {
-    event.preventDefault();
-    let CatName = document.getElementById("addCate").value;
-    let url = new URL(window.location.href);
-    url.search = "";
-
-    let params = new URLSearchParams(url.search);
-
-    params.set("add", CatName);
-    url.search = params.toString();
-
-    //console.log(url)
-    window.location.href = url.toString();
-}
+    function handleAddItem(event) {
+        event.preventDefault();
+        let itemName = document.getElementById("newNameItem").value;
+        let itemID = document.getElementById("newID").value;
+        let catID = document.getElementById("catItemID").value;
+        let url = new URL(window.location.href);
+        url.search = "";
+        let params = new URLSearchParams(url.search);
+        params.set("addtoID", catID);
+        params.set("itemID", itemID);
+        params.set("itemName", itemName);        
+        
+        url.search = params.toString();
+        //console.log(url)
+        window.location.href = url.toString();
+    }
+   
 </script>

@@ -1,4 +1,5 @@
 const db = require('../utilities/database');
+const paymentM = require("../models/Payment")
 
 module.exports = class User {
     constructor({username, password, email, isAdmin}) {
@@ -9,6 +10,7 @@ module.exports = class User {
     }
     static async insertUser(newUser) {
         await db.insertUser(newUser);
+        await paymentM.addAcc(newUser);
     }
     static async checkUsernameExist(username) {
         return await db.checkUsernameExist(username);

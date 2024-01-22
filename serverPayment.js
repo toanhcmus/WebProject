@@ -5,7 +5,7 @@ const _ = require("lodash");
 const fs = require('fs');
 const https = require('https');
 const { create } = require('express-handlebars');
-const socketIO = require('socket.io');
+const cors = require('cors');
 
 const app = express();
 const hbs = create({
@@ -13,14 +13,16 @@ const hbs = create({
     defaultLayout: false,
 })
 
+app.use(cors());
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
+
 // options for https
 const options = {
-  key: fs.readFileSync('./key/demo.key'),
-  cert: fs.readFileSync('./key/demo.crt')
+  key: fs.readFileSync('./key/key.pem'),
+  cert: fs.readFileSync('./key/cert.pem')
 };
 
 const server = https.createServer(options, app);
