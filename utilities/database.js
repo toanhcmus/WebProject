@@ -62,9 +62,15 @@ module.exports = {
         return data;
     },
     addProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl) => {
-        const insertQuery = `INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes","price", "size", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4,$5,$6,$7,$8,$9,$10) ON CONFLICT ("id") DO NOTHING`;
-        const insertValues = [id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl];
-        await db.none(insertQuery, insertValues);
+        console.log('Product added');
+        const insertQuery = 'INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes", "price", "size", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4, $5, ARRAY[$6], $7, ARRAY[$8], $9, $10)';
+        try {
+            await db.none(insertQuery, [id, name, tinyDes, fullDes, price, size, items,parseInt(count) , producer, imageUrl]);
+            console.log('Product added');
+        } catch (error) {
+            console.log(error);
+        }
+      
     },
     sort: async (option) => {
         let data;
@@ -136,7 +142,7 @@ module.exports = {
         }
     },
     getAllUsers: async () => {
-        const getAllUsersQuery = 'SELECT * FROM "Users" ORDER BY "isAdmin" DESC';
+        const getAllUsersQuery = 'SELECT * FROM "Users"';
         try {
             const getAllUsersResult = await db.any(getAllUsersQuery);
             return getAllUsersResult;
@@ -420,7 +426,7 @@ module.exports = {
                  "count" integer[],
                  "producer" text,
                  "discount" double precision,
-                 "images" text
+                 "images" text,
                 )
                ;
                
@@ -990,5 +996,5 @@ module.exports = {
             console.log(error);
         }
     },
-    db: db,
+    //db: db,
 }

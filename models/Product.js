@@ -57,6 +57,7 @@ module.exports = class Product {
             `,
             [],
         );
+
         return res;
     }
     static async deleteByID(id){
