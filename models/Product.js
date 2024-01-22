@@ -7,7 +7,12 @@ module.exports = class Product {
         this.count = raw.count;
         this.price = raw.price;
         this.size = raw.size;
-        this.item=raw.size;
+        this.item=raw.item;
+        this.tinyDes=raw.tinyDes;
+        this.fullDes=raw.fullDes;
+        this.image=raw.image;
+        this.producer=raw.producer;
+        this.discounut=raw.dicount;
     }
     static async allProduct() {
         return await db.allProduct();
@@ -17,6 +22,10 @@ module.exports = class Product {
     }
     static async sort(option) {
         return await db.sort(option);
+    }
+    static async addProduct(id,name,tinyDes,fullDes,price, size,items,count,producer,imageUrl) {
+        console.log('â')
+        await db.addProduct(id,name,tinyDes,fullDes,price, size,items,count,producer,imageUrl);
     }
     static async getAll(){
         try {

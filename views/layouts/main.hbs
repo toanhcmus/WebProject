@@ -52,8 +52,10 @@
     const firebase = initializeApp(firebaseConfig);
     const analytics = getAnalytics(firebase);
     $(document).ready(function () {
-        $(document).on('click', '.btnUpload', function () {
-            const file = document.getElementById('photo').files[0];
+        $(document).on('click', '.btnUpload', function (e) {
+            console.log('aaaaa')
+            e.preventDefault();
+            const file = document.getElementById('formFile').files[0];
             const metadata = {
                 contentType: file.type,
             }
@@ -65,6 +67,9 @@
                 return getDownloadURL(storageReference);
             }).then(url => {
                 console.log(url);
+                $('#imageUrl').val(url);
+                $('#productForm').submit();
+                alert('Thêm sản phẩm thành công')
             }).catch(console.error);
 
         })
@@ -92,8 +97,13 @@
 
             var existingProduct = null;
 
-            
-            if (existingProduct!=null) {
+            $('.cart-body .card').each(function () {
+                var productName = $(this).find('.product-name').text().trim('');
+                if (productName === name.trim('')) {
+                    existingProduct = $(this);
+                }
+            });
+            if (existingProduct != null) {
                 var quantityInput = existingProduct.find('.count');
                 $.post('/addToCart', {
                     id: id,
@@ -146,9 +156,7 @@
             <div class="toast-container position-fixed bottom-0 end-0 p-3">
                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
-                       
                         <strong class="me-auto">Đã thêm vào giỏ hàng thành công</strong>
-                        
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body" >
@@ -235,6 +243,19 @@
     });
 
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#formFile').change(function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').attr('src', e.target.result);
+                $('#imagePreview').show();
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+    });
 </script>
 
 </html>

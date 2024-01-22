@@ -12,17 +12,60 @@
             </div>
             <div class="modal-body">
 
-                <form enctype="multipart/form-data" method="post">
-                    <!-- FILE INPUT -->
-                    <input name="Image" id="formFile" type="file" class="file" data-preview-file-type="text">
+                <form  action="/product/add" method="post" id="productForm">
+                    <div class="mb-3">
+                        <label for="inputID" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="inputID" name="inputID" placeholder="Nhập ID" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="inputName" name="inputName"
+                            placeholder="Nhập tên sản phẩm" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="tinyDes" name="tinyDes"
+                            placeholder="Nhập mô tả ngắn" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
+                        <textarea class="form-control" id="fullDes" name="fullDes" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá"required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Kích thước</label>
+                        <input type="text" class="form-control" id="size" name="size" placeholder="Nhập kích thước" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="items" class="form-label">Danh mục</label>
+                        <input type="number" class="form-control" id="items" name="items" placeholder="Nhập  mục" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="count" class="form-label">Số lượng</label>
+                        <input type="number" class="form-control" id="count" name="count" placeholder="Nhập số lượng">
+                    </div>
+                    <div class="mb-3">
+                        <label for="producer" class="form-label">Nhà sản xuất</label>
+                        <input type="text" class="form-control" id="producer" name="producer"
+                            placeholder="Nhập nhà sản xuất" required>
+                    </div>
+                    <div>
+                        <input type="hidden" id="imageUrl" name="imageUrl">
+                        <img id="imagePreview" src="" alt="..."
+                            style="display:none; max-width: 200px; max-height: 200px;" />
+                    </div>
+                    <input name="Image" id="formFile" type="file" class="file" data-preview-file-type="text" required>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button class="btn btn-primary btnUpload" >Lưu thay đổi</button>
                     </div>
                 </form>
 
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -33,16 +76,19 @@
         <img src="/pid/{{this.id}}/main_thumbs.jpg" class="card-img-top" alt="{{this.id}}">
         <div class="card-body">
             <a class="btn btn-primary">Xem chi tiết</a>
-            <a href="#" onclick="window.location.href = window.location.href + '&delete={{this.id}}'; return false;" class="btn btn-danger">Xoá</a>
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editProductModal{{this.id}}">
+            <a href="#" onclick="window.location.href = window.location.href + '&delete={{this.id}}'; return false;"
+                class="btn btn-danger">Xoá</a>
+            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                data-bs-target="#editProductModal{{this.id}}">
                 Sửa
             </button>
-            <div class="modal fade" id="editProductModal{{this.id}}" tabindex="-1" aria-labelledby="editProductModalLabel{{this.id}}"
-                aria-hidden="true">
+            <div class="modal fade" id="editProductModal{{this.id}}" tabindex="-1"
+                aria-labelledby="editProductModalLabel{{this.id}}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editProductModalLabel{{this.id}}">Thay đổi thông tin sản phẩm</h1>
+                            <h1 class="modal-title fs-5" id="editProductModalLabel{{this.id}}">Thay đổi thông tin sản
+                                phẩm</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -64,4 +110,3 @@
     </div>
     {{/each}}
 </div>
-

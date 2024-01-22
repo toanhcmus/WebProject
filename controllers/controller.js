@@ -176,7 +176,7 @@ module.exports = {
             }
             for (let i = 0; i < req.session.cart.length; i++) {
                 if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
-                        req.session.cart.splice(i, 1);
+                    req.session.cart.splice(i, 1);
                     break;
                 }
             }
@@ -185,6 +185,24 @@ module.exports = {
         catch (error) {
             next(error);
         }
-    }
+    },
+    renderAddProduct: async (req, res, next) => {
+        try {
+            res.render('./admin/product/viewProduct')
+         }
+        catch (error) {
+            next(error);
+        }
+    },
+    addProduct: async (req, res, next) => {
+        try {
+            console.log(req.body);
+            await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.size,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
+            res.render('./admin/product/viewProduct');
+
+        } catch (error) {
+            console.log(error)
+        }
+    },
 
 }

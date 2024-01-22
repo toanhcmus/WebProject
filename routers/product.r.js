@@ -6,7 +6,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
 
 router.get("/product/edit",productCtrl.editProduct);
-router.get("/product/add",productCtrl.addProduct);
 router.get("/product",productCtrl.getAll);
 
 module.exports = router;
