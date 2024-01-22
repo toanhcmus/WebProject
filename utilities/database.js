@@ -128,13 +128,14 @@ module.exports = {
             return null;
         }
     },
-    allCategory: async () => {
-        const data = await db.any(`SELECT * FROM "Categories"`);
+    allCategory: async () => { 
+        const data = await db.any(`SELECT * FROM "Categories" ORDER BY "catID" ASC`);
         return data;
     },
+    
     allCategoryItem: async () => {
         const data = await db.any(`
-        SELECT * FROM "CategoryItems" `);
+        SELECT * FROM "CategoryItems" ORDER BY "itemID" ASC`);
         return data;
     },
     deleteByID: async (catID) => {
@@ -176,6 +177,53 @@ module.exports = {
                 WHERE "catID" = $2
                 `,
                 [catName, catID],
+            );
+    
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    deleteItemByID: async (itemID) => {
+        try {
+            const res = await db.query(
+                `
+                DELETE FROM "CategoryItems"
+                WHERE "itemID" = $1
+                --CASCADE
+                `,
+                [itemID],
+            );
+    
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    addItem: async (itemID, itemName, catID) => {
+        try {
+            const res = await db.query(
+                'INSERT INTO "CategoryItems" ("itemID", "itemName", "catID") VALUES ($1, $2, $3)',
+                [itemID, itemName, catID]
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+
+    updateItem: async(itemID, itemName, catID) => {
+        try {
+            const res = await db.query(
+                `
+                UPDATE "CategoryItems"
+                SET "itemName" = $1,"catID" = $2
+                WHERE "itemID" = $3
+                `,
+                [itemName, catID, itemID],
             );
     
             return res;
