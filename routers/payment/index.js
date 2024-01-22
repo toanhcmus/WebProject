@@ -2,7 +2,6 @@ const express = require('express');
 const paymentC = require('../../controllers/payment/payment');
 const jwt = require('jsonwebtoken');
 const paymentM = require('../../models/Payment');
-const billM = require('../../models/Bill');
 
 const router = express.Router();
 
@@ -48,19 +47,10 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
         total: total,
         status: 1
       }
-      await billM.insertBill(obj);
-      const allBills = await billM.selectAllBills();
-      let maxxIDBill = 0;
-      allBills.forEach(e => {
-        if (e.MaHoaDon > maxxIDBill) {
-          maxxIDBill = e.MaHoaDon;
-        }
-      });
 
       const payment = {
         id: user.username,
         money: total,
-        maHoaDon: maxxIDBill,
         TrangThai: 1,
         time: time
       }
@@ -69,7 +59,8 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
 
       if (total > balance) {
           res.send({
-            msg: 1
+            msg: 1,
+            maxxIDPayment: maxxIDPayment
           })
       } else {
         await billM.updateStatus(maxxIDBill, 0);
@@ -84,7 +75,8 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
         await paymentM.updateBalance(userDB[0].username, balance - total);
         await paymentM.updateBalance(userAdmin[0].username, balanceAdmin + total);
         res.send({
-          msg: 0
+          msg: 0,
+          maxxIDPayment: maxxIDPayment
         })
       }
 

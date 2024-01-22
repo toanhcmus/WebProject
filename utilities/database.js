@@ -14,13 +14,13 @@ const db = pgp(cn);
 
 module.exports = {
     selectAllBills: async () => {
-        const rs = await db.any('SELECT * FROM public."HoaDon"');
+        const rs = await db.any('SELECT * FROM "HoaDonBanHang"');
         return rs;
     },
     addTTHoaDon: async (MaHoaDon, obj) => {
         try {
             await db.none(
-            'INSERT INTO public."ThongTinHoaDon"("MaHoaDon", "MaSach", "SoLuong") VALUES ($1, $2, $3)',
+            'INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSach", "SoLuong") VALUES ($1, $2, $3)',
             [MaHoaDon, obj.bookId, obj.quantity]
             );
         } catch (error) {
@@ -30,14 +30,14 @@ module.exports = {
     },
     insertBill: async (obj) => {
         await db.none(
-        'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+        'INSERT INTO "HoaDonBanHang" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
         [obj.username, obj.date, obj.total, obj.status]
         );
         
     },
     selectHoaDon: async (month, year) => {
         const rs = await db.any(
-            'SELECT * FROM "HoaDon" WHERE EXTRACT(YEAR FROM "NgayLap") = $1 AND EXTRACT(MONTH FROM "NgayLap") = $2;',
+            'SELECT * FROM "HoaDonBanHang" WHERE EXTRACT(YEAR FROM "NgayLap") = $1 AND EXTRACT(MONTH FROM "NgayLap") = $2;',
             [year, month]
         );
         return rs;
@@ -50,7 +50,7 @@ module.exports = {
         return rs;
     },
     updateStatus: async (id, status) => {
-        const updateQuery = 'UPDATE public."HoaDon" SET "TrangThai" = $1 WHERE "id" = $2';
+        const updateQuery = 'UPDATE public."HoaDonBanHang" SET "TrangThai" = $1 WHERE "id" = $2';
         await db.none(updateQuery, [status, id]);
     },
     allProduct: async () => {
@@ -326,8 +326,7 @@ module.exports = {
                 Target Server Version : 90600
                 File Encoding         : 65001
                */
-               
-               
+
                -- ----------------------------
                -- Table structure for Categories
                -- ----------------------------
@@ -932,29 +931,6 @@ module.exports = {
                  "Total" numeric(19,4) NOT NULL
                )
                ;
-
-               -- ---------CREATE TABLE HOADON
-                DROP TABLE IF EXISTS "HoaDon";
-                CREATE TABLE "HoaDon" (
-                "MaHoaDon" serial NOT NULL PRIMARY KEY,
-                    "username" text,
-                    "NgayLap" timestamp,
-                    "ThanhTien" int4,
-                    "TrangThai" int4
-                )
-                ;
-
-                ---------CREATE TABLE ThongTinHoaDon
-                DROP TABLE IF EXISTS "ThongTinHoaDon";
-                CREATE TABLE "ThongTinHoaDon" (
-                "MaHoaDon" int4 NOT NULL,
-                    "MaThongTinHD" serial PRIMARY KEY,
-                    "MaSP" int4,
-                    "SoLuong" int4
-                )
-                ;
-
-               
                -- ----------------------------
                -- Records of Orders
                -- ----------------------------

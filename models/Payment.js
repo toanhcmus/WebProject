@@ -30,7 +30,7 @@ module.exports = {
     addPaymentHistory: async (obj) => {
         try {
             await db.none(
-            'INSERT INTO public."PaymentHistory"("id", "money", "maHoaDon", "TrangThai", "Time") VALUES ($1, $2, $3, $4, $5)',
+            'INSERT INTO public."PaymentHistory"("id", "money", "TrangThai", "Time") VALUES ($1, $2, $3, $4, $5)',
             [obj.id, obj.money, obj.maHoaDon, obj.TrangThai, obj.time]
             );
         } catch (error) {

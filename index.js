@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 db.initDatabase().then(() => {
     // app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
     server.listen(port, function() {
-        console.log(`Server MAIN started on port http://localhost:${port}`);
+        console.log(`Server MAIN started on port https://localhost:${port}`);
       });
 }).catch(err => {
     console.error(`Failed to initialize database: ${err}`);
