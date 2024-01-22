@@ -34,9 +34,17 @@ router.post('/verify', passport.authenticate('myS', {
         res.redirect('/');
     }
 });
+router.get('/authFail', accountController.renderAuthFail);
 router.get('/logout', accountController.logout);
 router.get('/admin/category',categoryController.renderCat);
+router.get('/admin/category/edit',categoryController.renderEditCat);
+router.get('/admin/account', accountController.renderAccountManager);
+
 router.get('/changePassword', accountController.changePassword);
 router.get('/payment', auth.ensureAuthenticated, )
+
+router.get('/admin/account/remove/:Username', accountController.managerRemoveUser);
+router.get('/admin/account/edit', accountController.managerEditUser);
+router.get('/admin/account/add', accountController.managerAddUser);
 
 module.exports = router;

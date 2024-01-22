@@ -92,7 +92,7 @@ module.exports = {
         }
     },
     getAllUsers: async () => {
-        const getAllUsersQuery = 'SELECT * FROM "Users"';
+        const getAllUsersQuery = 'SELECT * FROM "Users" ORDER BY "isAdmin" DESC';
         try {
             const getAllUsersResult = await db.any(getAllUsersQuery);
             return getAllUsersResult;
@@ -132,6 +132,54 @@ module.exports = {
         SELECT * FROM "CategoryItems" `);
         return data;
     },
+    deleteByID: async (catID) => {
+        try {
+            const res = await db.query(
+                `
+                DELETE FROM "Categories"
+                WHERE "catID" = $1
+                --CASCADE
+                `,
+                [catID],
+            );
+    
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    addCategory: async (catName) => {
+        try {
+            const maxID = await db.oneOrNone('SELECT MAX("catID") FROM "Categories"');
+            const res = await db.query(
+                'INSERT INTO "Categories" ("catID", "catName") VALUES ($1, $2)',
+                [maxID.max + 1, catName]
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    updateCategory: async (catID,catName) => {
+        try {
+            const res = await db.query(
+                `
+                UPDATE "Categories"
+                SET "catName" = $1
+                WHERE "catID" = $2
+                `,
+                [catName, catID],
+            );
+    
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+
     initDatabase: async function initDatabase() {
         try {
             // Kiểm tra xem database đã tồn tại chưa

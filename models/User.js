@@ -26,7 +26,7 @@ module.exports = class User {
         await db.removeUser(username);
     }
     static async getAllUsers() {
-        await db.getAllUsers();
+        return await db.getAllUsers();
     }
     static async getUser(username) {
         const rs = await db.getUser(username);
