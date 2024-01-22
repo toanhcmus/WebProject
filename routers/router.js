@@ -17,12 +17,15 @@ router.get('/products/asc', controller.acs);
 router.get('/products/des', controller.des);
 router.get('/products/az', controller.az);
 router.get('/products/za', controller.za);
+router.post('/product/add',controller.addProduct);
 router.post('/register', accountController.register);
 router.post('/search', controller.search);
 router.post('/addToCart', controller.addToCart);
 router.post('/plus', controller.plus);
 router.post('/minus', controller.minus);
 router.post('/remove', controller.remove);
+router.get('/admin/product',controller.renderAddProduct);
+
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/'

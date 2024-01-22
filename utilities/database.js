@@ -14,28 +14,33 @@ const cn = {
 const db = pgp(cn);
 
 module.exports = {
-    allProduct: async () => { 
-        const data =await db.any(`SELECT * FROM "Products"`);
+    allProduct: async () => {
+        const data = await db.any(`SELECT * FROM "Products"`);
         return data;
     },
-    search: async (name) => { 
-        const data =await db.any(`SELECT * FROM "Products" WHERE "name" ILIKE '%${name}%'`);
+    search: async (name) => {
+        const data = await db.any(`SELECT * FROM "Products" WHERE "name" ILIKE '%${name}%'`);
         return data;
     },
-    sort: async (option) => { 
+    addProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl) => {
+        const insertQuery = `INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes","price", "size", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4,$5,$6,$7,$8,$9,$10) ON CONFLICT ("id") DO NOTHING`;
+        const insertValues = [id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl];
+        await db.none(insertQuery, insertValues);
+    },
+    sort: async (option) => {
         let data;
-        if(option==="decrease"){
-             data =await db.any(`SELECT * FROM "Products"  ORDER BY "price" DESC`);
+        if (option === "decrease") {
+            data = await db.any(`SELECT * FROM "Products"  ORDER BY "price" DESC`);
         }
-        else if(option==="increase"){
+        else if (option === "increase") {
             console.log('incr')
-             data =await db.any(`SELECT * FROM "Products"  ORDER BY "price" ASC`);
+            data = await db.any(`SELECT * FROM "Products"  ORDER BY "price" ASC`);
         }
-        else if(option==="az"){
-             data =await db.any(`SELECT * FROM "Products"  ORDER BY "name" ASC`);
+        else if (option === "az") {
+            data = await db.any(`SELECT * FROM "Products"  ORDER BY "name" ASC`);
         }
         else {
-             data =await db.any(`SELECT * FROM "Products"  ORDER BY "name" DESC`);
+            data = await db.any(`SELECT * FROM "Products"  ORDER BY "name" DESC`);
         }
         return data;
     },
@@ -123,7 +128,7 @@ module.exports = {
             return null;
         }
     },
-    allCategory: async () => { 
+    allCategory: async () => {
         const data = await db.any(`SELECT * FROM "Categories"`);
         return data;
     },
@@ -139,16 +144,16 @@ module.exports = {
                 'SELECT 1 FROM pg_database WHERE datname = $1',
                 process.env.DB_NAME
             );
-    
+
             if (!databaseExists) {
                 // Tạo mới database
                 await db.none(`CREATE DATABASE ${process.env.DB_NAME}`);
                 console.log(`Database ${process.env.DB_NAME} created.`);
-    
+
                 // Kết nối đến database mới tạo
                 db.$pool.options.database = process.env.DB_NAME;
                 await db.connect();
-    
+
                 // create table inside the new database
                 await db.none(`
                 /*
@@ -251,7 +256,7 @@ module.exports = {
                  "count" integer[],
                  "producer" text,
                  "discount" double precision,
-                 "images" text[]
+                 "images" text
                 )
                ;
                
@@ -796,8 +801,8 @@ module.exports = {
                
                ALTER TABLE "CategoryItems" ADD CONSTRAINT "FK_CatItem" FOREIGN KEY ("catID") REFERENCES "Categories" ("catID");
 
-                `);     
-    
+                `);
+
                 console.log(`Tables created inside '${process.env.DB_NAME}' database.`);
                 console.log(`Data imported into '${process.env.DB_NAME}' database.`);
             }
