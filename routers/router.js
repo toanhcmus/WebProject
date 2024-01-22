@@ -25,7 +25,7 @@ router.post('/minus', controller.minus);
 router.post('/remove', controller.remove);
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
-    failureRedirect: '/'
+    failureRedirect: '/authFail',
 }), (req, res) => {
     if (req.user && req.user.isAdmin) {
         res.redirect('/admin'); 

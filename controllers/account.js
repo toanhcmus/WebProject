@@ -77,6 +77,12 @@ module.exports = {
         })
         res.redirect('/');
     },
+    renderAuthFail: async (req, res, next) => {
+        res.render('login', {
+            layout: '',
+            error: "Username hoặc mật khẩu không đúng!"
+        });
+    },
     changePassword: async (req, res, next) => {
         if (req.isAuthenticated() || req.user || req.session.user) {
             const body = req.query;
