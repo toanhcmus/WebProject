@@ -77,8 +77,11 @@
                 <div class="user-avatar">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
                 </div>
-                <h5 class="user-name">{{ account.username }}</h5>
-                <h6 class="user-email">{{ account.email }}</h6>
+                <h5 class="user-name">{{#if account.Avatar}}{{ account.Name }}{{else}}{{ account.username }}{{/if}}</h5>
+                <h6 class="user-email">{{#if account.Avatar}}{{ account.Email }}{{else}}{{ account.email }}{{/if}}</h6>
+                {{#if account.Avatar}}
+                    <h6 class="user-email mt-3">Google Account</h6>
+                {{/if}}
             </div>
         </div>
     </div>
@@ -93,14 +96,14 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="fullName">Username</label>
-                        <input type="text" class="form-control" id="fullName" value="{{ account.username }}"
+                        <input type="text" class="form-control" id="fullName" value="{{#if account.Avatar}}{{ account.Name }}{{else}}{{ account.username }}{{/if}}"
                             disabled="true">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" value="{{ account.email }}" disabled="true">
+                        <input type="email" class="form-control" id="email" value="{{#if account.Avatar}}{{ account.Email }}{{else}}{{ account.email }}{{/if}}" disabled="true">
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -114,8 +117,12 @@
             <div class="row gutters mt-3 text-center mb-3">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="">
+                        {{#if account.Avatar}}
+                        <button type="button" class="btn btn-secondary" style="width:130px">Đổi mật khẩu</button>
+                        {{else}}
                         <button type="button" id="edit" name="edit" class="btn btn-primary" style="width:130px" data-bs-toggle="modal"
                         data-bs-target="#exampleModal">Đổi mật khẩu</button>
+                        {{/if}}
                         <a href="/logout">
                             <button type="button" id="logout" name="logout" class="btn btn-danger" style="width:130px">Đăng xuất</button>
                         </a>

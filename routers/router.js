@@ -32,15 +32,19 @@ router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/authFail',
 }), (req, res) => {
     if (req.user && req.user.isAdmin) {
-        res.redirect('/admin'); 
+        res.redirect('/admin');
     } else {
         res.redirect('/');
     }
 });
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function (req, res) {
+    res.redirect('/');
+});
 router.get('/authFail', accountController.renderAuthFail);
 router.get('/logout', accountController.logout);
-router.get('/admin/category',categoryController.renderCat);
-router.get('/admin/category/edit',categoryController.renderEditCat);
+router.get('/admin/category', categoryController.renderCat);
+router.get('/admin/category/edit', categoryController.renderEditCat);
 router.get('/admin/account', accountController.renderAccountManager);
 
 router.get('/changePassword', accountController.changePassword);
