@@ -3,6 +3,41 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
+    renderEditCat: async (req, res, next) => {
+        try {
+
+            // if (!req.session.ID) {
+            //     res.redirect("/");
+            // }                   
+
+            let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
+            let urlObj = new URL(url);
+            //console.log(req.originalUrl)
+            let deleteID = urlObj.searchParams.get("delete");
+            let editID = urlObj.searchParams.get("edit");
+            let CatName = urlObj.searchParams.get("catName");
+            let add = urlObj.searchParams.get("add");
+            //console.log(deleteID,editID,CatName)
+            //console.log(add);
+            if (deleteID) {
+                await Category.deleteByID(parseInt(deleteID));
+            }
+            if (editID) {
+                await Category.updateCategory(parseInt(editID), CatName);
+            }
+            if (add) {
+                await Category.addCategory(add);
+            }
+
+            let categories = await Category.allCategory();
+            res.render("admin/category/editCategory", { categories, title: "Edit" });
+
+        } catch (error) {
+            console.log(error);
+            let categories = await Category.allCategory();
+            res.render("admin/category/editCategory", { categories, error, title: "Edit" });
+        }
+    },
     renderCat: async (req, res, next) => {
         try{
             const categories = await Category.allCategory();       
@@ -17,32 +52,4 @@ module.exports = {
             next(error);
         }
     },    
-    getEdit: async (req, res, next) => {
-        try {
-            let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
-            let urlObj = new URL(url);
-            let deleteCat = urlObj.searchParams.get("delete");
-            let editCat = urlObj.searchParams.get("edit");
-            let CatName = urlObj.searchParams.get("CatName");
-            let id = urlObj.searchParams.get("id");
-            let name = urlObj.searchParams.get("name");
-
-            if (deleteCat) {
-                await category.deleteByID(parseInt(deleteCat));
-            }
-            if (editCat) {
-                await category.updateCategory(parseInt(editCat), CatName);
-            }
-            if (id && name) {
-                await category.addCategory(id, name);
-            }
-            let categories = await category.getAll();
-            res.render("editCategory", { categories, title: "Edit Category" });
-
-        } catch (error) {
-
-            let categories = await category.getAll();
-            res.render("editCategory", { categories, error, title: "Edit Category" });
-        }
-    },
 }

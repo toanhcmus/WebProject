@@ -38,5 +38,5 @@ app.get('*', function(req, res){
 
 
 server.listen(process.env.PORT_PAYMENT, function() {
-  console.log(`Server PAYMENT started on port ${process.env.PORT_AUTH}`);
+  console.log(`Server PAYMENT started on port ${process.env.PORT_PAYMENT}`);
 });

@@ -4,7 +4,7 @@ module.exports = {
             //console.log(req.session.user);
             return next();
         } else {
-            res.redirect('/');
+            res.redirect('/login');
         }
     }
 };

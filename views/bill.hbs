@@ -1,0 +1,64 @@
+<style>
+
+</style>
+    <div class="container-fluid" style="font-family:'Newsreader', serif;">
+        {{#each cart}}
+            <img src="{{this.image}}" alt="">
+            <h3>{{this.name}}</h3>
+            <p class="priceBill">{{this.price}}</p>
+            <p class="countBill">{{this.count}}</p>
+        {{/each}}
+        <p id="totalSum">Tổng tiền: </p>
+        <button id="btn_checkout" class="btn btn-outline-primary" type="button" onclick="paymentWithSystem()">Thanh toán với hệ thống thanh toán</button>
+    </div>
+
+    <script>
+        let totalSum = 0;
+        function calculateTotalSum() {
+            const priceElements = document.getElementsByClassName('priceBill');
+            const countElements = document.getElementsByClassName('countBill');
+            // Calculate the total sum
+            for (let i = 0; i < priceElements.length; i++) {
+                console.log(priceElements[i].innerText);
+                console.log(countElements[i].innerText);
+                totalSum += priceElements[i].innerText * countElements[i].innerText;
+            }
+
+            console.log(totalSum);
+
+            // Update the content of the totalSum element
+            document.getElementById('totalSum').innerText = 'Tổng tiền: ' + totalSum + ' đ'; // Assuming prices are in đồng
+        }
+
+        // Call the function when the page loads
+        window.onload = calculateTotalSum;
+        function paymentWithSystem() {
+            const apiUrl = 'https://localhost:5000/transfer';
+            const token = "{{token}}";
+            const transferData = {
+                total: totalSum
+            };
+            fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/plain, */*',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(transferData)
+            }).then(response => response.json())
+            .then(data => {
+                if (data.msg === 1) {
+                    alert('Nhập thành công!');
+                    window.location.href='/book/import';
+                } else {
+                    alert('Nhập không thành công!');
+                    window.location.href='/book/import';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+  

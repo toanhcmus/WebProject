@@ -82,16 +82,18 @@
 
         $('.add-to-cart').click(function () {
             var productName = $(this).parent().parent().find('.product-name').text();
+            var productID = $(this).parent().parent().find('.product-id').text();
             var productPrice = $(this).parent().find('.product-price').text();
             var productImage = $(this).parent().parent().parent().find('.product-image').attr('src');
             console.log('Tên sản phẩm: ' + productName);
             console.log('Giá sản phẩm: ' + productPrice);
             console.log('URL ảnh sản phẩm: ' + productImage);
-            addToCart(productName, productPrice, productImage);
+            console.log('ID sản phẩm: ' + productID);
+            addToCart(productID, productName, productPrice, productImage);
 
 
         });
-        async function addToCart(name, price, image) {
+        async function addToCart(id, name, price, image) {
 
             var existingProduct = null;
 
@@ -104,6 +106,7 @@
             if (existingProduct != null) {
                 var quantityInput = existingProduct.find('.count');
                 $.post('/addToCart', {
+                    id: id,
                     name: name,
                     price: price,
                     image: image,
@@ -137,6 +140,7 @@
                 </div> </div>
                 `;
                 $.post('/addToCart', {
+                    id: id,
                     name: name,
                     price: price,
                     image: image,

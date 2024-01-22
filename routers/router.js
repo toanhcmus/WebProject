@@ -6,6 +6,7 @@ const accountController = require('../controllers/account');
 const passport = require('passport');
 const auth = require('../mws/auth');
 const categoryController = require('../controllers/category.c');
+const billController = require('../controllers/bill.c');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
 
@@ -28,7 +29,7 @@ router.get('/admin/product',controller.renderAddProduct);
 
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
-    failureRedirect: '/'
+    failureRedirect: '/authFail',
 }), (req, res) => {
     if (req.user && req.user.isAdmin) {
         res.redirect('/admin'); 
@@ -36,8 +37,17 @@ router.post('/verify', passport.authenticate('myS', {
         res.redirect('/');
     }
 });
+router.get('/authFail', accountController.renderAuthFail);
 router.get('/logout', accountController.logout);
 router.get('/admin/category',categoryController.renderCat);
+router.get('/admin/category/edit',categoryController.renderEditCat);
+router.get('/admin/account', accountController.renderAccountManager);
+
 router.get('/changePassword', accountController.changePassword);
+router.get('/payment', auth.ensureAuthenticated, billController.renderBill);
+
+router.get('/admin/account/remove/:Username', accountController.managerRemoveUser);
+router.get('/admin/account/edit', accountController.managerEditUser);
+router.get('/admin/account/add', accountController.managerAddUser);
 
 module.exports = router;

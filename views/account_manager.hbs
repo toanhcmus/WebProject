@@ -1,0 +1,126 @@
+<div class="container d-flex flex-column align-items-center">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-2 mb-3">
+        <strong>{{success}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+    {{#if error}}
+    <div class="alert alert-danger alert-dismissible fade show mt-2 mb-3">
+        <strong>{{error}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+    <div class="card w-75">
+        <div class="card-header d-flex flex-column justify-content-center align-items-center">
+            <h5 class="card-title">Danh sách tài khoản</h5>
+        </div>
+    </div>
+    <div class="w-75 d-flex flex-row justify-content-end mt-2 mb-2">
+        <button type="button" id="addAccount" name="addAccount" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#exampleModal1">+ Add</button>
+    </div>
+    <table class="table table-striped w-75">
+        <colgroup>
+            <col span="1" style="width: 30%;">
+            <col span="1" style="width: 35%;">
+            <col span="1" style="width: 13%;">
+            <col span="1" style="width: 22%;">
+        </colgroup>
+        <thead class="table-dark">
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {{#each accountList}}
+            <tr>
+                <td class="align-middle">{{ this.Username }}</td>
+                <td class="align-middle">{{ this.Email }}</td>
+                <td class="align-middle">{{#if this.isAdmin}}Admin{{else}}Guest{{/if}}</td>
+                <td>
+                    <button type="button" id="editAccount" name="editAccount" class="btn btn-warning editAccountButton" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Chỉnh sửa</button>
+                    <a href="/admin/account/remove/{{ this.Username }}">
+                        <button type="button" class="btn btn-danger">Xóa tài khoản</button>
+                    </a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/admin/account/edit" method="PUT">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa thông tin</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="MEUsername" class="form-label">Tên đăng nhập:</label>
+                        <input type="text" class="form-control" id="MEUsername" disabled="true">
+                    </div>
+                    <div class="mb-3">
+                        <label for="MEPassword-input" class="form-label">Mật khẩu mới:</label>
+                        <input type="text" class="form-control" id="MEPassword-input" name="MPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="MEEmail-input" class="form-label">Email mới:</label>
+                        <input type="email" class="form-control" id="MEEmail-input" name="MEmail">
+                    </div>
+                    <input type="text" class="form-control" id="hiddenUsername" name="MUsername" hidden="true">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/admin/account/add" method="PUT">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm tài khoản</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="MAUsername-input" class="form-label">Tên đăng nhập:</label>
+                        <input type="text" class="form-control" id="MAUsername-input" name="MAUsername">
+                    </div>
+                    <div class="mb-3">
+                        <label for="MAPassword-input" class="form-label">Mật khẩu:</label>
+                        <input type="text" class="form-control" id="MAPassword-input" name="MAPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="MAEmail-input" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="MAEmail-input" name="MAEmail">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.editAccountButton').on('click', function () {
+            let username = $(this).parents('tr').find('td:first').text();
+            $('#MEUsername').val(username);
+            $('#hiddenUsername').val(username);
+        });
+    });
+</script>
