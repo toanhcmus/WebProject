@@ -19,8 +19,8 @@ passport.deserializeUser(async (username, done) => {
 })
 
 module.exports = app => {
-    app.use(passport.initialize());
-    app.use(passport.session());
+    // app.use(passport.initialize());
+    // app.use(passport.session());
 
     passport.use(new MyStrategy(async (un, pw, done) => {
         let auth = false;

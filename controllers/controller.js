@@ -3,7 +3,7 @@ module.exports = {
     render: async (req, res, next) => {
         try {
             const product = await Product.allProduct();
-            //console.log(product)
+            console.log("render", req.session);
             const cart = req.session.cart;
             res.render('home', { layout: 'main', items: product, cart: cart });
         }
@@ -37,7 +37,8 @@ module.exports = {
     products: async (req, res, next) => {
         try {
             const cart = req.session.cart;
-            console.log(req.session);
+            // console.log(req.session);
+            console.log("renderPro", req.session);
             const product = await Product.allProduct();
             res.render('products', { products: product, cart: cart });
         }
@@ -121,7 +122,7 @@ module.exports = {
                 }
             }
             if (!found) {
-                req.session.cart.push({ id: req.body.id, name: req.body.name, price: req.body.price, count: req.body.count, image: req.body.image });
+                req.session.cart.push({ id: req.body.id, name: req.body.name, price: parseInt(req.body.price), count: parseInt(req.body.count), image: req.body.image });
             }
             res.json({});
         }

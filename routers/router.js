@@ -41,7 +41,7 @@ router.get('/admin/category/edit',categoryController.renderEditCat);
 router.get('/admin/account', accountController.renderAccountManager);
 
 router.get('/changePassword', accountController.changePassword);
-router.get('/payment', auth.ensureAuthenticated, )
+router.get('/payment', auth.ensureAuthenticated, billController.renderBill);
 
 router.get('/admin/account/remove/:Username', accountController.managerRemoveUser);
 router.get('/admin/account/edit', accountController.managerEditUser);

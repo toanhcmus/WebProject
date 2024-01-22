@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const fs = require('fs/promises');
 const port = process.env.PORT || 3000;
+const passport = require("passport");
 
 const secret = 'mysecretkey';
 
@@ -18,6 +19,8 @@ const sessionMiddleware = session({
     cookie: { secure: false }
 });
 app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
