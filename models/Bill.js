@@ -17,14 +17,11 @@ module.exports = {
         }
     },
     insertBill: async (obj) => {
-        try {
-            await db.one(
-            'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
-            [obj.username, obj.date, obj.total, obj.status]
-            );
-        } catch (err) {
-            console.log("insert bill failed");
-        }
+        await db.none(
+        'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+        [obj.username, obj.date, obj.total, obj.status]
+        );
+        
     },
     selectHoaDon: async (month, year) => {
         const rs = await db.any(
@@ -39,5 +36,9 @@ module.exports = {
             [MaHD]
         );
         return rs;
+    },
+    updateStatus: async (id, status) => {
+        const updateQuery = 'UPDATE public."HoaDon" SET "TrangThai" = $1 WHERE "id" = $2';
+        await db.none(updateQuery, [status, id]);
     }
 };

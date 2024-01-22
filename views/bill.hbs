@@ -49,11 +49,9 @@
             }).then(response => response.json())
             .then(data => {
                 if (data.msg === 1) {
-                    alert('Nhập thành công!');
-                    window.location.href='/book/import';
+                    window.location.href='/fail';
                 } else {
-                    alert('Nhập không thành công!');
-                    window.location.href='/book/import';
+                    window.location.href='/success';
                 }
             })
             .catch(error => {

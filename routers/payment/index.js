@@ -30,27 +30,62 @@ const authenticateJWT = (req, res, next) => {
 // Route để chuyển khoản
 router.post('/transfer', authenticateJWT, async (req, res) => {
     try {
-      console.log(req.session);
+      // console.log(req.session);
       const total = req.body.total;
       const user = req.user;
       const userDB = await paymentM.selectUser(user.username);
+      console.log(userDB);
       const balance = userDB[0].balance;
+      console.log(balance);
+      const userAdmin = await paymentM.selectUser("admin");
+      const balanceAdmin = userDB[0].balance;
+
+      const time = new Date();
 
       const obj = {
         username: user.username,
-        date: new Date(),
+        date: time,
         total: total,
         status: 1
       }
+      await billM.insertBill(obj);
+      const allBills = await billM.selectAllBills();
+      let maxxIDBill = 0;
+      allBills.forEach(e => {
+        if (e.MaHoaDon > maxxIDBill) {
+          maxxIDBill = e.MaHoaDon;
+        }
+      });
 
-      await billM.insertBill()
+      const payment = {
+        id: user.username,
+        money: total,
+        maHoaDon: maxxIDBill,
+        TrangThai: 1,
+        time: time
+      }
 
-
+      await paymentM.addPaymentHistory(payment);
 
       if (total > balance) {
-
+          res.send({
+            msg: 1
+          })
       } else {
-
+        await billM.updateStatus(maxxIDBill, 0);
+        const payments = await paymentM.selectAllPayments();
+        let maxxIDPayment = 0;
+        payments.forEach(e => {
+          if (e.maGiaoDich > maxxIDPayment) {
+            maxxIDPayment = e.maGiaoDich;
+          }
+        })
+        await paymentM.updatePaymentHistory(maxxIDPayment, 0);
+        await paymentM.updateBalance(userDB[0].username, balance - total);
+        await paymentM.updateBalance(userAdmin[0].username, balanceAdmin + total);
+        res.send({
+          msg: 0
+        })
       }
 
     } catch (error) {
