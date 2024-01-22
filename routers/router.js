@@ -6,6 +6,7 @@ const accountController = require('../controllers/account');
 const passport = require('passport');
 const auth = require('../mws/auth');
 const categoryController = require('../controllers/category.c');
+const billController = require('../controllers/bill.c');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
 
@@ -36,5 +37,6 @@ router.post('/verify', passport.authenticate('myS', {
 router.get('/logout', accountController.logout);
 router.get('/admin/category',categoryController.renderCat);
 router.get('/changePassword', accountController.changePassword);
+router.get('/payment', auth.ensureAuthenticated, )
 
 module.exports = router;

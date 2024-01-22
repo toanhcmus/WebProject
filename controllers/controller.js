@@ -121,7 +121,7 @@ module.exports = {
                 }
             }
             if (!found) {
-                req.session.cart.push({ name: req.body.name, price: req.body.price, count: req.body.count, image: req.body.image });
+                req.session.cart.push({ id: req.body.id, name: req.body.name, price: req.body.price, count: req.body.count, image: req.body.image });
             }
             res.json({});
         }
