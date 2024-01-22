@@ -13,11 +13,11 @@
     <tbody class="table-group-divider inforTable">
         {{#each categories}}
         <tr>
-            <td>{{this.CatID}}</td>
-            <td><input type="text" value="{{this.CatName}}" id="Name{{this.CatID}}"></td>
+            <td>{{this.catID}}</td>
+            <td><input type="text" value="{{this.catName}}" id="Name{{this.catID}}"></td>
             <td>
-                <button class="btn" onclick="handleEdit(event,{{this.CatID}})">Sửa</button>
-                <button class="btn" onclick="handleDelete(event,{{this.CatID}})">Xoá</button>
+                <button class="btn" onclick="handleEdit(event,{{this.catID}})">Sửa</button>
+                <button class="btn" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
             </td>
         </tr>
         {{/each}}
@@ -32,16 +32,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-               <div class="col-md-6">
-                    <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Mã danh mục</span>
-                    <input name="newIDCategory" type="text" class="form-control" aria-describedby="basic-addon1" id="catID">
-                    </div>
-                </div>
                 <div class="col-md-6">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon2">Tên danh mục</span>
-                        <input name="newCategory" type="text" class="form-control" aria-describedby="basic-addon1" id="catName">
+                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="addCate">
                     </div>
                 </div>
             </div>
@@ -52,7 +46,18 @@
         </div>
     </div>
 </div>
-
+<div class="toast-container {{#if error}} {{else}} d-none{{/if}}" style="position: absolute; top: 10px; right: 10px;">
+    <div class="toast fade show">
+        <div class="toast-header">
+            <strong class="me-auto"><i class="bi-globe"></i> Cannot delete or edit</strong>
+            <small>just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            {{error}}
+        </div>
+    </div>
+</div>
 <script>
     window.onload = function () {
         let url = new URL(window.location.href);
@@ -79,22 +84,23 @@
         url.search = "";
         let params = new URLSearchParams(url.search);
         params.set("edit", CatID);
-        params.set("CatName", CatName);
+        params.set("catName", CatName);
         url.search = params.toString();
         window.location.href = url.toString();
     }
 
     function handleAdd(event) {
-        event.preventDefault();
-        let newID = document.getElementById("catID").value;
-        let newName = document.getElementById("catName").value;
-        let url = new URL(window.location.href);
-        url.search = "";
-        let params = new URLSearchParams(url.search);
-        params.set("id", newID);  
-        params.set("name", newName); 
-        url.search = params.toString();
+    event.preventDefault();
+    let CatName = document.getElementById("addCate").value;
+    let url = new URL(window.location.href);
+    url.search = "";
 
-        window.location.href = url.toString();
-    }
+    let params = new URLSearchParams(url.search);
+
+    params.set("add", CatName);
+    url.search = params.toString();
+
+    //console.log(url)
+    window.location.href = url.toString();
+}
 </script>
