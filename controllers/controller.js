@@ -204,5 +204,28 @@ module.exports = {
             console.log(error)
         }
     },
+    renderChart: async (req, res, next) => {
+        try {
+            const total=await Product.chart();
+            console.log('a',total);
+            let tien=new Array(12).fill(0);
+            for(let i=0;i<12;i++)
+            {
+                if(total[i]){
+                    if(total[i].thang)
+                    tien[total[i].thang-1]=total[i].thanhtien;
+                }
+               
+            }
+            const data = {
+                x: JSON.stringify([1, 2, 3, 4,5,6,7,8,9,10,11,12]),
+                y: JSON.stringify(tien)
+            };
+        
+            res.render('./admin/product/chart', data);
 
+        } catch (error) {
+            console.log(error)
+        }
+    },
 }

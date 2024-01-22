@@ -26,6 +26,7 @@ router.post('/plus', controller.plus);
 router.post('/minus', controller.minus);
 router.post('/remove', controller.remove);
 router.get('/admin/product',controller.renderAddProduct);
+router.get('/admin/chart',controller.renderChart);
 
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {

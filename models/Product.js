@@ -27,6 +27,11 @@ module.exports = class Product {
         console.log('â')
         await db.addProduct(id,name,tinyDes,fullDes,price, size,items,count,producer,imageUrl);
     }
+    static async chart() {
+        const data=await db.chart();
+        
+        return data;
+    }
     static async getAll(){
         try {
             const data = await db.execute('SELECT * FROM "products"');

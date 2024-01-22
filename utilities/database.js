@@ -20,8 +20,8 @@ module.exports = {
     addTTHoaDon: async (MaHoaDon, obj) => {
         try {
             await db.none(
-            'INSERT INTO public."ThongTinHoaDon"("MaHoaDon", "MaSach", "SoLuong") VALUES ($1, $2, $3)',
-            [MaHoaDon, obj.bookId, obj.quantity]
+                'INSERT INTO public."ThongTinHoaDon"("MaHoaDon", "MaSach", "SoLuong") VALUES ($1, $2, $3)',
+                [MaHoaDon, obj.bookId, obj.quantity]
             );
         } catch (error) {
             console.error("Error inserting:", error);
@@ -30,10 +30,10 @@ module.exports = {
     },
     insertBill: async (obj) => {
         await db.none(
-        'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
-        [obj.username, obj.date, obj.total, obj.status]
+            'INSERT INTO "HoaDon"("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+            [obj.username, obj.date, obj.total, obj.status]
         );
-        
+
     },
     selectHoaDon: async (month, year) => {
         const rs = await db.any(
@@ -65,13 +65,28 @@ module.exports = {
         console.log('Product added');
         const insertQuery = 'INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes", "price", "size", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4, $5, ARRAY[$6], $7, ARRAY[$8], $9, $10)';
         try {
-            await db.none(insertQuery, [id, name, tinyDes, fullDes, price, size, items,parseInt(count) , producer, imageUrl]);
+            await db.none(insertQuery, [id, name, tinyDes, fullDes, price, size, items, parseInt(count), producer, imageUrl]);
             console.log('Product added');
         } catch (error) {
             console.log(error);
         }
-      
+
     },
+    chart: async () => {
+        let query = `
+        SELECT
+            EXTRACT(MONTH FROM "NgayLap"::date)  AS Thang,
+            SUM("ThanhTien") AS ThanhTien
+        FROM
+            "HoaDon"
+        GROUP BY
+            EXTRACT(MONTH FROM "NgayLap"::date)
+        ORDER BY EXTRACT(MONTH FROM "NgayLap"::date) ASC
+            `
+        const data= await db.any(query);
+        return data;
+    },
+
     sort: async (option) => {
         let data;
         if (option === "decrease") {
