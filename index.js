@@ -8,10 +8,14 @@ const session = require('express-session');
 const fs = require('fs/promises');
 const port = process.env.PORT || 3000;
 const passport = require("passport");
+const cors = require('cors');
+const http = require('http');
 
 const secret = 'mysecretkey';
+const server = http.createServer(app);
 
 app.use(cookieParser(secret));
+// app.use(cors());
 const sessionMiddleware = session({
     secret: secret,
     resave: false,
@@ -52,7 +56,10 @@ app.use((req, res, next) => {
     next();
 });
 db.initDatabase().then(() => {
-    app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
+    // app.listen(port, () => console.log(`example all listening at http://localhost:${port}`));
+    server.listen(port, function() {
+        console.log(`Server MAIN started on port ${port}`);
+      });
 }).catch(err => {
     console.error(`Failed to initialize database: ${err}`);
 });
