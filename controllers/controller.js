@@ -37,6 +37,7 @@ module.exports = {
     products: async (req, res, next) => {
         try {
             const cart = req.session.cart;
+            console.log(req.session);
             const product = await Product.allProduct();
             res.render('products', { products: product, cart: cart });
         }
