@@ -21,7 +21,7 @@ module.exports = {
     },
     renderLogin: async (req, res, next) => {
         try {
-            if (req.user || req.session.user) {
+            if (req.user) {
                 let account = req.user;
                 if (!req.user) account = req.session.user;
                 res.render('profile', { layout: 'main', account: account });

@@ -128,11 +128,41 @@ module.exports = {
             return null;
         }
     },
-    allCategory: async () => { 
-        const data = await db.any(`SELECT * FROM "Categories" ORDER BY "catID" ASC`);
+    insertGoogleUser: async (newUser) => {
+        const insertUserQuery = 'INSERT INTO "GoogleAccount" ("Name", "Email", "Avatar") VALUES ($1, $2, $3) ON CONFLICT ("Email") DO NOTHING';
+        const insertUserValues = [newUser.Name, newUser.Email, newUser.Avatar];
+        try {
+            await db.none(insertUserQuery, insertUserValues);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getGoogleUser: async (Email) => {
+        const getUserQuery = 'SELECT * FROM "GoogleAccount" WHERE "Email" = $1';
+        const getUserValues = [Email];
+        try {
+            const getUserResult = await db.oneOrNone(getUserQuery, getUserValues);
+            return getUserResult;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
+    getAllGoogleUsers: async () => {
+        const getAllUsersQuery = 'SELECT * FROM "GoogleAccount"';
+        try {
+            const getAllUsersResult = await db.any(getAllUsersQuery);
+            return getAllUsersResult;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
+    allCategory: async () => {
+        const data = await db.any(`SELECT * FROM "Categories"`);
         return data;
     },
-    
+
     allCategoryItem: async () => {
         const data = await db.any(`
         SELECT * FROM "CategoryItems" ORDER BY "itemID" ASC`);
@@ -148,7 +178,7 @@ module.exports = {
                 `,
                 [catID],
             );
-    
+
             return res;
         } catch (error) {
             console.log(error);
@@ -168,7 +198,7 @@ module.exports = {
             throw error;
         }
     },
-    updateCategory: async (catID,catName) => {
+    updateCategory: async (catID, catName) => {
         try {
             const res = await db.query(
                 `
@@ -178,7 +208,7 @@ module.exports = {
                 `,
                 [catName, catID],
             );
-    
+
             return res;
         } catch (error) {
             console.log(error);
@@ -195,7 +225,7 @@ module.exports = {
                 `,
                 [itemID],
             );
-    
+
             return res;
         } catch (error) {
             console.log(error);
@@ -215,7 +245,7 @@ module.exports = {
         }
     },
 
-    updateItem: async(itemID, itemName, catID) => {
+    updateItem: async (itemID, itemName, catID) => {
         try {
             const res = await db.query(
                 `
@@ -225,7 +255,7 @@ module.exports = {
                 `,
                 [itemName, catID, itemID],
             );
-    
+
             return res;
         } catch (error) {
             console.log(error);
@@ -817,6 +847,17 @@ module.exports = {
                 INSERT INTO "Users" ("Username", "Password", "isAdmin", "Email") VALUES
                 ('12', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, '123@ok'),
                 ('Admin', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL);
+
+                -- ----------------------------
+                -- Table structure for GoogleAccount
+                -- ----------------------------
+                DROP TABLE IF EXISTS "GoogleAccount";
+                CREATE TABLE "GoogleAccount" (
+                    "Name" text NOT NULL,
+                    "Email" text PRIMARY KEY,
+                    "Avatar" text
+                );
+
                -- ----------------------------
                -- Table structure for OrderDetails
                -- ----------------------------
