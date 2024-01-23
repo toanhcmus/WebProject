@@ -6,7 +6,7 @@ module.exports = {
     render: async (req, res, next) => {
         try {
             const product = await Product.allProduct();
-            console.log("render", req.session);
+            // console.log("render", req.session);
             const cart = req.session.cart;
             res.render('home', { layout: 'main', items: product, cart: cart });
         }
@@ -41,7 +41,7 @@ module.exports = {
         try {
             const cart = req.session.cart;
             // console.log(req.session);
-            console.log("renderPro", req.session);
+            // console.log("renderPro", req.session);
             const product = await Product.allProduct();
             res.render('products', { products: product, cart: cart });
         }

@@ -1,16 +1,63 @@
 <style>
-
+    .container-fluid {
+        font-family: 'Newsreader', serif;
+    }
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        margin-left: 10%;
+        margin-right: 5%;
+        font-size: 20px;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    img {
+        width: 40%;
+        height: 40%;
+    }
+    #footerBill {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    #totalSum {
+        font-weight: bold;
+    }
 </style>
-    <div class="container-fluid" style="font-family:'Newsreader', serif;">
+    <div class="container-fluid">
+        <h3 style="text-align: center; color: red; font-weight: bold; font-size: 30px;">
+            Hóa đơn
+        </h3>
+    <table>
+        <tr>
+            <th>Ảnh</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+        </tr>
         {{#each cart}}
-            <img src="{{this.image}}" alt="">
-            <h3>{{this.name}}</h3>
-            <p class="priceBill">{{this.price}}</p>
-            <p class="countBill">{{this.count}}</p>
+            <tr>
+                <td><img src="{{this.image}}" alt=""></td>
+                <td>{{this.name}}</td>
+                <td><p class="priceBill">{{this.price}}</p></td>
+                <td><p class="countBill">{{this.count}}</p></td>
+            </tr>
         {{/each}}
+    </table>
+    <div id="footerBill">
         <p id="totalSum">Tổng tiền: </p>
         <button id="btn_checkout" class="btn btn-outline-primary" type="button" onclick="paymentWithSystem()">Thanh toán với hệ thống thanh toán</button>
     </div>
+    
+</div>
 
     <script>
         let totalSum = 0;
