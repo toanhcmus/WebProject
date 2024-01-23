@@ -14,7 +14,7 @@ module.exports = {
             }
         } else {
             const userData = req.user;
-            console.log(userData);
+            // console.log(userData);
             user = {
                 "username": userData.Email
             }

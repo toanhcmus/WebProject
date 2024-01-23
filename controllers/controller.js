@@ -6,7 +6,7 @@ module.exports = {
     render: async (req, res, next) => {
         try {
             const product = await Product.allProduct();
-            console.log("render", req.session);
+            // console.log("render", req.session);
             const cart = req.session.cart;
             res.render('home', { layout: 'main', items: product, cart: cart });
         }
@@ -41,7 +41,7 @@ module.exports = {
         try {
             const cart = req.session.cart;
             // console.log(req.session);
-            console.log("renderPro", req.session);
+            // console.log("renderPro", req.session);
             const product = await Product.allProduct();
             res.render('products', { products: product, cart: cart });
         }
@@ -265,6 +265,54 @@ module.exports = {
 
             req.session.cart = [];
             res.render('successNoti', { layout: 'transferNoti' });
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    renderFail: async (req, res, next) => {
+        try {
+            const allTranstions = await paymentM.selectAllPayments();
+            let maxxMaGD = 0;
+            allTranstions.forEach((element) => {
+                if (maxxMaGD < element.maGiaoDich) {
+                    maxxMaGD = element.maGiaoDich;
+                }
+            });
+            const latestPayment = await paymentM.selectPayment(maxxMaGD);
+            console.log(latestPayment);
+            const un = latestPayment.id;
+            const total = latestPayment.money;
+            const date = latestPayment.Time;
+
+            const obj = {
+                username: un,
+                date: date,
+                total: total,
+                status: 1 // Fail
+            }
+
+            await billM.insertBill(obj);
+
+            // const allBills = await billM.selectAllBills();
+            // let maxxMaHD = 0;
+            // allBills.forEach(element => {
+            //     if (element.MaHoaDon > maxxMaHD) {
+            //         maxxMaHD = element.MaHoaDon;
+            //     }
+            // });
+
+            // for (let i = 0; i < req.session.cart.length; i++) {
+            //     const item = req.session.cart[i];
+            //     const obj = {
+            //         id: item.id,
+            //         count: item.count
+            //     }
+            //     await billM.addTTHoaDon(maxxMaHD, obj);
+            // }
+
+            req.session.cart = [];
+            res.render('failNoti', { layout: 'transferNoti' });
         }
         catch (error) {
             next(error);
