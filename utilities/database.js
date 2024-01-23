@@ -596,7 +596,7 @@ module.exports = {
                     )
                 )
                 ORDER BY RANDOM()
-                LIMIT 10;
+                LIMIT 16;
                 `,
                 [id],
             );

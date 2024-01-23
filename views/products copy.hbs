@@ -7,54 +7,37 @@
         margin-right: 20px;
         width: 90%;
     }
-
     .pt-5 {
-        padding-top: 2rem !important;
+        padding-top: 2rem!important;
     }
-
-    
 .product-name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: all 0.3s ease;
-    padding-bottom: 12px;
 }
 .product-image {
-    width: 320px;
-    height: 370px;
+    width: 170px;
     align-items: center;
-    justify-items: center;
-    align-content: center;
 }
 .product {
-    width: 330px;
-    height: 460px;
+    width: 200px;
+    height: 350px;
     transition: transform 0.3s ease-in-out;
     position: relative;
     z-index: 1;
-    margin: 10px;
-    padding: 0;
-    background: rgba(0,0,0,0); /* Màu trắng có độ trong suốt 0.8 */
-    margin-bottom: 50px;
-    
-}
-.card-body{
-    padding-top: 5px;
-    height: 90px;
-    text-align: left;
+    background: rgba(255, 255, 255, 0); /* Màu trắng có độ trong suốt 0.8 */
 }
 .product:hover {
   z-index: 2;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .card {
     border: none;
-    padding-top: 5px;
 }
 </style>
 
-<div class="container-fluid text-center">
+    <div class="container-fluid text-center">
     <div class="row pt-5">
         <div class="row text-center pt-5">
             <h1>
@@ -157,30 +140,34 @@
         </div>
 
         <div class="pro d-flex">
-            <div class="container">
-                <div class="row justify-content-center">
-                    {{#each products}}
-                        <div class="col-3 product" id="product{{this.id}}">
-                            <div class="card">
-                                <a href="/products/{{this.id}}" >
-                                    <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
-                                        class=" product-image" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <a href="/products/{{this.id}}" >
-                                        <div class="product-name text-left">{{this.name}}</div>
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                <span class="product-price">{{this.price}}</span>
-                                <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
-                            </div>               
-                                </div>
-                            </div>
-                        </div>
-                    {{/each}}
+            {{#each products}}
+            <div class="col-3 pt-3 product" id="product{{this.id}}">
+                <div class="card p-0">
+                    <a href="/products/{{this.id}}" >
+                    
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
+                        class="card-img-top product-image" alt="..."  style="background-color: #7ddaf2; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    </a>
+                    <div class="card-body">
+                        <a href="/products/{{this.id}}" ><div class="card-text product-name">{{this.name}}</div></a>
+                        
+                        <div class="row d-flex mb-0" style="backgound-color: black">
+                            <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+                        </div>                        
+                    </div>
                 </div>
             </div>
+            {{/each}}
         </div>
+                                   
+
+
+
+
+
+
+
 
     </div>
     <div class="w-75 d-flex flex-column justify-content-center align-items-center">
@@ -194,20 +181,18 @@
 </div>
 </div>
 
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const products = document.querySelectorAll('.product');
+  const products = document.querySelectorAll('.product');
 
-        products.forEach(product => {
-            product.addEventListener('click', function () {
-                const details = this.querySelector('.details');
-                alert(details.innerText); // Replace this with your logic to show detailed information
-            });
-        });
+  products.forEach(product => {
+    product.addEventListener('click', function () {
+      const details = this.querySelector('.details');
+      alert(details.innerText); // Replace this with your logic to show detailed information
     });
-    $(document).ready(function () {
+  });
+});
+$(document).ready(function () {
         $('.next-product').on('click', function () {
             let currentPage = parseInt($('.current-page-product').val());
             let maxPage = parseInt($('.current-page-max').val());
@@ -236,27 +221,20 @@
                 $('.pro').html('');
                 data.forEach(product => {
                     let productHTML = `
-             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-3 product" id="product${product.id}">
-                        <div class="card">
-                            <a href="/products/${product.id}" >
-                                <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
-                                    class=" product-image" alt="...">
-                            </a>
-                            <div class="card-body">
-                                <a href="/products/${product.id}" >
-                                    <div class="product-name text-left">${product.name}</div>
-                                </a>
-                                <div class="d-flex justify-content-between align-items-center">
-                            <span class="product-price">${product.price}</span>
-                            <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
-                        </div>               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
+                             <div class="col-3 pt-5">
+                                <div class="card m-1">
+                                    <img src="${product.images}"
+                                        class="card-img-top product-image" alt="...">
+                                    <div class="card-body">
+                                        <p class="card-text product-id">${product.id}</p>
+                                        <p class="card-text product-name">${product.name}</p>
+                                        <div class="row d-flex">
+                                            <span class="product-price">${product.price}</span>
+                                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
                     $('.pro').append(productHTML);
                 });
             })
@@ -287,7 +265,6 @@
                 $('.pro').html('');
                 data.pro.forEach(product => {
                     let productHTML = `
-                        <div class="d-flex">
                             <div class="col-3 pt-5">
                                 <div class="card m-1">
                                     <img src="${product.images}" class="card-img-top product-image" alt="...">
@@ -300,8 +277,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>`;
+                            </div>`;
                     $('.pro').append(productHTML);
                     $('.current-page-max').val(data.max);
                 });
