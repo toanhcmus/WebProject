@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 const passport = require("passport");
 const cors = require('cors');
 const https = require('https');
+const helpers = require('./utilities/helpers');
 
 const secret = 'mysecretkey';
 
@@ -40,7 +41,8 @@ require('./mws/passport')(app);
 app.engine('hbs', exphbs.engine({
     extname: '.hbs',
     layoutsDir: __dirname + '/views/layouts',
-    partialsDir: __dirname + '/views/partials'
+    partialsDir: __dirname + '/views/partials',
+    helpers: helpers
 }));
 app.set('view engine', 'hbs');
 app.set('views', './views');

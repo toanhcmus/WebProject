@@ -23,4 +23,7 @@ module.exports = class Bill {
     static async updateStatus(id, status) {
         return await db.updateStatus(id, status);
     }
+    static async selectHoaDon(username) {
+        return await db.selectHoaDon(username);
+    }
 };

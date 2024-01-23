@@ -35,10 +35,10 @@ module.exports = {
         );
 
     },
-    selectHoaDon: async (month, year) => {
+    selectHoaDon: async (username) => {
         const rs = await db.any(
-            'SELECT * FROM "HoaDonBanHang" WHERE EXTRACT(YEAR FROM "NgayLap") = $1 AND EXTRACT(MONTH FROM "NgayLap") = $2;',
-            [year, month]
+            'SELECT * FROM "HoaDonBanHang" WHERE "username" = $1;',
+            [username]
         );
         return rs;
     },

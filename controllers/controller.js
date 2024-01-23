@@ -27,7 +27,16 @@ module.exports = {
             if (req.user) {
                 let account = req.user;
                 if (!req.user) account = req.session.user;
-                res.render('profile', { layout: 'main', account: account });
+                console.log(account);
+                let allBills;
+                if (req.session.passport.user.strategy === 'google') {
+                    allBills = await billM.selectHoaDon(account.Email);
+                } else {
+                    allBills = await billM.selectHoaDon(account.username);
+                }
+                
+                console.log(allBills);
+                res.render('profile', { layout: 'main', account: account, allBills: allBills });
             }
             else {
                 res.render('login', { layout: '' });
