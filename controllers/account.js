@@ -278,4 +278,18 @@ module.exports = {
             }
         }
     },
+    getUsersPage: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
+        let body = req.query;
+        let page = body.page;
+        let perPage = body.perPage;
+        let data = await User.getUsersPage(page, perPage);
+        //console.log(data);
+        res.json(data);
+    },
 }

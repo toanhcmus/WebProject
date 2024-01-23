@@ -38,4 +38,7 @@ module.exports = class User {
         }
         return null;
     }
+    static async getUsersPage(page, perPage) {
+        return await db.getUsersPage(page, perPage);
+    }
 }

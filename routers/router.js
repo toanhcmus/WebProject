@@ -55,6 +55,7 @@ router.get('/payment', auth.ensureAuthenticated, billController.renderBill);
 router.get('/admin/account/remove/:Username', accountController.managerRemoveUser);
 router.get('/admin/account/edit', accountController.managerEditUser);
 router.get('/admin/account/add', accountController.managerAddUser);
+router.get('/admin/account/page', accountController.getUsersPage);
 
 router.post('/admin/products',productController.addProduct);
 router.get('/admin/products',productController.renderProduct);
