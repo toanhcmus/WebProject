@@ -197,16 +197,7 @@ module.exports = {
             next(error);
         }
     },
-    addProduct: async (req, res, next) => {
-        try {
-            console.log(req.body);
-            await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.size,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
-            res.render('./admin/product/viewProduct');
 
-        } catch (error) {
-            console.log(error)
-        }
-    },
     renderChart: async (req, res, next) => {
         try {
             const total=await Product.chart();

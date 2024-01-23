@@ -379,6 +379,21 @@ module.exports = {
 
         return res;
     },
+    getProductByID: async(id) => {
+        try {
+            const res = await db.query (
+            `
+           SELECT * FROM "Products"
+            WHERE "id" = $1
+            `,
+            [id],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }         
+    },
     initDatabase: async function initDatabase() {
         try {
             // Kiểm tra xem database đã tồn tại chưa
@@ -446,7 +461,7 @@ module.exports = {
                INSERT INTO "Categories" VALUES (4, 'Giày Dép Nữ');
                INSERT INTO "Categories" VALUES (5, 'Balo/Túi Nam');
                INSERT INTO "Categories" VALUES (6, 'Túi Ví Nữ');
-               INSERT INTO "Categories" VALUES (7, 'Khác');
+               INSERT INTO "Categories" VALUES (7, 'Đồng hồ nam/nữ');
                COMMIT;
                
 
@@ -519,7 +534,7 @@ module.exports = {
                  "count" integer[],
                  "producer" text,
                  "discount" double precision,
-                 "images" text,
+                 "images" text
                 )
                ;
                

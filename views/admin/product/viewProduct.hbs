@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
 
-                <form  action="/product/add" method="post" id="productForm">
+                <form  action="/admin/products" method="post" id="productForm">
                     <div class="mb-3">
                         <label for="inputID" class="form-label">ID</label>
                         <input type="text" class="form-control" id="inputID" name="inputID" placeholder="Nhập ID" required>
@@ -43,7 +43,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="items" class="form-label">Danh mục</label>
-                        <input type="text" class="form-control" id="items" name="items" placeholder="Nhập danh mục" required>
+                         <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items" required>
+                            <option value="" style="display:none">Choose an option</option>
+                            {{#each categories}}
+                                {{#each items}}
+                            <option value="{{this.itemID}}">{{this.itemName}}</option>
+                            {{/each}}
+                            {{/each}}
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="count" class="form-label">Số lượng</label>
@@ -77,36 +84,11 @@
     <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
         <div>{{this.name}}</div>
         <div class="card-body">
-            <a class="btn btn-primary">Xem chi tiết</a>
+            <a href="/admin/products/id={{this.id}}" class="btn btn-primary">Xem chi tiết</a>
             <a href="#" onclick= "changUrl('{{this.id}}')" class="btn btn-danger">Xoá</a>
-            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                data-bs-target="#editProductModal{{this.id}}">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editProductModal{{this.id}}">
                 Sửa
             </button>
-            <div class="modal fade" id="editProductModal{{this.id}}" tabindex="-1"
-                aria-labelledby="editProductModalLabel{{this.id}}" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editProductModalLabel{{this.id}}">Thay đổi thông tin sản
-                                phẩm</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post">
-                                <!-- CATEGORY -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Đóng</button>
-                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                                </div>
-                            </form>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     {{/each}}
@@ -129,4 +111,10 @@
         }
         else window.location.href = window.location.href + '&delete=' + id;
     }
+   /* function getDetail(id){
+        if (!window.location.href.includes("?")) {
+            // Nếu không có dấu "?", thêm nó vào
+            window.location.href = window.location.href + '?id=' + id;
+        }
+        else window.location.href = window.location.href + '&id=' + id;    }*/
 </script>

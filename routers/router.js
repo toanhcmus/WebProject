@@ -18,14 +18,13 @@ router.get('/products/asc', controller.acs);
 router.get('/products/des', controller.des);
 router.get('/products/az', controller.az);
 router.get('/products/za', controller.za);
-router.post('/product/add',controller.addProduct);
 router.post('/register', accountController.register);
 router.post('/search', controller.search);
 router.post('/addToCart', controller.addToCart);
 router.post('/plus', controller.plus);
 router.post('/minus', controller.minus);
 router.post('/remove', controller.remove);
-router.get('/admin/product',controller.renderAddProduct);
+//router.get('/admin/product',controller.renderAddProduct);
 router.get('/admin/chart',controller.renderChart);
 router.get('/success', controller.renderSuccess);
 
@@ -56,5 +55,8 @@ router.get('/admin/account/remove/:Username', accountController.managerRemoveUse
 router.get('/admin/account/edit', accountController.managerEditUser);
 router.get('/admin/account/add', accountController.managerAddUser);
 
+router.post('/admin/products',productController.addProduct);
 router.get('/admin/products',productController.renderProduct);
+
+router.get('/admin/products/:id',productController.detailProduct);
 module.exports = router;

@@ -5,24 +5,18 @@ const path = require('path');
 module.exports = {
     renderEditCat: async (req, res, next) => {
         try {
-
-            // if (!req.session.ID) {
-            //     res.redirect("/");
-            // }                   
-
             let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
             let urlObj = new URL(url);
-
             let deleteID = urlObj.searchParams.get("delete");
             let editID = urlObj.searchParams.get("edit");
-            let CatName = urlObj.searchParams.get("catName");
+            let catName = urlObj.searchParams.get("catName");
             let add = urlObj.searchParams.get("add");
             
             if (deleteID) {
                 await Category.deleteByID(parseInt(deleteID));
             }
             if (editID) {
-                await Category.updateCategory(parseInt(editID), CatName);
+                await Category.updateCategory(parseInt(editID), catName);
             }
             if (add) {
                 await Category.addCategory(add);
