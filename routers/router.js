@@ -26,6 +26,7 @@ router.post('/minus', controller.minus);
 router.post('/remove', controller.remove);
 //router.get('/admin/product',controller.renderAddProduct);
 router.get('/admin/chart',controller.renderChart);
+router.post('/admin/table',controller.renderTable);
 router.get('/success', controller.renderSuccess);
 router.get('/fail', controller.renderFail);
 

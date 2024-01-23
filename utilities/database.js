@@ -72,6 +72,28 @@ module.exports = {
         }
 
     },
+    getNoiBat: async () => {
+        let query = `
+        SELECT 
+            "Products".id,
+            "Products".name,
+            "Products".price,
+            "Products".images,            
+            COALESCE(SUM("ThongTinHoaDon"."SoLuong"), 0) AS soluong
+        FROM 
+        "Products" 
+        LEFT JOIN 
+             "ThongTinHoaDon" ON "ThongTinHoaDon"."MaSP" = "Products"."id"
+        GROUP BY
+            "Products".id,"Products".name,
+            "Products".price,
+            "Products".images
+        ORDER BY  soluong DESC
+            `
+        const data =  await db.any(query); 
+        console.log('bbbb',data)
+        return data;
+    },
     chart: async () => {
         let query = `
         SELECT
@@ -86,7 +108,29 @@ module.exports = {
         const data = await db.any(query);
         return data;
     },
-
+    table: async (date) => {
+        let query = `
+        SELECT 
+            "Products"."id",
+            "Products"."name",
+            "Products"."price",
+            SUM("ThongTinHoaDon"."SoLuong") AS soluong,
+            SUM("Products"."price" * "ThongTinHoaDon"."SoLuong") AS thanhtien
+        FROM 
+            "HoaDon"
+        JOIN 
+            "ThongTinHoaDon" ON "HoaDon"."MaHoaDon" = "ThongTinHoaDon"."MaHoaDon"
+        INNER JOIN 
+            "Products" ON "ThongTinHoaDon"."MaSP" = "Products"."id"
+        WHERE 
+            EXTRACT(MONTH FROM "HoaDon"."NgayLap"::date) = EXTRACT(MONTH FROM $1::date)
+            AND EXTRACT(YEAR FROM "HoaDon"."NgayLap"::date) = EXTRACT(YEAR FROM $1::date)
+        GROUP BY
+            "Products"."id","Products"."name","Products"."price"
+            `
+        const data =  await db.any(query,[date]); 
+        return data;
+    },
     sort: async (option) => {
         let data;
         if (option === "decrease") {

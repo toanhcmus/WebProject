@@ -6,9 +6,9 @@ module.exports = {
     render: async (req, res, next) => {
         try {
             const product = await Product.allProduct();
-            // console.log("render", req.session);
+            const noibat = await  Product.getNoiBat();
             const cart = req.session.cart;
-            res.render('home', { layout: 'main', items: product, cart: cart });
+            res.render('home', { layout: 'main', items: product.slice(0, 4),noibat:noibat.splice(0,4) ,cart: cart });
         }
         catch (error) {
             next(error);
@@ -227,6 +227,29 @@ module.exports = {
         
             res.render('./admin/product/chart', data);
 
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    renderTable: async (req, res, next) => {
+        try {
+            const table=await billM.table(req.body.datepicker);
+            console.log(table)
+            const total=await Product.chart();
+            let tien=new Array(12).fill(0);
+            for(let i=0;i<12;i++)
+            {
+                if(total[i]){
+                    if(total[i].thang)
+                    tien[total[i].thang-1]=total[i].thanhtien;
+                }
+               
+            }
+            
+                x=JSON.stringify([1, 2, 3, 4,5,6,7,8,9,10,11,12]),
+                y=JSON.stringify(tien)
+        
+            res.render('./admin/product/chart', {x:x,y:y,table:table});
         } catch (error) {
             console.log(error)
         }

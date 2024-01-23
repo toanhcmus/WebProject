@@ -29,10 +29,12 @@ module.exports = class Product {
     }
     static async chart() {
         const data=await db.chart();
-        
         return data;
     }
-    
+    static async getNoiBat() {
+        console.log('day')
+        return await db.getNoiBat();
+    }
     static async getProductByCategoryItem(itemID){
         return await db.getProductByCategoryItem(itemID);
     }

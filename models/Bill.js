@@ -26,4 +26,7 @@ module.exports = class Bill {
     static async selectHoaDon(username) {
         return await db.selectHoaDon(username);
     }
+    static async table(date) {
+        return await db.table(date);
+    }
 };
