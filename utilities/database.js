@@ -219,7 +219,7 @@ module.exports = {
         }
     },
     allCategory: async () => {
-        const data = await db.any(`SELECT * FROM "Categories"`);
+        const data = await db.any(`SELECT * FROM "Categories" ORDER BY "catID" ASC`);
         return data;
     },
 
@@ -323,6 +323,62 @@ module.exports = {
         }
     },
 
+    getProductByCategory: async(catID) => {
+        try {
+            const res = await db.query (`
+            SELECT * FROM "Products" p
+            JOIN "CategoryItems" c ON p."item" = c."itemID"
+            JOIN "Categories" ca ON c."catID" = ca."catID"
+            WHERE ca."catID" = ${catID} 
+            `);
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }        
+    },
+
+    getProductByCategoryItem: async(itemID) => {
+        try {
+            const res = await db.query (`
+            SELECT * FROM "Products" p
+            JOIN "CategoryItems" c ON p."item" = c."itemID"
+            WHERE c."itemID" = '${itemID}'
+            `);
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }  
+    },
+    deleteProduct: async(id) => {
+        try {
+            const res = await db.query (
+            `
+            DELETE FROM "Products"
+            WHERE "id" = $1
+            --CASCADE
+            `,
+            [id],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }         
+    },
+    updateProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl) => {
+        const res = await db.db.query(
+            `
+            UPDATE "Products"
+            SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=$6,"item"=$7, "count"=$8, "producer"=$9, "imageUrl"=$10
+            WHERE "id" = $1
+            `,
+            [id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl],
+        );
+
+        return res;
+    },
     initDatabase: async function initDatabase() {
         try {
             // Kiểm tra xem database đã tồn tại chưa
