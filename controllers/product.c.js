@@ -79,12 +79,17 @@ module.exports = {
         try {
         let id = req.params.id;
         let product = await Product.getProductByID(id);
+        let categories = await Category.allCategory();       
+        let categoryItems = await Category.allCategoryItem();
+        let dataForHbs = categories.map((categories) => {
+            const items = categoryItems.filter((item) => item.catID === categories.catID);
+            return { ...categories, items };
+        });
+
         let productCon = await Product.getProductCon(id);
         let productSuggest = await Product.getProductSuggest(id);
         product = product ? product[0] : {};
-        console.log(id);
-        console.log(product);
-        res.render("details", {product: product,title: "Product" });
+        res.render("details", {product: product,categories: dataForHbs, productCon, productSuggest,title: "Product" });
 
         } catch (error) {
             console.log(error)
