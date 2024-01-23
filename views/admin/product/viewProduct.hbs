@@ -84,11 +84,74 @@
     <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
         <div>{{this.name}}</div>
         <div class="card-body">
-            <a href="/admin/products/{{this.id}}" class="btn btn-primary">Xem chi tiết</a>
-            <a href="#" onclick= "changUrl('{{this.id}}')" class="btn btn-danger">Xoá</a>
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editProductModal{{this.id}}">
-                Sửa
-            </button>
+            <a href="/admin/products/{{this.id}}" class="btn">Xem chi tiết</a>
+            <a onclick= "changUrl('{{this.id}}')" data-product-id="{{this.id}}" class="btn delete-product">Xoá</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.id}}">
+                Chỉnh sửa
+            </button>                        
+            <div class="modal fade" id="exampleModal{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form  action="/admin/products/{{this.id}}" method="post" id="productForm">
+                    <div class="mb-3">
+                        <label for="inputID" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="inputID" name="inputID1" value="{{this.id}}"placeholder="ID: " readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="inputName" name="inputName1" value="{{this.name}}" placeholder="Nhập tên sản phẩm">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="{{this.tinyDes}}" placeholder="Nhập mô tả ngắn" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
+                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="{{this.fullDes}}" ></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price1" value="{{this.price}}" placeholder="Nhập giá">
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Kích thước</label>
+                        <input type="text" class="form-control" id="size" name="size1" value="{{this.size}}" placeholder="Nhập kích thước">
+                    </div>
+                    <div class="mb-3">
+                        <label for="items" class="form-label">Danh mục</label>
+                         <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
+                            <option value="{{this.item}}" style="display:none" selected>Choose an option</option>
+                            {{#each ../categories}}
+                                {{#each items}}
+                            <option value="{{this.itemID}}">{{this.itemName}}</option>
+                            {{/each}}
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="count" class="form-label">Số lượng</label>
+                        <input class="form-control" id="count" name="count1" value="{{this.count}}" placeholder="Nhập số lượng">
+                    </div>
+                    <div class="mb-3">
+                        <label for="producer" class="form-label">Nhà sản xuất</label>
+                        <input type="text" class="form-control" id="producer" name="producer1" value="{{this.producer}}" placeholder="Nhập nhà sản xuất">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+            </div>
         </div>
     </div>
     {{/each}}

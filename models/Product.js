@@ -42,8 +42,8 @@ module.exports = class Product {
     static async deleteProduct(id){
         return await db.deleteProduct(id);
     }
-    static async updateByID(id,name,tinyDes,fullDes,price, size,items,count,producer,imageUrl){
-       return await db.updateProduct(id,name,tinyDes,fullDes,price, size,items,count,producer,imageUrl);
+    static async updateByID(id,name,tinyDes,fullDes,price, size,items,count,producer){
+       return await db.updateProduct(id,name,tinyDes,fullDes,price, size,items,count,producer);
     } 
     static async getProductByID(id){
         return await db.getProductByID(id);

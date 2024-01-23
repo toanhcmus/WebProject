@@ -58,7 +58,7 @@
     </div>
     <div class="row">
         <div class="col-8">
-        <h2 class="titleDetails">CHI TIẾT SẢN PHẨM</h2>
+        <h4 class="titleDetails">CHI TIẾT SẢN PHẨM</h4>
         <table class="table table-borderless">
             <body>
             <tr>
@@ -77,7 +77,7 @@
         </table>
         <h2 class="titleDetails">MÔ TẢ SẢN PHẨM</h2>
         <p>{{product.fullDes}}</p>
-        <h2 style="margin-top: 20px;"class="tableDetails">SẢN PHẨM LIÊN QUAN</h2>
+        <h4 style="margin-top: 20px;"class="tableDetails">SẢN PHẨM LIÊN QUAN</h4>
         <div class="d-flex justify-content-evenly flex-wrap">
             {{#each productCon}}
             <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
@@ -119,16 +119,4 @@
             quantityInput.value = value;
         });
     });
-$(document).ready(function () {
-$(document).ready(function () {
-$('#size').change(function () {
-    var selectedSize = $(this).val();
-    var maxCount = $(this).find('option:selected').data('count');
-    
-    // Đặt giá trị tối đa của input số lượng là số lượng tương ứng với kích thước đã chọn
-    $('#quantity').attr('max', maxCount);
-});
-});
-});
-
 </script>
