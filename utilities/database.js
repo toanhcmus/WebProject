@@ -54,7 +54,7 @@ module.exports = {
         await db.none(updateQuery, [status, id]);
     },
     allProduct: async () => {
-        const data = await db.any(`SELECT * FROM "Products"`);
+        const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
         return data;
     },
     search: async (name) => {
@@ -423,18 +423,23 @@ module.exports = {
             throw error;
         }
     },
-    updateProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl) => {
-        const res = await db.db.query(
+    updateProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer) => {
+        try {
+            const res = await db.query(
             `
             UPDATE "Products"
-            SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=$6,"item"=$7, "count"=$8, "producer"=$9, "imageUrl"=$10
-            WHERE "id" = $1
+            SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=ARRAY[$6],"item"=$7, "count"=ARRAY[$8], "producer"=$9
+            WHERE "id" = $1;
             `,
-            [id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl],
+            [id, name, tinyDes, fullDes, price, size, items, count, producer],
         );
-
+        
         return res;
+        } catch (error) {
+            console.log(error);
+        }
     },
+
     getProductByID: async (id) => {
         try {
             const res = await db.query(
@@ -442,6 +447,51 @@ module.exports = {
            SELECT * FROM "Products"
             WHERE "id" = $1
             `,
+                [id],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    getProductCon: async (id) => {
+        try {
+            const res = await db.query(`
+            SELECT *
+            FROM "Products"
+            WHERE "item" = (SELECT "item" FROM "Products" WHERE "id" = $1)
+            AND "id" != $1;
+            `,
+            [id],);
+            return res
+        }catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    getProductSuggest: async (id) => {
+        try {
+            const res = await db.query(
+                `SELECT *
+                FROM "Products"
+                WHERE "item" IN (
+                    SELECT "itemID"
+                    FROM "CategoryItems"
+                    WHERE "catID" IN (
+                        SELECT "catID"
+                        FROM "Categories"
+                        WHERE "catID" = (
+                            SELECT "catID"
+                            FROM "CategoryItems" 
+                            JOIN "Products" ON "item" = "itemID"
+                            WHERE "id" = $1
+                        )
+                    )
+                )
+                ORDER BY RANDOM()
+                LIMIT 10;
+                `,
                 [id],
             );
             return res;

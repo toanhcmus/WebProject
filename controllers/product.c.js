@@ -34,7 +34,7 @@ module.exports = {
     addProduct: async (req, res, next) => {
         try {
             console.log(req.body);
-            await product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.size,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
+            await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.size,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
            
             res.redirect('back');
         } catch (error) {
@@ -42,27 +42,34 @@ module.exports = {
         }
 
     },
+    editProduct: async (req, res, next) => {
+        try {
+            console.log(req.body);
+            const countArray = req.body.count1.split(',').map(Number);
+            await Product.updateByID(req.body.inputID1,req.body.inputName1,req.body.tinyDes1, req.body.fullDes1,req.body.price1,req.body.size1,req.body.items1,countArray,req.body.producer1);
+           
+            res.redirect('back');
+        } catch (error) {
+            console.log(error)
+            res.redirect('back');
+        }
+    },
     detailProduct: async (req, res, next) => {
         try {
-            /*let categories = await Category.allCategory();
-            const id = req.params.id;
-            let product = await Product.getProductByID(id);
-            res.render("admin/product/detailProduct", { categories, product, title: "Product" });*/
-
-        //let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
-        //let urlObj = new URL(url);
         let id = req.params.id;
-        let product;
-        if(id){
-            product = await Product.getProductByID(id);
-        }        
+        let product = await Product.getProductByID(id);
+        
         let categories = await Category.allCategory();       
         let categoryItems = await Category.allCategoryItem();
         let dataForHbs = categories.map((categories) => {
             const items = categoryItems.filter((item) => item.catID === categories.catID);
             return { ...categories, items };
         });
-        res.render("admin/product/detailProduct", {product, categories: dataForHbs,title: "Product" });
+
+        let productCon = await Product.getProductCon(id);
+        let productSuggest = await Product.getProductSuggest(id);
+        product = product ? product[0] : {};
+        res.render("admin/product/detailProduct", {product: product, categories: dataForHbs, productCon, productSuggest,title: "Product" });
 
         } catch (error) {
             console.log(error)
