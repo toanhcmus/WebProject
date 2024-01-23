@@ -1,3 +1,35 @@
+<style>
+    
+.product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s ease; /* Thêm hiệu ứng transition */
+}
+.product:hover .product-name {
+    white-space: normal; /* Hiển thị toàn bộ nội dung khi hover */
+    overflow: visible;
+    text-overflow: initial;
+}
+.product-image {
+    width: 170px;
+    align-items: center;
+}
+.product {
+    width: 200px;
+    height: 300px;
+    margin-bottom: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+.product:hover {
+  transform: scale(1.1); /* Khi hover, phóng to lên 110% */
+  z-index: 2; /* Đặt z-index cao hơn để đảm bảo phần tử hover ở trên cùng */
+}
+
+</style>
 <div class="container-fluid text-center">
     <div id="carouselExample" class="carousel slide" style="height: 30%;">
         <div class="carousel-inner h-100">
@@ -94,22 +126,21 @@
             </h1>
         </div>
         {{#each items}}
-        <div class="col-3 pt-5">
-            <div class="card m-1">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
-                    class="card-img-top product-image" alt="...">
-                <div class="card-body">
-                    <p class="card-text product-id">{{this.id}}</p>
-                    <p class="card-text product-name">{{this.name}}</p>
-                    <div class="row d-flex">
-                        <span class="product-price">{{this.price}}</span>
-                        <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+            <a href="/products/{{this.id}}" class="col-3 pt-3 product" id="product{{this.id}}">
+                <div class="card m-0.5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
+                        class="card-img-top product-image" alt="...">
+                    <div class="card-body">
+                        <p class="card-text product-id">{{this.id}}</p>
+                        <p class="card-text product-name">{{this.name}}</p>
+                        <div class="row d-flex">
+                            <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </a>
         {{/each}}
-
 
 
         <div class="row pt-5 ">
@@ -153,20 +184,20 @@
         
 
         {{#each noibat}}
-        <div class="col-3 pt-5">
-            <div class="card m-1">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
-                    class="card-img-top product-image" alt="...">
-                <div class="card-body">
-                    <p class="card-text product-id">{{this.id}}</p>
-                    <p class="card-text product-name">{{this.name}}</p>
-                    <div class="row d-flex">
-                        <span class="product-price">{{this.price}}</span>
-                        <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+            <a href="/products/{{this.id}}" class="col-3 pt-3 product" id="product{{this.id}}">
+                <div class="card m-0.5">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
+                        class="card-img-top product-image" alt="...">
+                    <div class="card-body">
+                        <p class="card-text product-id">{{this.id}}</p>
+                        <p class="card-text product-name">{{this.name}}</p>
+                        <div class="row d-flex">
+                            <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </a>  
         {{/each}}
 
         <div class="row text-center bg-body-secondary">
@@ -214,3 +245,16 @@
     </div>
    
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const products = document.querySelectorAll('.product');
+
+  products.forEach(product => {
+    product.addEventListener('click', function () {
+      const details = this.querySelector('.details');
+      alert(details.innerText); // Replace this with your logic to show detailed information
+    });
+  });
+});
+
+</script>

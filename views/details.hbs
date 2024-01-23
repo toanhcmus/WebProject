@@ -1,609 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600&display=swap" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <title>Details of Product</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .filter-line{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            margin-left: 20px;
-            margin-right: 20px;
-            width: 90%;
-        }
-        .container-fluid {
-            margin-bottom: 50px;
-        }
-        .pipe-separator {
-          display: inline-block;
-          margin: 0 5px;
-        }
-        .text-box {
-          border: 1px solid #ff0000; /* Màu và độ rộng của khung */
-          padding: 5px; /* Khoảng cách giữa nội dung và khung */
-          display: inline-block; /* Hiển thị văn bản như một khối inline */
-          font-weight: bold;
-          margin-left: 7px;
-          color: red;
-          font-size: 10px;
-          vertical-align: top;
-          margin-top: 7px;
-        }
-        .textboxSize {
-          color: black;
-          border-radius: 10%;
-          border: 1px solid gray;
-          padding: 10px;
-          vertical-align: middle;
-          font-size: 10px;
-          width: 70px;
-        }
-        .tableDetails {
-          font-weight: bold;
-          text-align: left;
-          align-items: center;
-          vertical-align: middle;
-        }
-        .circle {
-          width: 30px; /* Chiều rộng */
-          height: 30px; /* Chiều cao */
-          border-radius: 50%; /* Tạo hình tròn */
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white; /* Màu chữ */
-          font-weight: bold; /* Độ đậm của chữ */
-        }
-        .quantity {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .quantity-input {
-            width: 60px;
-            height: 40px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .minus-btn,
-        .plus-btn {
-            width: 40px;
-            height: 40px;
-            font-weight: bold;
-            font-size: 25px;
-            text-align: center;
-            color: gray;
-            background-color: #ffffff;
-            cursor: pointer;
-            border-width: 1px; 
-        }
-
-        .minus-btn:hover,
-        .plus-btn:hover {
-          background-color: #ffffff;
-        }
-        .add-btn {
-          width: 300px;
-          height: 50px;
-          font-weight: bold;
-          font-size: 15px;
-          text-align: center;
-          color: red;
-          background-color: #ffffff;
-          cursor: pointer;
-          border-width: 1px; 
-          border-color: red;
-
-          background-image: linear-gradient(to right, white 0%, white 50%, red 50%, red 100%);
-          background-size: 200% 100%;
-          transition: background-position 0.5s;
-        }
-        .add-btn:hover {
-          background-color: red;
-          color: white;
-          background-position: -100% 0;
-        }
-        .buy-btn {
-          width: 300px;
-          height: 50px;
-          font-weight: bold;
-          font-size: 15px;
-          text-align: center;
-          background-color: red;
-          color: white;
-          cursor: pointer;
-          border-width: 1px; 
-          border-color: red;
-        }
-        .buy-btn:hover {
-          background-color: rgb(111, 16, 16);
-          color: white;
-        }
-        .endow-btn {
-          width: 605px;
-          height: 50px;
-          font-weight: bold;
-          font-size: 15px;
-          text-align: center;
-          background-color: rgb(0, 0, 0);
-          color: white;
-          cursor: pointer;
-          border-width: 1px; 
-        }
-        .endow-btn:hover {
-          background-color: rgb(121, 121, 121);
-          color: white;
-        }
-        .titleDetails {
-          font-weight: bold;
-          font-size: 20px;
-          text-align: left;
-          margin: 10px 10px 10px 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container-fluid text-center" style="font-family:'Newsreader', serif;">
-        <div class="row text-center pt-5">
-            <h1>
-                Thông tin chi tiết sản phẩm
-            </h1>
+<div class="container-fluid text-center">
+    <div class="row text-center pt-5">
+    </div>
+    <div class="row">
+        <div class="col">     
+      <img src="{{product.images}}"
+      class="card-img-top" alt="...">                  
         </div>
-        <div class="row">
-            <div class="col">
-                <div id="carouselExampleIndicators" class="carousel slide">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg" class="d-block w-100" alt="..." style="object-fit: contain;object-position: center;">
-                        
-                      </div>
-                      <div class="carousel-item">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg" class="d-block w-100" alt="..." style="object-fit: contain;object-position: center;">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg" class="d-block w-100" alt="..." style="object-fit: contain;object-position: center;">
-                      </div>
-                      <div class="carousel-item active">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg" class="d-block w-100" alt="..." style="object-fit: contain;object-position: center;">
-                        
-                      </div>
-                      <div class="carousel-item">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg" class="d-block w-100" alt="..." style="object-fit: contain;object-position: center;">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg" class="d-block w-100" alt="..." style="object-fit: contain;object-position: center;">
-                      </div>                      
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" >
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            
-                <div class="carousel-inner h-50" id="thumbnailCarousel">
-                  <div class="carousel-item active d-flex text-center">
-                      <div class="col-2">
-                          <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                              class="d-block w-100 p-1" alt="..." >
-                      </div>
-                      <div class="col-2">
-                          <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                              class="d-block w-100 p-1" alt="..." >
-                      </div>
-                      <div class="col-2">
-                          <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                              class="d-block w-100 p1" alt="..." >
-                      </div>
-                      <div class="col-2">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="d-block w-100 p1" alt="..." >
-                      </div>
-                      <div class="col-2">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="d-block w-100 p1" alt="..." >
-                      </div>
-                      <div class="col-2">
-                        <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                            class="d-block w-100 p1" alt="..." >
-                      </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#thumbnailCarousel" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#thumbnailCarousel"
-                      data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                  </button>
-              </div>
-
-              
-            </div>
+        <div class="col-8">
+            <div class="row">
             <div class="col-8">
-              <div class="row">
-                <div class="col-8">
-                  <h3 style="text-align: left;font-weight: bold;">Áo thun nam</h3>
-                  <div class="row containerDetails" style="text-align: left;">
-                    <p>Mã sản phẩm: 
-                      <span style="font-weight: bold;">TSM0023-1</span> 
-                      <span class="pipe-separator">|</span>Tình trạng: 
-                      <span style="font-weight: bold;">Còn hàng</span> 
-                    </p>
-                  </div>
-                  <div class="row containerDetails" style="text-align: left;">
-                    <p>
-                      <span style="font-weight: bold;">5.0</span> 
-                      <span class="pipe-separator">|</span>
-                      <span style="font-weight: bold;">1000000</span> Đánh giá
-                      <span class="pipe-separator">|</span>
-                      <span style="font-weight: bold;">2000000</span> Đã bán
-                    </p>
-                  </div>
-
-                  <table class="table table-borderless" >
-                    <tbody>
-                      <tr>
-                        <th class="tableDetails" scope="row">Giá:</th>
-                        <td style="text-align: left;">
-                            <span style="font-size: 35px; color: red;font-weight: bold;">100,000 đ</span>
-                            <span style="color: gray; font-size: 20px; margin-left: 7px; text-decoration: line-through;">120,000 đ</span>
-                            <span class="text-box">-16.7%</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="tableDetails" scope="row">Màu sắc: </th>
-                        <td style="vertical-align: middle; display: flex; gap: 5px;">
-                          <span class="circle" style="background-color: rgb(38, 135, 226);"></span>
-                          <span class="circle" style="background-color: rgb(7, 96, 240)"></span>
-                          <span class="circle" style="background-color: rgb(30, 0, 255)"></span>
-                          <span class="circle" style="background-color: rgb(0, 0, 0)"></span>
-                        </td>
-                      </tr>
-                      <tr>
+                <h3 style="text-align: left;font-weight: bold;">{{product.name}}</h3>
+                <div class="row containerDetails" style="text-align: left;">
+                <p>Mã sản phẩm: 
+                    <span style="font-weight: bold;">{{product.id}}</span> 
+                </p>
+                </div>
+                <table class="table table-borderless" >
+                <tbody>
+                    <tr>
+                    <th class="tableDetails" scope="row">Giá:</th>
+                    <td style="text-align: left;">
+                        <span style=" color: red;font-weight: bold;">{{product.price}}
+                        </span>
+                        {{#if (product.discount)}}
+                            <span style="color: gray; font-size: 20px; margin-left: 7px; text-decoration: line-through;">{{product.price}}</span>
+                            <span class="text-box">{{product.discount}}</span>
+                        {{else}} <span></span>
+                        {{/if}}
+                    </td>
+                    </tr>
+                    <tr>
                         <th class="tableDetails" scope="row">Kích thước: </th>
-                        <td style="display: flex; gap: 5px;">
-                          <span class="textboxSize">M</span>
-                          <span class="textboxSize">L</span>
-                          <span class="textboxSize">XL</span>
-                          <span class="textboxSize">2XL</span>
-                          <span class="textboxSize">3XL</span>
-                        </td>
-                      </tr>
-                      <tr>..
-                        <th class="tableDetails" scope="row"></th>
-                        <td style="display: flex; gap: 5px;">
-                          <span style="text-align: left;">Hướng dẫn chọn size</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="tableDetails" scope="row">Số lượng:</th>
-                        <td style="display: flex; gap: 5px;">
-                          <div class="quantity">
-                            <button class="minus-btn">-</button>
-                            <input type="text" class="quantity-input" value="1">
-                            <button class="plus-btn">+</button>
-                        </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div style="display: flex; gap: 5px;">
-                      <button class="add-btn">THÊM VÀO GIỎ</button>
-                      <button class="buy-btn">MUA NGAY</button>
-                  </div>
-                  <div  style="display: flex; gap: 5px;margin-top: 8px;">
-                    <button class="endow-btn">CLICK VÀO ĐÂY ĐỂ NHẬN NGAY ƯU ĐÃI</button>
-                  </div>
-                  <table class="table table-borderless" style="margin-top: 5px;">
-                    <body>
-                      <tr>
-                        <th class="tableDetails" scope="row">Chia sẻ: </th>
                         <td>
-                          <div class="social-icons" style="vertical-align: middle; display: flex; gap: 20px;font-size: 25px">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-facebook-messenger"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-telegram"></i></a>
-                            <a href="#"><i class="fab fa-unsplash"></i></a>
-                        </div>
+                        <select class="form-select form-select-sm" aria-label="Small select example" style="height: 35px; width: 150px;" id="size" name="size" required>
+                            <option value="" style="display:none">Chọn kích thước</option>
+                            {{#each product.size as |size|}}
+                            <option value="{{size}}">{{size}}</option>
+                            {{/each}}
+                        </select>                        
                         </td>
-                      </tr>
-                    </body>
-                  </table>
-                </div>
-                <div class="col">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">Chính sách bán hàng</a>
-                      <ul class="list-group" style="text-align: left;">
-                        <li class="list-group-item"> Cam kết 100% chính hãng</li>
-                        <li class="list-group-item">Miễn phí giao hàng</li>
-                        <li class="list-group-item">Hỗ trợ 24/7</li>
-                      </ul>
-                    <a href="#" class="list-group-item list-group-item-action">Thông tin thêm</a>
-                    <ul class="list-group" style="text-align: left;">
-                      <li class="list-group-item">Hoàn tiền 111% nếu hàng giả</li>
-                      <li class="list-group-item">Mở hộp kiểm tra nhận hàng</li>
-                      <li class="list-group-item">Đổi trả trong 7 ngày</li>
-                    </ul>
-                  </div>
-                  <img src="https://cdn.thuvienphapluat.vn//uploads/tintuc/2022/02/21/KHUY%E1%BA%BEN%20M%E1%BA%A0I.png" class="d-block w-100" alt="..." style="object-fit: contain;">
-                </div>
-              </div>
+                    </tr>
+                    <tr>
+                    <th class="tableDetails" scope="row">Số lượng:</th>
+                    <td style="display: flex; gap: 5px;">
+                        <div class="quantity">
+                        <button class="minus-btn">-</button>
+                        <input type="text" class="quantity-input" value="1">
+                        <button class="plus-btn">+</button>
+                    </div>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
             </div>
-
         </div>
-        <div class="row">
-          <div class="col-8">
-            <h2 class="titleDetails">CHI TIẾT SẢN PHẨM</h2>
-            <table class="table table-borderless">
-              <body>
-                <tr>
-                  <th class="tableDetails" scope="row">Danh mục </th>
-                  <td style="display: flex; gap: 5px;">
-                    Shopee > Thời Trang Nam > Áo > Áo Thun
-                  </td>
-                </tr>
-                <tr>
-                  <th class="tableDetails" scope="row">Thương hiệu </th>
-                  <td style="display: flex; gap: 5px;">
-                    DOFIZS
-                  </td>
-                </tr>
-                <tr>
-                  <th class="tableDetails" scope="row">Xuất xứ </th>
-                  <td style="display: flex; gap: 5px;">
-                    Việt Nam
-                  </td>
-                </tr>
-                <tr>
-                  <th class="tableDetails" scope="row">Chiều dài tay áo </th>
-                  <td style="display: flex; gap: 5px;">
-                    Tay ngắn
-                  </td>
-                </tr>
-                <tr>
-                  <th class="tableDetails" scope="row">Kho hàng </th>
-                  <td style="display: flex; gap: 5px;">
-                    252432
-                  </td>
-                </tr>
-                <tr>
-                  <th class="tableDetails" scope="row">Gửi từ </th>
-                  <td style="display: flex; gap: 5px;">
-                    TP. Hồ Chí Minh
-                  </td>
-                </tr>
-              </body>
-            </table>
-            <h2 class="titleDetails">MÔ TẢ SẢN PHẨM</h2>
-            <p>✅MÔ TẢ SẢN PHẨM Áo thun nam Pro-cool Basics Dofizs chất liệu vải thoáng mát - thoải mái Dri-cool - Chất Liệu Thành phần vải thun hdệt kiểu Mesh, thoáng khí với định lượng vải siêu nhẹ + Sợi Polyester: 95% + Sợi Spandex: 5% (Tạo độ co giãn 4 chiều) + Thấm hút mồ hôi tốt, không nóng bức khi vận động nhiều, không nhăn, không co rút sau khi giặt. 💢 Đặc điểm nổi bật 💢 - Thiết kế trang nhã, màu sắc ấn tượng, tiện dụng và thoải mái mang đến vẻ thanh lịch, tự tin cho người mặc. - Form áo suông phù hợp với mọi độ tuổi, tay áo bo nhẹ khỏe khoắn. - Áo Thun có cổ rất đa năng, mặc được trong nhiều dịp khác nhau, đi dạo phố cùng bạn bè, đi phượt, mặc hàng ngày... - Với thiết kế đơn giản nhưng đẳng cấp, cùng với sự tiện dụng và thoải mái khi mặc. - Giá cả hợp lý, chất lượng cao - Xuất Xứ : Sản Xuất tại Việt Nam 💢 Màu sắc 💢 - Màu Đen - Màu Trắng - Màu Xanh đá - Màu Xanh bóng đem 💢 HƯỚNG DẪN CHỌN Size 💢 - Size M (58kg) - Size L (59kg-64kg) - Size XL (65kg-70kg) - Size XXL (71kg-76kg) -Size : M - L - XL - XXL - Theo từng kích cỡ riêng để đáp ứng nhu cầu của mọi khách hàng 💢 CAM KẾT 💢 - Hàng chính hãng 100% , sản xuất tại Việt Nam với những bàn tay lành nghề của thợ may việt nam - Tất cả những sản phẩm gửi đến tay khách hàng đều được kiểm tra kĩ lưỡng về sản phẩm , bao bì - Luôn hỗ trợ nhanh chóng yêu cầu của khách hàng CHÍNH SÁCH BẢO HÀNH: ✔️ Đội ngũ tư vấn luôn có mặt 24/7 để giải đáp kịp thời mọi thắc mắc của khách hàng liên quan đến sản phẩm. ✔️ Thời gian chuẩn bị và giao hàng nhanh chóng. ✔️Quý khách được đổi/ trả sản phẩm trong vòng 7 ngày với lỗi do phía nhà sản xuất. ✔️Hoàn Tiền 100% Nếu Không Đúng Sản Phẩm Chất Lượng ✔️Đổi trả theo quy định của Shopee ✔️ Nhận sỉ số lượng lớn toàn quốc ✔️Lưu ý: Shop chỉ chấp nhận đổi/trả hàng 1 trong những trường hợp sau: • Không quá 7 ngày kể từ ngày giao hàng thành công • Sản phẩm lỗi • Shop gửi thiếu hoặc gửi sai sản phẩm • Nếu khách muốn đổi/trả hàng không có lỗi từ phía shop, vui lòng thanh toán phí ship 2 chiều giúp shop • Đối với những sản phẩm tham gia chương trình Khuyến Mại - giảm giá sâu - ( shop không hỗ trợ đổi size ) #Gustgo #Áo_Thun #Áo_thun_nam #Áo_polo #áo_polo_nam #áo_quần #polo_nam #áo_cổ_bẻ #áo_có_cổ #áo_cổ_trụ #áo_ngắn_tay #aothun  #aococo  #aothuncotru  #aothuncasau  #aocasau  #áocásấu  #aothunnam  #aothunnu  #aonam  #aonu #aothunden #aopolonam #aopolo #aonam #aopolo ....................................................................................................... áo thun nam có cổ, áo phông nam có cổ, áo thun có cổ, áo thun polo nam, ao thun polo nam, áo phông polo nam, ao phong polo nam, áo thun nam polo, ao thun nam polo, áo polo nam đẹp, ao polo nam dep, polo nam, polo, áo thun nam cổ bẻ, áo thun nam, ao thun nam, áo thun nam ngắn tay cổ bẻ, áo thun cổ bẻ, áo phông cổ bẻ, áo phông nam cổ bẻ, áo phông nam ngắn tay cổ bẻ.</p>
-            <h2 class="titleDetails">ĐÁNH GIÁ SẢN PHẨM</h2>
-
-            <h2 class="titleDetails">CÂU HỎI THƯỜNG GẶP</h2>
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button" style="font-weight: bold;"type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                    Làm thế nào để tôi đặt hàng online?
-                  </button>
-                </h2>
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                  <div class="accordion-body">
-                    Chúng tôi rất vui lòng hỗ trợ khách hàng đặt hàng online bằng một trong những cách đặt hàng sau:
-                      - Truy cập trang web.
-                      - Gửi email đặt hàng về địa chỉ của cửa hàng.
-                      - Liên hệ số hotline: 123456789 để đặt sản phẩm.
-                      - Chat với tư vấn viên trên fanpage.
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" style="font-weight: bold;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                    Nếu tôi đặt hàng trực tuyến có những rủi ro gì không?
-                  </button>
-                </h2>
-                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    Khách hàng không phải lo lắng, vì chúng tôi cam kết cung cấp sản phẩm chất lượng tốt, giá cả phải chăng. Đặc biệt, khách hàng sẽ nhận được sản phẩm và thanh toán cùng một thời điểm.                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" style="font-weight: bold;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                    Nếu tôi mua sản phẩm với số lượng nhiều thì giá có được giảm không?
-                  </button>
-                </h2>
-                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    Khi mua hàng với số lượng nhiều khách hàng sẽ được hưởng chế độ ưu đãi, giảm giá ngay tại thời điểm mua hàng.
-                    Khách hàng vui lòng liên hệ Mode để được hỗ trợ trực tiếp qua số điện thoại: 123456789                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    </div>                 
+    </div>
+    <div class="row">
+        <div class="col-8">
+        <h4 class="titleDetails">CHI TIẾT SẢN PHẨM</h4>
+        <table class="table table-borderless">
+            <body>
+            <tr>
+                <th class="tableDetails" scope="row">Danh mục </th>
+                <td style="display: flex; gap: 5px;">
+                {{product.item}}
+                </td>
+            </tr>
+            <tr>
+                <th class="tableDetails" scope="row">Thương hiệu </th>
+                <td style="display: flex; gap: 5px;">
+                {{product.producer}}
+                </td>
+            </tr>
+            </body>
+        </table>
+        <h2 class="titleDetails">MÔ TẢ SẢN PHẨM</h2>
+        <p>{{product.fullDes}}</p>
+        <h4 style="margin-top: 20px;"class="tableDetails">SẢN PHẨM LIÊN QUAN</h4>
+        <div class="d-flex justify-content-evenly flex-wrap">
+            {{#each productCon}}
+            <a href="/products/{{this.id}}" class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
+                <div>{{this.name}}</div>
+                <div>{{this.price}}</div>
+            </a>
+            {{/each}}
         </div>
-        <div class="row">
-          <h2 style="margin-top: 20px;"class="tableDetails">SẢN PHẨM LIÊN QUAN</h2>
-          <div class="row p-5 text-center">
-            <div class="col-3">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 ">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            
-        </div>
-        <div class="row">
-          <h2 style="margin-top: 20px;"class="tableDetails">SẨN PHẨM ĐÃ XEM<h2>
-            <div class="row p-5 text-center">
-              <div class="col-3">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 ">
-                <div class="card m-1">
-                    <img src="https://onoff.vn/media/catalog/product/cache/ecd9e5267dd6c36af89d5c309a4716fc/18TS22S137.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">
-                            Áo thun cho nam
-                        </p>
-                        <div class="row d-flex">
-                            <span>100.000</span>
-                            <span>THÊM VÀO GIỎ</span>
-                        </div>
-                    </div>
-                </div>
-
+         <h2 style="margin-top: 20px;"class="tableDetails">MỘT SỐ SẢN PHẨM KHÁC CỦA SHOP</h2>
+        <div class="d-flex justify-content-evenly flex-wrap">
+            {{#each productSuggest}}
+            <a href="/products/{{this.id}}" class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
+                <div>{{this.name}}</div>
+                <div>{{this.price}}</div>
+            </a>
+            {{/each}}
         </div>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const minusBtn = document.querySelector(".minus-btn");
-          const plusBtn = document.querySelector(".plus-btn");
-          const quantityInput = document.querySelector(".quantity-input");
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-          minusBtn.addEventListener("click", function() {
-              let value = parseInt(quantityInput.value);
-              value = isNaN(value) ? 0 : value;
-              value = value <= 1 ? 1 : value - 1;
-              quantityInput.value = value;
-          });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const minusBtn = document.querySelector(".minus-btn");
+        const plusBtn = document.querySelector(".plus-btn");
+        const quantityInput = document.querySelector(".quantity-input");
 
-          plusBtn.addEventListener("click", function() {
-              let value = parseInt(quantityInput.value);
-              value = isNaN(value) ? 0 : value;
-              value = value + 1;
-              quantityInput.value = value;
-          });
-      });
+        minusBtn.addEventListener("click", function() {
+            let value = parseInt(quantityInput.value);
+            value = isNaN(value) ? 0 : value;
+            value = value <= 1 ? 1 : value - 1;
+            quantityInput.value = value;
+        });
 
-    </script>
-</body>
-
-</html>
+        plusBtn.addEventListener("click", function() {
+            let value = parseInt(quantityInput.value);
+            value = isNaN(value) ? 0 : value;
+            value = value + 1;
+            quantityInput.value = value;
+        });
+    });
+</script>

@@ -11,6 +11,39 @@
     .pt-5 {
         padding-top: 2rem !important;
     }
+
+    .product-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.3s ease;
+    }
+
+    .product:hover .product-name {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: initial;
+    }
+
+    .product-image {
+        width: 170px;
+        align-items: center;
+    }
+
+    .product {
+        width: 200px;
+        height: 300px;
+        margin-bottom: 100px;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+        z-index: 1;
+    }
+
+    .product:hover {
+        transform: scale(1.1);
+        z-index: 2;
+    }
 </style>
 
 <div class="container-fluid text-center">
@@ -117,8 +150,8 @@
 
         <div class="pro d-flex">
             {{#each products}}
-            <div class="col-3 pt-5">
-                <div class="card m-1">
+            <a href="/products/{{this.id}}" class="col-3 pt-3 product" id="product{{this.id}}">
+                <div class="card m-0.5">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv60V2WaMkrgHK8hloOj5d0Q99Zu11epy0Vw&usqp=CAU"
                         class="card-img-top product-image" alt="...">
                     <div class="card-body">
@@ -130,7 +163,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {{/each}}
         </div>
 
@@ -147,36 +180,47 @@
 </div>
 
 
+
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const products = document.querySelectorAll('.product');
+
+        products.forEach(product => {
+            product.addEventListener('click', function () {
+                const details = this.querySelector('.details');
+                alert(details.innerText); // Replace this with your logic to show detailed information
+            });
+        });
+    });
     $(document).ready(function () {
         $('.next-product').on('click', function () {
             let currentPage = parseInt($('.current-page-product').val());
             let maxPage = parseInt($('.current-page-max').val());
             if (currentPage < maxPage) {
-                $('.current-page-product').val(currentPage + 1);
-                paging();
-            }
-        });
-        $('.previous-product').on('click', function () {
-            let currentPage = parseInt($('.current-page-product').val());
-            if (currentPage > 1) {
-                $('.current-page-product').val(currentPage - 1);
-                paging();
-            }
-        });
-        function paging() {
-            fetch('/paging', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ pagenum: parseInt($('.current-page-product').val()) }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    $('.pro').html('');
-                    data.forEach(product => {
-                        let productHTML = `
+            $('.current-page-product').val(currentPage + 1);
+            paging();
+        }
+    });
+    $('.previous-product').on('click', function () {
+        let currentPage = parseInt($('.current-page-product').val());
+        if (currentPage > 1) {
+            $('.current-page-product').val(currentPage - 1);
+            paging();
+        }
+    });
+    function paging() {
+        fetch('/paging', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ pagenum: parseInt($('.current-page-product').val()) }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                $('.pro').html('');
+                data.forEach(product => {
+                    let productHTML = `
                              <div class="col-3 pt-5">
                                 <div class="card m-1">
                                     <img src="${product.images}"
@@ -191,36 +235,36 @@
                                     </div>
                                 </div>
                             </div>`;
-                        $('.pro').append(productHTML);
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
+                    $('.pro').append(productHTML);
                 });
-
-        }
-        function getCheckedCheckboxes() {
-            var checkedIds = [];
-            $('.form-check-input:checked').each(function () {
-                checkedIds.push(this.id);
-            });
-            return checkedIds;
-        }
-
-        $('.form-check-input').on('change', function () {
-            var checkedIds = getCheckedCheckboxes();
-            fetch('/filter', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ filter: checkedIds }),
             })
-                .then(response => response.json())
-                .then(data => {
-                    $('.pro').html('');
-                    data.pro.forEach(product => {
-                        let productHTML = `
+            .catch(error => {
+                console.error(error);
+            });
+
+    }
+    function getCheckedCheckboxes() {
+        var checkedIds = [];
+        $('.form-check-input:checked').each(function () {
+            checkedIds.push(this.id);
+        });
+        return checkedIds;
+    }
+
+    $('.form-check-input').on('change', function () {
+        var checkedIds = getCheckedCheckboxes();
+        fetch('/filter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ filter: checkedIds }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                $('.pro').html('');
+                data.pro.forEach(product => {
+                    let productHTML = `
                             <div class="col-3 pt-5">
                                 <div class="card m-1">
                                     <img src="${product.images}" class="card-img-top product-image" alt="...">
@@ -234,15 +278,15 @@
                                     </div>
                                 </div>
                             </div>`;
-                        $('.pro').append(productHTML);
-                         $('.current-page-max').val(data.max);
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
+                    $('.pro').append(productHTML);
+                    $('.current-page-max').val(data.max);
                 });
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
-        });
+    });
 
     });
     function sort(option) {

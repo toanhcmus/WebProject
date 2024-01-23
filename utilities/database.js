@@ -54,7 +54,7 @@ module.exports = {
         await db.none(updateQuery, [status, id]);
     },
     allProduct: async () => {
-        const data = await db.any(`SELECT * FROM "Products" `);
+        const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
         return data;
     },
     search: async (name) => {
@@ -70,7 +70,6 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
-
     },
     getNoiBat: async () => {
         let query = `
@@ -489,6 +488,7 @@ module.exports = {
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             JOIN "Categories" ca ON c."catID" = ca."catID"
             WHERE ca."catID" = ${catID} 
+            ORDER BY p."id" ASC
             `);
             return res;
         } catch (error) {
@@ -503,6 +503,7 @@ module.exports = {
             SELECT * FROM "Products" p
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             WHERE c."itemID" = '${itemID}'
+            ORDER BY p."id" ASC
             `);
             return res;
         } catch (error) {
@@ -533,6 +534,8 @@ module.exports = {
             UPDATE "Products"
             SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=ARRAY[$6],"item"=$7, "count"=ARRAY[$8], "producer"=$9
             WHERE "id" = $1;
+            SELECT * FROM "Products"
+            ORDER BY id;
             `,
                 [id, name, tinyDes, fullDes, price, size, items, count, producer],
             );
@@ -852,7 +855,7 @@ module.exports = {
                INSERT INTO "Products" VALUES ('AKH02','Áo Khoác Nỉ'
                ,''
                ,''
-               ,20500,'{"S","M","L","XL","XXL"}','AKH','{12,85,16,45,32}','Ralph Lauren',0.0,'{}');
+               ,20500,'{"S","M","L","XL","XXL"}','AKH','{12,85,16,45,32}','Ralph Lauren',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/AKH02.webp?alt=media&token=8f12ae50-e536-44bd-a207-18db68cb1c9e');
                
                INSERT INTO "Products" VALUES ('AKH03','Áo Khoác Bomber'
                ,''
@@ -943,7 +946,7 @@ module.exports = {
                INSERT INTO "Products" VALUES ('ATN07','Áo Thun Cotton Polo Nhí Nhảnh','','',175000,'{"S","M","L"}','ATN','{8,9,7}','Coolmate',0.0,'{}');
 
 
-               INSERT INTO "Products" VALUES ('AKN01','Áo Khoác Nỉ Thể Thao','','',195000,'{"S","M","L"}','AKN','{24,25,26}','Yame',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKN01','Áo Khoác Nỉ Thể Thao','','',195000,'{"S","M","L"}','AKN','{24,25,26}','Adidas',0.0,'{}');
                
                INSERT INTO "Products" VALUES ('AKN02','Áo Khoác Dù Nữ Kiểu 2 Lớp Form Rộng','','',215000,'{"S","M","L"}','AKN','{35,36,38}','Yame',0.0,'{}');
                
