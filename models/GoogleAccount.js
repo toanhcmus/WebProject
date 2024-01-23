@@ -1,4 +1,5 @@
 const db = require('../utilities/database');
+const paymentM = require("../models/Payment");
 
 module.exports = class GoogleAccount {
     constructor({Name, Email, Avatar}) {
@@ -8,6 +9,10 @@ module.exports = class GoogleAccount {
     }
     static async insertUser(newUser) {
         await db.insertGoogleUser(newUser);
+        const rs = await paymentM.selectUser(newUser.Email);
+        if (!rs) {
+            await paymentM.addAcc(newUser.Email);
+        }
     }
     static async getUser(Name) {
         const rs = await db.getGoogleUser(Name);

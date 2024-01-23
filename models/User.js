@@ -10,7 +10,7 @@ module.exports = class User {
     }
     static async insertUser(newUser) {
         await db.insertUser(newUser);
-        await paymentM.addAcc(newUser);
+        await paymentM.addAcc(newUser.username);
     }
     static async checkUsernameExist(username) {
         return await db.checkUsernameExist(username);

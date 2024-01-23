@@ -21,7 +21,7 @@ const authenticateJWT = (req, res, next) => {
         return res.status(403).json({ message: 'Xác thực không hợp lệ' });
       }
       req.user = user;
-      console.log(user);
+      // console.log(user);
       next();
     });
 };
@@ -34,10 +34,10 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
       const user = req.user;
       const userDB = await paymentM.selectUser(user.username);
       console.log(userDB);
-      const balance = userDB[0].balance;
-      console.log(balance);
+      const balance = userDB.balance;
+      console.log(balance, total);
       const userAdmin = await paymentM.selectUser("admin");
-      const balanceAdmin = userDB[0].balance;
+      const balanceAdmin = userAdmin.balance;
 
       const time = new Date();
 
@@ -63,7 +63,7 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
             maxxIDPayment: maxxIDPayment
           })
       } else {
-        await billM.updateStatus(maxxIDBill, 0);
+        // await billM.updateStatus(maxxIDBill, 0);
         const payments = await paymentM.selectAllPayments();
         let maxxIDPayment = 0;
         payments.forEach(e => {
@@ -72,8 +72,8 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
           }
         })
         await paymentM.updatePaymentHistory(maxxIDPayment, 0);
-        await paymentM.updateBalance(userDB[0].username, balance - total);
-        await paymentM.updateBalance(userAdmin[0].username, balanceAdmin + total);
+        await paymentM.updateBalance(userDB.id, parseInt(balance - total));
+        await paymentM.updateBalance(userAdmin.id, parseInt(balanceAdmin + total));
         res.send({
           msg: 0,
           maxxIDPayment: maxxIDPayment
