@@ -74,6 +74,21 @@ module.exports = {
         } catch (error) {
             console.log(error)
         }
+    },
+    detailProductForUser: async (req, res, next) => {
+        try {
+        let id = req.params.id;
+        let product = await Product.getProductByID(id);
+        let productCon = await Product.getProductCon(id);
+        let productSuggest = await Product.getProductSuggest(id);
+        product = product ? product[0] : {};
+        console.log(id);
+        console.log(product);
+        res.render("details", {product: product,title: "Product" });
+
+        } catch (error) {
+            console.log(error)
+        }
 
     },
 }

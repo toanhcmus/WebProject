@@ -64,4 +64,5 @@ router.get('/admin/products',productController.renderProduct);
 router.get('/admin/products/:id',productController.detailProduct);
 router.post('/admin/products/:id',productController.editProduct);
 
+router.get('/products/:id',productController.detailProductForUser);
 module.exports = router;

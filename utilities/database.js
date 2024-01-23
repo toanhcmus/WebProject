@@ -54,7 +54,7 @@ module.exports = {
         await db.none(updateQuery, [status, id]);
     },
     allProduct: async () => {
-        const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
+        const data = await db.any(`SELECT * FROM "Products" ORDER BY "id" ASC`);
         return data;
     },
     search: async (name) => {
@@ -386,6 +386,7 @@ module.exports = {
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             JOIN "Categories" ca ON c."catID" = ca."catID"
             WHERE ca."catID" = ${catID} 
+            ORDER BY p."id" ASC
             `);
             return res;
         } catch (error) {
@@ -400,6 +401,7 @@ module.exports = {
             SELECT * FROM "Products" p
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             WHERE c."itemID" = '${itemID}'
+            ORDER BY p."id" ASC
             `);
             return res;
         } catch (error) {
@@ -430,6 +432,8 @@ module.exports = {
             UPDATE "Products"
             SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=ARRAY[$6],"item"=$7, "count"=ARRAY[$8], "producer"=$9
             WHERE "id" = $1;
+            SELECT * FROM "Products"
+            ORDER BY id;
             `,
             [id, name, tinyDes, fullDes, price, size, items, count, producer],
         );
