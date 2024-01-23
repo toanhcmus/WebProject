@@ -36,3 +36,20 @@
     </div>
 
 </div>
+//ve chart
+<script>
+    const xArray = {{{ x }}};
+    const yArray = {{{ y }}};
+
+    const data = [{
+        x: xArray,
+        y: yArray,
+        type: "bar",
+        orientation: "v",
+        marker: { color: "rgba(0,0,255,0.6)" }
+    }];
+
+    const layout = { title: "Biểu đồ thống kê doanh thu" };
+
+    Plotly.newPlot("myPlot", data, layout);
+</script>

@@ -14,23 +14,24 @@ router.get('/', controller.render);
 router.get('/admin', controller.renderAdmin);
 router.get('/login', controller.renderLogin);
 router.get('/products', controller.products);
-router.get('/products/asc', controller.acs);
-router.get('/products/des', controller.des);
-router.get('/products/az', controller.az);
-router.get('/products/za', controller.za);
+// router.get('/products/asc', controller.acs);
+// router.get('/products/des', controller.des);
+// router.get('/products/az', controller.az);
+// router.get('/products/za', controller.za);
 router.post('/register', accountController.register);
 router.post('/search', controller.search);
 router.post('/addToCart', controller.addToCart);
 router.post('/plus', controller.plus);
 router.post('/minus', controller.minus);
+router.post('/paging', controller.paging);
+router.post('/filter', controller.filter);
 router.post('/remove', controller.remove);
 //router.get('/admin/product',controller.renderAddProduct);
 router.get('/admin/chart',controller.renderChart);
 router.post('/admin/table',controller.renderTable);
 router.get('/success', controller.renderSuccess);
 router.get('/fail', controller.renderFail);
-
-// router.post('/sort', controller.sort);
+router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/authFail',
 }), (req, res) => {

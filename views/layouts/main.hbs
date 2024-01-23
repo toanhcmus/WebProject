@@ -21,6 +21,7 @@
             padding: 0;
             max-width: 100%;
         }
+
         hr {
             padding: 0;
             margin: 0;
@@ -87,7 +88,7 @@
     $(document).ready(function () {
         updateCartNotification();
 
-        $('.add-to-cart').click(function () {
+        $(document).on('click', '.add-to-cart', function() {
             var productName = $(this).parent().parent().find('.product-name').text();
             var productID = $(this).parent().parent().find('.product-id').text();
             var productPrice = $(this).parent().find('.product-price').text();
@@ -97,8 +98,6 @@
             console.log('URL ảnh sản phẩm: ' + productImage);
             console.log('ID sản phẩm: ' + productID);
             addToCart(productID, productName, productPrice, productImage);
-
-
         });
         async function addToCart(id, name, price, image) {
 
@@ -251,6 +250,7 @@
 
 
 </script>
+
 //preview ảnh
 <script>
     $(document).ready(function () {
@@ -264,21 +264,5 @@
         });
     });
 </script>
-//ve chart 
-<script>
-const xArray = {{{x}}};
-const yArray = {{{y}}};
 
-const data = [{
-  x:xArray,
-  y:yArray,
-  type:"bar",
-  orientation:"v",
-  marker: {color:"rgba(0,0,255,0.6)"}
-}];
-
-const layout = {title:"Biểu đồ thống kê doanh thu"};
-
-Plotly.newPlot("myPlot", data, layout);
-</script>
 </html>

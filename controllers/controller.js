@@ -49,10 +49,12 @@ module.exports = {
     products: async (req, res, next) => {
         try {
             const cart = req.session.cart;
-            // console.log(req.session);
             // console.log("renderPro", req.session);
-            const product = await Product.allProduct();
-            res.render('products', { products: product, cart: cart });
+            const data = await Product.allProduct();
+            req.session.search='';
+            req.session.sort ='';
+            req.session.filter ='';
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , cart: cart ,keyword:''});
         }
         catch (error) {
             next(error);
@@ -63,58 +65,34 @@ module.exports = {
             console.log('search')
             var data = await Product.search(req.body.name)
             const cart = req.session.cart;
-            console.log(cart)
-            res.render('products', { products: data, cart: cart });
+            console.log(data.length );
+            console.log(Math.ceil(data.length / 4))
+            req.session.search=req.body.name;
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , cart: cart ,keyword:req.body.name});
         }
         catch (error) {
             next(error);
         }
     },
-    az: async (req, res, next) => {
+    sort: async (req, res, next) => {
         try {
-            console.log('sort')
-            var data = await Product.sort("az")
-            const cart = req.session.cart;
-            console.log(data)
-            res.render('products', { products: data, cart: cart });
+            req.session.sort =req.body.option;
+            console.log('a',req.session.sort)
+            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
+            var data=result.splice(0,4);
+            res.json(data);
         }
         catch (error) {
             next(error);
         }
     },
-    acs: async (req, res, next) => {
+    filter: async (req, res, next) => {
         try {
-            console.log('sort')
-            var data = await Product.sort("increase")
-            console.log(data)
-            const cart = req.session.cart;
-            res.render('products', { products: data, cart: cart });
-        }
-        catch (error) {
-            next(error);
-        }
-    },
-    za: async (req, res, next) => {
-        try {
-            console.log('sort')
-            var data = await Product.sort("za")
-            console.log(data)
-            const cart = req.session.cart;
-
-            res.render('products', { products: data, cart: cart });
-        }
-        catch (error) {
-            next(error);
-        }
-    },
-    des: async (req, res, next) => {
-        try {
-            console.log('sort')
-            var data = await Product.sort("decrease")
-            console.log(data)
-            const cart = req.session.cart;
-
-            res.render('products', { products: data, cart: cart });
+            console.log('filter')
+            req.session.filter=req.body.filter;
+            var data  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
+            console.log(data);
+            res.json({pro:data.splice(0,4), max:Math.ceil(data.length / 4)+1});
         }
         catch (error) {
             next(error);
@@ -176,6 +154,39 @@ module.exports = {
                 }
             }
             res.json({});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    minus: async (req, res, next) => {
+        try {
+            if (!req.session.cart) {
+                req.session.cart = [];
+            }
+            for (let i = 0; i < req.session.cart.length; i++) {
+                if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
+                    if (req.session.cart[i].count == 1) {
+                        req.session.cart.splice(i, 1);
+                    }
+                    else {
+                        req.session.cart[i].count--;
+                    }
+                    break;
+                }
+            }
+            res.json({});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    paging: async (req, res, next) => {
+        try {
+            console.log('a',req.session.sort)
+            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
+            var data=result.splice((req.body.pagenum-1)*4,4);
+            res.json(data);
         }
         catch (error) {
             next(error);

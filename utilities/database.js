@@ -54,7 +54,7 @@ module.exports = {
         await db.none(updateQuery, [status, id]);
     },
     allProduct: async () => {
-        const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
+        const data = await db.any(`SELECT * FROM "Products" `);
         return data;
     },
     search: async (name) => {
@@ -90,8 +90,8 @@ module.exports = {
             "Products".images
         ORDER BY  soluong DESC
             `
-        const data =  await db.any(query); 
-        console.log('bbbb',data)
+        const data = await db.any(query);
+        console.log('bbbb', data)
         return data;
     },
     chart: async () => {
@@ -128,12 +128,13 @@ module.exports = {
         GROUP BY
             "Products"."id","Products"."name","Products"."price"
             `
-        const data =  await db.any(query,[date]); 
+        const data = await db.any(query, [date]);
         return data;
     },
     sort: async (option) => {
         let data;
         if (option === "decrease") {
+            console.log('cr')
             data = await db.any(`SELECT * FROM "Products"  ORDER BY "price" DESC`);
         }
         else if (option === "increase") {
@@ -147,6 +148,108 @@ module.exports = {
             data = await db.any(`SELECT * FROM "Products"  ORDER BY "name" DESC`);
         }
         return data;
+    },
+    paging: async (search, sort, fi) => {
+        let query = `SELECT * FROM "Products"`;
+        if (search) {
+            query += ` WHERE "name" ILIKE '%${search}%'`;
+        }
+        let producerConditions = [];
+        let priceConditions = [];
+        if (fi) {
+            for (let i = 0; i < fi.length; i++) {
+                switch (fi[i]) {
+                    case "500k":
+                        priceConditions.push(`"price" < 500000`);
+                        break;
+                    case "1000k":
+                        priceConditions.push(`("price" >= 500000 AND "price" < 1000000)`);
+                        break;
+                    case "2000k":
+                        priceConditions.push(`("price" >= 1000000 AND "price" < 2000000)`);
+                        break;
+                    case "3000k":
+                        priceConditions.push(`"price" > 2000000`);
+                        break;
+                    case "Khac":
+                        producerConditions.push(`"producer" NOT ILIKE '%TEELAB%' AND "producer" NOT ILIKE '%Coolmate%' AND "producer" NOT ILIKE '%Yame%' AND "producer" NOT ILIKE '%Routine%'`);
+                        break;
+                    default:
+                        producerConditions.push(`"producer" ILIKE '%${fi[i]}%'`);
+                        break;
+                }
+            }
+
+            let conditions = [];
+            if (producerConditions.length > 0) {
+                conditions.push(`(${producerConditions.join(' OR ')})`);
+            }
+            if (priceConditions.length > 0) {
+                conditions.push(`(${priceConditions.join(' OR ')})`);
+            }
+
+            if (conditions.length > 0) {
+                query += ` AND ` + conditions.join(' AND ');
+            }
+        }
+        if (sort.trim('') === "decrease") {
+            query += ` ORDER BY "price" DESC`;
+        } else if (sort.trim('') === "increase") {
+            query += ` ORDER BY "price" ASC`;
+        } else if (sort.trim('') === "za") {
+            query += ` ORDER BY "name" DESC`;
+        } else {
+            query += ` ORDER BY "name" ASC`;
+        }
+
+        const data = await db.any(query);
+        return data;
+    },
+    filter: async (fi) => {
+
+        let query = `SELECT * FROM "Products"`;
+        let producerConditions = [];
+        let priceConditions = [];
+
+        for (let i = 0; i < fi.length; i++) {
+            switch (fi[i]) {
+                case "500k":
+                    priceConditions.push(`"price" < 500000`);
+                    break;
+                case "1000k":
+                    priceConditions.push(`("price" >= 500000 AND "price" < 1000000)`);
+                    break;
+                case "2000k":
+                    priceConditions.push(`("price" >= 1000000 AND "price" < 2000000)`);
+                    break;
+                case "3000k":
+                    priceConditions.push(`"price" > 2000000`);
+                    break;
+                case "Khac":
+                    producerConditions.push(`"producer" NOT ILIKE '%TEELAB%' AND "producer" NOT ILIKE '%Coolmate%' AND "producer" NOT ILIKE '%Yame%' AND "producer" NOT ILIKE '%Routine%'`);
+                    break;
+                default:
+                    producerConditions.push(`"producer" ILIKE '%${fi[i]}%'`);
+                    break;
+            }
+        }
+
+        let conditions = [];
+        if (producerConditions.length > 0) {
+            conditions.push(`(${producerConditions.join(' OR ')})`);
+        }
+        if (priceConditions.length > 0) {
+            conditions.push(`(${priceConditions.join(' OR ')})`);
+        }
+
+        if (conditions.length > 0) {
+            query += ` WHERE ` + conditions.join(' AND ');
+        }
+
+        const data = await db.any(query);
+        return data;
+
+
     },
     insertUser: async (newUser) => {
         const insertUserQuery = 'INSERT INTO "Users" ("Username", "Password", "Email", "isAdmin") VALUES ($1, $2, $3, $4)';
@@ -426,15 +529,15 @@ module.exports = {
     updateProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer) => {
         try {
             const res = await db.query(
-            `
+                `
             UPDATE "Products"
             SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=ARRAY[$6],"item"=$7, "count"=ARRAY[$8], "producer"=$9
             WHERE "id" = $1;
             `,
-            [id, name, tinyDes, fullDes, price, size, items, count, producer],
-        );
-        
-        return res;
+                [id, name, tinyDes, fullDes, price, size, items, count, producer],
+            );
+
+            return res;
         } catch (error) {
             console.log(error);
         }
@@ -463,9 +566,9 @@ module.exports = {
             WHERE "item" = (SELECT "item" FROM "Products" WHERE "id" = $1)
             AND "id" != $1;
             `,
-            [id],);
+                [id],);
             return res
-        }catch (error) {
+        } catch (error) {
             console.log(error);
             throw error;
         }
