@@ -28,6 +28,7 @@ router.post('/remove', controller.remove);
 router.get('/admin/product',controller.renderAddProduct);
 router.get('/admin/chart',controller.renderChart);
 router.get('/success', controller.renderSuccess);
+router.get('/fail', controller.renderFail);
 
 // router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {

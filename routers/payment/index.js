@@ -59,8 +59,7 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
 
       if (total > balance) {
           res.send({
-            msg: 1,
-            maxxIDPayment: maxxIDPayment
+            msg: 1
           })
       } else {
         // await billM.updateStatus(maxxIDBill, 0);

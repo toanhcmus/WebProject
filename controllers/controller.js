@@ -279,4 +279,52 @@ module.exports = {
             next(error);
         }
     },
+    renderFail: async (req, res, next) => {
+        try {
+            const allTranstions = await paymentM.selectAllPayments();
+            let maxxMaGD = 0;
+            allTranstions.forEach((element) => {
+                if (maxxMaGD < element.maGiaoDich) {
+                    maxxMaGD = element.maGiaoDich;
+                }
+            });
+            const latestPayment = await paymentM.selectPayment(maxxMaGD);
+            console.log(latestPayment);
+            const un = latestPayment.id;
+            const total = latestPayment.money;
+            const date = latestPayment.Time;
+
+            const obj = {
+                username: un,
+                date: date,
+                total: total,
+                status: 1 // Fail
+            }
+
+            await billM.insertBill(obj);
+
+            // const allBills = await billM.selectAllBills();
+            // let maxxMaHD = 0;
+            // allBills.forEach(element => {
+            //     if (element.MaHoaDon > maxxMaHD) {
+            //         maxxMaHD = element.MaHoaDon;
+            //     }
+            // });
+
+            // for (let i = 0; i < req.session.cart.length; i++) {
+            //     const item = req.session.cart[i];
+            //     const obj = {
+            //         id: item.id,
+            //         count: item.count
+            //     }
+            //     await billM.addTTHoaDon(maxxMaHD, obj);
+            // }
+
+            req.session.cart = [];
+            res.render('failNoti', { layout: 'transferNoti' });
+        }
+        catch (error) {
+            next(error);
+        }
+    },
 }
