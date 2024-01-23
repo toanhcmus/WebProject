@@ -20,8 +20,8 @@ module.exports = {
     addTTHoaDon: async (MaHoaDon, obj) => {
         try {
             await db.none(
-            'INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSach", "SoLuong") VALUES ($1, $2, $3)',
-            [MaHoaDon, obj.bookId, obj.quantity]
+            'INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSP", "SoLuong") VALUES ($1, $2, $3)',
+            [MaHoaDon, obj.id, obj.count]
             );
         } catch (error) {
             console.error("Error inserting:", error);
@@ -403,6 +403,28 @@ module.exports = {
                 Target Server Version : 90600
                 File Encoding         : 65001
                */
+
+                -- ---------CREATE TABLE HOADON
+                DROP TABLE IF EXISTS "HoaDon";
+                CREATE TABLE "HoaDon" (
+                "MaHoaDon" serial NOT NULL PRIMARY KEY,
+                    "username" text,
+                    "NgayLap" timestamp,
+                    "ThanhTien" int4,
+                    "TrangThai" int4
+                )
+                ;
+
+                ---------CREATE TABLE ThongTinHoaDon
+                DROP TABLE IF EXISTS "ThongTinHoaDon";
+                CREATE TABLE "ThongTinHoaDon" (
+                "MaHoaDon" int4 NOT NULL,
+                    "MaThongTinHD" serial PRIMARY KEY,
+                    "MaSP" text,
+                    "SoLuong" int4
+                )
+                ;
+
 
                -- ----------------------------
                -- Table structure for Categories

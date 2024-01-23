@@ -1,4 +1,7 @@
-const Product = require('../models/Product')
+const Product = require('../models/Product');
+const paymentM = require('../models/Payment');
+const billM = require('../models/Bill');
+
 module.exports = {
     render: async (req, res, next) => {
         try {
@@ -226,6 +229,54 @@ module.exports = {
 
         } catch (error) {
             console.log(error)
+        }
+    },
+    renderSuccess: async (req, res, next) => {
+        try {
+            const allTranstions = await paymentM.selectAllPayments();
+            let maxxMaGD = 0;
+            allTranstions.forEach((element) => {
+                if (maxxMaGD < element.maGiaoDich) {
+                    maxxMaGD = element.maGiaoDich;
+                }
+            });
+            const latestPayment = await paymentM.selectPayment(maxxMaGD);
+            console.log(latestPayment);
+            const un = latestPayment.id;
+            const total = latestPayment.money;
+            const date = latestPayment.Time;
+
+            const obj = {
+                username: un,
+                date: date,
+                total: total,
+                status: 0
+            }
+
+            await billM.insertBill(obj);
+
+            const allBills = await billM.selectAllBills();
+            let maxxMaHD = 0;
+            allBills.forEach(element => {
+                if (element.MaHoaDon > maxxMaHD) {
+                    maxxMaHD = element.MaHoaDon;
+                }
+            });
+
+            for (let i = 0; i < req.session.cart.length; i++) {
+                const item = req.session.cart[i];
+                const obj = {
+                    id: item.id,
+                    count: item.count
+                }
+                await billM.addTTHoaDon(maxxMaHD, obj);
+            }
+
+            req.session.cart = [];
+            res.render('successNoti', { layout: 'transferNoti' });
+        }
+        catch (error) {
+            next(error);
         }
     },
 }

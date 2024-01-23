@@ -24,6 +24,13 @@ module.exports = {
         );
         return rs[0];
     },
+    selectPayment: async (id) => {
+        const rs = await db.any(
+            'SELECT * FROM "PaymentHistory" WHERE "maGiaoDich" = $1;',
+            [id]
+        );
+        return rs[0];
+    },
     updatePaymentHistory: async (id, status) => {
         const updateQuery = 'UPDATE public."PaymentHistory" SET "TrangThai" = $1 WHERE "maGiaoDich" = $2';
         await db.none(updateQuery, [status, id]);
