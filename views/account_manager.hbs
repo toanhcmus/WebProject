@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column align-items-center">
+<div class="container d-flex flex-column align-items-center mt-2">
     {{#if success}}
     <div class="alert alert-success alert-dismissible fade show mt-2 mb-3">
         <strong>{{success}}</strong>
@@ -34,22 +34,33 @@
             <th></th>
         </thead>
         <tbody>
-            {{#each accountList}}
+            {{!-- {{#each accountList}}
             <tr>
                 <td class="align-middle">{{ this.Username }}</td>
                 <td class="align-middle">{{ this.Email }}</td>
                 <td class="align-middle">{{#if this.isAdmin}}Admin{{else}}Guest{{/if}}</td>
                 <td>
-                    <button type="button" id="editAccount" name="editAccount" class="btn btn-warning editAccountButton" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Chỉnh sửa</button>
+                    <button type="button" id="editAccount" name="editAccount" class="btn btn-warning editAccountButton"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">Chỉnh sửa</button>
                     <a href="/admin/account/remove/{{ this.Username }}">
                         <button type="button" class="btn btn-danger">Xóa tài khoản</button>
                     </a>
                 </td>
             </tr>
-            {{/each}}
+            {{/each}} --}}
         </tbody>
     </table>
+    <div class="pagination w-75 d-flex flex-column justify-content-center align-items-center">
+        <div class="w-100 d-flex flex-row justify-content-center align-items-center">
+            <button class="btn btn-info previous-page ms-1 me-1" style="width:90px;">Previous</button>
+            <input type="number" class="form-control current-page" style="width:60px;" min="1" value="1">
+            <span class="max-page text-center" style="width:60px;"></span>
+            <button class="btn btn-info next-page ms-1 me-1" style="width:90px;">Next</button>
+        </div>
+        <div class="w-100 d-flex flex-row justify-content-center align-items-center mt-1">
+            <button class="btn btn-info go-page">Go</button>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,10 +128,75 @@
 
 <script>
     $(document).ready(function () {
-        $('.editAccountButton').on('click', function () {
+        $('tbody').on('click', '.editAccountButton', function () {
             let username = $(this).parents('tr').find('td:first').text();
             $('#MEUsername').val(username);
             $('#hiddenUsername').val(username);
         });
+    });
+
+    let currentPage = 1;
+    const perPage = 10;
+    let maxPage = 1;
+
+    function updateTable() {
+        fetch(`/admin/account/page?page=${currentPage}&perPage=${perPage}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('tbody');
+                tbody.innerHTML = '';
+                data.users.forEach(user => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td class="align-middle">${user.Username}</td>
+                    <td class="align-middle">${user.Email}</td>
+                    <td class="align-middle">${user.isAdmin ? 'Admin' : 'Guest'}</td>
+                    <td>
+                        <button type="button" id="editAccount" name="editAccount" class="btn btn-warning editAccountButton" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Chỉnh sửa</button>
+                        <a href="/admin/account/remove/${user.Username}">
+                            <button type="button" class="btn btn-danger">Xóa tài khoản</button>
+                        </a>
+                    </td>
+                `;
+                    tbody.appendChild(tr);
+                });
+                maxPage = data.maxPage;
+                document.querySelector('.current-page').value = currentPage;
+                document.querySelector('.max-page').textContent = `/ ${data.maxPage}`;
+            });
+    }
+
+    updateTable();
+
+    document.querySelector('.previous-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable();
+        }
+    });
+    document.querySelector('.next-page').addEventListener('click', () => {
+        if (currentPage < maxPage) {
+            currentPage++;
+            updateTable();
+        }
+    });
+    document.querySelector('.go-page').addEventListener('click', () => {
+        const inputPage = parseInt(document.querySelector('.current-page').value);
+        console.log(maxPage);
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+            currentPage = inputPage;
+            updateTable();
+        }
+        else if (inputPage < 1) {
+            document.querySelector('.current-page').value = 1;
+            currentPage = 1;
+            updateTable();
+        }
+        else if (inputPage > maxPage) {
+            document.querySelector('.current-page').value = maxPage;
+            currentPage = maxPage;
+            updateTable();
+        }
     });
 </script>

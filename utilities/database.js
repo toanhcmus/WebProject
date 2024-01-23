@@ -20,8 +20,8 @@ module.exports = {
     addTTHoaDon: async (MaHoaDon, obj) => {
         try {
             await db.none(
-            'INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSP", "SoLuong") VALUES ($1, $2, $3)',
-            [MaHoaDon, obj.id, obj.count]
+                'INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSP", "SoLuong") VALUES ($1, $2, $3)',
+                [MaHoaDon, obj.id, obj.count]
             );
         } catch (error) {
             console.error("Error inserting:", error);
@@ -30,8 +30,8 @@ module.exports = {
     },
     insertBill: async (obj) => {
         await db.none(
-        'INSERT INTO "HoaDonBanHang" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
-        [obj.username, obj.date, obj.total, obj.status]
+            'INSERT INTO "HoaDonBanHang" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+            [obj.username, obj.date, obj.total, obj.status]
         );
 
     },
@@ -83,7 +83,7 @@ module.exports = {
             EXTRACT(MONTH FROM "NgayLap"::date)
         ORDER BY EXTRACT(MONTH FROM "NgayLap"::date) ASC
             `
-        const data= await db.any(query);
+        const data = await db.any(query);
         return data;
     },
 
@@ -183,6 +183,18 @@ module.exports = {
         try {
             const getPasswordResult = await db.oneOrNone(getPasswordQuery, getPasswordValues);
             return getPasswordResult ? getPasswordResult.Password : null;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
+    getUsersPage: async (page, perPage) => {
+        const getUsersPageQuery = 'SELECT * FROM "Users" ORDER BY "isAdmin" DESC LIMIT $1 OFFSET $2';
+        const getUsersPageValues = [perPage, (page - 1) * perPage];
+        try {
+            const getUsersPageResult = await db.any(getUsersPageQuery, getUsersPageValues);
+            const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Users"')).count / perPage);
+            return { users: getUsersPageResult, maxPage };
         } catch (error) {
             console.log(error);
             return null;
@@ -323,9 +335,9 @@ module.exports = {
         }
     },
 
-    getProductByCategory: async(catID) => {
+    getProductByCategory: async (catID) => {
         try {
-            const res = await db.query (`
+            const res = await db.query(`
             SELECT * FROM "Products" p
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             JOIN "Categories" ca ON c."catID" = ca."catID"
@@ -335,12 +347,12 @@ module.exports = {
         } catch (error) {
             console.log(error);
             throw error;
-        }        
+        }
     },
 
-    getProductByCategoryItem: async(itemID) => {
+    getProductByCategoryItem: async (itemID) => {
         try {
-            const res = await db.query (`
+            const res = await db.query(`
             SELECT * FROM "Products" p
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             WHERE c."itemID" = '${itemID}'
@@ -349,23 +361,23 @@ module.exports = {
         } catch (error) {
             console.log(error);
             throw error;
-        }  
+        }
     },
-    deleteProduct: async(id) => {
+    deleteProduct: async (id) => {
         try {
-            const res = await db.query (
-            `
+            const res = await db.query(
+                `
             DELETE FROM "Products"
             WHERE "id" = $1
             --CASCADE
             `,
-            [id],
+                [id],
             );
             return res;
         } catch (error) {
             console.log(error);
             throw error;
-        }         
+        }
     },
     updateProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl) => {
         const res = await db.db.query(
@@ -379,20 +391,20 @@ module.exports = {
 
         return res;
     },
-    getProductByID: async(id) => {
+    getProductByID: async (id) => {
         try {
-            const res = await db.query (
-            `
+            const res = await db.query(
+                `
            SELECT * FROM "Products"
             WHERE "id" = $1
             `,
-            [id],
+                [id],
             );
             return res;
         } catch (error) {
             console.log(error);
             throw error;
-        }         
+        }
     },
     initDatabase: async function initDatabase() {
         try {
