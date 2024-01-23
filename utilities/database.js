@@ -406,6 +406,51 @@ module.exports = {
             throw error;
         }
     },
+    getProductCon: async (id) => {
+        try {
+            const res = await db.query(`
+            SELECT *
+            FROM "Products"
+            WHERE "item" = (SELECT "item" FROM "Products" WHERE "id" = $1)
+            AND "id" != $1;
+            `,
+            [id],);
+            return res
+        }catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    getProductSuggest: async (id) => {
+        try {
+            const res = await db.query(
+                `SELECT *
+                FROM "Products"
+                WHERE "item" IN (
+                    SELECT "itemID"
+                    FROM "CategoryItems"
+                    WHERE "catID" IN (
+                        SELECT "catID"
+                        FROM "Categories"
+                        WHERE "catID" = (
+                            SELECT "catID"
+                            FROM "CategoryItems" 
+                            JOIN "Products" ON "item" = "itemID"
+                            WHERE "id" = $1
+                        )
+                    )
+                )
+                ORDER BY RANDOM()
+                LIMIT 10;
+                `,
+                [id],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
     initDatabase: async function initDatabase() {
         try {
             // Kiểm tra xem database đã tồn tại chưa

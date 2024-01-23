@@ -13,33 +13,17 @@
     </div>
   {{/each}}
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
   $(document).ready(function () {
-   var hideTimeout;
-
     $(".category-item").mouseenter(function () {
       var catID = $(this).data("catid");
       $(".item-list").hide(); // Ẩn tất cả các bảng items
       $("#items-" + catID).show(); // Hiển thị bảng items tương ứng
-      clearTimeout(hideTimeout); // Xóa timeout trước đó nếu có
-    });
-
-    $(".category-item").mouseleave(function () {
-      hideTimeout = setTimeout(function () {
-        $(".item-list").hide(); // Ẩn tất cả các bảng items sau 5 giây
-      }, 5000);
-    });
-
-    $(document).click(function (event) {
-      // Kiểm tra nếu chuột được click ở ngoài .category-container
-      if (!$(event.target).closest('.category-container').length) {
-        $(".item-list").hide(); // Ẩn tất cả các bảng items
-      }
     });
   });
-  
    function redirectToItem(itemID) {
     window.location.href = '/admin/products?itemID=' + itemID;
   }

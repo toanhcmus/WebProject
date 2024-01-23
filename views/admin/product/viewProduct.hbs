@@ -84,7 +84,7 @@
     <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
         <div>{{this.name}}</div>
         <div class="card-body">
-            <a href="/admin/products/id={{this.id}}" class="btn btn-primary">Xem chi tiết</a>
+            <a href="/admin/products/{{this.id}}" class="btn btn-primary">Xem chi tiết</a>
             <a href="#" onclick= "changUrl('{{this.id}}')" class="btn btn-danger">Xoá</a>
             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#editProductModal{{this.id}}">
                 Sửa

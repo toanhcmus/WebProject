@@ -48,5 +48,10 @@ module.exports = class Product {
     static async getProductByID(id){
         return await db.getProductByID(id);
     }
-
+    static async getProductCon(id){
+        return await db.getProductCon(id);
+    }
+    static async getProductSuggest(id){
+        return await db.getProductSuggest(id);
+    }
 };
