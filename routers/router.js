@@ -9,7 +9,7 @@ const categoryController = require('../controllers/category.c');
 const billController = require('../controllers/bill.c');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
-
+const productController = require('../controllers/product.c');
 router.get('/', controller.render);
 router.get('/admin', controller.renderAdmin);
 router.get('/login', controller.renderLogin);
@@ -55,4 +55,5 @@ router.get('/admin/account/remove/:Username', accountController.managerRemoveUse
 router.get('/admin/account/edit', accountController.managerEditUser);
 router.get('/admin/account/add', accountController.managerAddUser);
 
+router.get('/admin/products',productController.renderProduct);
 module.exports = router;

@@ -1,3 +1,5 @@
+{{> viewCategory}}
+
 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addProductModal">
     Thêm sản phẩm
 </button>
@@ -73,11 +75,10 @@
 <div class="d-flex justify-content-evenly flex-wrap">
     {{#each products}}
     <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
-        <img src="/pid/{{this.id}}/main_thumbs.jpg" class="card-img-top" alt="{{this.id}}">
+        <div>{{this.name}}</div>
         <div class="card-body">
             <a class="btn btn-primary">Xem chi tiết</a>
-            <a href="#" onclick="window.location.href = window.location.href + '&delete={{this.id}}'; return false;"
-                class="btn btn-danger">Xoá</a>
+            <a href="#" onclick= "changUrl('{{this.id}}')" class="btn btn-danger">Xoá</a>
             <button type="button" class="btn btn-info" data-bs-toggle="modal"
                 data-bs-target="#editProductModal{{this.id}}">
                 Sửa
@@ -110,3 +111,22 @@
     </div>
     {{/each}}
 </div>
+<script>
+    window.onload = function () {
+        let url = new URL(window.location.href);
+        let params = new URLSearchParams(url.search);
+
+        if (params.has("delete")) {
+            params.delete("delete");
+            url.search = params.toString();
+            window.location.href = url.toString();
+        }
+    }
+    function changUrl(id){
+        if (!window.location.href.includes("?")) {
+            // Nếu không có dấu "?", thêm nó vào
+            window.location.href = window.location.href + '?delete=' + id;
+        }
+        else window.location.href = window.location.href + '&delete=' + id;
+    }
+</script>
