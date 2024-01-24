@@ -100,7 +100,7 @@ module.exports = {
                 error = "Lỗi xảy ra! (Mật khẩu mới và nhập lại mật khẩu mới không trùng nhau)";
             }
 
-            const rs = await User.getUser(body.cpUsername);
+            let rs = await User.getUser(body.cpUsername);
 
             if (error) {
                 res.render('profile', {

@@ -272,10 +272,10 @@
         <div class="form-container sign-up-container">
             <form action="/register" method="POST">
                 <h1>Đăng ký</h1>
-                <input type="text" placeholder="Username" name="requsername" value="{{username}}" />
-                <input type="email" placeholder="Email" name="reqemail" value="{{email}}" />
-                <input type="password" placeholder="Password" name="reqpassword" value="{{password}}" />
-                <input type="password" placeholder="Confirm Password" name="reqcpassword" value="{{cpassword}}" />
+                <input type="text" placeholder="Username" name="requsername" value="{{username}}" pattern="^[^\s]*$"/>
+                <input type="email" placeholder="Email" name="reqemail" value="{{email}}" pattern="^[^\s]*$"/>
+                <input type="password" placeholder="Password" name="reqpassword" value="{{password}}" pattern="^[^\s]*$"/>
+                <input type="password" placeholder="Confirm Password" name="reqcpassword" value="{{cpassword}}" pattern="^[^\s]*$"/>
                 <span>hoặc thông qua</span>
                 <div class="social-container mb-1">
                     <a href="/auth/google" class="social"><i class="fab fa-google"></i></a>
@@ -286,13 +286,12 @@
         <div class="form-container sign-in-container">
             <form action="/verify" method="POST">
                 <h1>Đăng nhập</h1>
-                <input type="text" placeholder="Username" name="username" value="{{username}}" />
-                <input type="password" placeholder="Password" name="password" value="{{password}}" />
+                <input type="text" placeholder="Username" name="username" value="{{username}}" pattern="^[^\s]*$"/>
+                <input type="password" placeholder="Password" name="password" value="{{password}}" pattern="^[^\s]*$"/>
                 <span>hoặc thông qua</span>
                 <div class="social-container mb-1">
                     <a href="/auth/google" class="social"><i class="fab fa-google"></i></a>
                 </div>
-                <a href="#">Quên mật khẩu?</a>
                 <button type="submit" class="mt-2">Đăng nhập</button>
             </form>
         </div>

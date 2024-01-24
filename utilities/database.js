@@ -763,7 +763,7 @@ module.exports = {
                Cotton pha: là loại vải pha với poly giúp giảm nhăn và tăng độ bền cho sản phẩm.
                Linen: là loại vải 100% dệt từ sợi lanh tự nhiên nên cực kỳ thoáng mát và thấm hút tốt.
                Viscose: là loại vải được chế từ bột giấy hoặc sợi bông với ưu điểm nhẹ và rất thoáng mát.
-               Polyester: là sợi vải nhân tạo có khả năng chống nhăn và giữ form tốt.',65000,'{"S","M","L","XL","XXL"}','ATH','{20,56,75,34,82}','Coolmate',0.0,'{}');
+               Polyester: là sợi vải nhân tạo có khả năng chống nhăn và giữ form tốt.',65000,'{"S","M","L","XL","XXL"}','ATH','{20,56,75,34,82}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/33.jpg?alt=media&token=0a196490-22b5-46c8-aa4e-ce6423a97e61');
                
 			   INSERT INTO "Products" VALUES ('ATH02','Áo Thun Len','Áo len nam được sản xuất từ những sợi len chất lượng hàng đầu, đa dạng các mẫu',' 🔰 Chi tiết ÁO LEN CỔ TRÒN
                - Chất liệu: len đan sợi. mềm mịn, không bai xù, không phai màu, không bai dão
@@ -778,7 +778,7 @@ module.exports = {
                -  Đối với sản phẩm quần áo mới mua về, nên giặt tay lần đâu tiên để tránh phai màu sang quần áo khác
                -  Khi giặt nên lộn mặt trái ra để đảm bảo độ bền 
                -  Sản phẩm phù hợp cho giặt máy/giặt tay
-                - Không giặt chung đồ Trắng và đồ Tối màu ',90000,'{"S","M","L","XL","XXL"}','ATH','{10,5,42,65,7}','T&T',0.0,'{}');
+                - Không giặt chung đồ Trắng và đồ Tối màu ',90000,'{"S","M","L","XL","XXL"}','ATH','{10,5,42,65,7}','T&T',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/34.jpg?alt=media&token=95d86f7f-b1ec-44dc-aaab-b0266d3d3b82');
 
                INSERT INTO "Products" VALUES ('ATH03','Áo Polo'
                ,'Áo polo nam đa dạng phong cách, kiểu dáng trẻ trung'
@@ -795,7 +795,7 @@ module.exports = {
                ⭐ Chất Liệu: chất Cotton               
                ⭐ Màu Sắc:   ĐEN, Xanh               
                ⭐ Đặc Tính:  Chất vải áo là chất cotton mặc thoáng mát thấm hút mồ hôi'
-               ,85000,'{"S","M","L","XL","XXL"}','ATH','{20,45,65,80,12}','Routine');
+               ,85000,'{"S","M","L","XL","XXL"}','ATH','{20,45,65,80,12}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/35.jpg?alt=media&token=7d722dcb-d48d-4351-ae02-f9ed68d4172e');
                
                INSERT INTO "Products" VALUES ('ATH04','Áo Thun Hoạ Tiết Siêu Nhân'
                ,'Áo thun nam cổ tròn họa tiết siêu nhân giá cực tốt'
@@ -805,7 +805,7 @@ module.exports = {
                Hướng dẫn sử dụng
                Giặt tay trong lần giặt đầu tiên, mẹ nên ngâm và giặt riêng, không giặt chung đồ tối và sáng màu. Sau đó giặt bằng nước lạnh không có xà phòng để hình in mềm hơn, khó bong tróc hơn. Nên giặt sản phẩm bằng nước lạnh hoặc nước ấm dưới 40 độ C. Giặt bằng nước quá nóng có thể làm giãn vải và làm lỏng sản phẩm.
                Bảo quản: Sản phẩm có tính hút ẩm và thấm nước cao. Nên bảo quản áo thun nơi khô ráo.'
-               ,78000,'{"S","M","L","XL","XXL"}','ATH','{30,50,61,100,23}','Yame',0.0,'{}');
+               ,78000,'{"S","M","L","XL","XXL"}','ATH','{30,50,61,100,23}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/36.jpg?alt=media&token=7ce8fea5-f791-4ee0-8329-f90e59920bcb');
                
                INSERT INTO "Products" VALUES ('ATH05','Áo Thun Tay Lỡ'
                ,'Áo thun tay lỡ form rộng, áo phông form rộng'
@@ -815,27 +815,27 @@ module.exports = {
                - Giặt mặt trái, nhẹ tay, giặt xong phơi ngay, không ngâm áo trong nước quá lâu.               
                - Áo trắng - áo màu nên chia ra giặt riêng, không giặt chung.            
                - Nếu giặt máy thì hình in có thể sẽ tróc theo thời gian'
-               ,70000,'{"S","M","L","XL","XXL"}','ATH','{10,15,85,45,23}','SLY',0.0,'{}');
+               ,70000,'{"S","M","L","XL","XXL"}','ATH','{10,15,85,45,23}','SLY',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/37.jpg?alt=media&token=586490b6-2c8a-4844-a15b-c28625f12f50');
                
                INSERT INTO "Products" VALUES ('ATH06','Áo Thun Care & Share'
                ,'Áo thun nam Cotton Compact đẹp, thấm hút tốt'
                ,''
-               ,109000,'{"S","M","L","XL","XXL"}','ATH','{30,18,64,70,11}','Coolmate',0.0,'{}');
+               ,109000,'{"S","M","L","XL","XXL"}','ATH','{30,18,64,70,11}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/38.jpg?alt=media&token=bee836ec-5cdc-40a2-b040-45bdd7f8cc22');
                
                INSERT INTO "Products" VALUES ('ATH07','Áo Thun ADTStore'
                ,''
                ,''
-               ,50000,'{"S","M","L","XL","XXL"}','ATH','{5,7,9,10,11}','ADTStore',0.0,'{}');
+               ,50000,'{"S","M","L","XL","XXL"}','ATH','{5,7,9,10,11}','ADTStore',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/39.jpg?alt=media&token=5e5f2e7b-3109-4741-bd78-80c9f0742d3a');
                
                INSERT INTO "Products" VALUES ('ATH08','Áo Thun KPOP In Hình Nhóm Nhạc BLACKPINK'
                ,''
                ,''
-               ,150000,'{"S","M","L","XL","XXL"}','ATH','{0,1,5,6,7}','Coolmate',0.0,'{}');
+               ,150000,'{"S","M","L","XL","XXL"}','ATH','{0,1,5,6,7}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/40.jpg?alt=media&token=6b804db6-caa9-44cf-9873-f4da80eeaa64');
                
                INSERT INTO "Products" VALUES ('ATH09','Áo Thun Trơn'
                ,''
                ,''
-               ,45000,'{"S","M","L","XL","XXL"}','ATH','{10,17,5,61,7}','Yame',0.0,'{}');
+               ,45000,'{"S","M","L","XL","XXL"}','ATH','{10,17,5,61,7}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/41.jpg?alt=media&token=8dc49c36-4bed-4fad-89aa-1bfd2a7ae52f');
 
                INSERT INTO "Products" VALUES ('AKH01','Áo Khoác Jean'
                ,'Áo polo nam đa dạng phong cách, kiểu dáng trẻ trung'
@@ -851,27 +851,27 @@ module.exports = {
                ⭐ Chất Liệu: chất Cotton               
                ⭐ Màu Sắc:   ĐEN, Xanh               
                ⭐ Đặc Tính:  Chất vải áo là chất cotton mặc thoáng mát thấm hút mồ hôi'
-               ,145000,'{"S","M","L","XL","XXL"}','AKH','{5,8,7,9,4}','Tommy Hilfiger',0.0,'{}');
+               ,145000,'{"S","M","L","XL","XXL"}','AKH','{5,8,7,9,4}','Tommy Hilfiger',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/06.webp?alt=media&token=b79c1f82-6075-42be-8788-504a3718541d');
                
                INSERT INTO "Products" VALUES ('AKH02','Áo Khoác Nỉ'
                ,''
                ,''
-               ,20500,'{"S","M","L","XL","XXL"}','AKH','{12,85,16,45,32}','Ralph Lauren',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/AKH02.webp?alt=media&token=8f12ae50-e536-44bd-a207-18db68cb1c9e');
+               ,20500,'{"S","M","L","XL","XXL"}','AKH','{12,85,16,45,32}','Ralph Lauren',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/07.jpg?alt=media&token=ac046549-5bab-4c0d-9bef-7d4f7a733057');
                
                INSERT INTO "Products" VALUES ('AKH03','Áo Khoác Bomber'
                ,''
                ,''
-               ,153000,'{"S","M","L","XL","XXL"}','AKH','{14,18,17,12,11}','GRIMM DC',0.0,'{}');
+               ,153000,'{"S","M","L","XL","XXL"}','AKH','{14,18,17,12,11}','GRIMM DC',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/08.jpg?alt=media&token=0d46bfa6-cf8b-4b67-a385-a201fe234e85');
                
-               INSERT INTO "Products" VALUES ('AKH04','Áo Khoác Phao Da Trơn Có Mũ','','',192500,'{"S","M","L","XL","XXL"}','AKH','{9,8,7,4,5}','Now SaiGon',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKH04','Áo Khoác Phao Da Trơn Có Mũ','','',192500,'{"S","M","L","XL","XXL"}','AKH','{9,8,7,4,5}','Now SaiGon',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/09.jpg?alt=media&token=0c42caf9-2a05-40e2-a377-d0a117e5863f');
                
-               INSERT INTO "Products" VALUES ('AKH05','Áo Khoác Sọc Caro','','',99500,'{"S","M","L","XL","XXL"}','AKH','{23,42,25,39,27}','Hades',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKH05','Áo Khoác Sọc Caro','','',99500,'{"S","M","L","XL","XXL"}','AKH','{23,42,25,39,27}','Hades',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/10.jpg?alt=media&token=23e1d110-b57d-49ae-8928-6b17420e1b52');
                
-               INSERT INTO "Products" VALUES ('AKH06','Áo Khoác In Hình Sơn Tùng MTP','','',156500,'{"S","M","L","XL","XXL"}','AKH','{1,2,3,4,5}','Yame',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKH06','Áo Khoác In Hình Sơn Tùng MTP','','',156500,'{"S","M","L","XL","XXL"}','AKH','{1,2,3,4,5}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/11.jpg?alt=media&token=33e279a5-2de3-4ae9-a5a4-0fa04a93aa1d');
                
-               INSERT INTO "Products" VALUES ('AKH07','Áo Khoác Trung Niên Dày','','',215000,'{"S","M","L","XL","XXL"}','AKH','{20,14,16,17,13}','Yame',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKH07','Áo Khoác Trung Niên Dày','','',215000,'{"S","M","L","XL","XXL"}','AKH','{20,14,16,17,13}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/12.jpg?alt=media&token=5fc0dd19-b063-4e7d-afec-abe2b4136dc9');
                
-               INSERT INTO "Products" VALUES ('AKH08','Áo Khoác Style Hàn Quốc','','',137500,'{"S","M","L","XL","XXL"}','AKH','{8,9,7,4,2}','Coolmate',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKH08','Áo Khoác Style Hàn Quốc','','',137500,'{"S","M","L","XL","XXL"}','AKH','{8,9,7,4,2}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/13.jpg?alt=media&token=22f0c7a6-33ff-42ff-8c8a-681d8bcbdfaf');
 
                
                INSERT INTO "Products" VALUES ('QTA01','Quần Tây Dáng Baggy','','',250000,'{"28","29","30","31","32"}','QTA','{5,7,8,9,4}','5S Fashion',0.0,'{}');;
@@ -886,17 +886,17 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('QTA06','Quần Tây Âu Bam Tab Quần Siêu Co Giãn','','',190000,'{"28","29","30","31","32"}','QTA','{12,45,75,12,56}','Rountine',0.0,'{}');
 
-               INSERT INTO "Products" VALUES ('ASM01','Áo Sơ Mi Trắng','','',100000,'{"S","M","L","XL","XXL"}','ASM','{6,7,4,5,8}','TEELAB',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASM01','Áo Sơ Mi Trắng','','',100000,'{"S","M","L","XL","XXL"}','ASM','{6,7,4,5,8}','TEELAB',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/14.jpg?alt=media&token=c031cff7-c018-446e-846c-743778d50591');
                
-               INSERT INTO "Products" VALUES ('ASM02','Áo Sơ Mi In Hoạ Tiết Phượng Hoàng','','',115000,'{"S","M","L","XL","XXL"}','ASM','{15,26,42,53,12}','TEELAB',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASM02','Áo Sơ Mi In Hoạ Tiết Phượng Hoàng','','',115000,'{"S","M","L","XL","XXL"}','ASM','{15,26,42,53,12}','TEELAB',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/15.jpg?alt=media&token=0a92934b-ce61-4217-ac3c-8f9517ba22a6');
                
-               INSERT INTO "Products" VALUES ('ASM03','Áo Sơ Mi Vân Vuông Viền Cổ','','',185000,'{"S","M","L","XL","XXL"}','ASM','{25,1,2,36,45}','TEELAB',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASM03','Áo Sơ Mi Vân Vuông Viền Cổ','','',185000,'{"S","M","L","XL","XXL"}','ASM','{25,1,2,36,45}','TEELAB',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/17.jpg?alt=media&token=cc2e7426-55e0-4d8c-8100-0816a0c6481d');
                
-               INSERT INTO "Products" VALUES ('ASM04','Áo Sơ Mi Tay Dài','','',175000,'{"S","M","L","XL","XXL"}','ASM','{25,4,10,5,6}','YODY',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASM04','Áo Sơ Mi Tay Dài','','',175000,'{"S","M","L","XL","XXL"}','ASM','{25,4,10,5,6}','YODY',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/18.jpg?alt=media&token=9f775bfc-48b8-4bb8-aed2-30a95947eaa5');
                
-               INSERT INTO "Products" VALUES ('ASM05','Áo Sơ Mi Tay Ngắn','','',150000,'{"S","M","L","XL","XXL"}','ASM','{7,5,4,9,9}','YODY',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASM05','Áo Sơ Mi Tay Ngắn','','',150000,'{"S","M","L","XL","XXL"}','ASM','{7,5,4,9,9}','YODY',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/19.jpg?alt=media&token=76710aae-8aeb-4028-9566-943183a38086');
                
-               INSERT INTO "Products" VALUES ('ASM06','Áo Sơ Mi Sọc Caro','','',135000,'{"S","M","L","XL","XXL"}','ASM','{18,39,7,24,25}','Coolmate',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASM06','Áo Sơ Mi Sọc Caro','','',135000,'{"S","M","L","XL","XXL"}','ASM','{18,39,7,24,25}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/20.jpg?alt=media&token=81fbea7d-ed5a-4ee2-ae89-0aad16503464');
 
                INSERT INTO "Products" VALUES ('QJE01','Quần Jeans Ống Suông','','',300000,'{"28","29","30","31","32"}','QJE','{12,25,12,23,24}','Aristino',0.0,'{}');
                
@@ -910,15 +910,15 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('QJE06','Quần Jeans Baggy','','',150000,'{"28","29","30","31","32"}','QJE','{31,36,34,38,25}','Coolmate',0.0,'{}');
 
-               INSERT INTO "Products" VALUES ('CVA01','Cà Vạt Cao Cấp, Chấm Bi','','',80000,'{"L"}','CVA','{25}','Shibumi',0.0,'{}');
+               INSERT INTO "Products" VALUES ('CVA01','Cà Vạt Cao Cấp, Chấm Bi','','',80000,'{"L"}','CVA','{25}','Shibumi',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/58.jpg?alt=media&token=cd54346d-6413-4707-adce-4e1a5fd64606');
                
-               INSERT INTO "Products" VALUES ('CVA02','Cà Vạt Caro Dáng Ôm Thời Trang','','',99000,'{"L"}','CVA','{31}','Shibumi',0.0,'{}');
+               INSERT INTO "Products" VALUES ('CVA02','Cà Vạt Caro Dáng Ôm Thời Trang','','',99000,'{"L"}','CVA','{31}','Shibumi',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/CVA02.jpg?alt=media&token=feab930f-d9bc-4e91-9ac2-b15e6e903387');
                
-               INSERT INTO "Products" VALUES ('CVA03','Cà Vạt Trung Tiên Cao Cấp','','',115000,'{"L"}','CVA','{25}','Marinella',0.0,'{}');
+               INSERT INTO "Products" VALUES ('CVA03','Cà Vạt Trung Tiên Cao Cấp','','',115000,'{"L"}','CVA','{25}','Marinella',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/CVA03.jpg?alt=media&token=ac1b9f66-48ff-45f5-b9ce-4bebaf0b279f');
                
-               INSERT INTO "Products" VALUES ('CVA04','Cà Vạt Phong Cách Hàn Quốc','','',98000,'{"L"}','CVA','{36}','Marinella',0.0,'{}');
+               INSERT INTO "Products" VALUES ('CVA04','Cà Vạt Phong Cách Hàn Quốc','','',98000,'{"L"}','CVA','{36}','Marinella',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/CVA04.jpg?alt=media&token=156dc521-9b78-4dd7-ada8-142d4b07444a');
                
-               INSERT INTO "Products" VALUES ('CVA05','Combo 3 Cà Vạt','','',250000,'{"L"}','CVA','{38}','Marinella',0.0,'{}');
+               INSERT INTO "Products" VALUES ('CVA05','Combo 3 Cà Vạt','','',250000,'{"L"}','CVA','{38}','Marinella',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/CVA05.webp?alt=media&token=059bccd5-d933-4b32-b7b9-20c0ffe80055');
 
 
                INSERT INTO "Products" VALUES ('QSH01','Quần Short Tắm Biển Nam Thời Trang Phong Cách','','',150000,'{"28","29","30"}','QSH','{31,36,34}','5S Fashion',0.0,'{}');
@@ -932,54 +932,54 @@ module.exports = {
                INSERT INTO "Products" VALUES ('QSH05', 'Quần Short Nam Mát Mẻ Cho Mùa Hè','','',85000,'{"28","29","30"}','QSH','{36,37,40}','Routine',0.0,'{}');
 
                
-               INSERT INTO "Products" VALUES ('ATN01','Áo Thun Cổ Tròn Cá Tính','','',150000,'{"S","M","L"}','ATN','{45,26,35}','Demi',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN01','Áo Thun Cổ Tròn Cá Tính','','',150000,'{"S","M","L"}','ATN','{45,26,35}','Demi',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/26.jpg?alt=media&token=52fd34f8-0792-4a54-9533-759b7ec5d1cb');
                
-               INSERT INTO "Products" VALUES ('ATN02','Áo Thun Nữ Tay Ngắn Cotton Tinh Khiết','','',115000,'{"S","M","L"}','ATN','{55,54,58}','5S Fashion',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN02','Áo Thun Nữ Tay Ngắn Cotton Tinh Khiết','','',115000,'{"S","M","L"}','ATN','{55,54,58}','5S Fashion',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/27.jpg?alt=media&token=5d42191f-d103-4807-98de-83d197020dc5');
                
-               INSERT INTO "Products" VALUES ('ATN03','Áo Gigle Logo Phoxe','','',185000,'{"S","M","L"}','ATN','{31,36,34}','5S Fashion',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN03','Áo Gigle Logo Phoxe','','',185000,'{"S","M","L"}','ATN','{31,36,34}','5S Fashion',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/28.jpg?alt=media&token=803228c5-52b8-41bb-853e-790695b08302');
                
-               INSERT INTO "Products" VALUES ('ATN04','Áo Thun Dài Tay Cổ Chữ V','','',198000,'{"S","M","L"}','ATN','{25,28,29}','5S Fashion',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN04','Áo Thun Dài Tay Cổ Chữ V','','',198000,'{"S","M","L"}','ATN','{25,28,29}','5S Fashion',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/29.jpg?alt=media&token=950b1202-dfb8-4ea9-ac76-7c197e8d5b07');
                
-               INSERT INTO "Products" VALUES ('ATN05','Áo Thun Tay Lỡ Màu Trơn In Hình BTS','','',85000,'{"S","M","L"}','ATN','{36,35,34}','Demi',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN05','Áo Thun Tay Lỡ Màu Trơn In Hình BTS','','',85000,'{"S","M","L"}','ATN','{36,35,34}','Demi',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/30.jpg?alt=media&token=03607585-5ec4-4cfa-b7fa-8df8067a3f06');
                
-               INSERT INTO "Products" VALUES ('ATN06', 'Áo Thun Ngắn Tay Sọc Caro Phong Cách','','',95000,'{"S","M","L"}','ATN','{11,12,15}','Demi',0.0,'https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ');
+               INSERT INTO "Products" VALUES ('ATN06', 'Áo Thun Ngắn Tay Sọc Caro Phong Cách','','',95000,'{"S","M","L"}','ATN','{11,12,15}','Demi',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/32.jpg?alt=media&token=eea706ed-3654-471b-9300-0a9d10264d7a');
                
-               INSERT INTO "Products" VALUES ('ATN07','Áo Thun Cotton Polo Nhí Nhảnh','','',175000,'{"S","M","L"}','ATN','{8,9,7}','Coolmate',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN07','Áo Thun Cotton Polo Nhí Nhảnh','','',175000,'{"S","M","L"}','ATN','{8,9,7}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/31.jpg?alt=media&token=4570f126-da5e-41ca-a2f8-d4e7c810d9c7');
 
 
-               INSERT INTO "Products" VALUES ('AKN01','Áo Khoác Nỉ Thể Thao','','',195000,'{"S","M","L"}','AKN','{24,25,26}','Adidas',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKN01','Áo Khoác Nỉ Thể Thao','','',195000,'{"S","M","L"}','AKN','{24,25,26}','Adidas',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/01.webp?alt=media&token=a916509b-ef13-44d0-8079-c40983d56b5b');
                
-               INSERT INTO "Products" VALUES ('AKN02','Áo Khoác Dù Nữ Kiểu 2 Lớp Form Rộng','','',215000,'{"S","M","L"}','AKN','{35,36,38}','Yame',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKN02','Áo Khoác Dù Nữ Kiểu 2 Lớp Form Rộng','','',215000,'{"S","M","L"}','AKN','{35,36,38}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/02.webp?alt=media&token=d9380a66-14d9-46b6-b39b-6d77591f7679');
                
-               INSERT INTO "Products" VALUES ('AKN03','Áo Khoác Gió Nữ 2 Lớp Chống Nước, Có Mũ','','',225000,'{"S","M","L"}','AKN','{30,31,32}','Yame',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKN03','Áo Khoác Gió Nữ 2 Lớp Chống Nước, Có Mũ','','',225000,'{"S","M","L"}','AKN','{30,31,32}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/03.webp?alt=media&token=bb63630c-960b-4ba3-85a5-b0323bbba520');
                
-               INSERT INTO "Products" VALUES ('AKN04','Áo Khoác Có Nón, Vải Thun Giữ Ấm','','',300000,'{"S","M","L"}','AKN','{31,36,34}','Coolmate',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKN04','Áo Khoác Có Nón, Vải Thun Giữ Ấm','','',300000,'{"S","M","L"}','AKN','{31,36,34}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/04.webp?alt=media&token=e8e4d8cb-0de8-409a-984d-140b74bc9202');
                
-               INSERT INTO "Products" VALUES ('AKN05','Áo Khoác Jeans Cá Tính','','',275000,'{"S","M","L"}','AKN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('AKN05','Áo Khoác Jeans Cá Tính','','',275000,'{"S","M","L"}','AKN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/05.webp?alt=media&token=74946a73-4d41-43a2-84f9-cbe913ab8318');
 
-               INSERT INTO "Products" VALUES ('ASN01','Áo Sơ Mi Công Sở Dài Tay','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASN01','Áo Sơ Mi Công Sở Dài Tay','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/20.jpg?alt=media&token=81fbea7d-ed5a-4ee2-ae89-0aad16503464');
                
-               INSERT INTO "Products" VALUES ('ASN02','Áo Sơ Mi Nữ Form Rộng Kiểu Hàn','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASN02','Áo Sơ Mi Nữ Form Rộng Kiểu Hàn','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/21.jpg?alt=media&token=15010354-947d-4253-ba1e-3300617533ac');
                
-               INSERT INTO "Products" VALUES ('ASN03','Áo Sơ Mi Trắng','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASN03','Áo Sơ Mi Trắng','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/22.jpg?alt=media&token=eecb1dbf-fd9b-4378-9fac-e85f4928f553');
                
-               INSERT INTO "Products" VALUES ('ASN04','Áo Sơ Mi Nữ Kẻ Sọc','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASN04','Áo Sơ Mi Nữ Kẻ Sọc','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/23.jpg?alt=media&token=24f9db43-5c3f-4f09-aa3c-e4556c6b371f');
                
-               INSERT INTO "Products" VALUES ('ASN05','Áo Sơ Mi Nhung Quốc Dân','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASN05','Áo Sơ Mi Nhung Quốc Dân','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/24.jpg?alt=media&token=2ff52261-e6b5-4575-bfa2-9b42e0597d17');
                
-               INSERT INTO "Products" VALUES ('ASN06','Áo Sơ Mi Tay Ngắn','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ASN06','Áo Sơ Mi Tay Ngắn','','',275000,'{"S","M","L"}','ASN','{11,12,14}','Routine',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/25.jpg?alt=media&token=e5d273aa-7f61-4396-86e6-2e3b5cad7aab');
 
-               INSERT INTO "Products" VALUES ('DLN01','Đầm Voan Cao Cấp, 3 Tầng Thời Trang','','',255000,'{"S","M","L"}','DLN','{11,12,14}','Fleur Studio',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DLN01','Đầm Voan Cao Cấp, 3 Tầng Thời Trang','','',255000,'{"S","M","L"}','DLN','{11,12,14}','Fleur Studio',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DLN01.jpg?alt=media&token=c33d79d2-e4ec-4f5f-b945-2e0e9bcd1b3a');
                
-               INSERT INTO "Products" VALUES ('DLN02','Đầm Chữ A Tay Ngắn Cổ Tròn','','',285000,'{"S","M","L"}','DLN','{24,25,26}','Fleur Studio',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DLN02','Đầm Chữ A Tay Ngắn Cổ Tròn','','',285000,'{"S","M","L"}','DLN','{24,25,26}','Fleur Studio',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DLN02.webp?alt=media&token=9d5fe036-643b-4b51-a7af-51c7e3bc29c9');
                
-               INSERT INTO "Products" VALUES ('DLN03','Đầm Váy Trắng Cổ V','','',180000,'{"S","M","L"}','DLN','{11,12,15}','Fleur Studio',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DLN03','Đầm Váy Trắng Cổ V','','',180000,'{"S","M","L"}','DLN','{11,12,15}','Fleur Studio',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DLN03.jpg?alt=media&token=8533b16e-f3c4-4247-bb28-00c6ebccb1a7');
                
-               INSERT INTO "Products" VALUES ('DLN04','Váy Công Chúa Gấm Xốp Phối Voan','','',300000,'{"S","M","L"}','DLN','{24,25,26}','Fleur Studio',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DLN04','Váy Công Chúa Gấm Xốp Phối Voan','','',300000,'{"S","M","L"}','DLN','{24,25,26}','Fleur Studio',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DLN04.jpg?alt=media&token=2021c4dd-7daf-46d3-b781-f585cea2c830');
                
-               INSERT INTO "Products" VALUES ('DLN05','Đầm Nữ Thời Trang','','',260000,'{"S","M","L"}','DLN','{11,12,17}','Dottie',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DLN05','Đầm Nữ Thời Trang','','',260000,'{"S","M","L"}','DLN','{11,12,17}','Dottie',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DLN05.jpg?alt=media&token=756bec0f-8a41-4b62-8035-a703a38750d4');
                
-               INSERT INTO "Products" VALUES ('DLN06','Váy Suông Sơ Mi Túi Hộp','','',275000,'{"S","M","L"}','DLN','{24,25,28}','Dottie',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DLN06','Váy Suông Sơ Mi Túi Hộp','','',275000,'{"S","M","L"}','DLN','{24,25,28}','Dottie',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DLN06.jpg?alt=media&token=7e959a7c-1beb-46dc-b31a-9d3f17bcddbb');
 
                INSERT INTO "Products" VALUES ('QJN01','Quần Jeans Ống Rộng Nữ','','',295000,'{"26","27","28"}','QJN','{11,12,14}','Fleur Studio',0.0,'{}');
                
@@ -1013,77 +1013,77 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('GTT06','Giày Leo Núi Dã Ngoại Chống Thấm Nước','','',1600000,'{"39","40","41","42","43"}','GTT','{18, 20, 29, 14, 26}','Adidas',0.0,'{}');
 
-               INSERT INTO "Products" VALUES ('GSN01','Giày Sục Nam','','',1100000,'{"39","40","41","42","43"}','GSN','{23, 28, 15, 30, 19}','Thế Giới Đồ Da',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GSN01','Giày Sục Nam','','',1100000,'{"39","40","41","42","43"}','GSN','{23, 28, 15, 30, 19}','Thế Giới Đồ Da',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GSN01.jpg?alt=media&token=fc0eaaae-f931-470b-b76d-210ef1ae6ae8');
                
-               INSERT INTO "Products" VALUES ('GSN02','Giày Sục Nam Da Thật Quai Chữ H','','',1450000,'{"39","40","41","42","43"}','GSN','{14, 18, 24, 29, 16}','Thế Giới Đồ Da',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GSN02','Giày Sục Nam Da Thật Quai Chữ H','','',1450000,'{"39","40","41","42","43"}','GSN','{14, 18, 24, 29, 16}','Thế Giới Đồ Da',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GSN02.jpg?alt=media&token=9ef328ae-13a4-43f6-847d-fa9a8fd5b41c');
                
-               INSERT INTO "Products" VALUES ('GSN03','Giày Mules Nam Mũi Tròn Hở Gót Thời Trang','','',1950000,'{"39","40","41","42","43"}','GSN','{25, 17, 27, 21, 30}','Thế Giới Đồ Da',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GSN03','Giày Mules Nam Mũi Tròn Hở Gót Thời Trang','','',1950000,'{"39","40","41","42","43"}','GSN','{25, 17, 27, 21, 30}','Thế Giới Đồ Da',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GSN03.webp?alt=media&token=93717899-aeb5-4bab-919d-2d4968b2056c');
                
-               INSERT INTO "Products" VALUES ('GSN04','Giày Mule Thời Trang Playball Monogram','','',1350000,'{"39","40","41","42","43"}','GSN','{22, 19, 28, 20, 31}','Thế Giới Đồ Da',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GSN04','Giày Mule Thời Trang Playball Monogram','','',1350000,'{"39","40","41","42","43"}','GSN','{22, 19, 28, 20, 31}','Thế Giới Đồ Da',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GSN04.webp?alt=media&token=b14c983c-01b4-4f9f-a725-fb5125b25f20');
                
-               INSERT INTO "Products" VALUES ('GSN05','Giày Sục Nam Da Bò Chính Hãng','','',1250000,'{"39","40","41","42","43"}','GSN','{22, 19, 28, 20, 31}','Thế Giới Đồ Da',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GSN05','Giày Sục Nam Da Bò Chính Hãng','','',1250000,'{"39","40","41","42","43"}','GSN','{22, 19, 28, 20, 31}','Thế Giới Đồ Da',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GSN05.jpg?alt=media&token=b8b5c174-2059-40dd-a1a8-9579c13a09db');
 
 
-               INSERT INTO "Products" VALUES ('GTL01','Giày Tây Nam Zuciani Derby Thắt Dây Da Dập Vân','','',980000,'{"39","40","41","42","43"}','GTL','{16, 21, 29, 27, 18}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTL01','Giày Tây Nam Zuciani Derby Thắt Dây Da Dập Vân','','',980000,'{"39","40","41","42","43"}','GTL','{16, 21, 29, 27, 18}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTL01.webp?alt=media&token=bab992ba-0953-449a-95a7-c2e99dfd4bbf');
                
-               INSERT INTO "Products" VALUES ('GTL02','Giày Tây MCKAY Đế Phối Da','','',1750000,'{"39","40","41","42","43"}','GTL','{20, 25, 14, 31, 16}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTL02','Giày Tây MCKAY Đế Phối Da','','',1750000,'{"39","40","41","42","43"}','GTL','{20, 25, 14, 31, 16}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTL02.webp?alt=media&token=11b20323-cdab-4fc5-84f0-4f2321d2c5a2');
                
-               INSERT INTO "Products" VALUES ('GTL03','Giày Tây Nam Zuciani Hoạ Tiến Đục Lỗ Thắt Dây Da Dập Vuông','','',1150000,'{"39","40","41","42","43"}','GTL','{17, 28, 26, 21, 24}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTL03','Giày Tây Nam Zuciani Hoạ Tiến Đục Lỗ Thắt Dây Da Dập Vuông','','',1150000,'{"39","40","41","42","43"}','GTL','{17, 28, 26, 21, 24}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTL03.jpg?alt=media&token=175aed36-8d03-4a84-8cf0-b776b3e9373f');
                
-               INSERT INTO "Products" VALUES ('GTL04','Giày Tây Nam Bitis','','',1850000,'{"39","40","41","42","43"}','GTL','{29, 30, 16, 23, 14}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTL04','Giày Tây Nam Bitis','','',1850000,'{"39","40","41","42","43"}','GTL','{29, 30, 16, 23, 14}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTL04.jpg?alt=media&token=4202e4e9-613c-48e5-80e9-009aa2e4fda7');
                
-               INSERT INTO "Products" VALUES ('GTL05','Giày Tây Boot Nam Bitis','','',1700000,'{"39","40","41","42","43"}','GTL','{19, 27, 31, 15, 22}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTL05','Giày Tây Boot Nam Bitis','','',1700000,'{"39","40","41","42","43"}','GTL','{19, 27, 31, 15, 22}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTL05.webp?alt=media&token=9bbf278d-a699-407f-b610-3eb51e69a89f');
 
-               INSERT INTO "Products" VALUES ('DSN01','Sandal Thể Thao Eva Phun Nam Bitis Hunter','','',1550000,'{"39","40","41","42","43"}','DSN','{15, 22, 18, 27, 19}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DSN01','Sandal Thể Thao Eva Phun Nam Bitis Hunter','','',1550000,'{"39","40","41","42","43"}','DSN','{15, 22, 18, 27, 19}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DSN01.jpg?alt=media&token=5288e62a-d650-448f-9a72-e9ca6f89753e');
                
-               INSERT INTO "Products" VALUES ('DSN02','Sandal Nam Bitis Hunter Tonic','','',1200000,'{"39","40","41","42","43"}','DSN','{20, 25, 14, 31, 16}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DSN02','Sandal Nam Bitis Hunter Tonic','','',1200000,'{"39","40","41","42","43"}','DSN','{20, 25, 14, 31, 16}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DSN02.webp?alt=media&token=1cea3059-4fab-4227-8740-5d122ae832e9');
                
-               INSERT INTO "Products" VALUES ('DSN03','Sandal Nam Hunter X Blazin Neon Collection','','',1650000,'{"39","40","41","42","43"}','DSN','{17, 28, 26, 21, 24}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DSN03','Sandal Nam Hunter X Blazin Neon Collection','','',1650000,'{"39","40","41","42","43"}','DSN','{17, 28, 26, 21, 24}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DSN03.jpg?alt=media&token=ad784b8e-8636-4c85-8f75-57926d13eafd');
                
-               INSERT INTO "Products" VALUES ('DSN04','Sandal Si Cao Su Nam Bitis','','',1900000,'{"39","40","41","42","43"}','DSN','{29, 30, 16, 23, 14}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DSN04','Sandal Si Cao Su Nam Bitis','','',1900000,'{"39","40","41","42","43"}','DSN','{29, 30, 16, 23, 14}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DSN04.jpg?alt=media&token=09061883-c8b1-4743-b406-4290c3135e78');
                
-               INSERT INTO "Products" VALUES ('DSN05','Sandal Quai Ngang Thời Trang Kiểu Dáng Streetwear Mang Đi Học','','',1400000,'{"39","40","41","42","43"}','DSN','{22, 19, 28, 20, 31}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DSN05','Sandal Quai Ngang Thời Trang Kiểu Dáng Streetwear Mang Đi Học','','',1400000,'{"39","40","41","42","43"}','DSN','{22, 19, 28, 20, 31}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DSN05.jpg?alt=media&token=2667bb32-cc6b-4457-a82a-d4806cb492b4');
 
 
-               INSERT INTO "Products" VALUES ('DNM01','Dép Da Nam Bitis','','',1120000,'{"39","40","41","42","43"}','DNM','{18, 20, 29, 14, 26}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNM01','Dép Da Nam Bitis','','',1120000,'{"39","40","41","42","43"}','DNM','{18, 20, 29, 14, 26}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNM01.webp?alt=media&token=2e6184c4-47cd-4681-b4ac-0ce33b8b343e');
                
-               INSERT INTO "Products" VALUES ('DNM02','Dép Thông Dụng Si Đế TPR Nam Bitis','','',1800000,'{"39","40","41","42","43"}','DNM','{23, 28, 15, 30, 19}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNM02','Dép Thông Dụng Si Đế TPR Nam Bitis','','',1800000,'{"39","40","41","42","43"}','DNM','{23, 28, 15, 30, 19}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNM02.jpg?alt=media&token=02ab69f7-409f-4d6e-871e-b89c92dfd1bf');
                
-               INSERT INTO "Products" VALUES ('DNM03','DÉP NAM ĐÔNG HẢI QUAI NGANG CÁCH ĐIỆU ĐAN CHÉO','','',950000,'{"39","40","41","42","43"}','DNM','{14, 18, 24, 29, 16}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNM03','DÉP NAM ĐÔNG HẢI QUAI NGANG CÁCH ĐIỆU ĐAN CHÉO','','',950000,'{"39","40","41","42","43"}','DNM','{14, 18, 24, 29, 16}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNM03.jpg?alt=media&token=a5ecf483-655d-4e6c-bb50-16a2831810a3');
                
-               INSERT INTO "Products" VALUES ('DNM04','DÉP NAM ĐÔNG HẢI QUAI NGANG CUT-OUT CÁCH ĐIỆU','','',1700000,'{"39","40","41","42","43"}','DNM','{19, 27, 31, 15, 22}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNM04','DÉP NAM ĐÔNG HẢI QUAI NGANG CUT-OUT CÁCH ĐIỆU','','',1700000,'{"39","40","41","42","43"}','DNM','{19, 27, 31, 15, 22}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNM04.webp?alt=media&token=d78163f5-daa4-42b0-9965-7c334e978a58');
                
-               INSERT INTO "Products" VALUES ('DNM05','DÉP QUAI NGANG ĐÔNG HẢI CHẦN CHỈ THỜI TRANG','','',1300000,'{"39","40","41","42","43"}','DNM','{25, 17, 27, 21, 30}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNM05','DÉP QUAI NGANG ĐÔNG HẢI CHẦN CHỈ THỜI TRANG','','',1300000,'{"39","40","41","42","43"}','DNM','{25, 17, 27, 21, 30}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNM05.jpg?alt=media&token=d35e3edb-7067-4afc-80ec-30e936973407');
 
-               INSERT INTO "Products" VALUES ('GTN01','Giày Thể Thao Nữ Gosto','','',1250000,'{"39","40","41","42","43"}','GTN','{16, 21, 29, 27, 18}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTN01','Giày Thể Thao Nữ Gosto','','',1250000,'{"39","40","41","42","43"}','GTN','{16, 21, 29, 27, 18}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTN01.webp?alt=media&token=a770e58e-abe4-46b0-8035-57732c118631');
                
-               INSERT INTO "Products" VALUES ('GTN02','Giày Thông Dụng Nữ Bitis','','',980000,'{"39","40","41","42","43"}','GTN','{20, 25, 14, 31, 16}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTN02','Giày Thông Dụng Nữ Bitis','','',980000,'{"39","40","41","42","43"}','GTN','{20, 25, 14, 31, 16}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTN02.webp?alt=media&token=4a99470f-f582-46a4-825a-68dcfe9f50c4');
                
-               INSERT INTO "Products" VALUES ('GTN03','Giày Thể Thao Nữ Bitis Êmbrace','','',1150000,'{"39","40","41","42","43"}','GTN','{17, 28, 26, 21, 24}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTN03','Giày Thể Thao Nữ Bitis Êmbrace','','',1150000,'{"39","40","41","42","43"}','GTN','{17, 28, 26, 21, 24}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTN03.jpg?alt=media&token=c7b8a7e6-8a4a-4e22-9ed1-73680a8a85f5');
                
-               INSERT INTO "Products" VALUES ('GTN04','Giày Thể Thao Kháng Khuẩn','','',1450000,'{"39","40","41","42","43"}','GTN','{29, 30, 16, 23, 14}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTN04','Giày Thể Thao Kháng Khuẩn','','',1450000,'{"39","40","41","42","43"}','GTN','{29, 30, 16, 23, 14}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTN04.jpg?alt=media&token=c2101520-efa1-45c4-bf2c-ae8419a2fc5d');
                
-               INSERT INTO "Products" VALUES ('GTN05','Giày Thể Thao Êm Chân Siêu Nhẹ','','',950000,'{"39","40","41","42","43"}','GTN','{19, 27, 31, 15, 22}','Bitis',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GTN05','Giày Thể Thao Êm Chân Siêu Nhẹ','','',950000,'{"39","40","41","42","43"}','GTN','{19, 27, 31, 15, 22}','Bitis',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GTN05.jpg?alt=media&token=166b87a9-816c-43ef-8ecc-6c9a6ba91b38');
 
-               INSERT INTO "Products" VALUES ('GDB01','Giày Đế Bằng Thời Trang Nữ Hiệu Exull','','',1350000,'{"36","37","38","39","40"}','GDB','{18, 20, 29, 14, 26}','Exull Mode',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GDB01','Giày Đế Bằng Thời Trang Nữ Hiệu Exull','','',1350000,'{"36","37","38","39","40"}','GDB','{18, 20, 29, 14, 26}','Exull Mode',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GDB01.jpg?alt=media&token=6c53b9e4-ab26-468a-97ca-cd78ee71240c');
                
-               INSERT INTO "Products" VALUES ('GDB02','Giày Sling Back Đế Vuông Nữ Exull','','',1120000,'{"36","37","38","39","40"}','GDB','{23, 28, 15, 30, 19}','Exull Mode',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GDB02','Giày Sling Back Đế Vuông Nữ Exull','','',1120000,'{"36","37","38","39","40"}','GDB','{23, 28, 15, 30, 19}','Exull Mode',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GDB02.webp?alt=media&token=95979887-d2d1-4ff5-99d6-fec5974b9f39');
                
-               INSERT INTO "Products" VALUES ('GDB03','Giày Loafer Đế Bằng Thời Trang','','',1200000,'{"36","37","38","39","40"}','GDB','{14, 18, 24, 29, 16}','Exull Mode',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GDB03','Giày Loafer Đế Bằng Thời Trang','','',1200000,'{"36","37","38","39","40"}','GDB','{14, 18, 24, 29, 16}','Exull Mode',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GDB03.webp?alt=media&token=5aa2eb9f-ec04-4bce-8cca-4bc6403f58ea');
                
-               INSERT INTO "Products" VALUES ('GDB04','Giày Búp Bê Mũi Nhọn','','',1250000,'{"36","37","38","39","40"}','GDB','{25, 17, 27, 21, 30}','Exull Mode',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GDB04','Giày Búp Bê Mũi Nhọn','','',1250000,'{"36","37","38","39","40"}','GDB','{25, 17, 27, 21, 30}','Exull Mode',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GDB04.jpg?alt=media&token=72898bcb-4ee9-4241-899b-ca3c805dc469');
                
-               INSERT INTO "Products" VALUES ('GDB05','Giày Sục Đế Bằng Exull','','',980000,'{"36","37","38","39","40"}','GDB','{22, 19, 28, 20, 31}','Exull Mode',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GDB05','Giày Sục Đế Bằng Exull','','',980000,'{"36","37","38","39","40"}','GDB','{22, 19, 28, 20, 31}','Exull Mode',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GDB05.webp?alt=media&token=193d92c9-0f35-48d9-9ac6-ebd57ff521db');
 
-               INSERT INTO "Products" VALUES ('GCG01','Giày Bít Mũi Nhọn Stiletto Heel','','',1150000,'{"36","37","38","39","40"}','GCG','{26, 15, 22, 31, 16}','Vascara',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GCG01','Giày Bít Mũi Nhọn Stiletto Heel','','',1150000,'{"36","37","38","39","40"}','GCG','{26, 15, 22, 31, 16}','Vascara',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GCG01.jpeg?alt=media&token=eb511583-0f46-4f7c-9243-54971986a12a');
                
-               INSERT INTO "Products" VALUES ('GCG02','Giày Cao Gót Gót Trụ Phối Khoá','','',1450000,'{"36","37","38","39","40"}','GCG','{19, 24, 12, 30, 28}','Juno',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GCG02','Giày Cao Gót Gót Trụ Phối Khoá','','',1450000,'{"36","37","38","39","40"}','GCG','{19, 24, 12, 30, 28}','Juno',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GCG02.webp?alt=media&token=5a3ec229-19ff-454c-ac77-7c3ad1cc885c');
                
-               INSERT INTO "Products" VALUES ('GCG03','Giày Cao Gót Khoá Trang Trí Kim Loại','','',1400000,'{"36","37","38","39","40"}','GCG','{27, 16, 29, 18, 21}','Juno',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GCG03','Giày Cao Gót Khoá Trang Trí Kim Loại','','',1400000,'{"36","37","38","39","40"}','GCG','{27, 16, 29, 18, 21}','Juno',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GCG03.jpg?alt=media&token=648ee059-4d4d-48a6-9162-104aaa6e94de');
                
-               INSERT INTO "Products" VALUES ('GCG04','Giày Cao Gót Pump Mũi Nhọn Gót Thanh','','',1050000,'{"36","37","38","39","40"}','GCG','{20, 25, 29, 14, 22}','Juno',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GCG04','Giày Cao Gót Pump Mũi Nhọn Gót Thanh','','',1050000,'{"36","37","38","39","40"}','GCG','{20, 25, 29, 14, 22}','Juno',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GCG04.jpg?alt=media&token=db5cf1ba-19da-463e-9cec-0a96fe29e412');
                
-               INSERT INTO "Products" VALUES ('GCG05','Giày Cao Gót Bít Mũi Gót Thanh','','',1550000,'{"36","37","38","39","40"}','GCG','{18, 31, 15, 23, 20}','Juno',0.0,'{}');
+               INSERT INTO "Products" VALUES ('GCG05','Giày Cao Gót Bít Mũi Gót Thanh','','',1550000,'{"36","37","38","39","40"}','GCG','{18, 31, 15, 23, 20}','Juno',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/GCG05.webp?alt=media&token=4133c433-7d57-410d-8839-736afe59653e');
 
                INSERT INTO "Products" VALUES ('SDN01','Sandal Thời Trang Nữ Bitis','','',1280000,'{"36","37","38","39","40"}','SDN','{30, 13, 26, 17, 22}','Bitis',0.0,'{}');
                
@@ -1095,27 +1095,27 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('SDN05','Giày Sandal Đế Chunky Phối Vân Da Kỳ Đà','','',1500000,'{"36","37","38","39","40"}','SDN','{17, 28, 26, 21, 24}','Balo Mini Nhấn Túi Phụ Vân Da Kỳ Đ',0.0,'{}');
 
-               INSERT INTO "Products" VALUES ('DNN01','DÉP XUỒNG ZUCIA ĐẾ GIẢ GỖ QUAI THỜI TRANG','','',1420000,'{"36","37","38","39","40"}','DNN','{29, 30, 16, 23, 14}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNN01','DÉP XUỒNG ZUCIA ĐẾ GIẢ GỖ QUAI THỜI TRANG','','',1420000,'{"36","37","38","39","40"}','DNN','{29, 30, 16, 23, 14}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNN01.jpg?alt=media&token=9567a5f9-274d-447b-91db-4834f3da789b');
                
-               INSERT INTO "Products" VALUES ('DNN02','DÉP NỮ ZUCIA QUAI CÁCH ĐIỆU CUT-OUT','','',990000,'{"36","37","38","39","40"}','DNN','{19, 27, 31, 15, 22}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNN02','DÉP NỮ ZUCIA QUAI CÁCH ĐIỆU CUT-OUT','','',990000,'{"36","37","38","39","40"}','DNN','{19, 27, 31, 15, 22}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNN02.jpg?alt=media&token=fa8693fc-119b-45b8-b815-82ff94fa818c');
                
-               INSERT INTO "Products" VALUES ('DNN03','DÉP NỮ ZUCIA DA MỀM HỌA TIẾT ĐAN CHÉO','','',1030000,'{"36","37","38","39","40"}','DNN','{23, 28, 15, 30, 19}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNN03','DÉP NỮ ZUCIA DA MỀM HỌA TIẾT ĐAN CHÉO','','',1030000,'{"36","37","38","39","40"}','DNN','{23, 28, 15, 30, 19}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNN03.jpg?alt=media&token=af04ea40-b416-4238-a4b3-bf5174db82bf');
                
-               INSERT INTO "Products" VALUES ('DNN04','DÉP NỮ ZUCIA KHÓA TRÒN GIẢ GỖ THỜI TRANG','','',1100000,'{"36","37","38","39","40"}','DNN','{14, 18, 24, 29, 16}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNN04','DÉP NỮ ZUCIA KHÓA TRÒN GIẢ GỖ THỜI TRANG','','',1100000,'{"36","37","38","39","40"}','DNN','{14, 18, 24, 29, 16}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNN04.jpg?alt=media&token=576086f1-1744-4771-a210-04019786c9a2');
                
-               INSERT INTO "Products" VALUES ('DNN05','DÉP XUỒNG NỮ QUAI DÂY BẢNG NGANG','','',1210000,'{"36","37","38","39","40"}','DNN','{25, 17, 27, 21, 30}','Đông Hải',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNN05','DÉP XUỒNG NỮ QUAI DÂY BẢNG NGANG','','',1210000,'{"36","37","38","39","40"}','DNN','{25, 17, 27, 21, 30}','Đông Hải',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNN05.jpg?alt=media&token=312fbac3-9064-4166-a215-21f84f5368f8');
 
-               INSERT INTO "Products" VALUES ('BLN01','Túi Đeo Chéo Style Mạnh Mẽ, Phong Cách Cực Chất BANGE GEKMAN','','',1210000,'{"L"}','BLN','{30}','Big Bag',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BLN01','Túi Đeo Chéo Style Mạnh Mẽ, Phong Cách Cực Chất BANGE GEKMAN','','',1210000,'{"L"}','BLN','{30}','Big Bag',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/47.jpg?alt=media&token=f9058be4-7793-4c0a-baba-a6a34a312f2b');
                
-               INSERT INTO "Products" VALUES ('BLN02','Balo Du Lịch Cao Cấp, Sức Chứa Khủng Hơn Vali','','',1210000,'{"L"}','BLN','{45}','Big Bag',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BLN02','Balo Du Lịch Cao Cấp, Sức Chứa Khủng Hơn Vali','','',1210000,'{"L"}','BLN','{45}','Big Bag',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/48.jpg?alt=media&token=2a13fba0-fcb9-4059-9bd2-99bb921a753f');
                
-               INSERT INTO "Products" VALUES ('BLN03','Balo Đa Năng Cao Cấp, Thiết Kế Siêu Thông Minh','','',1210000,'{"L"}','BLN','{51}','Big Bag',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BLN03','Balo Đa Năng Cao Cấp, Thiết Kế Siêu Thông Minh','','',1210000,'{"L"}','BLN','{51}','Big Bag',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/49.jpg?alt=media&token=f3dfab45-b38d-46de-bc41-dadb9d0e0eeb');
                
-               INSERT INTO "Products" VALUES ('BLN04','Balo Đa Năng Cao Cấp ROKIN MASTER','','',1210000,'{"L"}','BLN','{50}','Big Bag',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BLN04','Balo Đa Năng Cao Cấp ROKIN MASTER','','',1210000,'{"L"}','BLN','{50}','Big Bag',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/50.jpg?alt=media&token=f0a6271f-e6fd-469e-bd10-58846057b5b2');
                
-               INSERT INTO "Products" VALUES ('BLN05','Balo Laptop Cao Cấp, Style Cực Chất Sành Điệu BANGE GRANDE','','',1210000,'{"L"}','BLN','{32}','Big Bag',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BLN05','Balo Laptop Cao Cấp, Style Cực Chất Sành Điệu BANGE GRANDE','','',1210000,'{"L"}','BLN','{32}','Big Bag',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/51.jpg?alt=media&token=c526064e-2eb1-493f-a88b-7f22cbbd9c1b');
                
-               INSERT INTO "Products" VALUES ('BLN06','Balo Chống Trộm, Thiết Kế Đẳng Cấp MARK RYDEN DELTA','','',1210000,'{"L"}','BLN','{42}','Big Bag',0.0,'{}');            
+               INSERT INTO "Products" VALUES ('BLN06','Balo Chống Trộm, Thiết Kế Đẳng Cấp MARK RYDEN DELTA','','',1210000,'{"L"}','BLN','{42}','Big Bag',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/52.jpg?alt=media&token=4e8c6960-1b0a-424e-988a-22144f1ff1f2');            
 
                INSERT INTO "Products" VALUES ('TTN01','Túi Georges Tote MM','','',1210000,'{"L"}','TTN','{27}','Louis Vuitton',0.0,'{}');
                
@@ -1137,25 +1137,25 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('TDC05','Túi Đeo Chéo Đơn Giản, Nhỏ Gọn','','',1210000,'{"L"}','TDC','{24}','Big Bag',0.0,'{}');
 
-               INSERT INTO "Products" VALUES ('BVM01','Ví Mini Leo De Gol','','',1210000,'{"L"}','BVM','{44}','Leonardo',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BVM01','Ví Mini Leo De Gol','','',1210000,'{"L"}','BVM','{44}','Leonardo',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/53.jpg?alt=media&token=8ba83b02-915b-4605-9238-244e99c229a1');
                
-               INSERT INTO "Products" VALUES ('BVM02','Ví Card Monogram Carlos','','',1210000,'{"L"}','BVM','{40}','Leonardo',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BVM02','Ví Card Monogram Carlos','','',1210000,'{"L"}','BVM','{40}','Leonardo',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/54.jpg?alt=media&token=88f131b5-8ea2-4230-958a-06a137831fcd');
                
-               INSERT INTO "Products" VALUES ('BVM03','Ví Card Livermore','','',1210000,'{"L"}','BVM','{43}','Leonardo',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BVM03','Ví Card Livermore','','',1210000,'{"L"}','BVM','{43}','Leonardo',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/55.jpg?alt=media&token=a6113041-b0e8-431b-9ffd-3f1c88170491');
                
-               INSERT INTO "Products" VALUES ('BVM04','Ví Cầm Tay Nam Da Cá Sấu','','',1210000,'{"L"}','BVM','{34}','Gento',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BVM04','Ví Cầm Tay Nam Da Cá Sấu','','',1210000,'{"L"}','BVM','{34}','Gento',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/56.jpg?alt=media&token=1e0069ed-ce4a-4294-9fb7-db34e50bf894');
                
-               INSERT INTO "Products" VALUES ('BVM05','Ví Cầm Tay Nam Da Cá Sấu Cao Cấp Gento ','','',1210000,'{"L"}','BVM','{32}','Gento',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BVM05','Ví Cầm Tay Nam Da Cá Sấu Cao Cấp Gento ','','',1210000,'{"L"}','BVM','{32}','Gento',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/57.jpg?alt=media&token=0e17ceab-617e-4960-847d-59b87f76c903');
 
-               INSERT INTO "Products" VALUES ('BAN01','Balo Mini Nhấn Túi Phụ Vân Da Kỳ Đà','','',1210000,'{"L"}','BAN','{22}','Vascara',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BAN01','Balo Mini Nhấn Túi Phụ Vân Da Kỳ Đà','','',1210000,'{"L"}','BAN','{22}','Vascara',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/42.jpg?alt=media&token=71946121-da23-4423-b750-e2a4eeef728a');
                
-               INSERT INTO "Products" VALUES ('BAN02','Balo Mini Nhấn Khóa Túi Hộp','','',1210000,'{"L"}','BAN','{33}','Vascara',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BAN02','Balo Mini Nhấn Khóa Túi Hộp','','',1210000,'{"L"}','BAN','{33}','Vascara',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/43.jpg?alt=media&token=63ffc3c1-5fb7-4498-b3e5-a6cfc6bb5a00');
                
-               INSERT INTO "Products" VALUES ('BAN03','Ba Lô Nữ TJW Essential Backpack','','',1210000,'{"L"}','BAN','{44}','ACFC',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BAN03','Ba Lô Nữ TJW Essential Backpack','','',1210000,'{"L"}','BAN','{44}','ACFC',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/44.jpg?alt=media&token=7a7af0ec-5384-4987-bd54-779f891186b7');
                
-               INSERT INTO "Products" VALUES ('BAN04','Balo Nữ IM Latam Corp Backpack','','',1210000,'{"L"}','BAN','{55}','ACFC',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BAN04','Balo Nữ IM Latam Corp Backpack','','',1210000,'{"L"}','BAN','{55}','ACFC',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/45.jpg?alt=media&token=1e9ff3f4-9019-4168-a61f-6d8da83d689e');
                
-               INSERT INTO "Products" VALUES ('BAN05','Ba Lô Nữ Ryan Travel','','',1210000,'{"L"}','BAN','{11}','ACFC',0.0,'{}');
+               INSERT INTO "Products" VALUES ('BAN05','Ba Lô Nữ Ryan Travel','','',1210000,'{"L"}','BAN','{11}','ACFC',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/46.jpg?alt=media&token=1148f1fb-60f5-4e31-bd12-21bf2d948290');
 
                INSERT INTO "Products" VALUES ('VDT01','Ví Cầm Tay Top-Zip Nhiều Ngăn','','',1210000,'{"L"}','VDT','{56}','Vascara',0.0,'{}');
                
@@ -1175,25 +1175,25 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('PKT05','Dây Đeo Túi Xách Vải Bản Vừa','','',1210000,'{"L"}','PKT','{34}','Masion',0.0,'{}');
 
-               INSERT INTO "Products" VALUES ('DHA01','Longines - Nam','','',1210000,'{"L"}','DHA','{51}','Longines',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DHA01','Longines - Nam','','',1210000,'{"L"}','DHA','{51}','Longines',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DHA01.jpg?alt=media&token=7527e9e8-521d-4ece-984b-87e9b5596547');
                
-               INSERT INTO "Products" VALUES ('DHA02','Olym Pianus - Nam','','',1210000,'{"L"}','DHA','{27}','Olym Pianus',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DHA02','Olym Pianus - Nam','','',1210000,'{"L"}','DHA','{27}','Olym Pianus',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DHA02.webp?alt=media&token=3533620e-e40d-4837-806d-d076c5bc1d99');
                
-               INSERT INTO "Products" VALUES ('DHA03','Casio - Nam','','',1210000,'{"L"}','DHA','{26}','Casio',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DHA03','Casio - Nam','','',1210000,'{"L"}','DHA','{26}','Casio',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DHA03.jpg?alt=media&token=0dfa4897-9ac3-4381-954c-cb260d4deaac');
                
-               INSERT INTO "Products" VALUES ('DHA04','Tissot - Nam','','',1210000,'{"L"}','DHA','{22}','Tissot',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DHA04','Tissot - Nam','','',1210000,'{"L"}','DHA','{22}','Tissot',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DHA04.jpg?alt=media&token=57d74da0-c39d-4833-8a92-230af10a0d18');
                
-               INSERT INTO "Products" VALUES ('DHA05','Bonest Gatti - Nam','','',1210000,'{"L"}','DHA','{20}','Bonest Gatti',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DHA05','Bonest Gatti - Nam','','',1210000,'{"L"}','DHA','{20}','Bonest Gatti',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DHA05.webp?alt=media&token=c95c3f12-4261-4ab3-845d-a24dc85ee96e');
 
-               INSERT INTO "Products" VALUES ('DNU01','SRWatch - Nữ','','',1210000,'{"L"}','DNU','{37}','SRWatch',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNU01','SRWatch - Nữ','','',1210000,'{"L"}','DNU','{37}','SRWatch',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNU01.jpg?alt=media&token=859b566c-6ba9-47fb-b769-db32432c7ba2');
                
-               INSERT INTO "Products" VALUES ('DNU02','Casio - Nữ','','',1210000,'{"L"}','DNU','{38}','Casio',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNU02','Casio - Nữ','','',1210000,'{"L"}','DNU','{38}','Casio',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNU02.jpg?alt=media&token=b4818520-a938-4540-b012-35ae0f5d7861');
                
-               INSERT INTO "Products" VALUES ('DNU03','Tissot - Nữ','','',1210000,'{"L"}','DNU','{39}','Tissot',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNU03','Tissot - Nữ','','',1210000,'{"L"}','DNU','{39}','Tissot',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNU03.png?alt=media&token=427e9332-0230-4564-851d-7e5707de0e7e');
                
-               INSERT INTO "Products" VALUES ('DNU04','Seiko - Nữ','','',1210000,'{"L"}','DNU','{40}','Seiko',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNU04','Seiko - Nữ','','',1210000,'{"L"}','DNU','{40}','Seiko',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNU04.jpg?alt=media&token=dbca24f0-2d79-4482-917a-a81b321cc08a');
                
-               INSERT INTO "Products" VALUES ('DNU05','Orient - Nữ','','',1210000,'{"L"}','DNU','{5}','Orient',0.0,'{}');
+               INSERT INTO "Products" VALUES ('DNU05','Orient - Nữ','','',1210000,'{"L"}','DNU','{5}','Orient',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/DNU05.jpg?alt=media&token=f033cd65-6903-48db-9afe-7c1616640565');
 
                COMMIT;
                               
