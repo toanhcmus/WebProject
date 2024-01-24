@@ -942,7 +942,7 @@ module.exports = {
                
                INSERT INTO "Products" VALUES ('ATN05','Áo Thun Tay Lỡ Màu Trơn In Hình BTS','','',85000,'{"S","M","L"}','ATN','{36,35,34}','Demi',0.0,'{}');
                
-               INSERT INTO "Products" VALUES ('ATN06', 'Áo Thun Ngắn Tay Sọc Caro Phong Cách','','',95000,'{"S","M","L"}','ATN','{11,12,15}','Demi',0.0,'{}');
+               INSERT INTO "Products" VALUES ('ATN06', 'Áo Thun Ngắn Tay Sọc Caro Phong Cách','','',95000,'{"S","M","L"}','ATN','{11,12,15}','Demi',0.0,'https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ');
                
                INSERT INTO "Products" VALUES ('ATN07','Áo Thun Cotton Polo Nhí Nhảnh','','',175000,'{"S","M","L"}','ATN','{8,9,7}','Coolmate',0.0,'{}');
 

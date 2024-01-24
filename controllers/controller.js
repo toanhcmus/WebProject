@@ -116,6 +116,7 @@ module.exports = {
             if (!found) {
                 req.session.cart.push({ id: req.body.id, name: req.body.name, price: parseInt(req.body.price), count: parseInt(req.body.count), image: req.body.image });
             }
+            
             res.json({});
         }
         catch (error) {
@@ -367,55 +368,22 @@ module.exports = {
     },
     detailProductForUser: async (req, res, next) => {
         try {
-            const id = req.params.id;
-            const product = await Product.getProductByID(id);
-            const categories = await Category.allCategory();       
-            const categoryItems = await Category.allCategoryItem();
-            const dataForHbs = categories.map((categories) => {
-                const items = categoryItems.filter((item) => item.catID === categories.catID);
-                return { ...categories, items };
-            });
-    
-            const cart = req.session.cart;
-    
-            let productCon = await Product.getProductCon(id);
-            let productSuggest = await Product.getProductSuggest(id);
-    
-            // Add cart information to each product in productCon
-// Add cart information to each product in productCon
-productCon = productCon.map((item) => {
-    const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
-    return { ...item, cartItem };
-});
-
-// Add cart information to each product in productSuggest
-productSuggest = productSuggest.map((item) => {
-    const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
-    return { ...item, cartItem };
-});
-
-// If product exists and cart is defined, add its properties to each item in the cart
-if (product && product.length > 0 && cart) {
-    cart.forEach((cartItem) => {
-        const productInfo = product[0];
-        // Add product properties to the cart item
-        cartItem.productInfo = productInfo;
-    });
-}
-
-    
-            res.render("details", {
-                product: product ? product[0] : {},
-                categories: dataForHbs,
-                productCon: productCon,
-                productSuggest: productSuggest,
-                cart: cart,
-                title: "Product"
-            });
-    
+        let id = req.params.id;
+        let product = await Product.getProductByID(id);
+        let categories = await Category.allCategory();       
+        let categoryItems = await Category.allCategoryItem();
+        let dataForHbs = categories.map((categories) => {
+            const items = categoryItems.filter((item) => item.catID === categories.catID);
+            return { ...categories, items };
+        });
+        const cart = req.session.cart;
+        let productCon = await Product.getProductCon(id);
+        let productSuggest = await Product.getProductSuggest(id);
+        product = product ? product[0] : {};
+        res.render("details", {product: product,categories: dataForHbs, productCon, productSuggest,cart:cart,title: "Product" });
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
+
     },
-    
 }
