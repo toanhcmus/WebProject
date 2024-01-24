@@ -18,7 +18,7 @@ module.exports = {
     },
     renderAdmin: async (req, res, next) => {
         try {
-            res.render('admin/dashboard');
+            res.render('admin/dashboard', {layout: 'admin'});
         }
         catch (error) {
             next(error);

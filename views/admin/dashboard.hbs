@@ -1,6 +1,6 @@
 <div id="menu">
     <div class="container text-center">
-        <ul class="row align-items-start">
+        <ul class="row align-items-start ul-admin">
             <li class="col">
                 <a href="/admin/account">Quản lý tài khoản</a>
             </li>
@@ -8,7 +8,7 @@
                 <a href="/admin/category">Quản lý danh mục</a>
             </li>
         </ul>
-        <ul class="row align-items-start">
+        <ul class="row align-items-start ul-admin">
             <li class="col">
                 <a class="menu-link"  href="/admin/products">Quản lý sản phẩm</a>
             </li>
@@ -16,6 +16,9 @@
                 <a class="menu-link" href="/admin/chart">Thống kê</a>
             </li>
         </ul>
+        <li class="col">
+            <a class="menu-link"  href="/admin/bills">Danh sách hóa đơn</a>
+        </li>
     </div>
 </div>
 
@@ -33,13 +36,13 @@
         padding: 0;
     }
 
-    ul {
+    .ul-admin {
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    li {
+    .col {
         border: 2px solid #000;
         margin: 20px;
         padding: 20px;

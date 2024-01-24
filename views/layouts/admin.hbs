@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Spectral' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b7cad2323d.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        .container {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0;
+            max-width: 100%;
+        }
+
+        hr {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    {{> headerAdmin}}
+    <hr>
+    <div class="container">
+        {{{body}}}
+    </div>
+</body>
+
+{{!-- up anh len firebase va them vao database --}}
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDKKnJIIrD9T9flxWH_TnjwKgtggCUf6-A",
+        authDomain: "webproject-646b5.firebaseapp.com",
+        projectId: "webproject-646b5",
+        storageBucket: "webproject-646b5.appspot.com",
+        messagingSenderId: "87103126392",
+        appId: "1:87103126392:web:e21cff766c738e8754e68d",
+        measurementId: "G-SWGXFK1SFB"
+    };
+
+    const firebase = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(firebase);
+    $(document).ready(function () {
+        $(document).on('click', '.btnUpload', function (e) {
+            console.log('aaaaa')
+            e.preventDefault();
+            const file = document.getElementById('formFile').files[0];
+            const metadata = {
+                contentType: file.type,
+            }
+            const name = file.name;
+            const storage = getStorage();
+            const storageReference = storageRef(storage, file.name);
+            const uploadImg = uploadBytes(storageReference, file, metadata);
+            uploadImg.then(snapshot => {
+                return getDownloadURL(storageReference);
+            }).then(url => {
+                console.log(url);
+                $('#imageUrl').val(url);
+                $('#productForm').submit();
+                alert('Thêm sản phẩm thành công')
+            }).catch(console.error);
+
+        })
+    });
+
+</script>
+
+{{!-- preview anh --}}
+<script>
+    $(document).ready(function () {
+        $('#formFile').change(function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').attr('src', e.target.result);
+                $('#imagePreview').show();
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+    });
+</script>
+
+</html>

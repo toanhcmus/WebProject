@@ -153,7 +153,7 @@ module.exports = {
         let accountList = await User.getAllUsers();
         console.log(accountList);
         res.render('account_manager', {
-            layout: 'main',
+            layout: 'admin',
             accountList: accountList
         });
     },
@@ -168,7 +168,7 @@ module.exports = {
         if (toBeDeletedUser.isAdmin) {
             let accountList = await User.getAllUsers();
             return res.render('account_manager', {
-                layout: 'main',
+                layout: 'admin',
                 accountList: accountList,
                 error: 'Không thể xóa tài khoản admin!'
             });
@@ -176,7 +176,7 @@ module.exports = {
         await User.removeUser(req.params.Username);
         let accountList = await User.getAllUsers();
         res.render('account_manager', {
-            layout: 'main',
+            layout: 'admin',
             accountList: accountList,
             success: 'Xóa tài khoản thành công!'
         });
@@ -191,7 +191,7 @@ module.exports = {
         if (await User.checkEmailExist(req.query.MEmail)) {
             let accountList = await User.getAllUsers();
             return res.render('account_manager', {
-                layout: 'main',
+                layout: 'admin',
                 accountList: accountList,
                 error: 'Email này đã được sử dụng!'
             });
@@ -216,7 +216,7 @@ module.exports = {
         await User.editUser(req.query.MUsername, newEmail, newPassword);
         let accountList = await User.getAllUsers();
         res.render('account_manager', {
-            layout: 'main',
+            layout: 'admin',
             accountList: accountList,
             success: 'Thay đổi thông tin thành công!'
         });
@@ -245,7 +245,7 @@ module.exports = {
 
         if (error) {
             res.render('account_manager', {
-                layout: 'main',
+                layout: 'admin',
                 accountList: accountList,
                 error: error
             });
@@ -253,14 +253,14 @@ module.exports = {
         else {
             if (await User.checkUsernameExist(body.MAUsername)) {
                 res.render('account_manager', {
-                    layout: 'main',
+                    layout: 'admin',
                     accountList: accountList,
                     error: 'Username đã tồn tại!'
                 });
             }
             else if (await User.checkEmailExist(body.MAEmail)) {
                 res.render('account_manager', {
-                    layout: 'main',
+                    layout: 'admin',
                     accountList: accountList,
                     error: 'Email này đã được sử dụng!'
                 });
@@ -271,7 +271,7 @@ module.exports = {
                 await User.insertUser(newUser);
                 accountList = await User.getAllUsers();
                 res.render('account_manager', {
-                    layout: 'main',
+                    layout: 'admin',
                     accountList: accountList,
                     success: 'Thêm tài khoản thành công!'
                 });
