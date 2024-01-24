@@ -223,7 +223,7 @@ module.exports = {
                 y: JSON.stringify(tien)
             };
         
-            res.render('./admin/product/chart', data);
+            res.render('./admin/product/chart',{ layout: 'admin', ...data });
 
         } catch (error) {
             console.log(error)
@@ -247,7 +247,7 @@ module.exports = {
                 x=JSON.stringify([1, 2, 3, 4,5,6,7,8,9,10,11,12]),
                 y=JSON.stringify(tien)
         
-            res.render('./admin/product/chart', {x:x,y:y,table:table});
+            res.render('./admin/product/chart', {layout:'admin',x:x,y:y,table:table});
         } catch (error) {
             console.log(error)
         }
