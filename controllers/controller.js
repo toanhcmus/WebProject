@@ -17,6 +17,12 @@ module.exports = {
         }
     },
     renderAdmin: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
         try {
             res.render('admin/dashboard', {layout: 'admin'});
         }
@@ -131,28 +137,6 @@ module.exports = {
             for (let i = 0; i < req.session.cart.length; i++) {
                 if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
                     req.session.cart[i].count++;
-                    break;
-                }
-            }
-            res.json({});
-        }
-        catch (error) {
-            next(error);
-        }
-    },
-    minus: async (req, res, next) => {
-        try {
-            if (!req.session.cart) {
-                req.session.cart = [];
-            }
-            for (let i = 0; i < req.session.cart.length; i++) {
-                if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
-                    if (req.session.cart[i].count == 1) {
-                        req.session.cart.splice(i, 1);
-                    }
-                    else {
-                        req.session.cart[i].count--;
-                    }
                     break;
                 }
             }
@@ -385,5 +369,13 @@ module.exports = {
             console.log(error)
         }
 
+    },
+    renderAbout: async (req, res, next) => {
+        try {
+            res.render('about', { layout: 'main' });
+        }
+        catch (error) {
+            next(error);
+        }
     },
 }
