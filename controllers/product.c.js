@@ -29,7 +29,7 @@ module.exports = {
             const items = categoryItems.filter((item) => item.catID === categories.catID);
             return { ...categories, items };
         });
-        res.render("admin/product/viewProduct", {products, categories: dataForHbs, title: "Dashboard" });
+        res.render("admin/product/viewProduct", {products, categories: dataForHbs, title: "Dashboard", layout: 'admin'});
     },
     addProduct: async (req, res, next) => {
         try {

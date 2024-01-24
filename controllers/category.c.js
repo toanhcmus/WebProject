@@ -48,7 +48,7 @@ module.exports = {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render("admin/category/editCategory", { categories: dataForHbs, title: "Edit" });
+            res.render("admin/category/editCategory", { layout: 'admin', categories: dataForHbs, title: "Edit" });
 
         } catch (error) {
             console.log(error);
@@ -69,7 +69,7 @@ module.exports = {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render('admin/category/viewCategory',{categories: dataForHbs});
+            res.render('admin/category/viewCategory',{layout: 'admin', categories: dataForHbs});
         }
         catch (error) {
             next(error);

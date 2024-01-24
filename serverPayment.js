@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const _ = require("lodash");
 const fs = require('fs');
 const https = require('https');
 const { create } = require('express-handlebars');
@@ -40,5 +39,5 @@ app.get('*', function(req, res){
 
 
 server.listen(process.env.PORT_PAYMENT, function() {
-  console.log(`Server PAYMENT started on port ${process.env.PORT_PAYMENT}`);
+  console.log(`Server PAYMENT started on port https://localhost:${process.env.PORT_PAYMENT}`);
 });
