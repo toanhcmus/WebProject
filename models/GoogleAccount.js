@@ -10,7 +10,8 @@ module.exports = class GoogleAccount {
     static async insertUser(newUser) {
         await db.insertGoogleUser(newUser);
         const rs = await paymentM.selectUser(newUser.Email);
-        if (!rs) {
+        console.log(rs);
+        if (rs === undefined) {
             await paymentM.addAcc(newUser.Email);
         }
     }
