@@ -50,16 +50,12 @@
             {{/each}} --}}
         </tbody>
     </table>
-    <div class="pagination w-75 d-flex flex-column justify-content-center align-items-center">
-        <div class="w-100 d-flex flex-row justify-content-center align-items-center">
-            <button class="btn btn-info previous-page ms-1 me-1" style="width:90px;">Previous</button>
-            <input type="number" class="form-control current-page" style="width:60px;" min="1" value="1">
-            <span class="max-page text-center" style="width:60px;"></span>
-            <button class="btn btn-info next-page ms-1 me-1" style="width:90px;">Next</button>
-        </div>
-        <div class="w-100 d-flex flex-row justify-content-center align-items-center mt-1">
-            <button class="btn btn-info go-page">Go</button>
-        </div>
+    <div class="pagination w-75 d-flex flex-row justify-content-center align-items-center">
+        <button class="btn btn-info previous-page ms-1 me-1" style="width:90px;">Previous</button>
+        <input type="number" class="form-control current-page" style="width:60px;" min="1" value="1"> /
+        <input type="number" class="form-control max-page" style="width:60px;" value="{{max}}" disabled>
+        {{!-- <span class="max-page text-center" style="width:60px;"></span> --}}
+        <button class="btn btn-info next-page ms-1 me-1" style="width:90px;">Next</button>
     </div>
 </div>
 
@@ -116,6 +112,20 @@
                         <label for="MAEmail-input" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="MAEmail-input" name="MAEmail">
                     </div>
+                    <div class="mb-3">
+                        <label for="MARole-input" class="form-label">Role:</label>
+                        <br>
+                        <div class="d-flex flex-row justify-content-center align-items-center">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="MARole" id="inlineRadio1" value=false checked>
+                                <label class="form-check-label" for="inlineRadio1">Guest</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="MARole" id="inlineRadio2" value=true>
+                                <label class="form-check-label" for="inlineRadio2">Admin</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
@@ -163,7 +173,7 @@
                 });
                 maxPage = data.maxPage;
                 document.querySelector('.current-page').value = currentPage;
-                document.querySelector('.max-page').textContent = `/ ${data.maxPage}`;
+                document.querySelector('.max-page').value = data.maxPage;
             });
     }
 
@@ -182,6 +192,24 @@
         }
     });
     document.querySelector('.go-page').addEventListener('click', () => {
+        const inputPage = parseInt(document.querySelector('.current-page').value);
+        console.log(maxPage);
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+            currentPage = inputPage;
+            updateTable();
+        }
+        else if (inputPage < 1) {
+            document.querySelector('.current-page').value = 1;
+            currentPage = 1;
+            updateTable();
+        }
+        else if (inputPage > maxPage) {
+            document.querySelector('.current-page').value = maxPage;
+            currentPage = maxPage;
+            updateTable();
+        }
+    });
+    $('.current-page').on('change', function () {
         const inputPage = parseInt(document.querySelector('.current-page').value);
         console.log(maxPage);
         if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
