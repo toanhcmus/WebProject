@@ -1,14 +1,16 @@
 const Product = require('../models/Product');
 const paymentM = require('../models/Payment');
 const billM = require('../models/Bill');
-
+const fs = require('fs');
+const path = require('path');
+const Category = require('../models/Category');
 module.exports = {
     render: async (req, res, next) => {
         try {
             const product = await Product.allProduct();
             const noibat = await  Product.getNoiBat();
             const cart = req.session.cart;
-            res.render('home', { layout: 'main', items: product.slice(0, 4),noibat:noibat.splice(0,4) ,cart: cart });
+            res.render('home', { layout: 'main', items: product.slice(0, 5),noibat:noibat.splice(0,5) ,cart: cart });
         }
         catch (error) {
             next(error);
@@ -361,4 +363,57 @@ module.exports = {
             next(error);
         }
     },
+    detailProductForUser: async (req, res, next) => {
+        try {
+            const id = req.params.id;
+            const product = await Product.getProductByID(id);
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+    
+            const cart = req.session.cart;
+    
+            let productCon = await Product.getProductCon(id);
+            let productSuggest = await Product.getProductSuggest(id);
+    
+            // Add cart information to each product in productCon
+// Add cart information to each product in productCon
+productCon = productCon.map((item) => {
+    const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
+    return { ...item, cartItem };
+});
+
+// Add cart information to each product in productSuggest
+productSuggest = productSuggest.map((item) => {
+    const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
+    return { ...item, cartItem };
+});
+
+// If product exists and cart is defined, add its properties to each item in the cart
+if (product && product.length > 0 && cart) {
+    cart.forEach((cartItem) => {
+        const productInfo = product[0];
+        // Add product properties to the cart item
+        cartItem.productInfo = productInfo;
+    });
+}
+
+    
+            res.render("details", {
+                product: product ? product[0] : {},
+                categories: dataForHbs,
+                productCon: productCon,
+                productSuggest: productSuggest,
+                cart: cart,
+                title: "Product"
+            });
+    
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    
 }
