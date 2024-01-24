@@ -165,12 +165,12 @@ module.exports = {
             return res.redirect('/');
         }
         let toBeDeletedUser = await User.getUser(req.params.Username);
-        if (toBeDeletedUser.isAdmin) {
+        if (toBeDeletedUser.username == req.user.username) {
             let accountList = await User.getAllUsers();
             return res.render('account_manager', {
                 layout: 'admin',
                 accountList: accountList,
-                error: 'Không thể xóa tài khoản admin!'
+                error: 'Bạn đang sử dụng tài khoản này!'
             });
         }
         await User.removeUser(req.params.Username);
@@ -267,7 +267,7 @@ module.exports = {
             }
             else {
                 const pwHashed = await bcrypt.hash(body.MAPassword, saltRounds);
-                const newUser = new User({ username: body.MAUsername, password: pwHashed, email: body.MAEmail, isAdmin: false });
+                const newUser = new User({ username: body.MAUsername, password: pwHashed, email: body.MAEmail, isAdmin: body.MARole });
                 await User.insertUser(newUser);
                 accountList = await User.getAllUsers();
                 res.render('account_manager', {
