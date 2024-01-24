@@ -93,7 +93,7 @@ module.exports = {
             console.log('filter')
             req.session.filter=req.body.filter;
             var data  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
-            console.log(data);
+            // console.log(data);
             res.json({pro:data.splice(0,4), max:Math.ceil(data.length / 4)+1});
         }
         catch (error) {

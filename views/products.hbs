@@ -255,7 +255,7 @@
                         let productHTML = `
              <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-3 product" id="product${product.id}">
+                    <div class="col-3 product" id="${product.id}">
                         <div class="card">
                             <a href="/products/${product.id}" >
                                 <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
@@ -306,7 +306,7 @@
                         let productHTML = `
                          <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-3 product" id="product${product.id}">
+                    <div class="col-3 product" id="${product.id}">
                         <div class="card">
                             <a href="/products/${product.id}" >
                                 <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
@@ -372,6 +372,8 @@
                 </div>
             </div>`;
                     $('.pro').append(productHTML);
+                    $('.current-page-product').val(1);
+
                 });
             })
             .catch(error => {

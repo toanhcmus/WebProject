@@ -90,7 +90,7 @@ module.exports = {
         ORDER BY  soluong DESC
             `
         const data = await db.any(query);
-        console.log('bbbb', data)
+        //console.log('bbbb', data)
         return data;
     },
     chart: async () => {

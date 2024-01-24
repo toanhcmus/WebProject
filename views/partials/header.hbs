@@ -86,33 +86,32 @@
         <div class="cart overflow-y-auto  "
             style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #b7f0f3;">
             <div class=" row d-flex col-12">
-                <h1 class="col-9 pt-1 mx-auto">Giỏ hàng</h1>
-                <div class="util-item col-3 cart-icon pt-3    ">
+                <h1 class="col-9 pt-1 mx-auto text-center">Giỏ hàng</h1>
+                <div class="util-item col-3 cart-icon pt-3 text-center   ">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
             </div>
 
-            <div class=" row cart-body">
+            <div class=" row cart-body w-100">
                 {{#each cart}}
-                <div class="card m-1">
+                <div class="card m-1 ">
                     <div class="d-flex mt-1 " style="height:120px">
                         <div class="col-5">
                             <img src=" {{this.image}}" class=" product-image "
                                 style="width: 100%; height: 100%; object-fit: contain;" alt="...">
                         </div>
                         <div class="col-5 ">
-                            <div class="text-start pt-2 d-flex">
-
+                            <div class="text-start  d-flex">
                                 <h5 class="product-name">{{this.name}}</h5>
-                                <h5 class="product-id">{{this.id}}</h5>
                             </div>
-                            <div class=" text-start pt-3">
-                                <button class="btn btn-primary" id="plus">+</button>
-
-                                <input type="text" class="count " style="width:35px;height:35px" value="{{this.count}}" disabled>
-                                </input>
+                            <div class="text-start m-1">
+                                <span class="product-id">{{this.id}}</span>
+                            </div>
+                            <div class=" text-start ">
                                 <button class="btn btn-primary" id="minus">-</button>
-
+                                <input type="text" class="count text-center" style="width:35px;height:35px" value="{{this.count}}" disabled>
+                                </input>
+                                <button class="btn btn-primary" id="plus">+</button>
                             </div>
                         </div>
                         <div class="col-2">
