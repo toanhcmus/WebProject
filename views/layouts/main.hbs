@@ -94,15 +94,22 @@
             var productID = productContainer.attr('id');
             var productPrice = $(this).parent().find('.product-price').text();
             var productImage = $(this).parent().parent().parent().find('.product-image').attr('src');
+            var productCount = $(this).parent().find('.product-count');
             console.log('Tên sản phẩm: ' + productName);
             console.log('Giá sản phẩm: ' + productPrice);
             console.log('URL ảnh sản phẩm: ' + productImage);
             console.log('ID sản phẩm: ' + productID);
-            addToCart(productID, productName, productPrice, productImage);
+            addToCart(productID, productName, productPrice, productImage,productCount);
         });
-        async function addToCart(id, name, price, image) {
+        async function addToCart(id, name, price, image,productCount) {
 
             var existingProduct = null;
+            var countUp
+            if (productCount.val() == null){
+                countUp = 1;
+            }
+            else countUp = parseInt(productCount.val());
+            console.log(countUp);
 
             $('.cart-body .card').each(function () {
                 var productName = $(this).find('.product-name').text().trim('');
@@ -117,9 +124,10 @@
                     name: name,
                     price: price,
                     image: image,
-                    count: parseInt(quantityInput.val()) + 1
+                    count: parseInt(quantityInput.val()) + countUp
                 }, function (data) { }).fail(function () { });
-                quantityInput.val(parseInt(quantityInput.val()) + 1);
+                quantityInput.val(parseInt(quantityInput.val()) + countUp);
+                
             } else {
                 var pro = `<div class="card m-1">
                 <div class="d-flex mt-1 " style="height:120px">
@@ -153,7 +161,7 @@
                     name: name,
                     price: price,
                     image: image,
-                    count: 1
+                    count: countUp
                 }, function (data) {
                 }).fail(function () {
                 });

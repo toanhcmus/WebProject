@@ -200,14 +200,13 @@ p {
 
                         <p>Lựa chọn số lượng: 
                             <span class="quantity">
-                                <button class="minus-btnn">-</button>
-                                <input type="text" class="quantity-inputt product-count" value="1" data-count="{{product.count.[0]}}">
-                                <button class="plus-btnn">+</button>
+                                <button class="minus-btnn" id="minuss">-</button>
+                                <input type="text" class="product-count" max="{{product.count.[0]}}">
+                                <button class="plus-btnn" id="pluss">+</button>
                             </span>
                         </p>
                         {{#moreThanZero product.count.[0]}}
                                 <button class="add-to-cart add-btn ml-2 mb-3">THÊM VÀO GIỎ</button>
-                                <button class="buy-btn">MUA NGAY</button>                            
                         {{else}}
                             <h4>Sản phẩm này đã hết hàng</h4>
                             <h4>Vui lòng quay lại sau!</h4>
@@ -276,24 +275,54 @@ p {
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const minusBtnn = document.querySelector(".minus-btnn");
-        const plusBtnn = document.querySelector(".plus-btnn");
-        const quantityInputt = document.querySelector(".quantity-inputt");
-
-        minusBtnn.addEventListener("click", function() {
-            let value = parseInt(quantityInputt.value);
-            value = isNaN(value) ? 0 : value;
-            value = value <= 1 ? 1 : value - 1;
-            quantityInputt.value = value;
-        });
-
-        plusBtnn.addEventListener("click", function() {
-            let value = parseInt(quantityInputt.value);
-            value = isNaN(value) ? 0 : value;
-            value = value + 1;
-            quantityInputt.value = value;
-        });
+/*$(document).ready(function () {
+    $('.cart').on('click', '#pluss', function () {
+        var quantityInput = $(this).find('.product-count');
+        var currentQuantity = parseInt(quantityInput.val());
+        quantityInput.val(currentQuantity + 1);
     });
-    
+    $('.cart').on('click', '#minuss', function () {
+        var quantityInput = $(this).find('.product-count');
+        var currentQuantity = parseInt(quantityInput.val());
+        if (currentQuantity == 0) {
+            quantityInput.val(currentQuantity);
+        }
+        else {
+            quantityInput.val(currentQuantity - 1);
+            console.log(quantityInput.val());
+        }
+    });
+}); */
+      document.addEventListener("DOMContentLoaded", function() {
+          const minusBtn = document.querySelector(".minus-btnn");
+          const plusBtn = document.querySelector(".plus-btnn");
+          const quantityInput = document.querySelector(".product-count");
+
+         // Hàm cập nhật giá trị
+    function updateValue() {
+        let value = parseInt(quantityInput.value);
+        const max = parseInt(quantityInput.getAttribute("max"));
+        value = isNaN(value) ? 0 : value;
+        value = value < 1 ? 1 : value;
+        value = value > max ? max : value;
+        quantityInput.value = value;
+    }
+
+    // Bắt đầu theo dõi sự kiện input cho trường nhập liệu "product-count"
+    quantityInput.addEventListener("input", updateValue);
+
+          minusBtn.addEventListener("click", function() {
+              let value = parseInt(quantityInput.value);
+              value = isNaN(value) ? 0 : value;
+              value = value <= 1 ? 1 : value - 1;
+              quantityInput.value = value;
+          });
+
+          plusBtn.addEventListener("click", function() {
+              let value = parseInt(quantityInput.value);
+              value = isNaN(value) ? 0 : value;
+              value = value + 1;
+              quantityInput.value = value;
+          });
+      });
 </script>
