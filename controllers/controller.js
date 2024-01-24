@@ -282,6 +282,8 @@ module.exports = {
             const total = latestPayment.money;
             const date = latestPayment.Time;
 
+            console.log(req.session.cart);
+
             const obj = {
                 username: un,
                 date: date,

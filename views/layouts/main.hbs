@@ -89,8 +89,9 @@
         updateCartNotification();
 
         $(document).on('click', '.add-to-cart', function() {
+            var productContainer = $(this).closest('.col-3.product');
             var productName = $(this).parent().parent().find('.product-name').text();
-            var productID = $(this).parent().parent().find('.product-id').text();
+            var productID = productContainer.attr('id');
             var productPrice = $(this).parent().find('.product-price').text();
             var productImage = $(this).parent().parent().parent().find('.product-image').attr('src');
             console.log('Tên sản phẩm: ' + productName);
