@@ -150,9 +150,7 @@ module.exports = {
     },
     paging: async (search, sort, fi) => {
         let query = `SELECT * FROM "Products"`;
-        if (search) {
             query += ` WHERE "name" ILIKE '%${search}%'`;
-        }
         let producerConditions = [];
         let priceConditions = [];
         if (fi) {
@@ -191,7 +189,10 @@ module.exports = {
                 query += ` AND ` + conditions.join(' AND ');
             }
         }
-        if (sort.trim('') === "decrease") {
+        if(!sort){
+            query += ` ORDER BY "name" ASC`;
+        }
+        else if (sort.trim('') === "decrease") {
             query += ` ORDER BY "price" DESC`;
         } else if (sort.trim('') === "increase") {
             query += ` ORDER BY "price" ASC`;
