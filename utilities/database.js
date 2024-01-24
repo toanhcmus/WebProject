@@ -14,7 +14,7 @@ const db = pgp(cn);
 
 module.exports = {
     selectAllBills: async () => {
-        const rs = await db.any('SELECT * FROM "HoaDonBanHang"');
+        const rs = await db.any('SELECT * FROM "HoaDon"');
         return rs;
     },
     addTTHoaDon: async (MaHoaDon, obj) => {
@@ -30,14 +30,14 @@ module.exports = {
     },
     insertBill: async (obj) => {
         await db.none(
-            'INSERT INTO "HoaDonBanHang" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
+            'INSERT INTO "HoaDon" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES($1, $2, $3, $4)',
             [obj.username, obj.date, obj.total, obj.status]
         );
 
     },
     selectHoaDon: async (username) => {
         const rs = await db.any(
-            'SELECT * FROM "HoaDonBanHang" WHERE "username" = $1;',
+            'SELECT * FROM "HoaDon" WHERE "username" = $1;',
             [username]
         );
         return rs;
@@ -50,7 +50,7 @@ module.exports = {
         return rs;
     },
     updateStatus: async (id, status) => {
-        const updateQuery = 'UPDATE public."HoaDonBanHang" SET "TrangThai" = $1 WHERE "id" = $2';
+        const updateQuery = 'UPDATE public."HoaDon" SET "TrangThai" = $1 WHERE "id" = $2';
         await db.none(updateQuery, [status, id]);
     },
     allProduct: async () => {
