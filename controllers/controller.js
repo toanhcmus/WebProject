@@ -17,6 +17,12 @@ module.exports = {
         }
     },
     renderAdmin: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
         try {
             res.render('admin/dashboard', {layout: 'admin'});
         }
@@ -363,5 +369,13 @@ module.exports = {
             console.log(error)
         }
 
+    },
+    renderAbout: async (req, res, next) => {
+        try {
+            res.render('about', { layout: 'main' });
+        }
+        catch (error) {
+            next(error);
+        }
     },
 }
