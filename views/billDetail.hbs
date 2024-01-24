@@ -1,0 +1,39 @@
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 m-auto">
+    <div class="card h-100">
+        <div class="card-body">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                    <h6 class="mb-2 text-primary">Danh sách hóa đơn</h6>
+                </div>
+                <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày lập</th>
+                    <th scope="col">Thành tiền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allBills}}
+                    <tr>
+                        <td>{{this.NgayLap}}</td>
+                        <td>{{this.ThanhTien}}</td>
+                        {{#ifCond this.TrangThai 0}}
+                            <td style="color: green;">Thành công</td>
+                        {{/ifCond}}
+
+                        {{#ifCond this.TrangThai 1}}
+                            <td style="color: red;">Thất bại</td>
+                        {{/ifCond}}
+
+                        <td><a href="/bill/id={{this.MaHoaDon}}">Chi tiết</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+            </table>
+            </div>
+            
+        </div>
+    </div>
+</div>

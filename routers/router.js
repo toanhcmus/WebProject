@@ -66,4 +66,6 @@ router.get('/admin/products/:id',productController.detailProduct);
 router.post('/admin/products/:id',productController.editProduct);
 
 router.get('/products/:id',controller.detailProductForUser);
+router.post('/bill/detail', billController.billDetail);
+
 module.exports = router;

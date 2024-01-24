@@ -141,7 +141,7 @@
       <div class="container">
             <div class="row justify-content-center">
                 {{#each items}}
-                <div class="col-3 product" id="product{{this.id}}">
+                <div class="col-3 product" id="{{this.id}}">
                     <div class="card">
                         <a href="/products/{{this.id}}" >
                             <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
@@ -193,17 +193,11 @@
             </div>
 
         </div>
-
-
-
-
         <div class="row text-center pt-5 test">
             <h1>
                 Sản phẩm nổi bật
             </h1>
         </div>
-        
-
       <div class="container">
             <div class="row justify-content-center">
                  {{#each noibat}}

@@ -382,26 +382,26 @@ module.exports = {
             let productSuggest = await Product.getProductSuggest(id);
     
             // Add cart information to each product in productCon
-// Add cart information to each product in productCon
-productCon = productCon.map((item) => {
-    const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
-    return { ...item, cartItem };
-});
+            // Add cart information to each product in productCon
+            productCon = productCon.map((item) => {
+                const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
+                return { ...item, cartItem };
+            });
 
-// Add cart information to each product in productSuggest
-productSuggest = productSuggest.map((item) => {
-    const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
-    return { ...item, cartItem };
-});
+            // Add cart information to each product in productSuggest
+            productSuggest = productSuggest.map((item) => {
+                const cartItem = cart && cart.find((cartItem) => cartItem.id === item.id);
+                return { ...item, cartItem };
+            });
 
-// If product exists and cart is defined, add its properties to each item in the cart
-if (product && product.length > 0 && cart) {
-    cart.forEach((cartItem) => {
-        const productInfo = product[0];
-        // Add product properties to the cart item
-        cartItem.productInfo = productInfo;
-    });
-}
+            // If product exists and cart is defined, add its properties to each item in the cart
+            if (product && product.length > 0 && cart) {
+                cart.forEach((cartItem) => {
+                    const productInfo = product[0];
+                    // Add product properties to the cart item
+                    cartItem.productInfo = productInfo;
+                });
+            }
 
     
             res.render("details", {
@@ -417,5 +417,5 @@ if (product && product.length > 0 && cart) {
             console.log(error);
         }
     },
-    
 }
+
