@@ -162,28 +162,6 @@ module.exports = {
             next(error);
         }
     },
-    minus: async (req, res, next) => {
-        try {
-            if (!req.session.cart) {
-                req.session.cart = [];
-            }
-            for (let i = 0; i < req.session.cart.length; i++) {
-                if (req.session.cart[i].name.trim('') == req.body.name.trim('')) {
-                    if (req.session.cart[i].count == 1) {
-                        req.session.cart.splice(i, 1);
-                    }
-                    else {
-                        req.session.cart[i].count--;
-                    }
-                    break;
-                }
-            }
-            res.json({});
-        }
-        catch (error) {
-            next(error);
-        }
-    },
     paging: async (req, res, next) => {
         try {
             console.log('a',req.session.sort)
@@ -239,7 +217,7 @@ module.exports = {
                 y: JSON.stringify(tien)
             };
         
-            res.render('./admin/product/chart', data);
+            res.render('./admin/product/chart',{ layout: 'admin', ...data });
 
         } catch (error) {
             console.log(error)
@@ -263,7 +241,7 @@ module.exports = {
                 x=JSON.stringify([1, 2, 3, 4,5,6,7,8,9,10,11,12]),
                 y=JSON.stringify(tien)
         
-            res.render('./admin/product/chart', {x:x,y:y,table:table});
+            res.render('./admin/product/chart', {layout:'admin',x:x,y:y,table:table});
         } catch (error) {
             console.log(error)
         }
