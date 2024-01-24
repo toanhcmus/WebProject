@@ -12,46 +12,52 @@
         padding-top: 2rem !important;
     }
 
-    
-.product-name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.3s ease;
-    padding-bottom: 12px;
-}
-.product-image {
-    width: 320px;
-    height: 370px;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
-}
-.product {
-    width: 330px;
-    height: 460px;
-    transition: transform 0.3s ease-in-out;
-    position: relative;
-    z-index: 1;
-    margin: 10px;
-    padding: 0;
-    background: rgba(0,0,0,0); /* Màu trắng có độ trong suốt 0.8 */
-    margin-bottom: 50px;
-    
-}
-.card-body{
-    padding-top: 5px;
-    height: 90px;
-    text-align: left;
-}
-.product:hover {
-  z-index: 2;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-}
-.card {
-    border: none;
-    padding-top: 5px;
-}
+
+    .product-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.3s ease;
+        padding-bottom: 12px;
+    }
+
+    .product-image {
+        width: 320px;
+        height: 370px;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+    }
+
+    .product {
+        width: 330px;
+        height: 460px;
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+        z-index: 1;
+        margin: 10px;
+        padding: 0;
+        background: rgba(0, 0, 0, 0);
+        /* Màu trắng có độ trong suốt 0.8 */
+        margin-bottom: 50px;
+
+    }
+
+    .card-body {
+        padding-top: 5px;
+        height: 90px;
+        text-align: left;
+    }
+
+    .product:hover {
+        z-index: 2;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .card {
+        border: none;
+        padding-top: 5px;
+    }
 </style>
 
 <div class="container-fluid text-center">
@@ -160,23 +166,23 @@
             <div class="container">
                 <div class="row justify-content-center">
                     {{#each products}}
-                        <div class="col-3 product" id="product{{this.id}}">
-                            <div class="card">
-                                <a href="/products/{{this.id}}" >
-                                    <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
-                                        class=" product-image" alt="...">
+                    <div class="col-3 product" id="product{{this.id}}">
+                        <div class="card">
+                            <a href="/products/{{this.id}}">
+                                <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
+                                    class=" product-image" alt="...">
+                            </a>
+                            <div class="card-body">
+                                <a href="/products/{{this.id}}">
+                                    <div class="product-name text-left">{{this.name}}</div>
                                 </a>
-                                <div class="card-body">
-                                    <a href="/products/{{this.id}}" >
-                                        <div class="product-name text-left">{{this.name}}</div>
-                                    </a>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                <span class="product-price">{{this.price}}</span>
-                                <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
-                            </div>               
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="product-price">{{this.price}}</span>
+                                    <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     {{/each}}
                 </div>
             </div>
@@ -212,30 +218,42 @@
             let currentPage = parseInt($('.current-page-product').val());
             let maxPage = parseInt($('.current-page-max').val());
             if (currentPage < maxPage) {
-            $('.current-page-product').val(currentPage + 1);
+                $('.current-page-product').val(currentPage + 1);
+                paging();
+            }
+        });
+        $('.previous-product').on('click', function () {
+            let currentPage = parseInt($('.current-page-product').val());
+            if (currentPage > 1) {
+                $('.current-page-product').val(currentPage - 1);
+                paging();
+            }
+        });
+        $('.current-page-product').on('change', function () {
+            let currentPage = parseInt($(this).val());
+            let maxPage = parseInt($('.current-page-max').val());
+
+            if (isNaN(currentPage) || currentPage < 1 || currentPage > maxPage) {
+                alert('Vui lòng nhập một số trang hợp lệ.');
+                $(this).val('1');
+                return;
+            }
             paging();
-        }
-    });
-    $('.previous-product').on('click', function () {
-        let currentPage = parseInt($('.current-page-product').val());
-        if (currentPage > 1) {
-            $('.current-page-product').val(currentPage - 1);
-            paging();
-        }
-    });
-    function paging() {
-        fetch('/paging', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ pagenum: parseInt($('.current-page-product').val()) }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                $('.pro').html('');
-                data.forEach(product => {
-                    let productHTML = `
+
+        });
+        function paging() {
+            fetch('/paging', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pagenum: parseInt($('.current-page-product').val()) }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    $('.pro').html('');
+                    data.forEach(product => {
+                        let productHTML = `
              <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-3 product" id="product${product.id}">
@@ -257,60 +275,67 @@
                     </div>
                 </div>
             </div>`;
-                    $('.pro').append(productHTML);
+                        $('.pro').append(productHTML);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
                 });
-            })
-            .catch(error => {
-                console.error(error);
+
+        }
+        function getCheckedCheckboxes() {
+            var checkedIds = [];
+            $('.form-check-input:checked').each(function () {
+                checkedIds.push(this.id);
             });
+            return checkedIds;
+        }
 
-    }
-    function getCheckedCheckboxes() {
-        var checkedIds = [];
-        $('.form-check-input:checked').each(function () {
-            checkedIds.push(this.id);
-        });
-        return checkedIds;
-    }
-
-    $('.form-check-input').on('change', function () {
-        var checkedIds = getCheckedCheckboxes();
-        fetch('/filter', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ filter: checkedIds }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                $('.pro').html('');
-                data.pro.forEach(product => {
-                    let productHTML = `
-                        <div class="d-flex">
-                            <div class="col-3 pt-5">
-                                <div class="card m-1">
-                                    <img src="${product.images}" class="card-img-top product-image" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text product-id">${product.id}</p>
-                                        <p class="card-text product-name">${product.name}</p>
-                                        <div class="row d-flex">
-                                            <span class="product-price">${product.price}</span>
-                                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
-                                        </div>
-                                    </div>
-                                </div>
+        $('.form-check-input').on('change', function () {
+            var checkedIds = getCheckedCheckboxes();
+            fetch('/filter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ filter: checkedIds }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    $('.pro').html('');
+                    data.pro.forEach(product => {
+                        let productHTML = `
+                         <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-3 product" id="product${product.id}">
+                        <div class="card">
+                            <a href="/products/${product.id}" >
+                                <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
+                                    class=" product-image" alt="...">
+                            </a>
+                            <div class="card-body">
+                                <a href="/products/${product.id}" >
+                                    <div class="product-name text-left">${product.name}</div>
+                                </a>
+                                <div class="d-flex justify-content-between align-items-center">
+                            <span class="product-price">${product.price}</span>
+                            <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
+                        </div>               
                             </div>
-                        </div>`;
-                    $('.pro').append(productHTML);
-                    $('.current-page-max').val(data.max);
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+                        $('.pro').append(productHTML);
+                        $('.current-page-max').val(data.max);
+                        $('.current-page-product').val(1);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
                 });
-            })
-            .catch(error => {
-                console.error(error);
-            });
 
-    });
+        });
 
     });
     function sort(option) {
@@ -326,19 +351,27 @@
                 $('.pro').html('');
                 data.forEach(product => {
                     let productHTML = `
-                            <div class="col-3 pt-5">
-                                <div class="card m-1">
-                                    <img src="${product.images}" class="card-img-top product-image" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text product-id">${product.id}</p>
-                                        <p class="card-text product-name">${product.name}</p>
-                                        <div class="row d-flex">
-                                            <span class="product-price">${product.price}</span>
-                                            <button class="add-to-cart btn btn-primary">THÊM VÀO GIỎ</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`;
+                             <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-3 product" id="product${product.id}">
+                        <div class="card">
+                            <a href="/products/${product.id}" >
+                                <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
+                                    class=" product-image" alt="...">
+                            </a>
+                            <div class="card-body">
+                                <a href="/products/${product.id}" >
+                                    <div class="product-name text-left">${product.name}</div>
+                                </a>
+                                <div class="d-flex justify-content-between align-items-center">
+                            <span class="product-price">${product.price}</span>
+                            <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
+                        </div>               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
                     $('.pro').append(productHTML);
                 });
             })
