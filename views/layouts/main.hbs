@@ -204,6 +204,7 @@
         $('.cart-icon').click(function () {
             var cart = $('.cart');
             calc();
+            updateCartNotification();
             if (cart.css('right') == '-550px') {
                 $('.cart').animate({ right: '0px' }, 500);
 
@@ -229,6 +230,9 @@
                 $('.cart-notify-badge').show();
                 $('.cart-notify-badge').text(totalItems);
             }
+            else 
+                $('.cart-notify-badge').hide();
+
         };
         $('.cart-body').on('click', '#plus', function () {
             var quantityInput = $(this).closest('.d-flex').find('.count');
