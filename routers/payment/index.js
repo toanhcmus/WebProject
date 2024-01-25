@@ -1,5 +1,4 @@
 const express = require('express');
-const paymentC = require('../../controllers/payment/payment');
 const jwt = require('jsonwebtoken');
 const paymentM = require('../../models/Payment');
 

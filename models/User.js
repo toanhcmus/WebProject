@@ -1,5 +1,5 @@
 const db = require('../utilities/database');
-const paymentM = require("../models/Payment")
+const paymentM = require('../models/Payment');
 
 module.exports = class User {
     constructor({username, password, email, isAdmin}) {

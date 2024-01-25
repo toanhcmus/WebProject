@@ -1,16 +1,6 @@
 require('dotenv').config();
 
-const pgp = require('pg-promise')({
-});
-const cn = {
-    host: process.env.DBHOST,
-    port: process.env.DBPORT,
-    database: process.env.DB_DB,
-    user: process.env.DBUSER,
-    password: process.env.DBPW,
-    max: 30
-};
-const db = pgp(cn);
+const db = require('./connectDB');
 
 module.exports = {
     selectAllBills: async () => {
@@ -1225,64 +1215,12 @@ module.exports = {
                     "Email" text PRIMARY KEY,
                     "Avatar" text
                 );
-
-               -- ----------------------------
-               -- Table structure for OrderDetails
-               -- ----------------------------
-               DROP TABLE IF EXISTS "OrderDetails";
-               CREATE TABLE "OrderDetails" (
-                 "ID" serial NOT NULL,
-                 "OrderID" int4 NOT NULL,
-                 "ProID" int4 NOT NULL,
-                 "Quantity" int4 NOT NULL,
-                 "Price" numeric(19,4) NOT NULL,
-                 "Amount" numeric(19,4) NOT NULL
-               )
-               ;
-               
-               -- ----------------------------
-               -- Records of OrderDetails
-               -- ----------------------------
-               BEGIN;
-               INSERT INTO "OrderDetails" VALUES (1, 1, 1, 2, 1500000.0000, 3000000.0000);
-               INSERT INTO "OrderDetails" VALUES (2, 1, 2, 2, 300000.0000, 600000.0000);
-               INSERT INTO "OrderDetails" VALUES (3, 2, 1, 1, 1500000.0000, 1500000.0000);
-               INSERT INTO "OrderDetails" VALUES (4, 2, 2, 1, 300000.0000, 300000.0000);
-               COMMIT;
-               
-               -- ----------------------------
-               -- Table structure for Orders
-               -- ----------------------------
-               DROP TABLE IF EXISTS "Orders";
-               CREATE TABLE "Orders" (
-                 "OrderID" serial NOT NULL,
-                 "OrderDate" timestamp NOT NULL,
-                 "UserID" int4 NOT NULL,
-                 "Total" numeric(19,4) NOT NULL
-               )
-               ;
-               -- ----------------------------
-               -- Records of Orders
-               -- ----------------------------
-               BEGIN;
-               INSERT INTO "Orders" VALUES (1, '2014-03-14 00:00:00.000', 5, 3600000.0000);
-               INSERT INTO "Orders" VALUES (2, '2014-03-14 00:00:00.000', 5, 1800000.0000);
-               COMMIT;
                -- ----------------------------
                -- Primary Key structure for table Categories
                -- ----------------------------
                ALTER TABLE "Categories" ADD CONSTRAINT "PK__Categori" PRIMARY KEY ("catID") WITH (fillfactor=80);
                ALTER TABLE "CategoryItems" ADD CONSTRAINT "PK__CategoryItems" PRIMARY KEY ("itemID") WITH (fillfactor=80);
-               -- ----------------------------
-               -- Primary Key structure for table OrderDetails
-               -- ----------------------------
-               ALTER TABLE "OrderDetails" ADD CONSTRAINT "PK__OrderDet" PRIMARY KEY ("ID") WITH (fillfactor=80);
-               
-               -- ----------------------------
-               -- Primary Key structure for table Orders
-               -- ----------------------------
-               ALTER TABLE "Orders" ADD CONSTRAINT "PK__Orders" PRIMARY KEY ("OrderID") WITH (fillfactor=80);
-               
+
                -- ----------------------------
                -- Primary Key structure for table Products
                -- ----------------------------

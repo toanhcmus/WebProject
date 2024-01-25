@@ -1,4 +1,4 @@
-const db = require("../utilities/databasePayment");
+const db = require("../utilities/db_payment");
 
 module.exports = class Payment {
     constructor(raw) {
