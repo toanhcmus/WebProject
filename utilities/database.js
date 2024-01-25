@@ -65,6 +65,23 @@ module.exports = {
         const data = await db.any(`SELECT * FROM "Products" WHERE "name" ILIKE '%${name}%'`);
         return data;
     },
+    searchByCat: async (name, catID) => {
+        const data = await db.query(`
+            SELECT * FROM "Products" p
+            JOIN "CategoryItems" c ON p."item" = c."itemID"
+            JOIN "Categories" ca ON c."catID" = ca."catID"
+            WHERE ca."catID" = ${catID}  AND p."name" ILIKE '%${name}%'
+            ORDER BY p."id" ASC
+        `);
+        return data;
+    },
+    searchByItem: async (name, itemID) => {
+        const data = await db.query(` SELECT * FROM "Products" p
+        JOIN "CategoryItems" c ON p."item" = c."itemID"
+        WHERE c."itemID" = '${itemID}' p."name" ILIKE '%${name}%'
+        ORDER BY p."id" ASC`);
+        return data;
+    },
     addProduct: async (id, name, tinyDes, fullDes, price, items, count, producer, imageUrl) => {
         console.log('Product added');
         const insertQuery = 'INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes", "price", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';

@@ -107,7 +107,21 @@ module.exports = {
     search: async (req, res, next) => {
         try {
             console.log('search')
-            var data = await Product.search(req.body.name)
+            let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
+            let urlObj = new URL(url);
+            let catID = urlObj.searchParams.get("catID");
+            let itemID = urlObj.searchParams.get("itemID");
+
+            let data = null;
+            if (catID) {
+                data = await Product.searchByCat(req.body.name,parseInt(catID));
+            }
+            if (itemID) {
+                data = await Product.searchByItem(req.body.name,itemID); 
+            }
+            if (catID == null && itemID == null){
+                data = await Product.search(req.body.name)
+            }
             const cart = req.session.cart;
             console.log(data.length );
             console.log(Math.ceil(data.length / 4))
@@ -414,7 +428,7 @@ module.exports = {
         }
 
     },
-    getProductCat: async (req, res, next) => {
+    /*getProductCat: async (req, res, next) => {
         try {
             const cart = req.session.cart;
             let catID = res.params.catID;
@@ -455,7 +469,7 @@ module.exports = {
         catch (error) {
             next(error);
         }
-    },
+    },*/
     renderAbout: async (req, res, next) => {
         try {
             const cart = req.session.cart;
