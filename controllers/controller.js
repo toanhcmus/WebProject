@@ -4,6 +4,8 @@ const billM = require('../models/Bill');
 const fs = require('fs');
 const path = require('path');
 const Category = require('../models/Category');
+const billC = require('./bill.c');
+const { all } = require('../routers/router');
 module.exports = {
     render: async (req, res, next) => {
         try {
@@ -378,4 +380,9 @@ module.exports = {
             next(error);
         }
     },
+    renderBills: async (req, res, next) => {
+        const allBills = await billM.selectAllBills();
+        console.log(allBills);
+        res.render('admin/billDetail', { layout: 'admin', allBills: allBills });
+    }
 }
