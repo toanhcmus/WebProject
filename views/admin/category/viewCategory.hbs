@@ -1,76 +1,498 @@
-<a href="/admin">Back</a>
-<a href="/admin/category/edit" style="margin-left: 10px;" class="btn btn-warning">Chỉnh sửa danh mục</a>
-
-<div class="category-container flex">
-  {{#each categories}}
-    <div class="category-item" data-catid="{{catID}}" >
-      <h4 onclick="redirectToCat('{{catID}}')">{{catName}}</h4>
-      <ul class="item-list" id="items-{{catID}}">
-        {{#each items}}
-          <li class="item" data-itemid="{{itemID}}" onclick="redirectToItem('{{itemID}}')">{{itemName}}</li>
-        {{/each}}
-      </ul>
+<div class="container d-flex flex-column align-items-center mt-2">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-2 mb-3">
+        <strong>{{success}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-  {{/each}}
+    {{/if}}
+    {{#if error}}
+    <div class="alert alert-danger alert-dismissible fade show mt-2 mb-3">
+        <strong>{{error}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+    <div class="card w-75">
+        <div class="card-header d-flex flex-column justify-content-center align-items-center">
+            <h5 class="card-title">Danh sách danh mục</h5>
+        </div>
+    </div>
+    <div class="w-75 d-flex flex-row justify-content-end mt-2 mb-2">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              + Thêm danh mục
+          </button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        + Thêm danh mục con
+    </button>
+    </div>
+    <table class="table w-75">
+        <colgroup>
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 35%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 45%;">
+        </colgroup>
+        <thead class="table-dark">
+            <th class="align-middle text-center">ID</th>
+            <th class="align-middle text-center">Tên danh mục</th>
+            <th class="align-middle text-center">Thao tác</th>
+            <th class="align-middle text-center">Danh mục con</th>
+        </thead>
+        <tbody>
+            {{#each categories}}
+            <tr>
+                <td class="align-middle text-center">{{this.catID }}</td>
+                <td class="align-middle text-center" value="{{this.catName}}" id="Name{{this.catID}}">{{this.catName }}</td>
+                <td class="align-middle text-center">
+                    <button type="button" id="editCat" name="editCat" class="btn btn-warning editCatButton"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal1">Đổi tên</button>
+                    <button class="btn btn-danger" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
+                </td>
+                <td class="align-middle subcategory-list text-center">
+                    <button type="button" class="btn btn-info view-subcategories-btn" onclick="toggleSubcategories(this)">Xem chi tiết
+                    </button>
+                    <!-- Phần tử HTML để chứa danh sách danh mục con -->
+                    <div class="subcategories-list " style="display: none;">
+                        <table class="table mt-2 table-secondary align-middle">
+                          <tbody>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên danh mục</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                              {{#each items}}
+                              <tr>
+                                  <td>{{this.itemID}}</td>
+                                  <td>{{this.itemName}}</td>
+                                  <td>
+                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.itemID}}">
+                                          Sửa
+                                      </button>
+                                      <div class="modal fade" id="exampleModal{{this.itemID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa</h1>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <div class="col">
+                                                          <div class="input-group mb-3">
+                                                              <span class="input-group-text" id="basic-addon2">ID</span>
+                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="{{this.itemID}}" readonly disabled="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="col">
+                                                          <div class="input-group mb-3 ">
+                                                              <span class="input-group-text" id="basic-addon2">Tên</span>
+                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="{{this.itemName}}" id="Name{{this.itemID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col">
+                                                          <div class="input-group mb-3">
+                                                              <span class="input-group-text" id="basic-addon2">Thuộc danh mục</span>
+                                                              <select class="form-select form-select-sm" aria-label="Small select example" id="select{{this.itemID}}">
+                                                                  <option value="{{this.catID}}" style="display:none">Choose an option</option>
+                                                                  {{#each ../../categories}}
+                                                                  <option value="{{this.catID}}">{{this.catName}}</option>
+                                                                  {{/each}}
+                                                              </select>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                      <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'{{this.itemID}}')">Lưu thay đổi</button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <button class="btn btn-danger" onclick="handleDeleteItem(event,'{{this.itemID}}')">Xoá</button>
+                                  </td>
+                              </tr>
+                              {{/each}}
+                          </tbody>
+                      </table>
+                    </div>
+                </td>
+              </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="pagination w-75 d-flex flex-row justify-content-center align-items-center">
+        <button class="btn btn-light previous-page ms-1 me-1" style="width:90px;">Previous</button>
+        <input type="number" class="form-control current-page" style="width:60px;" min="1" value="1"> /
+        <input type="number" class="form-control max-page" style="width:60px;" value="{{max}}" disabled>
+        {{!-- <span class="max-page text-center" style="width:60px;"></span> --}}
+        <button class="btn btn-light next-page ms-1 me-1" style="width:90px;">Next</button>
+    </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm danh mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="addCate" id="basic-addon2">Tên danh mục</label>
+                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" id="addCate" required>
+                        <i class="error addCatee"></i>
+                    </div>
+                </div>
+            </div>    
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary" onclick="handleAdd(event)">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm danh mục con</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="newID" id="basic-addon2">Mã</label>
+                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="newID" required>
+                    </div>
+                        <i class="error newIDD"></i>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="newNameItem" id="basic-addon2">Tên</label>
+                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="newNameItem" required>
+                    </div>
+                    <i class="error newNameItemm"></i>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="catItemID" id="basic-addon2">Thuộc danh mục</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" id="catItemID" required>
+                            <option value="" style="display:none">Choose an option</option>
+                            {{#each categories}}
+                            <option value="{{this.catID}}">{{this.catName}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                      <i class="error catItemIDD"></i>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="handleAddItem(event)">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-  $(document).ready(function () {
-   var hideTimeout;
+  window.onload = function () {
+        let url = new URL(window.location.href);
+        if (url.search.includes("add")) {
+            url.search = "";
+            window.location.href = url.toString();
+        }
+    }
+$(() => {      
+  const str = /^(?=[^\d\s])((?!\s{2,})[a-zA-Z0-9\s]){5,}$/;
 
-    $(".category-item").mouseenter(function () {
-      var catID = $(this).data("catid");
-      $(".item-list").hide(); // Ẩn tất cả các bảng items
-      $("#items-" + catID).show(); // Hiển thị bảng items tương ứng
-      clearTimeout(hideTimeout); // Xóa timeout trước đó nếu có
-    });
-
-    $(".category-item").mouseleave(function () {
-      hideTimeout = setTimeout(function () {
-        $(".item-list").hide(); // Ẩn tất cả các bảng items sau 5 giây
-      }, 5000);
-    });
-
-    $(document).click(function (event) {
-      // Kiểm tra nếu chuột được click ở ngoài .category-container
-      if (!$(event.target).closest('.category-container').length) {
-        $(".item-list").hide(); // Ẩn tất cả các bảng items
-      }
-    });
+  const showError = (message) => {
+    $(".error.addCatee").text(message);
+    $(".error.addCatee").css("visibility", "visible");
+  };
+  const hideError = () => {
+    $(".error.addCatee").text("");
+    $(".error.addCatee").css("visibility", "hidden");
+  };
+  $("#addCate").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError();
+    }
   });
+  $("#addCate").on("focus", async function (e) {
+    hideError();
+  });
+
   
-   function redirectToItem(itemID) {
-    window.location.href = '/admin/products?itemID=' + itemID;
-  }
-   function redirectToCat(catID) {
-    window.location.href = '/admin/products?catID=' + catID;
-  }
-</script>
+  const showError1 = (message) => {
+    $(".error.newIDD").text(message);
+    $(".error.newIDD").css("visibility", "visible");
+  };
+  const hideError1 = () => {
+    $(".error.newIDD").text("");
+    $(".error.newIDD").css("visibility", "hidden");
+  };
+  $("#newID").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/^[A-Z]{3}$/)) {
+      showError1("Mã danh mục con chỉ chứa 3 ký tự và chỉ có chữ in hoa");
+    } else {
+      hideError1();
+    }
+  });
 
-<style>
-  .category-item {
-    display: inline-block;
-    margin: 10px;
-    position: relative;
-  }
 
-  .item-list {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    z-index: 1;   
-  }
+  $("#newID").on("focus", async function (e) {
+    hideError1();
+});
 
-  .item {
+
+    const showError2 = (message) => {
+    $(".error.newNameItemm").text(message);
+    $(".error.newNameItemm").css("visibility", "visible");
+  };
+  const hideError2 = () => {
+    $(".error.newNameItemm").text("");
+    $(".error.newNameItemm").css("visibility", "hidden");
+  };
+  $("#newNameItem").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError2("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError2();
+    }
+  });
+
+  $("#newNameItem").on("focus", async function (e) {
+    hideError2();
+});
+
+
+  const showError3 = (message) => {
+    $(".error.catItemIDD").text(message);
+    $(".error.catItemIDD").css("visibility", "visible");
+  };
+  const hideError3 = () => {
+    $(".error.catItemIDD").text("");
+    $(".error.catItemIDD").css("visibility", "hidden");
+  };
+  $("#catItemID").on("blur", async function(e){
+    const value = e.target.value;
+    const selectedValue = $("#catItemID").val(); 
+    if (!value.match(/^.+$/) || selectedValue === null) {
+      showError3("Vui lòng chọn danh mục");
+    } else {
+      hideError3();
+    }
+  });
+
+  $("#catItemID").on("focus", async function (e) {
+    hideError3();
+  });
+
+
+
+
+});
+function validateCategoryName() {
+  var categoryNameInput = document.getElementById('addCate');
+  var categoryName = categoryNameInput.value.trim();
+  if (!categoryName.match(/^(?=[^\d\s])((?!\s{2,})[a-zA-Z0-9\s]){5,}$/)) {
+      return false; 
+  }
+  return true; 
+}
+
+function handleAdd(event) {
+    if (validateCategoryName()) {
+    event.preventDefault(); 
+    let CatName = document.getElementById("addCate").value;
+    let url = new URL(window.location.href);
+    url.search = "";
     
-    cursor: pointer;
+    let params = new URLSearchParams(url.search);
+
+    params.set("add", CatName);
+    url.search = params.toString();
+
+    //console.log(url)
+    window.location.href = url.toString();
   }
-  h4 {
-    cursor: pointer;
+}
+
+
+
+function handleDelete(event, CatID) {
+    event.preventDefault();
+    let url = new URL(window.location.href);
+    url.search = "";
+    let params = new URLSearchParams(url.search);
+    params.set("delete", CatID);        
+    url.search = params.toString();
+    window.location.href = url.toString();
+}
+
+function handleDeleteItem(event, ItemID){
+    event.preventDefault();
+    let url = new URL(window.location.href);
+    url.search = "";
+    
+    let params = new URLSearchParams(url.search);
+
+    params.set("deleteItem", ItemID);
+    url.search = params.toString();
+
+    //console.log(url)
+    window.location.href = url.toString();
+}
+
+function handleEdit(event, CatID) {
+    event.preventDefault();
+    let CatName = document.getElementById("Name" + CatID).value;
+    let url = new URL(window.location.href);
+    url.search = "";
+    let params = new URLSearchParams(url.search);
+    params.set("edit", CatID);
+    params.set("catName", CatName);
+    url.search = params.toString();
+    window.location.href = url.toString();
+    
+}
+function handleEditItem(event, itemID) {
+    event.preventDefault();
+    let itemNamenew = document.getElementById("Name" + itemID).value;
+    let itemType = document.getElementById("select"+ itemID).value;
+    let url = new URL(window.location.href);
+    url.search = "";
+    let params = new URLSearchParams(url.search);
+    params.set("editItem", itemID);
+    params.set("itemName", itemNamenew);
+    params.set("catID", itemType);        
+    
+    url.search = params.toString();
+    //console.log(url)
+    window.location.href = url.toString();
+    
+}
+function validateSubcategory() {
+    const idValue = $("#newID").val();
+    const nameValue = $("#newNameItem").val();
+    const selectedCategory = $("#catItemID").val();
+    const value = e.target.value;
+
+    if (!idValue.match(/^[A-Z]{3}$/)) {
+        return false;
+    };
+
+    if (!nameValue.match(/^[^\s].{5,}(?<!\s)$/)) {
+        return false;
+    };
+
+    // Kiểm tra danh mục đã chọn
+   if (!value.match(/^.+$/) || selectedValue === null) {
+        return false;
+    };
+
+    return true;
+}
+
+function handleAddItem(event) {
+  if (validateSubcategory()){
+    event.preventDefault();
+    let itemName = document.getElementById("newNameItem").value;
+    let itemID = document.getElementById("newID").value;
+    let catID = document.getElementById("catItemID").value;
+    let url = new URL(window.location.href);
+    url.search = "";
+    let params = new URLSearchParams(url.search);
+    params.set("addtoID", catID);
+    params.set("itemID", itemID);
+    params.set("itemName", itemName);        
+    
+    url.search = params.toString();
+    //console.log(url)
+    window.location.href = url.toString();
   }
+}
+
+    let currentPage = 1;
+    const perPage = 5;
+    let maxPage = 2;
+    document.querySelector('.previous-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable();
+        }
+    });
+    document.querySelector('.next-page').addEventListener('click', () => {
+        if (currentPage < maxPage) {
+            currentPage++;
+            updateTable();
+        }
+    });
+    document.querySelector('.go-page').addEventListener('click', () => {
+        const inputPage = parseInt(document.querySelector('.current-page').value);
+        console.log(maxPage);
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+            currentPage = inputPage;
+            updateTable();
+        }
+        else if (inputPage < 1) {
+            document.querySelector('.current-page').value = 1;
+            currentPage = 1;
+            updateTable();
+        }
+        else if (inputPage > maxPage) {
+            document.querySelector('.current-page').value = maxPage;
+            currentPage = maxPage;
+            updateTable();
+        }
+    });
+    $('.current-page').on('change', function () {
+        const inputPage = parseInt(document.querySelector('.current-page').value);
+        console.log(maxPage);
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+            currentPage = inputPage;
+            updateTable();
+        }
+        else if (inputPage < 1) {
+            document.querySelector('.current-page').value = 1;
+            currentPage = 1;
+            updateTable();
+        }
+        else if (inputPage > maxPage) {
+            document.querySelector('.current-page').value = maxPage;
+            currentPage = maxPage;
+            updateTable();
+        }
+    });
+  function toggleSubcategories(button) {
+    // Lấy phần tử chứa danh sách danh mục con tương ứng
+    var subcategoriesList = button.nextElementSibling;
+    
+    // Kiểm tra hiển thị hoặc ẩn phần tử chứa danh sách
+    if (subcategoriesList.style.display === 'none') {
+        subcategoriesList.style.display = 'block';
+    } else {
+        subcategoriesList.style.display = 'none';
+    }
+}
+
+</script>
+<style>
+table {
+    border: 1px solid #000; /* Viền 4 cạnh với độ dày là 1px và màu đen */
+    border-collapse: collapse; /* Đảm bảo việc gộp viền giữa các ô */
+}
+  .error-message {
+        color: red;
+        font-size: 0.875rem;
+        display: none;
+    }
 </style>

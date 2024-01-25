@@ -510,7 +510,7 @@ module.exports = {
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             JOIN "Categories" ca ON c."catID" = ca."catID"
             WHERE ca."catID" = ${catID} 
-            ORDER BY p."id" ASC
+            ORDER BY p."name" ASC
             `);
             return res;
         } catch (error) {
@@ -525,7 +525,7 @@ module.exports = {
             SELECT * FROM "Products" p
             JOIN "CategoryItems" c ON p."item" = c."itemID"
             WHERE c."itemID" = '${itemID}'
-            ORDER BY p."id" ASC
+            ORDER BY p."name" ASC
             `);
             return res;
         } catch (error) {
