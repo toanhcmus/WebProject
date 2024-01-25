@@ -77,12 +77,17 @@ module.exports = {
             let urlObj = new URL(url);
             let catID = urlObj.searchParams.get("catID");
             let itemID = urlObj.searchParams.get("itemID");
-        
+            req.session.catID=null;
+            req.session.itemID=null;
             let data = null;
             if (catID) {
+                req.session.catID=catID;
+                req.session.itemID=null;
                 data = await Product.getProductByCategory(parseInt(catID));
             }
             if (itemID) {
+                req.session.catID=null;
+                req.session.itemID=itemID;
                 data = await Product.getProductByCategoryItem(itemID); 
             }
             if (catID == null && itemID == null){
@@ -107,21 +112,22 @@ module.exports = {
     search: async (req, res, next) => {
         try {
             console.log('search')
-            let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
-            let urlObj = new URL(url);
-            let catID = urlObj.searchParams.get("catID");
-            let itemID = urlObj.searchParams.get("itemID");
+            // let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
+            // let urlObj = new URL(url);
+            // let catID = urlObj.searchParams.get("catID");
+            // let itemID = urlObj.searchParams.get("itemID");
 
-            let data = null;
-            if (catID) {
-                data = await Product.searchByCat(req.body.name,parseInt(catID));
-            }
-            if (itemID) {
-                data = await Product.searchByItem(req.body.name,itemID); 
-            }
-            if (catID == null && itemID == null){
-                data = await Product.search(req.body.name)
-            }
+            // let data = null;
+            // if (catID) {
+            //     data = await Product.searchByCat(req.body.name,parseInt(catID));
+            // }
+            // if (itemID) {
+            //     data = await Product.searchByItem(req.body.name,itemID); 
+            // }
+            // if (catID == null && itemID == null){
+            //     data = await Product.search(req.body.name)
+            // }
+            var data  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
             const cart = req.session.cart;
             console.log(data.length );
             console.log(Math.ceil(data.length / 4))
@@ -142,7 +148,7 @@ module.exports = {
         try {
             req.session.sort =req.body.option;
             console.log('a',req.session.sort)
-            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
+            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
             var data=result.splice(0,4);
             res.json(data);
         }
@@ -154,7 +160,7 @@ module.exports = {
         try {
             console.log('filter')
             req.session.filter=req.body.filter;
-            var data  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
+            var data  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
             // console.log(data);
             res.json({pro:data.splice(0,4), max:Math.ceil(data.length / 4)+1});
         }
@@ -227,7 +233,7 @@ module.exports = {
     paging: async (req, res, next) => {
         try {
             console.log('a',req.session.sort)
-            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter);
+            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
             var data=result.splice((req.body.pagenum-1)*4,4);
             res.json(data);
         }

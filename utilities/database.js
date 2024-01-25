@@ -159,9 +159,19 @@ module.exports = {
         }
         return data;
     },
-    paging: async (search, sort, fi) => {
-        let query = `SELECT * FROM "Products"`;
+    paging: async (search, sort, fi,catID,itemID) => {
+        let query = `SELECT "Products".* FROM "Products"
+                        JOIN "CategoryItems" c ON "Products"."item" = c."itemID"
+                        JOIN "Categories" ca ON c."catID" = ca."catID"`;
             query += ` WHERE "name" ILIKE '%${search}%'`;
+            if (catID)
+            {
+                query+=` AND ca."catID" = ${catID}`
+            }
+            if (itemID)
+            {
+                query+=` AND c."itemID" = '${itemID}'`;
+            }
         let producerConditions = [];
         let priceConditions = [];
         if (fi) {

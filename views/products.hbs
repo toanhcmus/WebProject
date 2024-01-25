@@ -62,9 +62,16 @@
 <div class="container-fluid text-center">
     <div class="row pt-5">
         <div class="row text-center pt-5">
+            {{#if keyword}}
+            <h1> 
+                Tìm kiếm: {{keyword}}
+            </h1>
+
+            {{else}}
             <h1>
                 Tất cả sản phẩm
             </h1>
+            {{/if}}
         </div>
         <div class="filter-line">
             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter"

@@ -31,8 +31,8 @@ module.exports = class Product {
         const data=await db.chart();
         return data;
     }
-    static async paging(search,sort,fil) {
-        const data=await db.paging(search,sort,fil);
+    static async paging(search,sort,fil,catID,itemID) {
+        const data=await db.paging(search,sort,fil,catID,itemID);
         return data;
     }
     static async filter(filter) {
