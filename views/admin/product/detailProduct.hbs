@@ -1,118 +1,381 @@
 {{> viewCategory}}
+<style>
+    .product-namee {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.3s ease;
+        padding-bottom: 7px;
+    }
 
-<div class="container-fluid text-center">
-    <div class="row">
-        <div class="col-8">
-            <div class="row">
-                <div class="col-8">
-                    <h3 style="text-align: left;font-weight: bold;">{{product.name}}</h3>
-                    <div class="row containerDetails" style="text-align: left;">
-                        <p>Mã sản phẩm: 
-                            <span style="font-weight: bold;">{{product.id}}</span> 
-                        </p>
+    .productt:hover .product-namee {
+        white-space: normal;
+        overflow: initial;
+        text-overflow: ellipsis;
+        transition: all 0.3s ease;
+        padding-bottom: 10px;
+        display: block;
+        width: 100%;
+        -webkit-line-clamp: initial;
+        /* Hủy bỏ giới hạn dòng khi hover */
+    }
+
+    .product-name {
+        /*
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.3s ease;
+        padding-bottom: 12px;
+    }
+
+    .product-imagee {
+        width: 150px;
+        height: 150px;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        /*background-color: blue;*/
+        padding-bottom: 10px;
+    }
+
+    .product-image {
+        width: 150px;
+        height: 150px;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        /*background-color: blue;*/
+        padding-bottom: 10px;
+    }
+
+    .productt {
+        width: 160px;
+        height: 280px;
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+        z-index: 1;
+        margin: 10px;
+        padding: 5px;
+        /*background: black; /* Màu trắng có độ trong suốt 0.8 */
+        margin-bottom: 5px;
+
+    }
+
+    .productt:hover {
+        z-index: 2;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .card {
+        border: none;
+        padding-top: 5px;
+    }
+
+    .productCart {
+        margin-top: 20px;
+        width: 1200px;
+        height: 550px;
+        /*background-color: black;*/
+    }
+
+    .aaa {
+        width: 500px;
+        height: 500px;
+    }
+
+    .rowCustom {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Chia thành 2 cột bằng nhau */
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .column {
+        padding: 10px;
+    }
+
+    .quantity {
+        display: flex;
+    }
+
+    .quantity-inputt {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .minus-btnn,
+    .plus-btnn {
+        width: 40px;
+        height: 40px;
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+        color: gray;
+        background-color: #ffffff;
+        cursor: pointer;
+        border-width: 1px;
+    }
+
+    .minus-btnn:hover,
+    .plus-btnn:hover {
+        background-color: #ffffff;
+    }
+
+    .add-btn {
+        width: 300px;
+        height: 50px;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
+        color: red;
+        background-color: #ffffff;
+        cursor: pointer;
+        border-width: 1px;
+        border-color: red;
+
+        background-image: linear-gradient(to right, white 0%, white 50%, red 50%, red 100%);
+        background-size: 200% 100%;
+        transition: background-position 0.5s;
+    }
+
+    .add-btn:hover {
+        background-color: red;
+        color: white;
+        background-position: -100% 0;
+    }
+
+    .buy-btn {
+        width: 300px;
+        height: 50px;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
+        background-color: red;
+        color: white;
+        cursor: pointer;
+        border-width: 1px;
+        border-color: red;
+
+        background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(193, 67, 67) 50%, rgb(255, rgb(255, 255, 255), 255) 50%, rgb(253, 253, 253) 100%);
+        background-size: 200% 100%;
+        transition: background-position 0.5s;
+    }
+
+    .buy-btn:hover {
+        background-color: white;
+        color: red;
+        background-position: -100% 0;
+    }
+
+    .add-btn,
+    .buy-btn {
+        margin-right: 10px;
+        /* Khoảng cách bên phải giữa hai nút */
+    }
+
+    p {
+        font-size: 20px;
+    }
+    .btn-primary {
+        background-color: rgb(0, 106, 255);
+        color: white;
+    }
+</style>
+
+<div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-3 productCart product" id="{{product.id}}">
+                <div class="rowCustom card">
+                    <div class="column">
+                        <img src="{{product.images}}" class="product-image aaa" alt="...">
                     </div>
-                    <table class="table table-borderless" >
-                        <tbody>
-                            <tr>
-                            <th class="tableDetails" scope="row">Giá:</th>
-                            <td style="text-align: left;">
-                                <span style=" color: red;font-weight: bold;">{{product.price}}
-                                </span>
-                                {{#if (product.discount)}}
-                                    <span style="color: gray; font-size: 20px; margin-left: 7px; text-decoration: line-through;">{{product.price}}</span>
-                                    <span class="text-box">{{product.discount}}</span>
-                                {{else}} <span></span>
-                                {{/if}}
-                            </td>
-                            </tr>
-                            <tr>
-                                <th class="tableDetails" scope="row">Kích thước: </th>
-                                <td>
-                                <select class="form-select form-select-sm" aria-label="Small select example" style="height: 35px; width: 150px;" id="size" name="size" required>
-                                    <option value="" style="display:none">Chọn kích thước</option>
-                                    {{#each product.size as |size|}}
-                                    <option value="{{size}}">{{size}}</option>
-                                    {{/each}}
-                                </select>                        
-                                </td>
-                            </tr>
-                            <tr>
-                            <th class="tableDetails" scope="row">Số lượng:</th>
-                            <td style="display: flex; gap: 5px;">
-                                <div class="quantity">
-                                <button class="minus-btn">-</button>
-                                <input type="text" class="quantity-input" value="1">
-                                <button class="plus-btn">+</button>
-                            </div>
-                            </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="column">
+                        <h2 class="product-name text-left" style="text-align: left;font-weight: bold">{{product.name}}
+                        </h2>
+                        <p>Mã sản phẩm:
+                            <span class="product-id" style="font-weight: bold;">{{product.id}}</span>
+                        </p>
+                        <p>Danh mục:
+                            <span style="font-weight: bold;">{{product.item}}</span>
+                            |
+                            Thương hiệu:
+                            <span style="font-weight: bold;">{{product.producer}}</span>
+                        </p>
+                        <p>Tình trạng:
+                            <span style="font-weight: bold;">
+                                {{#moreThanZero product.count.[0]}}
+                                Còn hàng
+                                {{else}}
+                                Hết hàng
+                                {{/moreThanZero}}
+                            </span>
+                        </p>
+                        <p>
+                        <h2 class="product-price" style="font-weight: bold;color: red;" value="{{product.price}}">
+                            {{product.price}} VND</h2>
+                        </p>
+
+                        <p style="display: flex; align-items: center; gap: 5px;">Lựa chọn số lượng: 
+                            <span class="quantity">
+                                <button class="minus-btnn pl-3" id="minuss">-</button>
+                                <input type="text" class="product-count" value="1" style="width: 50px; text-align: center" data-count="{{product.count.[0]}}" max="{{product.count.[0]}}">
+                                <button class="plus-btnn" id="pluss">+</button>
+                            </span>
+                        </p>
+                        {{#moreThanZero product.count.[0]}}
+                        <button class="add-to-cart add-btn ml-2 mb-3">THÊM VÀO GIỎ</button>
+                        {{else}}
+                        <h4>Sản phẩm này đã hết hàng</h4>
+                        <h4>Vui lòng quay lại sau!</h4>
+                        {{/moreThanZero}}
+
+                    </div>
+
                 </div>
             </div>
-        </div>                 
-    </div>
-    <div class="row">
-        <div class="col-8">
-        <h4 class="titleDetails">CHI TIẾT SẢN PHẨM</h4>
-        <table class="table table-borderless">
-            <body>
-            <tr>
-                <th class="tableDetails" scope="row">Danh mục </th>
-                <td style="display: flex; gap: 5px;">
-                {{product.item}}
-                </td>
-            </tr>
-            <tr>
-                <th class="tableDetails" scope="row">Thương hiệu </th>
-                <td style="display: flex; gap: 5px;">
-                {{product.producer}}
-                </td>
-            </tr>
-            </body>
-        </table>
-        <h2 class="titleDetails">MÔ TẢ SẢN PHẨM</h2>
-        <p>{{product.fullDes}}</p>
-        <h4 style="margin-top: 20px;"class="tableDetails">SẢN PHẨM LIÊN QUAN</h4>
-        <div class="d-flex justify-content-evenly flex-wrap">
-            {{#each productCon}}
-                <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
-                    <div>{{this.name}}</div>
-                    <div>{{this.price}}</div>
-                </div>
-            {{/each}}
         </div>
-         <h2 style="margin-top: 20px;"class="tableDetails">MỘT SỐ SẢN PHẨM KHÁC CỦA SHOP</h2>
-        <div class="d-flex justify-content-evenly flex-wrap">
-            {{#each productSuggest}}
-                <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
-                    <div>{{this.name}}</div>
-                    <div>{{this.price}}</div>
+    </div>
+    <hr style="width: 100%; height: 2.5px; margin: 20px 0;">
+
+    <div class="text-left">
+        <h4 class="titleDetails">MÔ TẢ SẢN PHẨM</h4>
+        <p>{{product.fullDes}}</p>
+    </div>
+    <hr style="width: 100%; height: 2.5px; margin: 20px 0;">
+
+    <div>
+        <h4 style="margin-top: 20px;" class="tableDetails">Sản phẩm thuộc cùng danh mục</h4>
+        <div class="container">
+            <div class="row justify-content-left">
+                {{#each productCon}}
+                <div class="col-3 productt product" id="{{this.id}}">
+                    <div class="card">
+                        <a href="/products/{{this.id}}">
+                            <img src="{{this.images}}"
+                                class=" product-imagee product-image" alt="...">
+                        </a>
+                        <a href="/products/{{this.id}}">
+                            <div class="product-namee product-name text-left">{{this.name}}</div>
+                        </a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
+                        </div>
+                    </div>
                 </div>
-            {{/each}}
+                {{/each}}
+            </div>
+        </div>
+
+        <h4 style="margin-top: 20px;" class="tableDetails">Có thể bạn cũng thích</h4>
+        <div class="container">
+            <div class="row justify-content-left">
+                {{#each productSuggest}}
+                <div class="col-3 productt product" id="{{this.id}}">
+                    <div class="card">
+                        <a href="/products/{{this.id}}">
+                            <img src="{{this.images}}"
+                                class=" product-imagee product-image" alt="...">
+                        </a>
+                        <a href="/products/{{this.id}}">
+                            <div class="product-namee product-name text-left">{{this.name}}</div>
+                        </a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const minusBtn = document.querySelector(".minus-btn");
-        const plusBtn = document.querySelector(".plus-btn");
-        const quantityInput = document.querySelector(".quantity-input");
+    /*$(document).ready(function () {
+        $('.cart').on('click', '#pluss', function () {
+            var quantityInput = $(this).find('.product-count');
+            var currentQuantity = parseInt(quantityInput.val());
+            quantityInput.val(currentQuantity + 1);
+        });
+        $('.cart').on('click', '#minuss', function () {
+            var quantityInput = $(this).find('.product-count');
+            var currentQuantity = parseInt(quantityInput.val());
+            if (currentQuantity == 0) {
+                quantityInput.val(currentQuantity);
+            }
+            else {
+                quantityInput.val(currentQuantity - 1);
+                console.log(quantityInput.val());
+            }
+        });
+    }); */
+    document.addEventListener("DOMContentLoaded", function () {
+        const minusBtn = document.querySelector(".minus-btnn");
+        const plusBtn = document.querySelector(".plus-btnn");
+        const quantityInput = document.querySelector(".product-count");
+        const addBtn = document.querySelector(".add-to-cart");
 
-        minusBtn.addEventListener("click", function() {
+        // Hàm cập nhật giá trị
+        function updateValue() {
+            let value = parseInt(quantityInput.value);
+            const max = parseInt(quantityInput.getAttribute("max"));
+            value = isNaN(value) ? 0 : value;
+            value = value < 1 ? 0 : value;
+            value = value > max ? max : value;
+            quantityInput.value = value;
+        }
+        /*addBtn.addEventListener("click", function() {
+            let value = parseInt(quantityInput.value);
+            const max = parseInt(quantityInput.getAttribute("max"));
+            if (value == 0){
+                alert("Vui lòng chọn số lượng")
+            }
+            let new = max - value;
+            quantityInput.setAttribute(max,toString(new));
+
+            
+        })*/
+        // Bắt đầu theo dõi sự kiện input cho trường nhập liệu "product-count"
+        quantityInput.addEventListener("input", updateValue);
+
+        minusBtn.addEventListener("click", function () {
             let value = parseInt(quantityInput.value);
             value = isNaN(value) ? 0 : value;
             value = value <= 1 ? 1 : value - 1;
             quantityInput.value = value;
         });
 
-        plusBtn.addEventListener("click", function() {
+        plusBtn.addEventListener("click", function () {
             let value = parseInt(quantityInput.value);
+                        const max = parseInt(quantityInput.getAttribute("max"));
             value = isNaN(value) ? 0 : value;
             value = value + 1;
+            if (max && value >= max){
+                value = max;
+            }
             quantityInput.value = value;
+
         });
     });
 </script>

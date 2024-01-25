@@ -1,3 +1,14 @@
+<style>
+    .product-image {
+        width: 150px;
+        height: 150px;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        /*background-color: blue;*/
+        padding-bottom: 10px;
+    }
+</style>
 {{> viewCategory}}
 
 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addProductModal">
@@ -82,6 +93,10 @@
 <div class="d-flex justify-content-evenly flex-wrap">
     {{#each products}}
     <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
+        <div>
+             <img src="{{this.images}}"
+                class="product-image" style="width: 100px, height: 100px" alt="...">
+        </div>
         <div>{{this.name}}</div>
         <div class="card-body">
             <a href="/admin/products/{{this.id}}" class="btn">Xem chi tiết</a>
