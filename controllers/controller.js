@@ -5,7 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const Category = require('../models/Category');
 const billC = require('./bill.c');
-const { all } = require('../routers/router');
+const productM = require('../models/Product');
+
 module.exports = {
     render: async (req, res, next) => {
         try {
@@ -315,6 +316,7 @@ module.exports = {
                     id: item.id,
                     count: item.count
                 }
+                await productM.updateProductCount(obj.id, obj.count);
                 await billM.addTTHoaDon(maxxMaHD, obj);
             }
 

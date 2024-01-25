@@ -64,4 +64,7 @@ module.exports = class Product {
     static async getProductSuggest(id){
         return await db.getProductSuggest(id);
     }
+    static async updateProductCount(id, count) {
+        await db.updateProductCount(id, count);
+    }
 };

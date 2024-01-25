@@ -5,7 +5,7 @@ const pgp = require('pg-promise')({
 const cn = {
     host: process.env.DBHOST,
     port: process.env.DBPORT,
-    database: process.env.DBPAY_DB,
+    database: process.env.DB_DB,
     user: process.env.DBUSER,
     password: process.env.DBPW,
     max: 30 // use up to 30 connections

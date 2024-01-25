@@ -53,6 +53,10 @@ module.exports = {
         const updateQuery = 'UPDATE public."HoaDon" SET "TrangThai" = $1 WHERE "id" = $2';
         await db.none(updateQuery, [status, id]);
     },
+    updateProductCount: async (id, count) => {
+        const updateQuery = 'UPDATE public."Products" SET "count" = "count" - $1 WHERE "id" = $2';
+        await db.none(updateQuery, [count, id]);
+    },
     allProduct: async () => {
         const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
         return data;
