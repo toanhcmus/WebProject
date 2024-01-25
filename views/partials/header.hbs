@@ -52,11 +52,25 @@
                     </div>
                     <div class="nav-item fs-6 d-flex align-items-center">
                         <a href="/products">Sản phẩm</a>
-                    </div>
+                    </div>                
                     <div class="nav-item fs-6 d-flex align-items-center">
-                        <a href="/products/DLN05">Trang sản phẩm</a>
+                        <div class="dropdown">
+                            <a href="/products" class="dropbtn">Danh mục</a>
+                            <div class="dropdown-content">
+                                {{#each categories}}
+                                <a href="/products" id="{{catID}}">{{catName}}
+                                    <div class="sub-content">
+                                        {{#each items}}
+                                        <a href="/products/itemID={{itemID}}" id="{{itemID}}">{{itemName}}</a>
+                                        {{/each}}
+                                    </div>
+                                </a>
+                                {{/each}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="nav-item fs-6 d-flex align-items-center">
+<div class="nav-item fs-6 d-flex align-items-center">
                         <a href="/about">Giới thiệu</a>
                     </div>
                 </div>
@@ -349,5 +363,71 @@
         .footer-end {
             background: #1c4290;
         }
+   .dropdown {
+      
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-right: 5px;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Style cho danh mục con */
+    .sub-content {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a:hover + .sub-content,
+    .sub-content:hover {
+      display: block;
+    }
+    
     </style>
 </div>
+<script>
+  
+   function redirectToItem(itemID) {
+    window.location.href = '/admin/products?itemID=' + itemID;
+  }
+   function redirectToCat(catID) {
+    window.location.href = '/admin/products?catID=' + catID;
+  }
+  function showDrop(){
+    document.querySelector('.dropdown-content').style.display = 'block';
+  }
+    function showSubContent() {
+      document.querySelector('.sub-content').style.display = 'block';
+    }
+
+    function hideSubContent() {
+      document.querySelector('.sub-content').style.display = 'none';
+    }
+</script>

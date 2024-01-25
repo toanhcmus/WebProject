@@ -12,7 +12,15 @@ module.exports = {
             const product = await Product.allProduct();
             const noibat = await  Product.getNoiBat();
             const cart = req.session.cart;
-            res.render('home', { layout: 'main', items: product.slice(0, 5),noibat:noibat.splice(0,5) ,cart: cart });
+
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('home', { layout: 'main', items: product.slice(0, 5),noibat:noibat.splice(0,5),categories: dataForHbs ,cart: cart });
+
         }
         catch (error) {
             next(error);
@@ -65,7 +73,13 @@ module.exports = {
             req.session.search='';
             req.session.sort ='';
             req.session.filter ='';
-            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , cart: cart ,keyword:''});
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , categories: dataForHbs ,cart: cart ,keyword:''});
         }
         catch (error) {
             next(error);
@@ -79,7 +93,13 @@ module.exports = {
             console.log(data.length );
             console.log(Math.ceil(data.length / 4))
             req.session.search=req.body.name;
-            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , cart: cart ,keyword:req.body.name});
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , cart: cart , categories: dataForHbs ,keyword:req.body.name});
         }
         catch (error) {
             next(error);
@@ -367,16 +387,49 @@ module.exports = {
         let productCon = await Product.getProductCon(id);
         let productSuggest = await Product.getProductSuggest(id);
         product = product ? product[0] : {};
+
         res.render("details", {product: product,categories: dataForHbs, productCon, productSuggest,cart:cart,title: "Product" });
         } catch (error) {
             console.log(error)
         }
 
     },
+    getProductCat: async (req, res, next) => {
+        try {
+            let catID = req.params.catID;
+            let product = await Product.getProductByCategory(parseInt(catID));
+            req.session.search='';
+            req.session.sort ='';
+            req.session.filter ='';
+            res.render('products', { products: product.splice(0,4), max:Math.ceil(product.length / 4)+1 , cart: cart ,keyword:''});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    getProductItem: async (req, res, next) => {
+        try {
+            let itemID = req.params.itemID;
+            let product = await Product.getProductByCategoryItem(itemID);
+            req.session.search='';
+            req.session.sort ='';
+            req.session.filter ='';
+            res.render('products', { products: product.splice(0,4), max:Math.ceil(product.length / 4)+1 , cart: cart ,keyword:''});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
     renderAbout: async (req, res, next) => {
         try {
             const cart = req.session.cart;
-            res.render('about', { layout: 'main', cart: cart });
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('about', { layout: 'main',  categories: dataForHbs ,cart: cart });
         }
         catch (error) {
             next(error);

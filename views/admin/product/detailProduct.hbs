@@ -137,68 +137,76 @@
     .plus-btnn:hover {
         background-color: #ffffff;
     }
-
-    .add-btn {
-        width: 300px;
-        height: 50px;
-        font-weight: bold;
-        font-size: 15px;
-        text-align: center;
-        color: red;
-        background-color: #ffffff;
-        cursor: pointer;
-        border-width: 1px;
-        border-color: red;
-
-        background-image: linear-gradient(to right, white 0%, white 50%, red 50%, red 100%);
-        background-size: 200% 100%;
-        transition: background-position 0.5s;
-    }
-
-    .add-btn:hover {
-        background-color: red;
-        color: white;
-        background-position: -100% 0;
-    }
-
-    .buy-btn {
-        width: 300px;
-        height: 50px;
-        font-weight: bold;
-        font-size: 15px;
-        text-align: center;
-        background-color: red;
-        color: white;
-        cursor: pointer;
-        border-width: 1px;
-        border-color: red;
-
-        background-image: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(193, 67, 67) 50%, rgb(255, rgb(255, 255, 255), 255) 50%, rgb(253, 253, 253) 100%);
-        background-size: 200% 100%;
-        transition: background-position 0.5s;
-    }
-
-    .buy-btn:hover {
-        background-color: white;
-        color: red;
-        background-position: -100% 0;
-    }
-
-    .add-btn,
-    .buy-btn {
-        margin-right: 10px;
-        /* Khoảng cách bên phải giữa hai nút */
-    }
-
     p {
         font-size: 20px;
     }
-    .btn-primary {
-        background-color: rgb(0, 106, 255);
-        color: white;
-    }
 </style>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{product.id}}">
+                Chỉnh sửa
+            </button>                        
+            <div class="modal fade" id="exampleModal{{product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form  action="/admin/products/{{product.id}}" method="post" id="productForm">
+                    <div class="mb-3">
+                        <label for="inputID" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="inputID" name="inputID1" value="{{product.id}}"placeholder="ID: " readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="inputName" name="inputName1" value="{{product.name}}" placeholder="Nhập tên sản phẩm">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="{{product.tinyDes}}" placeholder="Nhập mô tả ngắn" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
+                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="{{product.fullDes}}" ></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price1" value="{{product.price}}" placeholder="Nhập giá">
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Kích thước</label>
+                        <input type="text" class="form-control" id="size" name="size1" value="{{product.size}}" placeholder="Nhập kích thước">
+                    </div>
+                    <div class="mb-3">
+                        <label for="items" class="form-label">Danh mục</label>
+                         <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
+                            <option value="{{product.item}}" style="display:none" selected>Choose an option</option>
+                            {{#each ../categories}}
+                                {{#each items}}
+                            <option value="{{product.itemID}}">{{product.itemName}}</option>
+                            {{/each}}
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="count" class="form-label">Số lượng</label>
+                        <input class="form-control" id="count" name="count1" value="{{product.count}}" placeholder="Nhập số lượng">
+                    </div>
+                    <div class="mb-3">
+                        <label for="producer" class="form-label">Nhà sản xuất</label>
+                        <input type="text" class="form-control" id="producer" name="producer1" value="{{product.producer}}" placeholder="Nhập nhà sản xuất">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
+                    </div>
+                </form>
 
+            </div>
+
+        </div>
+    </div>
+            </div>
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <div class="container">
         <div class="row justify-content-center">
@@ -239,14 +247,6 @@
                                 <input type="text" class="product-count" value="1" style="width: 50px; text-align: center" data-count="{{product.count.[0]}}" max="{{product.count.[0]}}">
                                 <button class="plus-btnn" id="pluss">+</button>
                             </span>
-                        </p>
-                        {{#moreThanZero product.count.[0]}}
-                        <button class="add-to-cart add-btn ml-2 mb-3">THÊM VÀO GIỎ</button>
-                        {{else}}
-                        <h4>Sản phẩm này đã hết hàng</h4>
-                        <h4>Vui lòng quay lại sau!</h4>
-                        {{/moreThanZero}}
-
                     </div>
 
                 </div>
@@ -268,16 +268,15 @@
                 {{#each productCon}}
                 <div class="col-3 productt product" id="{{this.id}}">
                     <div class="card">
-                        <a href="/products/{{this.id}}">
+                        <a href="/admin/products/{{this.id}}">
                             <img src="{{this.images}}"
                                 class=" product-imagee product-image" alt="...">
                         </a>
-                        <a href="/products/{{this.id}}">
+                        <a href="/admin/products/{{this.id}}">
                             <div class="product-namee product-name text-left">{{this.name}}</div>
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
-                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
                         </div>
                     </div>
                 </div>
@@ -291,16 +290,15 @@
                 {{#each productSuggest}}
                 <div class="col-3 productt product" id="{{this.id}}">
                     <div class="card">
-                        <a href="/products/{{this.id}}">
+                        <a href="/admin/products/{{this.id}}">
                             <img src="{{this.images}}"
                                 class=" product-imagee product-image" alt="...">
                         </a>
-                        <a href="/products/{{this.id}}">
+                        <a href="/admin/products/{{this.id}}">
                             <div class="product-namee product-name text-left">{{this.name}}</div>
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
-                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
                         </div>
                     </div>
                 </div>

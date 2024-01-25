@@ -74,5 +74,19 @@ module.exports = {
         catch (error) {
             next(error);
         }
-    },     
+    },
+    renderCatForHome: async (req, res, next) => {
+        try{
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('partials/header',{layout: 'main', categories: dataForHbs});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
 }

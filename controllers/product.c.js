@@ -8,6 +8,7 @@ module.exports = {
         let urlObj = new URL(url);
         let catID = urlObj.searchParams.get("catID");
         let itemID = urlObj.searchParams.get("itemID");
+        
         let deleteID = urlObj.searchParams.get("delete");
         let products = null;
 
@@ -69,7 +70,7 @@ module.exports = {
         let productCon = await Product.getProductCon(id);
         let productSuggest = await Product.getProductSuggest(id);
         product = product ? product[0] : {};
-        res.render("admin/product/detailProduct", {product: product, categories: dataForHbs, productCon, productSuggest,title: "Product" });
+        res.render("admin/product/detailProduct", {product: product, categories: dataForHbs, productCon, productSuggest,title: "Product" ,layout: 'admin'});
 
         } catch (error) {
             console.log(error)
