@@ -174,10 +174,6 @@
                         <input type="number" class="form-control" id="price" name="price1" value="{{product.price}}" placeholder="Nhập giá">
                     </div>
                     <div class="mb-3">
-                        <label for="size" class="form-label">Kích thước</label>
-                        <input type="text" class="form-control" id="size" name="size1" value="{{product.size}}" placeholder="Nhập kích thước">
-                    </div>
-                    <div class="mb-3">
                         <label for="items" class="form-label">Danh mục</label>
                          <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
                             <option value="{{product.item}}" style="display:none" selected>Choose an option</option>
@@ -229,24 +225,20 @@
                         </p>
                         <p>Tình trạng:
                             <span style="font-weight: bold;">
-                                {{#moreThanZero product.count.[0]}}
+                                {{#moreThanZero product.count}}
                                 Còn hàng
                                 {{else}}
                                 Hết hàng
                                 {{/moreThanZero}}
                             </span>
                         </p>
-                        <p>
-                        <h2 class="product-price" style="font-weight: bold;color: red;" value="{{product.price}}">
-                            {{product.price}} VND</h2>
+                        <p>Số lượng trong kho:
+                            <span style="font-weight: bold;">{{product.count}}</span>
                         </p>
-
-                        <p style="display: flex; align-items: center; gap: 5px;">Lựa chọn số lượng: 
-                            <span class="quantity">
-                                <button class="minus-btnn pl-3" id="minuss">-</button>
-                                <input type="text" class="product-count" value="1" style="width: 50px; text-align: center" data-count="{{product.count.[0]}}" max="{{product.count.[0]}}">
-                                <button class="plus-btnn" id="pluss">+</button>
-                            </span>
+                        <p> Giá: 
+                        <span class="product-price" style="font-weight: bold;color: red;" value="{{product.price}}">
+                            {{product.price}} VND</span>
+                        </p>
                     </div>
 
                 </div>

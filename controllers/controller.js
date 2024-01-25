@@ -54,9 +54,14 @@ module.exports = {
                 } else {
                     allBills = await billM.selectHoaDon(account.username);
                 }
-                
+                const categories = await Category.allCategory();       
+                const categoryItems = await Category.allCategoryItem();
+                const dataForHbs = categories.map((categories) => {
+                    const items = categoryItems.filter((item) => item.catID === categories.catID);
+                    return { ...categories, items };
+                });
                 console.log(allBills);
-                res.render('profile', { layout: 'main', account: account, allBills: allBills, cart: cart });
+                res.render('profile', { layout: 'main', account: account, allBills: allBills, categories: dataForHbs ,cart: cart });
             }
             else {
                 res.render('login', { layout: '' });
@@ -68,9 +73,22 @@ module.exports = {
     },
     products: async (req, res, next) => {
         try {
+            let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
+            let urlObj = new URL(url);
+            let catID = urlObj.searchParams.get("catID");
+            let itemID = urlObj.searchParams.get("itemID");
+        
+            let data = null;
+            if (catID) {
+                data = await Product.getProductByCategory(parseInt(catID));
+            }
+            if (itemID) {
+                data = await Product.getProductByCategoryItem(itemID); 
+            }
+            if (catID == null && itemID == null){
+                data = await Product.allProduct();
+            }
             const cart = req.session.cart;
-            // console.log("renderPro", req.session);
-            const data = await Product.allProduct();
             req.session.search='';
             req.session.sort ='';
             req.session.filter ='';
@@ -398,12 +416,20 @@ module.exports = {
     },
     getProductCat: async (req, res, next) => {
         try {
-            let catID = req.params.catID;
-            let product = await Product.getProductByCategory(parseInt(catID));
+            const cart = req.session.cart;
+            let catID = res.params.catID;
+            // console.log("renderPro", req.session);
+            const data = await Product.getProductByCategory(catID);
             req.session.search='';
             req.session.sort ='';
             req.session.filter ='';
-            res.render('products', { products: product.splice(0,4), max:Math.ceil(product.length / 4)+1 , cart: cart ,keyword:''});
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , categories: dataForHbs ,cart: cart ,keyword:''});
         }
         catch (error) {
             next(error);
@@ -411,12 +437,20 @@ module.exports = {
     },
     getProductItem: async (req, res, next) => {
         try {
-            let itemID = req.params.itemID;
-            let product = await Product.getProductByCategoryItem(itemID);
+            const cart = req.session.cart;
+            let itemID = res.params.itemID;
+            // console.log("renderPro", req.session);
+            const data = await Product.getProductByCategoryItem(itemID);
             req.session.search='';
             req.session.sort ='';
             req.session.filter ='';
-            res.render('products', { products: product.splice(0,4), max:Math.ceil(product.length / 4)+1 , cart: cart ,keyword:''});
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , categories: dataForHbs ,cart: cart ,keyword:''});
         }
         catch (error) {
             next(error);
