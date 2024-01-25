@@ -33,6 +33,7 @@ module.exports = {
     renderLogin: async (req, res, next) => {
         try {
             if (req.user) {
+                const cart = req.session.cart;
                 let account = req.user;
                 if (!req.user) account = req.session.user;
                 console.log(account);
@@ -44,7 +45,7 @@ module.exports = {
                 }
                 
                 console.log(allBills);
-                res.render('profile', { layout: 'main', account: account, allBills: allBills });
+                res.render('profile', { layout: 'main', account: account, allBills: allBills, cart: cart });
             }
             else {
                 res.render('login', { layout: '' });
@@ -372,7 +373,8 @@ module.exports = {
     },
     renderAbout: async (req, res, next) => {
         try {
-            res.render('about', { layout: 'main' });
+            const cart = req.session.cart;
+            res.render('about', { layout: 'main', cart: cart });
         }
         catch (error) {
             next(error);

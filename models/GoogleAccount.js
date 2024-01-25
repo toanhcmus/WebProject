@@ -15,8 +15,8 @@ module.exports = class GoogleAccount {
             await paymentM.addAcc(newUser.Email);
         }
     }
-    static async getUser(Name) {
-        const rs = await db.getGoogleUser(Name);
+    static async getUser(Email) {
+        const rs = await db.getGoogleUser(Email);
         if (rs) {
             const u = new GoogleAccount({Name: rs.Name, Email: rs.Email, Avatar: rs.Avatar});
             return u;
