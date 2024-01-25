@@ -220,7 +220,7 @@
                         </p>
                         <p>Tình trạng:
                             <span style="font-weight: bold;">
-                                {{#moreThanZero product.count.[0]}}
+                                {{#moreThanZero product.count}}
                                 Còn hàng
                                 {{else}}
                                 Hết hàng
@@ -235,11 +235,11 @@
                         <p style="display: flex; align-items: center; gap: 5px;">Lựa chọn số lượng: 
                             <span class="quantity">
                                 <button class="minus-btnn pl-3" id="minuss">-</button>
-                                <input type="text" class="product-count" value="1" style="width: 50px; text-align: center" data-count="{{product.count.[0]}}" max="{{product.count.[0]}}">
+                                <input type="text" class="product-count" value="1" style="width: 50px; text-align: center" data-count="{{product.count}}" max="{{product.count}}">
                                 <button class="plus-btnn" id="pluss">+</button>
                             </span>
                         </p>
-                        {{#moreThanZero product.count.[0]}}
+                        {{#moreThanZero product.count}}
                         <button class="add-to-cart add-btn ml-2 mb-3">THÊM VÀO GIỎ</button>
                         {{else}}
                         <h4>Sản phẩm này đã hết hàng</h4>

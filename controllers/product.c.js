@@ -35,7 +35,7 @@ module.exports = {
     addProduct: async (req, res, next) => {
         try {
             console.log(req.body);
-            await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.size,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
+            await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
            
             res.redirect('back');
         } catch (error) {
@@ -46,8 +46,7 @@ module.exports = {
     editProduct: async (req, res, next) => {
         try {
             console.log(req.body);
-            const countArray = req.body.count1.split(',').map(Number);
-            await Product.updateByID(req.body.inputID1,req.body.inputName1,req.body.tinyDes1, req.body.fullDes1,req.body.price1,req.body.size1,req.body.items1,countArray,req.body.producer1);
+            await Product.updateByID(req.body.inputID1,req.body.inputName1,req.body.tinyDes1, req.body.fullDes1,req.body.price1,req.body.items1,req.body.count1,req.body.producer1);
            
             res.redirect('back');
         } catch (error) {

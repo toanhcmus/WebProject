@@ -67,4 +67,10 @@ module.exports = class Product {
     static async updateProductCount(id, count) {
         await db.updateProductCount(id, count);
     }
+    static async searchByCat(name, catID) {
+        return await db.searchByCat(name, catID);
+    }
+    static async searchByItem(name, itemID) {
+        return await db.searchByItem(name, itemID);
+    }
 };

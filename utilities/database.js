@@ -55,11 +55,28 @@ module.exports = {
         const data = await db.any(`SELECT * FROM "Products" WHERE "name" ILIKE '%${name}%'`);
         return data;
     },
-    addProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer, imageUrl) => {
+    searchByCat: async (name, catID) => {
+        const data = await db.query(`
+            SELECT * FROM "Products" p
+            JOIN "CategoryItems" c ON p."item" = c."itemID"
+            JOIN "Categories" ca ON c."catID" = ca."catID"
+            WHERE ca."catID" = ${catID}  AND p."name" ILIKE '%${name}%'
+            ORDER BY p."id" ASC
+        `);
+        return data;
+    },
+    searchByItem: async (name, itemID) => {
+        const data = await db.query(` SELECT * FROM "Products" p
+        JOIN "CategoryItems" c ON p."item" = c."itemID"
+        WHERE c."itemID" = '${itemID}' p."name" ILIKE '%${name}%'
+        ORDER BY p."id" ASC`);
+        return data;
+    },
+    addProduct: async (id, name, tinyDes, fullDes, price, items, count, producer, imageUrl) => {
         console.log('Product added');
-        const insertQuery = 'INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes", "price", "size", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4, $5, ARRAY[$6], $7, ARRAY[$8], $9, $10)';
+        const insertQuery = 'INSERT INTO "Products" ("id", "name", "tinyDes", "fullDes", "price", "item", "count", "producer", "images") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
         try {
-            await db.none(insertQuery, [id, name, tinyDes, fullDes, price, size, items, parseInt(count), producer, imageUrl]);
+            await db.none(insertQuery, [id, name, tinyDes, fullDes, price, items, count, producer, imageUrl]);
             console.log('Product added');
         } catch (error) {
             console.log(error);
@@ -522,17 +539,17 @@ module.exports = {
             throw error;
         }
     },
-    updateProduct: async (id, name, tinyDes, fullDes, price, size, items, count, producer) => {
+    updateProduct: async (id, name, tinyDes, fullDes, price, items, count, producer) => {
         try {
             const res = await db.query(
                 `
             UPDATE "Products"
-            SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"size"=ARRAY[$6],"item"=$7, "count"=ARRAY[$8], "producer"=$9
+            SET "name"=$2,"tinyDes"=$3,"fullDes"=$4,"price"=$5,"item"=$6, "count"=$7, "producer"=$8
             WHERE "id" = $1;
             SELECT * FROM "Products"
             ORDER BY id;
             `,
-                [id, name, tinyDes, fullDes, price, size, items, count, producer],
+                [id, name, tinyDes, fullDes, price, items, count, producer],
             );
 
             return res;
