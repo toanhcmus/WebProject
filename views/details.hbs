@@ -12,7 +12,7 @@
         overflow: initial;
         text-overflow: ellipsis;
         transition: all 0.3s ease;
-        padding-bottom: 7px;
+        padding-bottom: 10px;
         display: block;
         width: 100%;
         -webkit-line-clamp: initial;
@@ -62,7 +62,7 @@
 
     .productt {
         width: 160px;
-        height: 250px;
+        height: 280px;
         transition: transform 0.3s ease-in-out;
         position: relative;
         z-index: 1;
@@ -192,6 +192,10 @@
     p {
         font-size: 20px;
     }
+    .btn-primary {
+        background-color: rgb(0, 106, 255);
+        color: white;
+    }
 </style>
 
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
@@ -217,9 +221,7 @@
                         <p>Tình trạng:
                             <span style="font-weight: bold;">
                                 {{#moreThanZero product.count.[0]}}
-                                Còn hàng </span> |
-                            Số lượng còn lại:
-                            <span style="font-weight: bold;">{{product.count.[0]}}
+                                Còn hàng
                                 {{else}}
                                 Hết hàng
                                 {{/moreThanZero}}
@@ -230,10 +232,10 @@
                             {{product.price}} VND</h2>
                         </p>
 
-                        <p>Lựa chọn số lượng:
+                        <p style="display: flex; align-items: center; gap: 5px;">Lựa chọn số lượng: 
                             <span class="quantity">
-                                <button class="minus-btnn" id="minuss">-</button>
-                                <input type="text" class="product-count" max="{{product.count.[0]}}">
+                                <button class="minus-btnn pl-3" id="minuss">-</button>
+                                <input type="text" class="product-count" value="1" style="width: 50px; text-align: center" data-count="{{product.count.[0]}}" max="{{product.count.[0]}}">
                                 <button class="plus-btnn" id="pluss">+</button>
                             </span>
                         </p>
@@ -263,17 +265,18 @@
         <div class="container">
             <div class="row justify-content-left">
                 {{#each productCon}}
-                <div class="col-3 productt" id="product{{this.id}}">
+                <div class="col-3 productt product" id="{{this.id}}">
                     <div class="card">
                         <a href="/products/{{this.id}}">
-                            <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
-                                class=" product-imagee" alt="...">
+                            <img src="{{this.images}}"
+                                class=" product-imagee product-image" alt="...">
                         </a>
                         <a href="/products/{{this.id}}">
-                            <div class="product-namee text-left">{{this.name}}</div>
+                            <div class="product-namee product-name text-left">{{this.name}}</div>
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
                         </div>
                     </div>
                 </div>
@@ -285,17 +288,18 @@
         <div class="container">
             <div class="row justify-content-left">
                 {{#each productSuggest}}
-                <div class="col-3 productt" id="product{{this.id}}">
+                <div class="col-3 productt product" id="{{this.id}}">
                     <div class="card">
                         <a href="/products/{{this.id}}">
-                            <img src="https://vcdn1-dulich.vnecdn.net/2022/05/27/du-lich-Viet-Nam-3-1653637304.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=RfDpCzqu8VqhgKuSKMo3JQ"
-                                class=" product-imagee" alt="...">
+                            <img src="{{this.images}}"
+                                class=" product-imagee product-image" alt="...">
                         </a>
                         <a href="/products/{{this.id}}">
-                            <div class="product-namee text-left">{{this.name}}</div>
+                            <div class="product-namee product-name text-left">{{this.name}}</div>
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
+                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
                         </div>
                     </div>
                 </div>
@@ -329,17 +333,28 @@
         const minusBtn = document.querySelector(".minus-btnn");
         const plusBtn = document.querySelector(".plus-btnn");
         const quantityInput = document.querySelector(".product-count");
+        const addBtn = document.querySelector(".add-to-cart");
 
         // Hàm cập nhật giá trị
         function updateValue() {
             let value = parseInt(quantityInput.value);
             const max = parseInt(quantityInput.getAttribute("max"));
             value = isNaN(value) ? 0 : value;
-            value = value < 1 ? 1 : value;
+            value = value < 1 ? 0 : value;
             value = value > max ? max : value;
             quantityInput.value = value;
         }
+        /*addBtn.addEventListener("click", function() {
+            let value = parseInt(quantityInput.value);
+            const max = parseInt(quantityInput.getAttribute("max"));
+            if (value == 0){
+                alert("Vui lòng chọn số lượng")
+            }
+            let new = max - value;
+            quantityInput.setAttribute(max,toString(new));
 
+            
+        })*/
         // Bắt đầu theo dõi sự kiện input cho trường nhập liệu "product-count"
         quantityInput.addEventListener("input", updateValue);
 
@@ -352,9 +367,14 @@
 
         plusBtn.addEventListener("click", function () {
             let value = parseInt(quantityInput.value);
+                        const max = parseInt(quantityInput.getAttribute("max"));
             value = isNaN(value) ? 0 : value;
             value = value + 1;
+            if (max && value >= max){
+                value = max;
+            }
             quantityInput.value = value;
+
         });
     });
 </script>

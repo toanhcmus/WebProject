@@ -110,85 +110,84 @@
             }
             else countUp = parseInt(productCount.val());
             console.log(countUp);
-
-            $('.cart-body .card').each(function () {
-                var productName = $(this).find('.product-name').text().trim('');
-                if (productName === name.trim('')) {
-                    existingProduct = $(this);
-                }
-            });
-            if (existingProduct != null) {
-                var quantityInput = existingProduct.find('.count');
-                $.post('/addToCart', {
-                    id: id,
-                    name: name,
-                    price: price,
-                    image: image,
-                    count: parseInt(quantityInput.val()) + countUp
-                }, function (data) { }).fail(function () { });
-                quantityInput.val(parseInt(quantityInput.val()) + countUp);
-                
-            } else {
-                var pro = `<div class="card m-1">
-                <div class="d-flex mt-1 " style="height:120px">
-                    <div class="col-5" >
-                        <img src="`+ image + `" class=" product-image " style="width: 100%; height: 100%; object-fit: contain;"   alt="...">
-                    </div>
-                    <div class="col-5 ">
-                        <div class="text-start ">
-                            <h5 class="product-name">
-                            `+ name + `
-                            </h5>
-                        </div>
-                         <div class="text-start m-1">
-                                <span class="product-id">`+id+`</span>
-                            </div>
-                         <div class=" text-start">
-                                <button class="btn btn-primary" id="minus">-</button>
-                                <input type="text" class="count text-center" style="width:35px;height:35px" value="`+countUp+`" disabled>
-                                </input>
-                                <button class="btn btn-primary" id="plus">+</button>
-                            </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="pt-1 close">X</div>
-                        <div class="product-price pt-5 fw-bolder">`+ price + ` vnd</div>
-                    </div>
-                </div> </div>
-                `;
-                $.post('/addToCart', {
-                    id: id,
-                    name: name,
-                    price: price,
-                    image: image,
-                    count: countUp
-                }, function (data) {
-                }).fail(function () {
+            if (countUp > 0){
+                $('.cart-body .card').each(function () {
+                    var productName = $(this).find('.product-name').text().trim('');
+                    if (productName === name.trim('')) {
+                        existingProduct = $(this);
+                    }
                 });
-                $('.cart-body').append(pro);
-            }
-            await calc();
-            updateCartNotification();
-            var toast = `
-            <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <strong class="me-auto">Đã thêm vào giỏ hàng thành công</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                    <div class="toast-body" >
-                        <img src="`+ image + `" class="rounded me-2"  style="width: 30%; height: 30%; object-fit: contain;" alt="...">
-                        `+ name + `
+                if (existingProduct != null) {
+                    var quantityInput = existingProduct.find('.count');
+                    $.post('/addToCart', {
+                        id: id,
+                        name: name,
+                        price: price,
+                        image: image,
+                        count: parseInt(quantityInput.val()) + countUp
+                    }, function (data) { }).fail(function () { });
+                    quantityInput.val(parseInt(quantityInput.val()) + countUp);
+                    
+                } else {
+                    var pro = `<div class="card m-1">
+                    <div class="d-flex mt-1 " style="height:120px">
+                        <div class="col-5" >
+                            <img src="`+ image + `" class=" product-image " style="width: 100%; height: 100%; object-fit: contain;"   alt="...">
+                        </div>
+                        <div class="col-5 ">
+                            <div class="text-start ">
+                                <h5 class="product-name">
+                                `+ name + `
+                                </h5>
+                            </div>
+                            <div class="text-start m-1">
+                                    <span class="product-id">`+id+`</span>
+                                </div>
+                            <div class=" text-start">
+                                    <button class="btn btn-primary" id="minus">-</button>
+                                    <input type="text" class="count text-center" style="width:35px;height:35px" value="`+countUp+`" disabled>
+                                    </input>
+                                    <button class="btn btn-primary" id="plus">+</button>
+                                </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="pt-1 close">X</div>
+                            <div class="product-price pt-5 fw-bolder">`+ price + ` vnd</div>
+                        </div>
+                    </div> </div>
+                    `;
+                    $.post('/addToCart', {
+                        id: id,
+                        name: name,
+                        price: price,
+                        image: image,
+                        count: countUp
+                    }, function (data) {
+                    }).fail(function () {
+                    });
+                    $('.cart-body').append(pro);
+                }
+                await calc();
+                updateCartNotification();
+                var toast = `
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Đã thêm vào giỏ hàng thành công</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body" >
+                            <img src="`+ image + `" class="rounded me-2"  style="width: 30%; height: 30%; object-fit: contain;" alt="...">
+                            `+ name + `
+                        </div>
                     </div>
                 </div>
-            </div>
-            `
-            $('.toast-addToCart').append(toast);
-            var toast1 = $('.toast').last();
-            var toast = new bootstrap.Toast(toast1);
-            toast.show();
-
-
+                `
+                $('.toast-addToCart').append(toast);
+                var toast1 = $('.toast').last();
+                var toast = new bootstrap.Toast(toast1);
+                toast.show();
+            }
         }
         function calc() {
             let total = 0;
