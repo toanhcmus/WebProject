@@ -69,5 +69,6 @@ router.get('/products/:id',controller.detailProductForUser);
 router.post('/bill/detail', billController.billDetail);
 
 router.get('/about', controller.renderAbout);
+router.get('/admin/bills', auth.ensureAuthenticated, controller.renderBills);
 
 module.exports = router;

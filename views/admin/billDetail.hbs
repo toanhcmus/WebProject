@@ -1,0 +1,128 @@
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 m-auto">
+    <div class="card h-100">
+        <div class="card-body">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                    <h6 class="mb-2 text-primary">Danh sách hóa đơn</h6>
+                </div>
+                <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày lập</th>
+                    <th scope="col">Thành tiền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allBills}}
+                    <tr>
+                        <td>{{this.NgayLap}}</td>
+                        <td>{{this.ThanhTien}}</td>
+                        {{#ifCond this.TrangThai 0}}
+                            <td style="color: green;">Thành công</td>
+                        {{/ifCond}}
+
+                        {{#ifCond this.TrangThai 1}}
+                            <td style="color: red;">Thất bại</td>
+                        {{/ifCond}}
+
+                        <td><button type="button" class="btn btn-outline-primary" id="{{this.MaHoaDon}}">Chi tiết</button> </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Chi tiết hóa đơn</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal body content will be populated dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Attach click event handler to "Chi tiết" buttons
+        document.querySelectorAll('tbody button.btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Extract the bill ID from the button's id attribute
+                var billId = button.id;
+
+                // Fetch data from the server using the bill ID
+                fetch(`/bill/detail`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ billId: billId }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    displayDataInModal(data);
+                    console.log(data.data);
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            });
+        });
+        // Function to generate HTML for the product list
+        // Function to display data in a modal
+        function displayDataInModal(data) {
+            // Get the modal element
+            var modal = document.getElementById('myModal');
+
+            // Populate modal content with fetched data
+            var modalBody = modal.querySelector('.modal-body');
+            modalBody.innerHTML = generateProductTableHTML(data);
+
+            // Show the modal
+            $(modal).modal('show');
+        }
+
+        // Function to generate HTML for the product table
+        function generateProductTableHTML(data) {
+
+            let products = data.data;
+
+            if (products.length === 0) {
+                html = '<p style="color: red;">Hóa đơn thất bại</p>';
+                return html;
+            }
+
+            var html = '<table class="table">';
+            html += '<thead><tr><th>ID</th><th>Tên</th><th>Giá</th><th>Số lượng</th><th>Ảnh</th></tr></thead>';
+            html += '<tbody>';
+
+            for (let i = 0 ; i < data.bill.length ;i++) {
+                let product = products[i];
+                html += '<tr>';
+                html += '<td>' + product.id + '</td>';
+                html += '<td>' + product.name + '</td>';
+                html += '<td>' + product.price + '</td>';
+                html += '<td>' + data.bill[i].SoLuong + '</td>';
+                html +=    `<td><img class="img-modal" src="${product.images}" width="50%" height="50%"></td>`;
+                // Add more details as needed
+                html += '</tr>';
+            }
+            html += '</tbody>';
+            html += '</table>';
+            return html;
+        }
+
+    });
+</script>

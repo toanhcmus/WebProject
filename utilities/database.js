@@ -874,7 +874,7 @@ module.exports = {
                INSERT INTO "Products" VALUES ('AKH08','Áo Khoác Style Hàn Quốc','','',137500,'{"S","M","L","XL","XXL"}','AKH','{8,9,7,4,2}','Coolmate',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/13.jpg?alt=media&token=22f0c7a6-33ff-42ff-8c8a-681d8bcbdfaf');
 
                
-               INSERT INTO "Products" VALUES ('QTA01','Quần Tây Dáng Baggy','','',250000,'{"28","29","30","31","32"}','QTA','{5,7,8,9,4}','5S Fashion',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/QTA01.jpg?alt=media&token=a7b8de80-e445-4633-ab45-92eb6c5db372');;
+               INSERT INTO "Products" VALUES ('QTA01','Quần Tây Dáng Baggy','','',250000,'{"28","29","30","31","32"}','QTA','{5,7,8,9,4}','5S Fashion',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/QTA01.jpg?alt=media&token=a7b8de80-e445-4633-ab45-92eb6c5db372');
                
                INSERT INTO "Products" VALUES ('QTA02','Quần Tây Vải Thun Lạnh','','',205000,'{"28","29","30","31","32"}','QTA','{18,29,17,14,22}','Yame',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/QTA02.jpg?alt=media&token=8354f28d-5a9f-48b9-9fc2-4977c4a99e1e');
                
