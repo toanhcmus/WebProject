@@ -226,15 +226,11 @@
   window.onload = function () {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        if (url.search.includes("add")) {
-            url.search = "";
-            window.location.href = url.toString();
-        }
-        if (params.has("delete")) {
+        /*if (params.has("delete")) {
             params.delete("delete");
             url.search = params.toString();
             window.location.href = url.toString();
-        }
+        }*/
     }
 $(() => {      
   const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
@@ -380,8 +376,6 @@ document.querySelector('.catChangee').addEventListener('focus', function (event)
     hideError5();
   });
 
-
-
 });
 function validateCategoryName() {
   var categoryNameInput = document.getElementById('addCate');
@@ -408,8 +402,6 @@ function handleAdd(event) {
     window.location.href = url.toString();
   }
 }
-
-
 
 function handleDelete(event, CatID) {
     event.preventDefault();
@@ -521,61 +513,61 @@ function handleAddItem(event) {
   }
 }
 
-    let currentPage = 1;
-    const perPage = 5;
-    let maxPage = 2;
-    document.querySelector('.previous-page').addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable();
-        }
-    });
-    document.querySelector('.next-page').addEventListener('click', () => {
-        if (currentPage < maxPage) {
-            currentPage++;
-            updateTable();
-        }
-    });
-    document.querySelector('.go-page').addEventListener('click', () => {
-        const inputPage = parseInt(document.querySelector('.current-page').value);
-        console.log(maxPage);
-        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
-            currentPage = inputPage;
-            updateTable();
-        }
-        else if (inputPage < 1) {
-            document.querySelector('.current-page').value = 1;
-            currentPage = 1;
-            updateTable();
-        }
-        else if (inputPage > maxPage) {
-            document.querySelector('.current-page').value = maxPage;
-            currentPage = maxPage;
-            updateTable();
-        }
-    });
-    $('.current-page').on('change', function () {
-        const inputPage = parseInt(document.querySelector('.current-page').value);
-        console.log(maxPage);
-        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
-            currentPage = inputPage;
-            updateTable();
-        }
-        else if (inputPage < 1) {
-            document.querySelector('.current-page').value = 1;
-            currentPage = 1;
-            updateTable();
-        }
-        else if (inputPage > maxPage) {
-            document.querySelector('.current-page').value = maxPage;
-            currentPage = maxPage;
-            updateTable();
-        }
-    });
-  function toggleSubcategories(button) {
-    // Lấy phần tử chứa danh sách danh mục con tương ứng
+let currentPage = 1;
+const perPage = 5;
+let maxPage = 2;
+document.querySelector('.previous-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updateTable();
+    }
+});
+document.querySelector('.next-page').addEventListener('click', () => {
+    if (currentPage < maxPage) {
+        currentPage++;
+        updateTable();
+    }
+});
+document.querySelector('.go-page').addEventListener('click', () => {
+    const inputPage = parseInt(document.querySelector('.current-page').value);
+    console.log(maxPage);
+    if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+        currentPage = inputPage;
+        updateTable();
+    }
+    else if (inputPage < 1) {
+        document.querySelector('.current-page').value = 1;
+        currentPage = 1;
+        updateTable();
+    }
+    else if (inputPage > maxPage) {
+        document.querySelector('.current-page').value = maxPage;
+        currentPage = maxPage;
+        updateTable();
+    }
+});
+$('.current-page').on('change', function () {
+    const inputPage = parseInt(document.querySelector('.current-page').value);
+    console.log(maxPage);
+    if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+        currentPage = inputPage;
+        updateTable();
+    }
+    else if (inputPage < 1) {
+        document.querySelector('.current-page').value = 1;
+        currentPage = 1;
+        updateTable();
+    }
+    else if (inputPage > maxPage) {
+        document.querySelector('.current-page').value = maxPage;
+        currentPage = maxPage;
+        updateTable();
+    }
+});
+function toggleSubcategories(button) {
+// Lấy phần tử chứa danh sách danh mục con tương ứng
     var subcategoriesList = button.nextElementSibling;
-    
+
     // Kiểm tra hiển thị hoặc ẩn phần tử chứa danh sách
     if (subcategoriesList.style.display === 'none') {
         subcategoriesList.style.display = 'block';

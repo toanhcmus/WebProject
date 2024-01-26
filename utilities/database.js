@@ -304,6 +304,39 @@ module.exports = {
             return false;
         }
     },
+    checkCatNameExist: async (catName) => {
+        const checkCatNameExistQuery = 'SELECT "catName" FROM "Categories" WHERE "catName" = $1';
+        const checkCatNameExistValues = [catName];
+        try {
+            const checkCatNameExistResult = await db.oneOrNone(checkCatNameExistQuery, checkCatNameExistValues);
+            return checkCatNameExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
+    checkItemNameExist: async (itemName) => {
+        const checkItemNameExistQuery = 'SELECT "itemName" FROM "CategoryItems" WHERE "itemName" = $1';
+        const checkItemNameExistValues = [itemName];
+        try {
+            const checkItemNameExistResult = await db.oneOrNone(checkItemNameExistQuery, checkItemNameExistValues);
+            return checkItemNameExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
+    checkItemIDExist: async (itemID) => {
+        const checkItemIDExistQuery = 'SELECT "itemID" FROM "CategoryItems" WHERE "itemID" = $1';
+        const checkItemIDExistValues = [itemID];
+        try {
+            const checkItemIDExistResult = await db.oneOrNone(checkItemIDExistQuery, checkItemIDExistValues);
+            return checkItemIDExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
     editUser: async (username, newEmail, newPassword) => {
         const editUserQuery = 'UPDATE "Users" SET "Email" = $1, "Password" = $2 WHERE "Username" = $3';
         const editUserValues = [newEmail, newPassword, username];

@@ -6,22 +6,22 @@ module.exports = class Category {
         this.catName = raw.catName;
         this.catItems = null;
     }
-    static async allCategory() {
-        return await db.allCategory();
-    };
-   static async allCategoryItem(){
-        return await db.allCategoryItem();
-   };
-   static async deleteByID(catID){
-        return await db.deleteByID(catID);
-   };
-   static async addCategory(catName){
-        return await db.addCategory(catName);
-   };
-   static async updateCategory(catID,catName){
-        return await db.updateCategory(catID, catName);
-   };
-   static async addItem(itemID, itemName, catID){
+     static async allCategory() {
+          return await db.allCategory();
+     };
+     static async allCategoryItem(){
+          return await db.allCategoryItem();
+     };
+     static async deleteByID(catID){
+          return await db.deleteByID(catID);
+     };
+     static async addCategory(catName){
+          return await db.addCategory(catName);
+     };
+     static async updateCategory(catID,catName){
+          return await db.updateCategory(catID, catName);
+     };
+     static async addItem(itemID, itemName, catID){
      return await db.addItem(itemID, itemName, catID);
      };
      static async updateItem(itemID, itemName, catID){
@@ -30,5 +30,17 @@ module.exports = class Category {
      static async deleteItemByID(itemID){
           return await db.deleteItemByID(itemID);
      };
-
+     static async checkCatNameExist(catName){
+          return await db.checkCatNameExist(catName);
+     }
+     static async checkItemNameExist(itemName){
+          return await db.checkItemNameExist(itemName);
+     }
+     static async checkItemIDExist(itemID){
+          return await db.checkItemIDExist(itemID);
+     }
+     static async capitalizeWords(str) {
+          if (!str) return ""; // Trả về chuỗi rỗng nếu str là null hoặc undefined
+          return str.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+      }
 };
