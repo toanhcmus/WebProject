@@ -207,37 +207,37 @@
                     <h6 class="mb-2 text-primary">Lịch sử giao dịch</h6>
                 </div>
                 <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Mã giao dịch</th>
-                    <th scope="col">Số tiền</th>
-                    <th scope="col">Trạng thái</th>
-                    <th scope="col">Loại</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each paymentHistory}}
-                    <tr>
-                        <td>{{this.maGiaoDich}}</td>
-                        <td>{{this.money}}</td>
-                        {{#ifCond this.TrangThai 0}}
-                            <td style="color: green;">Thành công</td>
-                        {{/ifCond}}
+                    <thead>
+                        <tr>
+                            <th scope="col">Mã giao dịch</th>
+                            <th scope="col">Số tiền</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Loại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each paymentHistory}}
+                            <tr>
+                                <td>{{this.maGiaoDich}}</td>
+                                <td>{{this.money}}</td>
+                                {{#ifCond this.TrangThai 0}}
+                                    <td style="color: green;">Thành công</td>
+                                {{/ifCond}}
 
-                        {{#ifCond this.TrangThai 1}}
-                            <td style="color: red;">Thất bại</td>
-                        {{/ifCond}}
-                        {{#ifCond this.Type "transfer"}}
-                            <td style="color: green;">Chuyển khoản</td>
-                        {{/ifCond}}
+                                {{#ifCond this.TrangThai 1}}
+                                    <td style="color: red;">Thất bại</td>
+                                {{/ifCond}}
+                                {{#ifCond this.Type "transfer"}}
+                                    <td style="color: green;">Thanh toán hóa đơn</td>
+                                {{/ifCond}}
 
-                        {{#ifCond this.Type "fundin"}}
-                            <td style="color: red;">Nạp tiền</td>
-                        {{/ifCond}}
-                    </tr>
-                {{/each}}
-            </tbody>
-            </table>
+                                {{#ifCond this.Type "fundin"}}
+                                    <td style="color: red;">Nạp tiền</td>
+                                {{/ifCond}}
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
             
         </div>

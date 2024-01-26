@@ -10,8 +10,9 @@ const billController = require('../controllers/bill.c');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use('/', express.json());
 const productController = require('../controllers/product.c');
+
 router.get('/', controller.render);
-router.get('/admin', controller.renderAdmin);
+router.get('/admin', auth.ensureAuthenticatedAdmin, controller.renderAdmin);
 router.get('/login', controller.renderLogin);
 router.get('/products', controller.products);
 // router.get('/products/asc', controller.acs);
@@ -27,8 +28,9 @@ router.post('/paging', controller.paging);
 router.post('/filter', controller.filter);
 router.post('/remove', controller.remove);
 //router.get('/admin/product',controller.renderAddProduct);
-router.get('/admin/chart',controller.renderChart);
-router.post('/admin/table',controller.renderTable);
+
+router.get('/admin/chart', auth.ensureAuthenticatedAdmin, controller.renderChart);
+router.post('/admin/table', auth.ensureAuthenticatedAdmin, controller.renderTable);
 router.get('/success', controller.renderSuccess);
 router.get('/fail/id=:id', controller.renderFail);
 router.post('/sort', controller.sort);
@@ -47,24 +49,24 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 });
 router.get('/authFail', accountController.renderAuthFail);
 router.get('/logout', accountController.logout);
-router.get('/admin/category', categoryController.renderCat);
-router.get('/admin/category/edit', categoryController.renderEditCat);
-router.get('/admin/account', accountController.renderAccountManager);
-router.get('/admin/category/page', categoryController.getCatPage);
+router.get('/admin/category', auth.ensureAuthenticatedAdmin, categoryController.renderCat);
+router.get('/admin/category/edit', auth.ensureAuthenticatedAdmin, categoryController.renderEditCat);
+router.get('/admin/account', auth.ensureAuthenticatedAdmin, accountController.renderAccountManager);
+router.get('/admin/category/page', auth.ensureAuthenticatedAdmin, categoryController.getCatPage);
 
-router.get('/changePassword', accountController.changePassword);
+router.get('/changePassword', auth.ensureAuthenticated, accountController.changePassword);
 router.get('/payment', auth.ensureAuthenticated, billController.renderBill);
 
-router.get('/admin/account/remove/:Username', accountController.managerRemoveUser);
-router.get('/admin/account/edit', accountController.managerEditUser);
-router.get('/admin/account/add', accountController.managerAddUser);
-router.get('/admin/account/page', accountController.getUsersPage);
+router.get('/admin/account/remove/:Username', auth.ensureAuthenticatedAdmin, accountController.managerRemoveUser);
+router.get('/admin/account/edit', auth.ensureAuthenticatedAdmin, accountController.managerEditUser);
+router.get('/admin/account/add', auth.ensureAuthenticatedAdmin, accountController.managerAddUser);
+router.get('/admin/account/page', auth.ensureAuthenticatedAdmin, accountController.getUsersPage);
 
-router.post('/admin/products',productController.addProduct);
-router.get('/admin/products',productController.renderProduct);
+router.post('/admin/products', auth.ensureAuthenticatedAdmin, productController.addProduct);
+router.get('/admin/products', auth.ensureAuthenticatedAdmin, productController.renderProduct);
 
-router.get('/admin/products/:id',productController.detailProduct);
-router.post('/admin/products/:id',productController.editProduct);
+router.get('/admin/products/:id', auth.ensureAuthenticatedAdmin, productController.detailProduct);
+router.post('/admin/products/:id', auth.ensureAuthenticatedAdmin, productController.editProduct);
 
 router.get('/products/:id',controller.detailProductForUser);
 router.post('/bill/detail', billController.billDetail);
@@ -72,6 +74,7 @@ router.post('/bill/detail', billController.billDetail);
 router.get('/about', controller.renderAbout);
 //router.get('/product?catID=:catID',controller.getProductCat);
 //router.get('/product?itemID=:itemID',controller.getProductItem);
-router.get('/admin/bills', auth.ensureAuthenticated, controller.renderBills);
+router.get('/admin/bills', auth.ensureAuthenticatedAdmin, controller.renderBills);
+router.get('/admin/paymenthistory', auth.ensureAuthenticatedAdmin, controller.renderPaymentHistory);
 
 module.exports = router;

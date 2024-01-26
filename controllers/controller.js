@@ -30,12 +30,12 @@ module.exports = {
         }
     },
     renderAdmin: async (req, res, next) => {
-        if (!req.isAuthenticated() || req.user == null) {
-            return res.redirect('/login');
-        }
-        if (req.user.isAdmin == false || req.user.isAdmin == null) {
-            return res.redirect('/');
-        }
+        // if (!req.isAuthenticated() || req.user == null) {
+        //     return res.redirect('/login');
+        // }
+        // if (req.user.isAdmin == false || req.user.isAdmin == null) {
+        //     return res.redirect('/');
+        // }
         try {
             res.render('admin/dashboard', {layout: 'admin'});
         }
@@ -520,5 +520,10 @@ module.exports = {
         const allBills = await billM.selectAllBills();
         // console.log(allBills);
         res.render('admin/billDetail', { layout: 'admin', allBills: allBills });
+    },
+    renderPaymentHistory: async (req, res, next) => {
+        const userAdmin = await paymentM.selectUser('Admin');
+        const paymentHistory = await paymentM.selectAllPayments();
+        res.render('admin/paymentHistory', { layout: 'admin', userAdmin: userAdmin, paymentHistory: paymentHistory });
     }
 }
