@@ -21,7 +21,6 @@ const options = {
 
 const server = https.createServer(options, app);
 
-
 app.use(cookieParser(secret));
 app.use(cors());
 const sessionMiddleware = session({
@@ -31,13 +30,13 @@ const sessionMiddleware = session({
     cookie: { secure: false }
 });
 app.use(sessionMiddleware);
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }));
 
-require('./mws/passport')(app);
+require('./mws/passport')(passport);
 
 app.engine('hbs', exphbs.engine({
     extname: '.hbs',

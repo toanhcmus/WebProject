@@ -27,9 +27,9 @@ module.exports = {
     },
     async billDetail(req, res) {
         const billID = req.body.billId;
-        console.log("BillID", billID);
+        // console.log("BillID", billID);
         const data = await Bill.selectTTHoaDon(parseInt(billID));
-        console.log(data);
+        // console.log(data);
 
         let products = [];
 
@@ -37,14 +37,12 @@ module.exports = {
             for (let i = 0; i < data.length; i++) {
                 let product;
                 product = await Product.getProductByID(data[i].MaSP);
-                console.log(product);
+                // console.log(product);
                 products.push(product[0]);
             }
         }
-
-        console.log("products");
-        console.log(products);
-
+        // console.log("products");
+        // console.log(products);
         res.send({
             bill: data,
             data: products

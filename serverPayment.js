@@ -7,14 +7,18 @@ const { create } = require('express-handlebars');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const passport = require("passport");
+const helpers = require('./utilities/helpers');
 
 const app = express();
+
 const hbs = create({
     extname: '.hbs',
     defaultLayout: false,
-})
+    helpers: helpers
+});
 
-const secret = 'mysecretkey';
+const secret = 'paymentkey';
 
 app.use(cookieParser(secret));
 const sessionMiddleware = session({
@@ -24,8 +28,6 @@ const sessionMiddleware = session({
     cookie: { secure: false }
 });
 app.use(sessionMiddleware);
-
-require('./mws/passportPayment')(app);
 
 app.use(cors());
 app.engine('hbs', hbs.engine);

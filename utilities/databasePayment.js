@@ -43,13 +43,13 @@ module.exports = {
                         "money" int4,
                         "maHoaDon" int4,
                         "TrangThai" int4, --0: Thành công, 1: Thất bại
-                        "Time" timestamp
-                        
+                        "Time" timestamp,
+                        "Type" text
                     )
                     ;
 
                     INSERT INTO public."PaymentAccounts" ("id", "balance") VALUES
-                    ('admin', 0);
+                    ('Admin', 0);
                 `);
 
                 console.log(`Tables created inside '${process.env.DBPAY_DB}' database.`);

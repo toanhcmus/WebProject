@@ -5,28 +5,24 @@ const bcrypt = require('bcrypt');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GoogleAccount = require('../models/GoogleAccount.js');
 
-passport.serializeUser((user, done) => {
-    if (user.strategy === 'myS') {
-        done(null, { username: user.username, strategy: user.strategy });
-    } else if (user.strategy === 'google') {
-        done(null, { Email: user.Email, strategy: user.strategy });
-    }
-});
-
-passport.deserializeUser(async ({ username, Email, strategy }, done) => {
-    let user;
-    if (strategy === 'myS') {
-        user = await Account.getUser(username);
-    } else if (strategy === 'google') {
-        user = await GoogleAccount.getUser(Email);
-    }
-    done(null, user);
-});
-
-module.exports = app => {
-    app.use(passport.initialize());
-    app.use(passport.session());
-
+module.exports = passport => {
+    passport.serializeUser((user, done) => {
+        if (user.strategy === 'myS') {
+            done(null, { username: user.username, strategy: user.strategy });
+        } else if (user.strategy === 'google') {
+            done(null, { Email: user.Email, strategy: user.strategy });
+        }
+    });
+    
+    passport.deserializeUser(async ({ username, Email, strategy }, done) => {
+        let user;
+        if (strategy === 'myS') {
+            user = await Account.getUser(username);
+        } else if (strategy === 'google') {
+            user = await GoogleAccount.getUser(Email);
+        }
+        done(null, user);
+    });
     passport.use(new MyStrategy(async (un, pw, done) => {
         let auth = false;
         const check = await Account.checkUsernameExist(un);

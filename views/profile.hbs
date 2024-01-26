@@ -113,6 +113,17 @@
                             value="{{#if account.isAdmin}}Admin{{else}}Guest{{/if}}" disabled="true">
                     </div>
                 </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="balance">Số dư</label>
+                        <input type="text" class="form-control" id="balance" value="{{user.balance}}" disabled="true">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <button type="button" class="btn btn-outline" data-toggle="modal" data-target="modalFundin">
+                        Nạp tiền
+                    </button>
+                </div>
             </div>
             <div class="row gutters mt-3 text-center mb-3">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -159,6 +170,49 @@
                     <th scope="col">Thành tiền</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allBills}}
+                    <tr>
+                        <td>{{this.NgayLap}}</td>
+                        <td>{{this.ThanhTien}}</td>
+                        {{#ifCond this.TrangThai 0}}
+                            <td style="color: green;">Thành công</td>
+                        {{/ifCond}}
+
+                        {{#ifCond this.TrangThai 1}}
+                            <td style="color: red;">Thất bại</td>
+                        {{/ifCond}}
+                        <td>
+                            <button type="button" id="{{this.MaHoaDon}}" class="btn btn-outline" data-toggle="modal" data-target="#myModal">
+                                Chi tiết
+                            </button>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+            </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 m-auto">
+    <div class="card h-100">
+        <div class="card-body">
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                    <h6 class="mb-2 text-primary">Lịch sử giao dịch</h6>
+                </div>
+                <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mã giao dịch</th>
+                    <th scope="col">Số tiền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Loại</th>
                 </tr>
             </thead>
             <tbody>

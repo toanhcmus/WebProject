@@ -10,6 +10,10 @@ module.exports = class Payment {
         return await db.selectAllPayments();
     }
 
+    static async selectAllUsers() {
+        return await db.selectAllUsers();
+    }
+
     static async addAcc(username) {
         await db.addAcc(username);
     }
@@ -18,6 +22,9 @@ module.exports = class Payment {
     }
     static async selectPayment(id) {
         return await db.selectPayment(id);
+    }
+    static async selectPaymentByUser(user) {
+        return await db.selectPaymentByUser(user);
     }
     static async updatePaymentHistory(id, status) {
         await db.updatePaymentHistory(id, status);

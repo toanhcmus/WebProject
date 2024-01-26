@@ -8,27 +8,6 @@ const passport = require('passport');
 
 const router = express.Router();
 
-router.get('/', auth.ensureAuthenticated, controller.render);
-
-router.get('/login', controller.renderLogin);
-router.get('/admin', controller.renderAdmin);
-
-router.post('/verify', passport.authenticate('myS', {
-  failureRedirect: '/authFail',
-}), (req, res) => {
-  if (req.user && req.user.isAdmin) {
-      res.redirect('/admin');
-  } else {
-      res.redirect('/');
-  }
-});
-router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function (req, res) {
-    res.redirect('/');
-});
-router.get('/authFail', accountController.renderAuthFailPayment);
-router.get('/logout', accountController.logout);
-
 
 // post payment
 const authenticateJWT = (req, res, next) => {
@@ -36,46 +15,31 @@ const authenticateJWT = (req, res, next) => {
     // console.log(token);
     if (!token) {
       console.log('Yêu cầu xác thực');
-      return res.status(401).json({ message: 'Yêu cầu xác thực' });
+      return res.send({
+        msg: 1,
+        id: 1          // server thanh toán chưa đăng nhập
+      });
     }
   
     jwt.verify(token, 'mysecretkey', (err, user) => {
       if (err) {
         console.log('Xác thực không hợp lệ');
-        return res.status(403).json({ message: 'Xác thực không hợp lệ' });
+        return res.send({
+              msg: 1,
+              id: 1          // server thanh toán chưa đăng nhập
+            });
       }
       req.userReq = user;
-      // console.log(user);
       next();
     });
 };
-  
+
 // Route để chuyển khoản
 router.post('/transfer', authenticateJWT, async (req, res) => {
     try {
-      // console.log(req.session);
-
-      if (!req.user) {
-        return res.send({
-          msg: 1,
-          id: 2          // server thanh toán chưa đăng nhập
-        });
-      }
-
-      if (req.session.passport.user.strategy === 'google') {
-          if (req.user.Email !== req.userReq.username) {
-            res.send({
-              msg: 1,
-              id: 1         // server thanh toán không khớp dữ liệu người dùng
-            });
-          }
-      } else {
-          if (req.user.username !== req.userReq.username) {
-            res.send({
-              msg: 4          // server thanh toán không khớp dữ liệu người dùng
-            });
-          }
-      }
+      console.log(req.session);
+      console.log("req.userReq");
+      console.log(req.userReq);
 
       const total = req.body.total;
       const user = req.userReq;
@@ -99,7 +63,8 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
         id: user.username,
         money: total,
         TrangThai: 1,
-        time: time
+        time: time,
+        Type: "transfer"
       }
 
       await paymentM.addPaymentHistory(payment);
@@ -131,6 +96,61 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Đã xảy ra lỗi trong quá trình xử lý' });
     }
+});
+
+router.post('/fundin', authenticateJWT, async (req, res) => {
+  try {
+    console.log(req.session);
+    console.log("req.userReq");
+    console.log(req.userReq);
+
+    const total = req.body.total;
+    const user = req.userReq;
+    const userDB = await paymentM.selectUser(user.username);
+    console.log(userDB);
+    const balance = userDB.balance;
+    console.log(balance, total);
+    
+    const time = new Date();
+
+    const obj = {
+      username: user.username,
+      date: time,
+      total: total,
+      status: 1
+    }
+
+    const payment = {
+      id: user.username,
+      money: total,
+      TrangThai: 0,
+      time: time,
+      Type: "fundin"
+    }
+
+      await paymentM.addPaymentHistory(payment);
+      const payments = await paymentM.selectAllPayments();
+      let maxxIDPayment = 0;
+      payments.forEach(e => {
+        if (e.maGiaoDich > maxxIDPayment) {
+          maxxIDPayment = e.maGiaoDich;
+        }
+      })
+      
+      await paymentM.updateBalance(userDB.id, parseInt(balance + total));
+      res.send({
+        msg: 0,
+      })
+
+  } catch (error) {
+      console.error(error);
+      await paymentM.updatePaymentHistory(maxxIDPayment, 1);
+      res.send({
+        msg: 0,
+        error: error
+      })
+      // res.status(500).json({ message: 'Đã xảy ra lỗi trong quá trình xử lý' });
+  }
 });
 
 module.exports = router;

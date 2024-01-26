@@ -6,6 +6,11 @@ module.exports = {
         return rs;
     },
 
+    selectAllUsers: async () => {
+        const rs = await db.any('SELECT * FROM public."PaymentAccounts"');
+        return rs;
+    },
+
     addAcc: async (username) => {
         try {
             await db.none(
@@ -30,6 +35,13 @@ module.exports = {
             [id]
         );
         return rs[0];
+    },
+    selectPaymentByUser: async (id) => {
+        const rs = await db.any(
+            'SELECT * FROM "PaymentHistory" WHERE "id" = $1;',
+            [id]
+        );
+        return rs;
     },
     updatePaymentHistory: async (id, status) => {
         const updateQuery = 'UPDATE public."PaymentHistory" SET "TrangThai" = $1 WHERE "maGiaoDich" = $2';

@@ -6,10 +6,12 @@ const path = require('path');
 const Category = require('../models/Category');
 const billC = require('./bill.c');
 const productM = require('../models/Product');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     render: async (req, res, next) => {
         try {
+            console.log(req.session);
             const product = await Product.allProduct();
             const noibat = await  Product.getNoiBat();
             const cart = req.session.cart;
@@ -60,10 +62,17 @@ module.exports = {
                     const items = categoryItems.filter((item) => item.catID === categories.catID);
                     return { ...categories, items };
                 });
-                console.log(allBills);
-                res.render('profile', { layout: 'main', account: account, allBills: allBills, categories: dataForHbs ,cart: cart });
+                let user;
+                if (req.session.passport.user.strategy === 'google') {
+                    user = await paymentM.selectUser(account.Email);
+                } else {
+                    user = await paymentM.selectUser(account.username);
+                }
+                
+                res.render('profile', { layout: 'main', account: account, allBills: allBills, categories: dataForHbs ,cart: cart, user: user });
             }
             else {
+                console.log(req.session);
                 res.render('login', { layout: '' });
             }
         }
@@ -368,46 +377,29 @@ module.exports = {
     renderFail: async (req, res, next) => {
         try {
             const id = req.params.id;
-            const allTranstions = await paymentM.selectAllPayments();
-            let maxxMaGD = 0;
-            allTranstions.forEach((element) => {
-                if (maxxMaGD < element.maGiaoDich) {
-                    maxxMaGD = element.maGiaoDich;
+            if (id === 0) {
+                const allTranstions = await paymentM.selectAllPayments();
+                let maxxMaGD = 0;
+                allTranstions.forEach((element) => {
+                    if (maxxMaGD < element.maGiaoDich) {
+                        maxxMaGD = element.maGiaoDich;
+                    }
+                });
+                const latestPayment = await paymentM.selectPayment(maxxMaGD);
+                console.log(latestPayment);
+                const un = latestPayment.id;
+                const total = latestPayment.money;
+                const date = latestPayment.Time;
+
+                const obj = {
+                    username: un,
+                    date: date,
+                    total: total,
+                    status: 1 // Fail
                 }
-            });
-            const latestPayment = await paymentM.selectPayment(maxxMaGD);
-            console.log(latestPayment);
-            const un = latestPayment.id;
-            const total = latestPayment.money;
-            const date = latestPayment.Time;
 
-            const obj = {
-                username: un,
-                date: date,
-                total: total,
-                status: 1 // Fail
+                await billM.insertBill(obj);
             }
-
-            await billM.insertBill(obj);
-
-            // const allBills = await billM.selectAllBills();
-            // let maxxMaHD = 0;
-            // allBills.forEach(element => {
-            //     if (element.MaHoaDon > maxxMaHD) {
-            //         maxxMaHD = element.MaHoaDon;
-            //     }
-            // });
-
-            // for (let i = 0; i < req.session.cart.length; i++) {
-            //     const item = req.session.cart[i];
-            //     const obj = {
-            //         id: item.id,
-            //         count: item.count
-            //     }
-            //     await billM.addTTHoaDon(maxxMaHD, obj);
-            // }
-
-            req.session.cart = [];
             res.render('failNoti', { layout: 'transferNoti', id: parseInt(id) });
         }
         catch (error) {
@@ -494,7 +486,7 @@ module.exports = {
     },
     renderBills: async (req, res, next) => {
         const allBills = await billM.selectAllBills();
-        console.log(allBills);
+        // console.log(allBills);
         res.render('admin/billDetail', { layout: 'admin', allBills: allBills });
     }
 }
