@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <button type="button" class="btn btn-outline" data-toggle="modal" data-target="modalFundin">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalFundin">
                         Nạp tiền
                     </button>
                 </div>
@@ -156,6 +156,55 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalFundin" tabindex="-1" aria-labelledby="modalFundinLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalFundinLabel">Nạp tiền</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="account-input" class="form-label">Tài khoản:</label>
+                        <input type="text" class="form-control" id="account-input" value="{{user.id}}" name="accName" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="balance-input" class="form-label">Số tiền cần nạp:</label>
+                        <input type="number" class="form-control" id="balance-input" name="balanceFundin">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="confirmFundin()">Xác nhận</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmFundIn() {
+        // Lấy giá trị từ trường accName
+        var accName = document.getElementById('account-input').value;
+
+        // Lấy giá trị từ trường balanceFundin
+        var balanceFundin = document.getElementById('balance-input').value;
+
+        // In ra console (hoặc thực hiện các xử lý khác)
+        console.log('accName:', accName);
+        console.log('balanceFundin:', balanceFundin);
+
+        // Gọi hàm fundIn() để xử lý dữ liệu
+        fundIn(accName, balanceFundin);
+    }
+
+    function fundIn(accName, balanceFundin) {
+        // Thực hiện xử lý dữ liệu ở đây
+        console.log('Đã xác nhận nạp tiền cho', accName, 'số tiền:', balanceFundin);
+
+        // Gọi API hoặc thực hiện các công việc khác tùy thuộc vào nhu cầu của bạn
+    }
+</script>
+
 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 m-auto">
     <div class="card h-100">
         <div class="card-body">
@@ -185,7 +234,7 @@
                             <td style="color: red;">Thất bại</td>
                         {{/ifCond}}
                         <td>
-                            <button type="button" id="{{this.MaHoaDon}}" class="btn btn-outline" data-toggle="modal" data-target="#myModal">
+                            <button type="button" id="{{this.MaHoaDon}}" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">
                                 Chi tiết
                             </button>
                         </td>
@@ -216,10 +265,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each allBills}}
+                {{#each paymentHistory}}
                     <tr>
-                        <td>{{this.NgayLap}}</td>
-                        <td>{{this.ThanhTien}}</td>
+                        <td>{{this.maGiaoDich}}</td>
+                        <td>{{this.money}}</td>
                         {{#ifCond this.TrangThai 0}}
                             <td style="color: green;">Thành công</td>
                         {{/ifCond}}
@@ -227,11 +276,13 @@
                         {{#ifCond this.TrangThai 1}}
                             <td style="color: red;">Thất bại</td>
                         {{/ifCond}}
-                        <td>
-                            <button type="button" id="{{this.MaHoaDon}}" class="btn btn-outline" data-toggle="modal" data-target="#myModal">
-                                Chi tiết
-                            </button>
-                        </td>
+                        {{#ifCond this.Type "transfer"}}
+                            <td style="color: green;">Chuyển khoản</td>
+                        {{/ifCond}}
+
+                        {{#ifCond this.TrangThai "fundin"}}
+                            <td style="color: red;">Nạp tiền</td>
+                        {{/ifCond}}
                     </tr>
                 {{/each}}
             </tbody>

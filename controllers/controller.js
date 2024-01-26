@@ -68,8 +68,20 @@ module.exports = {
                 } else {
                     user = await paymentM.selectUser(account.username);
                 }
+                let paymentHistory;
+                if (req.session.passport.user.strategy === 'google') {
+                    paymentHistory = await paymentM.selectPaymentByUser(account.Email);
+                } else {
+                    paymentHistory = await paymentM.selectPaymentByUser(account.username);
+                }
                 
-                res.render('profile', { layout: 'main', account: account, allBills: allBills, categories: dataForHbs ,cart: cart, user: user });
+                res.render('profile', { layout: 'main', 
+                    account: account, 
+                    allBills: allBills, 
+                    categories: dataForHbs,
+                    cart: cart, 
+                    user: user,
+                    paymentHistory: paymentHistory });
             }
             else {
                 console.log(req.session);
