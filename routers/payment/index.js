@@ -37,7 +37,6 @@ const authenticateJWT = (req, res, next) => {
 // Route để chuyển khoản
 router.post('/transfer', authenticateJWT, async (req, res) => {
     try {
-      console.log(req.session);
       console.log("req.userReq");
       console.log(req.userReq);
 
@@ -47,17 +46,10 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
       console.log(userDB);
       const balance = userDB.balance;
       console.log(balance, total);
-      const userAdmin = await paymentM.selectUser("admin");
+      const userAdmin = await paymentM.selectUser("Admin");
       const balanceAdmin = userAdmin.balance;
 
       const time = new Date();
-
-      const obj = {
-        username: user.username,
-        date: time,
-        total: total,
-        status: 1
-      }
 
       const payment = {
         id: user.username,
@@ -100,53 +92,45 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
 
 router.post('/fundin', authenticateJWT, async (req, res) => {
   try {
-    console.log(req.session);
     console.log("req.userReq");
     console.log(req.userReq);
 
-    const total = req.body.total;
+    const fundin = req.body.balanceFundin;
     const user = req.userReq;
     const userDB = await paymentM.selectUser(user.username);
     console.log(userDB);
     const balance = userDB.balance;
-    console.log(balance, total);
+    console.log(balance, fundin);
     
     const time = new Date();
 
-    const obj = {
-      username: user.username,
-      date: time,
-      total: total,
-      status: 1
-    }
-
     const payment = {
       id: user.username,
-      money: total,
+      money: fundin,
       TrangThai: 0,
       time: time,
       Type: "fundin"
     }
 
-      await paymentM.addPaymentHistory(payment);
-      const payments = await paymentM.selectAllPayments();
-      let maxxIDPayment = 0;
-      payments.forEach(e => {
-        if (e.maGiaoDich > maxxIDPayment) {
-          maxxIDPayment = e.maGiaoDich;
-        }
-      })
-      
-      await paymentM.updateBalance(userDB.id, parseInt(balance + total));
-      res.send({
-        msg: 0,
-      })
+    await paymentM.addPaymentHistory(payment);
+    const payments = await paymentM.selectAllPayments();
+    let maxxIDPayment = 0;
+    payments.forEach(e => {
+      if (e.maGiaoDich > maxxIDPayment) {
+        maxxIDPayment = e.maGiaoDich;
+      }
+    })
+    
+    await paymentM.updateBalance(userDB.id, parseInt(balance + fundin));
+    res.send({
+      msg: 0,
+    })
 
   } catch (error) {
       console.error(error);
       await paymentM.updatePaymentHistory(maxxIDPayment, 1);
       res.send({
-        msg: 0,
+        msg: 1,
         error: error
       })
       // res.status(500).json({ message: 'Đã xảy ra lỗi trong quá trình xử lý' });

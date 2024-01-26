@@ -119,8 +119,8 @@
                         <input type="text" class="form-control" id="balance" value="{{user.balance}}" disabled="true">
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalFundin">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="margin-top: 10px;">
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalFundin">
                         Nạp tiền
                     </button>
                 </div>
@@ -155,55 +155,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="modalFundin" tabindex="-1" aria-labelledby="modalFundinLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalFundinLabel">Nạp tiền</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="account-input" class="form-label">Tài khoản:</label>
-                        <input type="text" class="form-control" id="account-input" value="{{user.id}}" name="accName" disabled>
-                    </div>
-                    <div class="mb-3">
-                        <label for="balance-input" class="form-label">Số tiền cần nạp:</label>
-                        <input type="number" class="form-control" id="balance-input" name="balanceFundin">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="confirmFundin()">Xác nhận</button>
-                </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function confirmFundIn() {
-        // Lấy giá trị từ trường accName
-        var accName = document.getElementById('account-input').value;
-
-        // Lấy giá trị từ trường balanceFundin
-        var balanceFundin = document.getElementById('balance-input').value;
-
-        // In ra console (hoặc thực hiện các xử lý khác)
-        console.log('accName:', accName);
-        console.log('balanceFundin:', balanceFundin);
-
-        // Gọi hàm fundIn() để xử lý dữ liệu
-        fundIn(accName, balanceFundin);
-    }
-
-    function fundIn(accName, balanceFundin) {
-        // Thực hiện xử lý dữ liệu ở đây
-        console.log('Đã xác nhận nạp tiền cho', accName, 'số tiền:', balanceFundin);
-
-        // Gọi API hoặc thực hiện các công việc khác tùy thuộc vào nhu cầu của bạn
-    }
-</script>
 
 <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 m-auto">
     <div class="card h-100">
@@ -280,7 +231,7 @@
                             <td style="color: green;">Chuyển khoản</td>
                         {{/ifCond}}
 
-                        {{#ifCond this.TrangThai "fundin"}}
+                        {{#ifCond this.Type "fundin"}}
                             <td style="color: red;">Nạp tiền</td>
                         {{/ifCond}}
                     </tr>
@@ -343,6 +294,73 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalFundin" tabindex="-1" aria-labelledby="modalFundinLabel" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalFundinLabel">Nạp tiền</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="account-input" class="form-label">Tài khoản:</label>
+                        <input type="text" class="form-control" id="account-input" value="{{user.id}}" name="accName" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="balance-input" class="form-label">Số tiền cần nạp:</label>
+                        <input type="number" class="form-control" id="balance-input" name="balanceFundin">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quay lại</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="fundIn()">Xác nhận</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fundIn() {
+        // Thực hiện xử lý dữ liệu ở đây
+        var accName = document.getElementById('account-input').value;
+
+        // Lấy giá trị từ trường balanceFundin
+        var balanceFundin = document.getElementById('balance-input').value;
+
+        console.log('Đã xác nhận nạp tiền cho', accName, 'số tiền:', balanceFundin);
+
+        const apiUrl = 'https://localhost:5000/fundin';
+            const token = "{{token}}";
+            const transferData = {
+                accName: accName,
+                balanceFundin: parseInt(balanceFundin)
+            };
+            fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/plain, */*',
+                'Authorization': `${token}`,
+            },
+            body: JSON.stringify(transferData)
+            }).then(response => response.json())
+            .then(data => {
+                if (data.msg === 1) {
+                    alert(`Nạp tiền không thành công! Lỗi ${data.error}`);
+                    window.location.href = '/login';
+                } else {
+                    alert(`Nạp tiền thành công!`);
+                    window.location.href = '/login';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        // Gọi API hoặc thực hiện các công việc khác tùy thuộc vào nhu cầu của bạn
+    }
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -413,6 +431,22 @@
             html += '</table>';
             return html;
         }
+
+        // Function to update the state of the "Xác nhận" button
+        function updateConfirmButtonState() {
+            var balanceInput = document.getElementById('balance-input');
+            var confirmButton = document.querySelector('#modalFundin button[data-bs-dismiss="modal"][onclick="fundIn()"]');
+
+            if (balanceInput && confirmButton) {
+                confirmButton.disabled = parseFloat(balanceInput.value) <= 0;
+            }
+        }
+
+        // Attach an event listener to the input for real-time updates
+        document.getElementById('balance-input').addEventListener('input', updateConfirmButtonState);
+
+        // Call the function initially to set the initial state
+        updateConfirmButtonState();
 
     });
 </script>

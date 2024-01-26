@@ -15,7 +15,7 @@ module.exports = {
         try {
             await db.none(
             'INSERT INTO public."PaymentAccounts"("id", "balance") VALUES ($1, $2)',
-            [username, 1000000]
+            [username, 0]
             );
         } catch (error) {
             console.error("Error inserting:", error);
@@ -50,8 +50,8 @@ module.exports = {
     addPaymentHistory: async (obj) => {
         try {
             await db.none(
-            'INSERT INTO public."PaymentHistory"("id", "money", "TrangThai", "Time") VALUES ($1, $2, $3, $4)',
-            [obj.id, obj.money, obj.TrangThai, obj.time]
+            'INSERT INTO public."PaymentHistory"("id", "money", "TrangThai", "Time", "Type") VALUES ($1, $2, $3, $4, $5)',
+            [obj.id, obj.money, obj.TrangThai, obj.time, obj.Type]
             );
         } catch (error) {
             console.error("Error inserting:", error);

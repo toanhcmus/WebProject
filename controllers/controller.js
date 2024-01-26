@@ -49,7 +49,7 @@ module.exports = {
                 const cart = req.session.cart;
                 let account = req.user;
                 if (!req.user) account = req.session.user;
-                console.log(account);
+                // console.log(account);
                 let allBills;
                 if (req.session.passport.user.strategy === 'google') {
                     allBills = await billM.selectHoaDon(account.Email);
@@ -74,6 +74,25 @@ module.exports = {
                 } else {
                     paymentHistory = await paymentM.selectPaymentByUser(account.username);
                 }
+                // console.log("payment History");
+                // console.log(paymentHistory);
+                const checkS = req.session.passport.user.strategy;
+                let userToken;
+                if (checkS === 'myS') {
+                    const userData = req.user;
+                    userToken = {
+                        "username": userData.username,
+                        "password": userData.password
+                    }
+                } else {
+                    const userData = req.user;
+                    // console.log(userData);
+                    userToken = {
+                        "username": userData.Email
+                    }
+                }
+        
+                const token = jwt.sign(userToken, 'mysecretkey', { expiresIn: '1h' });
                 
                 res.render('profile', { layout: 'main', 
                     account: account, 
@@ -81,6 +100,7 @@ module.exports = {
                     categories: dataForHbs,
                     cart: cart, 
                     user: user,
+                    token: token,
                     paymentHistory: paymentHistory });
             }
             else {
