@@ -51,14 +51,13 @@ module.exports = {
             res.render("admin/category/editCategory", { layout: 'admin', categories: dataForHbs, title: "Edit" });
 
         } catch (error) {
-            console.log(error);
             let categories = await Category.allCategory();       
             let categoryItems = await Category.allCategoryItem();
             let dataForHbs = categories.map((categories) => {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render("admin/category/editCategory", { categories: dataForHbs, error, title: "Edit" });
+            res.render("admin/category/editCategory", { categories: dataForHbs, error:'Không thể xoá do tồn tại sản phẩm sản phẩm liên quan tới danh mục muốn hoá hiện tại!', title: "Edit" });
         }
     },
     renderCat: async (req, res, next) => {
@@ -109,14 +108,13 @@ module.exports = {
             res.render("admin/category/viewCategory", { layout: 'admin', categories: dataForHbs, title: "Edit" });
 
         } catch (error) {
-            console.log(error);
             let categories = await Category.allCategory();       
             let categoryItems = await Category.allCategoryItem();
             let dataForHbs = categories.map((categories) => {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render("admin/category/viewCategory", {  layout: 'admin', categories: dataForHbs, error, title: "Edit" });
+            res.render("admin/category/viewCategory", {  layout: 'admin', categories: dataForHbs, error:'Không thể xoá do tồn tại sản phẩm sản phẩm liên quan tới danh mục muốn hoá hiện tại!', title: "Edit" });
         }
     },
     renderCatForHome: async (req, res, next) => {
