@@ -16,13 +16,13 @@
             <h5 class="card-title">Danh sách danh mục</h5>
         </div>
     </div>
-    <div class="w-75 d-flex flex-row justify-content-end mt-2 mb-2">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              + Thêm danh mục
-          </button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-        + Thêm danh mục con
-    </button>
+    <div class="w-75 d-flex flex-row justify-content-end mt-2 mb-2" style="display: flex; gap: 10px;">
+        <button type="button" class="btn btn-primary" style="width:150px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Thêm danh mục
+        </button>
+        <button type="button" class="btn btn-primary" style="width:180px;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        Thêm danh mục con
+        </button>
     </div>
     <table class="table w-75">
         <colgroup>
@@ -43,8 +43,30 @@
                 <td class="align-middle text-center">{{this.catID }}</td>
                 <td class="align-middle text-center" value="{{this.catName}}" id="Name{{this.catID}}">{{this.catName }}</td>
                 <td class="align-middle text-center">
-                    <button type="button" id="editCat" name="editCat" class="btn btn-warning editCatButton"
-                        data-bs-toggle="modal" data-bs-target="#exampleModal1">Đổi tên</button>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalat{{this.catID}}">Đổi tên</button>
+                    <div class="modal fade" id="exampleModalat{{this.catID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa tên danh mục</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text" for="Cat{{this.catID}}" id="basic-addon2">Tên mới</label>
+                                            <input class="form-control catChangee" name = "catChangee" aria-describedby="basic-addon1"  type="text" value="{{this.catName}}" id="Cat{{this.catID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                            <i class="error newCatNamee"></i>
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" onclick="handleEdit(event,{{this.catID}})">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button class="btn btn-danger" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
                 </td>
                 <td class="align-middle subcategory-list text-center">
@@ -85,20 +107,22 @@
                                                       </div>
                                                       <div class="col">
                                                           <div class="input-group mb-3 ">
-                                                              <span class="input-group-text" id="basic-addon2">Tên</span>
-                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="{{this.itemName}}" id="Name{{this.itemID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                                              <label class="input-group-text" for="Name{{this.itemID}}" id="basic-addon2">Tên</label>
+                                                              <input class="form-control changee" name = "changee" aria-describedby="basic-addon1"  type="text" value="{{this.itemName}}" id="Name{{this.itemID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
                                                           </div>
+                                                          <i class="error changeNamee"></i>
                                                       </div>
                                                       <div class="col">
                                                           <div class="input-group mb-3">
-                                                              <span class="input-group-text" id="basic-addon2">Thuộc danh mục</span>
-                                                              <select class="form-select form-select-sm" aria-label="Small select example" id="select{{this.itemID}}">
-                                                                  <option value="{{this.catID}}" style="display:none">Choose an option</option>
+                                                              <label class="input-group-text" for="select{{this.itemID}}" id="basic-addon2">Thuộc danh mục</label>
+                                                              <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select{{this.itemID}}">
+                                                                  <option value="{{this.catID}}" style="display:none">Chọn danh mục</option>
                                                                   {{#each ../../categories}}
                                                                   <option value="{{this.catID}}">{{this.catName}}</option>
                                                                   {{/each}}
                                                               </select>
                                                           </div>
+                                                          <i class="error changeCatt"></i>
                                                       </div>
                                                   </div>
                                                   <div class="modal-footer">
@@ -121,13 +145,14 @@
         </tbody>
     </table>
     <div class="pagination w-75 d-flex flex-row justify-content-center align-items-center">
-        <button class="btn btn-light previous-page ms-1 me-1" style="width:90px;">Previous</button>
+        <button class="btn btn-light previous-page ms-1 me-1" style="width:90px;">Trước</button>
         <input type="number" class="form-control current-page" style="width:60px;" min="1" value="1"> /
         <input type="number" class="form-control max-page" style="width:60px;" value="{{max}}" disabled>
         {{!-- <span class="max-page text-center" style="width:60px;"></span> --}}
-        <button class="btn btn-light next-page ms-1 me-1" style="width:90px;">Next</button>
+        <button class="btn btn-light next-page ms-1 me-1" style="width:90px;">Sau</button>
     </div>
 </div>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -140,13 +165,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="addCate" id="basic-addon2">Tên danh mục</label>
-                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" id="addCate" required>
+                        <input name="newCategory" value="" type="text" class="form-control tmp" aria-describedby="basic-addon1" id="addCate" required>
                         <i class="error addCatee"></i>
                     </div>
                 </div>
             </div>    
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
                 <button type="button" class="btn btn-primary" onclick="handleAdd(event)">Lưu thay đổi</button>
             </div>
         </div>
@@ -157,27 +182,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm danh mục con</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close cancel" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="col">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="newID" id="basic-addon2">Mã</label>
-                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="newID" required>
+                        <input name="newCategory" value="" type="text" class="form-control tmp" aria-describedby="basic-addon1" id="newID" required>
                     </div>
                         <i class="error newIDD"></i>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="newNameItem" id="basic-addon2">Tên</label>
-                        <input name="newCategory" value="" type="text" class="form-control" aria-describedby="basic-addon1" id="newNameItem" required>
+                        <input name="newCategory" value="" type="text" class="form-control tmp" aria-describedby="basic-addon1" id="newNameItem" required>
                     </div>
                     <i class="error newNameItemm"></i>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="catItemID" id="basic-addon2">Thuộc danh mục</label>
-                        <select class="form-select form-select-sm" aria-label="Small select example" id="catItemID" required>
+                        <select class="form-select form-select-sm tmp" aria-label="Small select example" id="catItemID" required>
                             <option value="" style="display:none">Choose an option</option>
                             {{#each categories}}
                             <option value="{{this.catID}}">{{this.catName}}</option>
@@ -188,7 +213,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
                 <button type="button" class="btn btn-primary" onclick="handleAddItem(event)">Lưu thay đổi</button>
             </div>
         </div>
@@ -200,13 +225,16 @@
 <script>
   window.onload = function () {
         let url = new URL(window.location.href);
-        if (url.search.includes("add")) {
-            url.search = "";
+        let params = new URLSearchParams(url.search);
+        /*if (params.has("delete")) {
+            params.delete("delete");
+            url.search = params.toString();
             window.location.href = url.toString();
-        }
+        }*/
     }
 $(() => {      
-  const str = /^(?=[^\d\s])((?!\s{2,})[a-zA-Z0-9\s]){5,}$/;
+  const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
 
   const showError = (message) => {
     $(".error.addCatee").text(message);
@@ -227,6 +255,10 @@ $(() => {
   $("#addCate").on("focus", async function (e) {
     hideError();
   });
+$("#addCate").on("mouseout", async function (e) {
+    hideError();
+  });
+
 
   
   const showError1 = (message) => {
@@ -285,7 +317,7 @@ $(() => {
   $("#catItemID").on("blur", async function(e){
     const value = e.target.value;
     const selectedValue = $("#catItemID").val(); 
-    if (!value.match(/^.+$/) || selectedValue === null) {
+    if (!value.match(/^.+$/)) {
       showError3("Vui lòng chọn danh mục");
     } else {
       hideError3();
@@ -297,13 +329,58 @@ $(() => {
   });
 
 
+const showError4 = (message) => {
+    $(".error.changeNamee").text(message);
+    $(".error.changeNamee").css("visibility", "visible");
+  };
+  const hideError4 = () => {
+    $(".error.changeNamee").text("");
+    $(".error.changeNamee").css("visibility", "hidden");
+  };
 
+document.querySelector('.changee').addEventListener('blur', async function (e) {
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError4("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError4();
+    }
+
+});
+
+document.querySelector('.changee').addEventListener('focus', function (event) {
+    hideError4();
+  });
+
+
+const showError5 = (message) => {
+    $(".error.newCatNamee").text(message);
+    $(".error.newCatNamee").css("visibility", "visible");
+  };
+  const hideError5 = () => {
+    $(".error.newCatNamee").text("");
+    $(".error.newCatNamee").css("visibility", "hidden");
+  };
+
+document.querySelector('.catChangee').addEventListener('blur', async function (e) {
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError5("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError5();
+    }
+
+});
+
+document.querySelector('.catChangee').addEventListener('focus', function (event) {
+    hideError5();
+  });
 
 });
 function validateCategoryName() {
   var categoryNameInput = document.getElementById('addCate');
   var categoryName = categoryNameInput.value.trim();
-  if (!categoryName.match(/^(?=[^\d\s])((?!\s{2,})[a-zA-Z0-9\s]){5,}$/)) {
+  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
       return false; 
   }
   return true; 
@@ -325,8 +402,6 @@ function handleAdd(event) {
     window.location.href = url.toString();
   }
 }
-
-
 
 function handleDelete(event, CatID) {
     event.preventDefault();
@@ -351,20 +426,35 @@ function handleDeleteItem(event, ItemID){
     //console.log(url)
     window.location.href = url.toString();
 }
-
+function validateEdit(catID){
+    let itemNamenew = document.getElementById("Cat" + catID).value;
+    if (!itemNamenew.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
+        return false;
+    }
+    return true;
+}
 function handleEdit(event, CatID) {
-    event.preventDefault();
-    let CatName = document.getElementById("Name" + CatID).value;
-    let url = new URL(window.location.href);
-    url.search = "";
-    let params = new URLSearchParams(url.search);
-    params.set("edit", CatID);
-    params.set("catName", CatName);
-    url.search = params.toString();
-    window.location.href = url.toString();
-    
+    if (validateEdit(CatID)){
+        event.preventDefault();
+        let CatName = document.getElementById("Cat" + CatID).value;
+        let url = new URL(window.location.href);
+        url.search = "";
+        let params = new URLSearchParams(url.search);
+        params.set("edit", CatID);
+        params.set("catName", CatName);
+        url.search = params.toString();
+        window.location.href = url.toString();
+    }    
+}
+function validateEditItem(itemID){
+    let itemNamenew = document.getElementById("Name" + itemID).value;
+    if (!itemNamenew.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
+        return false;
+    }
+    return true;
 }
 function handleEditItem(event, itemID) {
+    if (validateEditItem(itemID)){
     event.preventDefault();
     let itemNamenew = document.getElementById("Name" + itemID).value;
     let itemType = document.getElementById("select"+ itemID).value;
@@ -378,24 +468,26 @@ function handleEditItem(event, itemID) {
     url.search = params.toString();
     //console.log(url)
     window.location.href = url.toString();
-    
+    }    
 }
 function validateSubcategory() {
-    const idValue = $("#newID").val();
+   /* const idValue = $("#newID").val();
     const nameValue = $("#newNameItem").val();
     const selectedCategory = $("#catItemID").val();
-    const value = e.target.value;
+    const value = e.target.value;*/
+    let idValue = document.getElementById("newID").value;
+    let nameValue = document.getElementById("newNameItem").value;
+    let selectedCategory = document.getElementById("catItemID").value;
 
     if (!idValue.match(/^[A-Z]{3}$/)) {
         return false;
     };
-
-    if (!nameValue.match(/^[^\s].{5,}(?<!\s)$/)) {
+    if (!nameValue.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
         return false;
     };
 
     // Kiểm tra danh mục đã chọn
-   if (!value.match(/^.+$/) || selectedValue === null) {
+    if (!selectedCategory.match(/^.+$/)) {
         return false;
     };
 
@@ -421,61 +513,61 @@ function handleAddItem(event) {
   }
 }
 
-    let currentPage = 1;
-    const perPage = 5;
-    let maxPage = 2;
-    document.querySelector('.previous-page').addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable();
-        }
-    });
-    document.querySelector('.next-page').addEventListener('click', () => {
-        if (currentPage < maxPage) {
-            currentPage++;
-            updateTable();
-        }
-    });
-    document.querySelector('.go-page').addEventListener('click', () => {
-        const inputPage = parseInt(document.querySelector('.current-page').value);
-        console.log(maxPage);
-        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
-            currentPage = inputPage;
-            updateTable();
-        }
-        else if (inputPage < 1) {
-            document.querySelector('.current-page').value = 1;
-            currentPage = 1;
-            updateTable();
-        }
-        else if (inputPage > maxPage) {
-            document.querySelector('.current-page').value = maxPage;
-            currentPage = maxPage;
-            updateTable();
-        }
-    });
-    $('.current-page').on('change', function () {
-        const inputPage = parseInt(document.querySelector('.current-page').value);
-        console.log(maxPage);
-        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
-            currentPage = inputPage;
-            updateTable();
-        }
-        else if (inputPage < 1) {
-            document.querySelector('.current-page').value = 1;
-            currentPage = 1;
-            updateTable();
-        }
-        else if (inputPage > maxPage) {
-            document.querySelector('.current-page').value = maxPage;
-            currentPage = maxPage;
-            updateTable();
-        }
-    });
-  function toggleSubcategories(button) {
-    // Lấy phần tử chứa danh sách danh mục con tương ứng
+let currentPage = 1;
+const perPage = 5;
+let maxPage = 2;
+document.querySelector('.previous-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updateTable();
+    }
+});
+document.querySelector('.next-page').addEventListener('click', () => {
+    if (currentPage < maxPage) {
+        currentPage++;
+        updateTable();
+    }
+});
+document.querySelector('.go-page').addEventListener('click', () => {
+    const inputPage = parseInt(document.querySelector('.current-page').value);
+    console.log(maxPage);
+    if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+        currentPage = inputPage;
+        updateTable();
+    }
+    else if (inputPage < 1) {
+        document.querySelector('.current-page').value = 1;
+        currentPage = 1;
+        updateTable();
+    }
+    else if (inputPage > maxPage) {
+        document.querySelector('.current-page').value = maxPage;
+        currentPage = maxPage;
+        updateTable();
+    }
+});
+$('.current-page').on('change', function () {
+    const inputPage = parseInt(document.querySelector('.current-page').value);
+    console.log(maxPage);
+    if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+        currentPage = inputPage;
+        updateTable();
+    }
+    else if (inputPage < 1) {
+        document.querySelector('.current-page').value = 1;
+        currentPage = 1;
+        updateTable();
+    }
+    else if (inputPage > maxPage) {
+        document.querySelector('.current-page').value = maxPage;
+        currentPage = maxPage;
+        updateTable();
+    }
+});
+function toggleSubcategories(button) {
+// Lấy phần tử chứa danh sách danh mục con tương ứng
     var subcategoriesList = button.nextElementSibling;
-    
+
     // Kiểm tra hiển thị hoặc ẩn phần tử chứa danh sách
     if (subcategoriesList.style.display === 'none') {
         subcategoriesList.style.display = 'block';
