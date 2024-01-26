@@ -1,4 +1,4 @@
-const db = require('../utilities/database');
+const db = require('../utilities/db_main');
 const paymentM = require("../models/Payment");
 
 module.exports = class GoogleAccount {

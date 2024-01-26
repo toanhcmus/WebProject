@@ -30,7 +30,7 @@ router.post('/remove', controller.remove);
 router.get('/admin/chart',controller.renderChart);
 router.post('/admin/table',controller.renderTable);
 router.get('/success', controller.renderSuccess);
-router.get('/fail', controller.renderFail);
+router.get('/fail/id=:id', controller.renderFail);
 router.post('/sort', controller.sort);
 router.post('/verify', passport.authenticate('myS', {
     failureRedirect: '/authFail',

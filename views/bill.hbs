@@ -96,7 +96,7 @@
             }).then(response => response.json())
             .then(data => {
                 if (data.msg === 1) {
-                    window.location.href='/fail';
+                    window.location.href=`/fail/id=${data.id}`;
                 } else {
                     window.location.href='/success';
                 }

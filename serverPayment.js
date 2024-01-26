@@ -5,12 +5,27 @@ const fs = require('fs');
 const https = require('https');
 const { create } = require('express-handlebars');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const app = express();
 const hbs = create({
     extname: '.hbs',
     defaultLayout: false,
 })
+
+const secret = 'mysecretkey';
+
+app.use(cookieParser(secret));
+const sessionMiddleware = session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+});
+app.use(sessionMiddleware);
+
+require('./mws/passportPayment')(app);
 
 app.use(cors());
 app.engine('hbs', hbs.engine);

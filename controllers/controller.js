@@ -367,6 +367,7 @@ module.exports = {
     },
     renderFail: async (req, res, next) => {
         try {
+            const id = req.params.id;
             const allTranstions = await paymentM.selectAllPayments();
             let maxxMaGD = 0;
             allTranstions.forEach((element) => {
@@ -407,7 +408,7 @@ module.exports = {
             // }
 
             req.session.cart = [];
-            res.render('failNoti', { layout: 'transferNoti' });
+            res.render('failNoti', { layout: 'transferNoti', id: parseInt(id) });
         }
         catch (error) {
             next(error);

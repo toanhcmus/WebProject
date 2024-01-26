@@ -47,7 +47,26 @@
 </head>
 <body>
         <i class="fail-icon fa fa-x"></i>
-        <div class="message">Thanh toán không thành công! Số dư không đủ thực hiện thanh toán!</div>
+        <div class="message">
+            Thanh toán không thành công! 
+        </div>
+        <div class="message" style="color: red; font-weight:bold;">
+            {{#ifCond id 0}}
+                Số dư không đủ thực hiện thanh toán!
+            {{/ifCond}}
+            {{#ifCond id 1}}
+                Hệ thống thanh toán chưa được đăng nhập!
+            {{/ifCond}}
+            {{#ifCond id 2}}
+                Tài khoản trên 2 hệ thống không khớp!
+            {{/ifCond}}
+        </div>
+        {{#ifCond id 1}}
+            <a class="button" href="https://localhost:5000/login" target="_blank">Đăng nhập trên hệ thống thanh toán!</a>
+        {{/ifCond}}
+        {{#ifCond id 2}}
+            <a class="button" href="https://localhost:5000/login" target="_blank">Đăng nhập lại trên hệ thống thanh toán!</a>
+        {{/ifCond}}
         <a class="button" href="/">Quay lại trang chủ</a>
 </body>
 </html>

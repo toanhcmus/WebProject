@@ -1,14 +1,39 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const paymentM = require('../../models/Payment');
+const auth = require('../../mws/authPayment');
+const controller = require('../../controllers/payment.c');
+const accountController = require('../../controllers/account');
+const passport = require('passport');
 
 const router = express.Router();
+
+router.get('/', auth.ensureAuthenticated, controller.render);
+
+router.get('/login', controller.renderLogin);
+router.get('/admin', controller.renderAdmin);
+
+router.post('/verify', passport.authenticate('myS', {
+  failureRedirect: '/authFail',
+}), (req, res) => {
+  if (req.user && req.user.isAdmin) {
+      res.redirect('/admin');
+  } else {
+      res.redirect('/');
+  }
+});
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function (req, res) {
+    res.redirect('/');
+});
+router.get('/authFail', accountController.renderAuthFailPayment);
+router.get('/logout', accountController.logout);
+
 
 // post payment
 const authenticateJWT = (req, res, next) => {
     const token = req.header('Authorization');
     // console.log(token);
-  
     if (!token) {
       console.log('Yêu cầu xác thực');
       return res.status(401).json({ message: 'Yêu cầu xác thực' });
@@ -19,7 +44,7 @@ const authenticateJWT = (req, res, next) => {
         console.log('Xác thực không hợp lệ');
         return res.status(403).json({ message: 'Xác thực không hợp lệ' });
       }
-      req.user = user;
+      req.userReq = user;
       // console.log(user);
       next();
     });
@@ -29,8 +54,31 @@ const authenticateJWT = (req, res, next) => {
 router.post('/transfer', authenticateJWT, async (req, res) => {
     try {
       // console.log(req.session);
+
+      if (!req.user) {
+        return res.send({
+          msg: 1,
+          id: 2          // server thanh toán chưa đăng nhập
+        });
+      }
+
+      if (req.session.passport.user.strategy === 'google') {
+          if (req.user.Email !== req.userReq.username) {
+            res.send({
+              msg: 1,
+              id: 1         // server thanh toán không khớp dữ liệu người dùng
+            });
+          }
+      } else {
+          if (req.user.username !== req.userReq.username) {
+            res.send({
+              msg: 4          // server thanh toán không khớp dữ liệu người dùng
+            });
+          }
+      }
+
       const total = req.body.total;
-      const user = req.user;
+      const user = req.userReq;
       const userDB = await paymentM.selectUser(user.username);
       console.log(userDB);
       const balance = userDB.balance;
@@ -58,7 +106,8 @@ router.post('/transfer', authenticateJWT, async (req, res) => {
 
       if (total > balance) {
           res.send({
-            msg: 1
+            msg: 1,
+            id: 0           // không đủ số dư
           })
       } else {
         // await billM.updateStatus(maxxIDBill, 0);

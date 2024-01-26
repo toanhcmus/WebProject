@@ -83,6 +83,12 @@ module.exports = {
             error: "Username hoặc mật khẩu không đúng!"
         });
     },
+    renderAuthFailPayment: async (req, res, next) => {
+        res.render('loginPayment', {
+            layout: '',
+            error: "Username hoặc mật khẩu không đúng!"
+        });
+    },
     changePassword: async (req, res, next) => {
         if (req.isAuthenticated() || req.user) {
             const body = req.query;
