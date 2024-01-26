@@ -4,6 +4,12 @@ const path = require('path');
 
 module.exports = {
     renderEditCat: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
         try {
             let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
             let urlObj = new URL(url);
@@ -61,6 +67,12 @@ module.exports = {
         }
     },
     renderCat: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
         try {
             let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
             let urlObj = new URL(url);
@@ -146,6 +158,27 @@ module.exports = {
         catch (error) {
             next(error);
         }
+    },
+    getCatPage: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
+        let body = req.query;
+        let page = body.page;
+        let perPage = body.perPage;
+        
+        let data = await Category.getCatPage(page, perPage);
+        const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = data.cats.map((cat) => {
+            const items = categoryItems.filter((item) => item.catID === cat.catID);
+            return { ...cat, items };
+        });
+        data.cats = dataForHbs;
+        //console.log(data);
+        res.json(data);
     },
     
 }

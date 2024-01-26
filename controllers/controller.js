@@ -132,7 +132,8 @@ module.exports = {
     },
     search: async (req, res, next) => {
         try {
-            console.log('search')
+            console.log('search');
+            req.session.search=req.body.name;
             // let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
             // let urlObj = new URL(url);
             // let catID = urlObj.searchParams.get("catID");
@@ -152,7 +153,6 @@ module.exports = {
             const cart = req.session.cart;
             console.log(data.length );
             console.log(Math.ceil(data.length / 4))
-            req.session.search=req.body.name;
             const categories = await Category.allCategory();       
             const categoryItems = await Category.allCategoryItem();
             const dataForHbs = categories.map((categories) => {

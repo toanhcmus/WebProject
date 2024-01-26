@@ -39,8 +39,7 @@ module.exports = class Category {
      static async checkItemIDExist(itemID){
           return await db.checkItemIDExist(itemID);
      }
-     static async capitalizeWords(str) {
-          if (!str) return ""; // Trả về chuỗi rỗng nếu str là null hoặc undefined
-          return str.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
-      }
+     static async getCatPage(page, perPage){
+          return await db.getCatPage(page, perPage);
+     }
 };

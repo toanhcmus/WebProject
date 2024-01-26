@@ -253,7 +253,7 @@ module.exports = {
             res.render('account_manager', {
                 layout: 'admin',
                 accountList: accountList,
-                error: error
+                error: error,
             });
         }
         else {

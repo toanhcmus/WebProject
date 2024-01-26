@@ -50,6 +50,7 @@ router.get('/logout', accountController.logout);
 router.get('/admin/category', categoryController.renderCat);
 router.get('/admin/category/edit', categoryController.renderEditCat);
 router.get('/admin/account', accountController.renderAccountManager);
+router.get('/admin/category/page', categoryController.getCatPage);
 
 router.get('/changePassword', accountController.changePassword);
 router.get('/payment', auth.ensureAuthenticated, billController.renderBill);

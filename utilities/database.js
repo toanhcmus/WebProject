@@ -401,6 +401,18 @@ module.exports = {
             return null;
         }
     },
+    getCatPage: async (page, perPage) => {
+        const getCatPageQuery = 'SELECT * FROM "Categories" ORDER BY "catID" ASC LIMIT $1 OFFSET $2';
+        const getCatPageValues = [perPage, (page - 1) * perPage];
+        try {
+            const getCatPageResult = await db.any(getCatPageQuery, getCatPageValues);
+            const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Categories"')).count / perPage);
+            return { cats: getCatPageResult, maxPage };
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
     insertGoogleUser: async (newUser) => {
         const insertUserQuery = 'INSERT INTO "GoogleAccount" ("Name", "Email", "Avatar") VALUES ($1, $2, $3) ON CONFLICT ("Email") DO NOTHING';
         const insertUserValues = [newUser.Name, newUser.Email, newUser.Avatar];

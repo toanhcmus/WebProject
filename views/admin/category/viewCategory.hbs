@@ -38,7 +38,7 @@
             <th class="align-middle text-center">Danh mục con</th>
         </thead>
         <tbody>
-            {{#each categories}}
+            {{!--{{#each categories}}
             <tr>
                 <td class="align-middle text-center">{{this.catID }}</td>
                 <td class="align-middle text-center" value="{{this.catName}}" id="Name{{this.catID}}">{{this.catName }}</td>
@@ -141,7 +141,7 @@
                     </div>
                 </td>
               </tr>
-            {{/each}}
+            {{/each}} --}}
         </tbody>
     </table>
     <div class="pagination w-75 d-flex flex-row justify-content-center align-items-center">
@@ -226,11 +226,26 @@
   window.onload = function () {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        /*if (params.has("delete")) {
+        if (params.has("delete")) {
             params.delete("delete");
             url.search = params.toString();
             window.location.href = url.toString();
-        }*/
+        }
+        if (params.has("edit")) {
+            params.delete("edit");
+            url.search = params.toString();
+            window.location.href = url.toString();
+        }
+        if (params.has("add")) {
+            url.search = ""
+            window.location.href = url.toString();
+        }
+        if (params.has("catName")) {
+            params.delete("catName");
+
+            url.search = ""
+            window.location.href = url.toString();
+        }
     }
 $(() => {      
   const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
@@ -377,6 +392,7 @@ document.querySelector('.catChangee').addEventListener('focus', function (event)
   });
 
 });
+
 function validateCategoryName() {
   var categoryNameInput = document.getElementById('addCate');
   var categoryName = categoryNameInput.value.trim();
@@ -515,7 +531,129 @@ function handleAddItem(event) {
 
 let currentPage = 1;
 const perPage = 5;
-let maxPage = 2;
+let maxPage = 1;
+function updateTable() {
+        fetch(`/admin/category/page?page=${currentPage}&perPage=${perPage}`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector('tbody');
+                tbody.innerHTML = '';
+                data.cats.forEach(cat => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                   <tr>
+                <td class="align-middle text-center">${cat.catID}</td>
+                <td class="align-middle text-center" value="${cat.catName}" id="Name${cat.catID}">${cat.catName}</td>
+                <td class="align-middle text-center">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalat${cat.catID}">Đổi tên</button>
+                    <div class="modal fade" id="exampleModalat${cat.catID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa tên danh mục</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text" for="Cat${cat.catID}" id="basic-addon2">Tên mới</label>
+                                            <input class="form-control catChangee" name = "catChangee" aria-describedby="basic-addon1"  type="text" value="${cat.catName}" id="Cat${cat.catID}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                            <i class="error newCatNamee"></i>
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" onclick="handleEdit(event,${cat.catID})">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" onclick="handleDelete(event,${cat.catID})">Xoá</button>
+                </td>
+                <td class="align-middle subcategory-list text-center">
+                    <button type="button" class="btn btn-info view-subcategories-btn" onclick="toggleSubcategories(this)">Xem chi tiết
+                    </button>
+                    <!-- Phần tử HTML để chứa danh sách danh mục con -->
+                     <div class="subcategories-list" style="display: none;">
+                        <table class="table mt-2 table-secondary align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên danh mục</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${cat.items.map(item => `
+                                    <tr>
+                                        <td>${item.itemID}</td>
+                                        <td>${item.itemName}</td>
+                                        <td>
+                                            <!-- Nút sửa -->
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal${item.itemID}">Sửa</button>
+                                            <!-- Modal sửa -->
+                                            <div class="modal fade" id="exampleModal${item.itemID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                      <div class="col">
+                                                          <div class="input-group mb-3">
+                                                              <span class="input-group-text" id="basic-addon2">ID</span>
+                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="${item.itemID}" readonly disabled="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="col">
+                                                          <div class="input-group mb-3 ">
+                                                              <label class="input-group-text" for="Name${item.itemID}" id="basic-addon2">Tên</label>
+                                                              <input class="form-control changee" name = "changee" aria-describedby="basic-addon1"  type="text" value="${item.itemName}" id="Name${item.itemID}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                                          </div>
+                                                          <i class="error changeNamee"></i>
+                                                      </div>
+                                                      <div class="col">
+                                                          <div class="input-group mb-3">
+                                                              <label class="input-group-text" for="select${item.itemID}" id="basic-addon2">Thuộc danh mục</label>
+                                                                <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select${item.itemID}">
+                                                                    <option value="${item.catID}" style="display:none">Chọn danh mục</option>
+                                                                    ${data.cats.map(cat => `
+                                                                        <option value="${cat.catID}">${cat.catName}</option>
+                                                                    `).join('')}
+                                                                </select>
+                                                          </div>
+                                                          <i class="error changeCatt"></i>
+                                                      </div>
+                                                  </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                            <button type="button" class="btn btn-primary" onclick="editItem()">Lưu thay đổi</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Nút xóa -->
+                                            <button class="btn btn-danger" onclick="deleteItem(${item.itemID})">Xóa</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                `;
+                console.log(tr);
+                    tbody.appendChild(tr);
+                });
+                maxPage = data.maxPage;
+                document.querySelector('.current-page').value = currentPage;
+                document.querySelector('.max-page').value = data.maxPage;
+            });
+    }
+updateTable();
+
 document.querySelector('.previous-page').addEventListener('click', () => {
     if (currentPage > 1) {
         currentPage--;
