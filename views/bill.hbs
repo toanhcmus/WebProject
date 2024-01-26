@@ -7,7 +7,7 @@
         border-collapse: collapse;
         margin-left: 10%;
         margin-right: 5%;
-        font-size: 20px;
+        font-size: 18px;
     }
     th, td {
         padding: 8px;
@@ -31,9 +31,14 @@
     #totalSum {
         font-weight: bold;
     }
+    .imgCart {
+        margin: 5px;
+        padding: 5px;
+        width: 40%;
+    }
 </style>
     <div class="container-fluid">
-        <h3 style="text-align: center; color: red; font-weight: bold; font-size: 30px;">
+        <h3 style="text-align: center; color: red; font-weight: bold; font-size: 30px; margin-top: 10px;">
             Hóa đơn
         </h3>
     <table>
@@ -45,7 +50,7 @@
         </tr>
         {{#each cart}}
             <tr>
-                <td><img src="{{this.image}}" alt=""></td>
+                <td class="imgCart"><img src="{{this.image}}" alt=""></td>
                 <td>{{this.name}}</td>
                 <td><p class="priceBill">{{this.price}}</p></td>
                 <td><p class="countBill">{{this.count}}</p></td>

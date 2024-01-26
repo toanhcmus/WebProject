@@ -184,7 +184,12 @@
                                 </a>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="product-price">{{this.price}}</span>
-                                    <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
+                                    {{#ifCon this.count '>' 0}}
+                                        <button class="add-to-cart btn btn-primary ml-2">THÊM VÀO GIỎ</button>
+                                    {{/ifCon}}
+                                    {{#ifCon this.count '<=' 0}}
+                                        <button class="add-to-cart btn btn-primary ml-2" disabled>THÊM VÀO GIỎ</button>
+                                    {{/ifCon}}
                                 </div>
                             </div>
                         </div>

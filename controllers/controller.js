@@ -222,8 +222,10 @@ module.exports = {
                     break;
                 }
             }
+            const id = req.body.id;
+            const sp = await productM.getProductByID(id);
             if (!found) {
-                req.session.cart.push({ id: req.body.id, name: req.body.name, price: parseInt(req.body.price), count: parseInt(req.body.count), image: req.body.image });
+                req.session.cart.push({ id: req.body.id, name: req.body.name, price: parseInt(req.body.price), count: parseInt(req.body.count), image: req.body.image, remain: sp[0].count });
             }
             
             res.json({});
