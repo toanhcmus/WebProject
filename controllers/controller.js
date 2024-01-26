@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
     render: async (req, res, next) => {
         try {
-            console.log(req.session);
+            // console.log(req.session);
             const product = await Product.allProduct();
             const noibat = await  Product.getNoiBat();
             const cart = req.session.cart;
