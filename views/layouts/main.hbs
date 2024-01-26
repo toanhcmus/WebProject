@@ -87,7 +87,7 @@
     $(document).ready(function () {
         updateCartNotification();
 
-        $(document).on('click', '.add-to-cart', function() {
+        $(document).on('click', '.add-to-cart', function () {
             var productContainer = $(this).closest('.col-3.product');
             var productName = $(this).parent().parent().find('.product-name').text();
             var productID = productContainer.attr('id');
@@ -98,18 +98,46 @@
             console.log('Giá sản phẩm: ' + productPrice);
             console.log('URL ảnh sản phẩm: ' + productImage);
             console.log('ID sản phẩm: ' + productID);
-            addToCart(productID, productName, productPrice, productImage,productCount);
+            
+            var countCart = 0;
+            $('.cart-body .product-id').each(function () {
+                if ($(this).text() === productID) {
+                    countCart = parseInt($(this).closest('.card').find('.count').val(), 10);
+                }
+            });
+            let soluong = 0;
+            $.post('/checkSoLuong', {
+                id: productID,
+            }, function (data) {
+                let countAdd=1;
+                if(!isNaN(productCount.val()))
+                    countAdd=parseInt( productCount.val());
+                console.log('Response from server:', data.soluong);
+                console.log('Client:',countAdd);
+                console.log('countCart:', countCart);
+                console.log('total: ', countCart +countAdd);
+                soluong = data.soluong;
+                
+                if (soluong <  countCart +countAdd) {
+                    alert('Sản phẩm đã hết hàng')
+                }
+                else {
+                    addToCart(productID, productName, productPrice, productImage, productCount);
+                }
+            }).fail(function (error) {
+                console.error(error);
+            });
         });
-        async function addToCart(id, name, price, image,productCount) {
+        async function addToCart(id, name, price, image, productCount) {
 
             var existingProduct = null;
             var countUp
-            if (productCount.val() == null){
+            if (productCount.val() == null) {
                 countUp = 1;
             }
             else countUp = parseInt(productCount.val());
             console.log(countUp);
-            if (countUp > 0){
+            if (countUp > 0) {
                 $('.cart-body .card').each(function () {
                     var productName = $(this).find('.product-name').text().trim('');
                     if (productName === name.trim('')) {
@@ -126,7 +154,7 @@
                         count: parseInt(quantityInput.val()) + countUp
                     }, function (data) { }).fail(function () { });
                     quantityInput.val(parseInt(quantityInput.val()) + countUp);
-                    
+
                 } else {
                     var pro = `<div class="card m-1">
                     <div class="d-flex mt-1 " style="height:120px">
@@ -140,11 +168,11 @@
                                 </h5>
                             </div>
                             <div class="text-start m-1">
-                                    <span class="product-id">`+id+`</span>
+                                    <span class="product-id">`+ id + `</span>
                                 </div>
                             <div class=" text-start">
                                     <button class="btn btn-primary" id="minus">-</button>
-                                    <input type="text" class="count text-center" style="width:35px;height:35px" value="`+countUp+`" disabled>
+                                    <input type="text" class="count text-center" style="width:35px;height:35px" value="`+ countUp + `" disabled>
                                     </input>
                                     <button class="btn btn-primary" id="plus">+</button>
                                 </div>
@@ -228,7 +256,7 @@
                 $('.cart-notify-badge').show();
                 $('.cart-notify-badge').text(totalItems);
             }
-            else 
+            else
                 $('.cart-notify-badge').hide();
 
         };

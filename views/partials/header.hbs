@@ -43,7 +43,7 @@
     <div class="navbar">
         <div class="container-fluid">
             <div class="box-content d-flex align-items-between justify-content-between w-100">
-                <div class="home fs-4">
+                <div class="home fs-4 col-3">
                     <a href="/"><b>Home</b></a>
                 </div>
                 <div class="nav-box box-left d-flex flex-wrap justify-content-around align-items-between">
@@ -52,27 +52,27 @@
                     </div>
                     <div class="nav-item fs-6 d-flex align-items-center">
                         <a href="/products">Sản phẩm</a>
-                    </div>                
+                    </div>
                     <div class="nav-item fs-6 d-flex align-items-center">
                         <div class="dropdown">
                             <a href="/products" class="dropbtn">Danh mục</a>
                             <div class="dropdown-content">
                                 {{#each categories}}
-                                <a href="/products?catID={{catID}}" onclick="redirectToCat('{{catID}}')" id="{{catID}}">{{catName}}
+                                <a href="/products?catID={{catID}}" onclick="redirectToCat('{{catID}}')"
+                                    id="{{catID}}">{{catName}}
                                     <div class="sub-content">
                                         {{#each items}}
-                                        <a href="/products?itemID={{itemID}}" onclick="redirectToItem('{{itemID}}')" id="{{itemID}}">{{itemName}}</a>
+                                        <a href="/products?itemID={{itemID}}" onclick="redirectToItem('{{itemID}}')"
+                                            id="{{itemID}}">{{itemName}}</a>
                                         {{/each}}
                                     </div>
                                 </a>
                                 {{/each}}
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="nav-item fs-6 d-flex align-items-center">
                         <a href="/about">Giới thiệu</a>
-                    </div>
                     </div>
                     <div class="util d-flex flex-wrap justify-content-around align-items-between">
 
@@ -91,343 +91,348 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="toast-addToCart"></div>
-            <div class="cart overflow-y-auto  "
-                style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #b7f0f3;">
-                <div class=" row d-flex col-12">
-                    <h1 class="col-9 pt-1 mx-auto text-center">Giỏ hàng</h1>
-                    <div class="util-item col-3 cart-icon pt-3 text-center   ">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
-                </div>
 
-                <div class=" row cart-body w-100">
-                    {{#each cart}}
-                    <div class="card m-1 ">
-                        <div class="d-flex mt-1 " style="height:120px">
-                            <div class="col-5">
-                                <img src=" {{this.image}}" class=" product-image "
-                                    style="width: 100%; height: 100%; object-fit: contain;" alt="...">
-                            </div>
-                            <div class="col-5 ">
-                                <div class="text-start  d-flex">
-                                    <h5 class="product-name">{{this.name}}</h5>
-                                </div>
-                                <div class="text-start m-1">
-                                    <span class="product-id">{{this.id}}</span>
-                                </div>
-                                <div class=" text-start ">
-                                    <button class="btn btn-primary" id="minus">-</button>
-                                    <input type="text" class="count text-center" style="width:35px;height:35px" value="{{this.count}}" disabled>
-                                    </input>
-                                    <button class="btn btn-primary" id="plus">+</button>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="pt-1 close">X</div>
-                                <div class="product-price pt-5 fw-bolder"> {{this.price}} vnd</div>
-                            </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="toast-addToCart"></div>
+    <div class="cart overflow-y-auto  "
+        style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #b7f0f3;">
+        <div class=" row d-flex col-12">
+            <h1 class="col-9 pt-1 mx-auto text-center">Giỏ hàng</h1>
+            <div class="util-item col-3 cart-icon pt-3 text-center   ">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+
+        <div class=" row cart-body w-100">
+            {{#each cart}}
+            <div class="card m-1 ">
+                <div class="d-flex mt-1 " style="height:120px">
+                    <div class="col-5">
+                        <img src=" {{this.image}}" class=" product-image "
+                            style="width: 100%; height: 100%; object-fit: contain;" alt="...">
+                    </div>
+                    <div class="col-5 ">
+                        <div class="text-start  d-flex">
+                            <h5 class="product-name">{{this.name}}</h5>
+                        </div>
+                        <div class="text-start m-1">
+                            <span class="product-id">{{this.id}}</span>
+                        </div>
+                        <div class=" text-start ">
+                            <button class="btn btn-primary" id="minus">-</button>
+                            <input type="text" class="count text-center" style="width:35px;height:35px"
+                                value="{{this.count}}" disabled>
+                            </input>
+                            <button class="btn btn-primary" id="plus">+</button>
                         </div>
                     </div>
-                    {{/each}}
-                </div>
-
-                <h3 class="row calc ps-2 pt-1"></h3>
-                <div>
-                    <button type="button" class="btn btn-primary col-12"><a href="/payment">Thanh toán</a></button>
+                    <div class="col-2">
+                        <div class="pt-1 close">X</div>
+                        <div class="product-price pt-5 fw-bolder"> {{this.price}} vnd</div>
+                    </div>
                 </div>
             </div>
+            {{/each}}
+        </div>
 
+        <h3 class="row calc ps-2 pt-1"></h3>
+        <div>
+            <button type="button" class="btn btn-primary col-12"><a href="/payment">Thanh toán</a></button>
+        </div>
     </div>
 
+</div>
 
-    <style>
-        body {
-            color: #252a2b;
-            line-height: 1.45;
-            font-size: 14px;
-            background: #ffffff;
-            font-family: "Spectral", sans-serif;
-            overflow-x: hidden;
-            position: initial;
-        }
 
-        a {
-            color: #252a2b;
-            text-decoration: none;
-            outline: none;
-            -moz-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            -webkit-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-        }
+<style>
+    body {
+        color: #252a2b;
+        line-height: 1.45;
+        font-size: 14px;
+        background: #ffffff;
+        font-family: "Spectral", sans-serif;
+        overflow-x: hidden;
+        position: initial;
+    }
 
-        .topbar {
-            text-align: center;
-            font-weight: 500;
-            font-size: 13px;
-            padding: 8px 0;
-            position: relative;
-            display: block;
-            overflow: hidden;
-            background: #b7afaf;
-            color: #000000;
-            border-bottom: 1px solid #dfe2e6;
-        }
+    a {
+        color: #252a2b;
+        text-decoration: none;
+        outline: none;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
 
-        .topbar-text {
-            color: black;
-        }
+    .topbar {
+        text-align: center;
+        font-weight: 500;
+        font-size: 13px;
+        padding: 8px 0;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        background: #b7afaf;
+        color: #000000;
+        border-bottom: 1px solid #dfe2e6;
+    }
 
-        .topbar-bottom {
-            background: #193d87;
-            color: #ffffff;
-            font-size: 13px;
-        }
+    .topbar-text {
+        color: black;
+    }
 
-        .topbar-bottom .box-content {
-            padding: 6px 0;
-        }
+    .topbar-bottom {
+        background: #193d87;
+        color: #ffffff;
+        font-size: 13px;
+    }
 
-        .topbar-bottom .hotline a {
-            font-weight: 700;
-            color: #ffffff;
-        }
+    .topbar-bottom .box-content {
+        padding: 6px 0;
+    }
 
-        .topbar-bottom .contact a {
-            font-weight: 700;
-            color: #ffffff;
-        }
+    .topbar-bottom .hotline a {
+        font-weight: 700;
+        color: #ffffff;
+    }
 
-        .navbar {
-            background: #ffffff;
-            color: #000000;
-            font-size: 13px;
-        }
+    .topbar-bottom .contact a {
+        font-weight: 700;
+        color: #ffffff;
+    }
 
-        .navbar .box-content {
-            padding: 6px 0;
-        }
+    .navbar {
+        background: #ffffff;
+        color: #000000;
+        font-size: 13px;
+    }
 
-        .home {
-            width: 200px;
-        }
+    .navbar .box-content {
+        padding: 6px 0;
+    }
 
-        .nav-box {
-            width: 800px;
-        }
+    .home {
+        width: 200px;
+    }
 
-        .util {
-            width: 200px;
-        }
+    .nav-box {
+        width: 800px;
+    }
 
-        .intro-banner {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("https://theme.hstatic.net/200000680615/1001104472/14/about01_banner_bkg.jpg");
-            height: 300px;
-        }
+    .util {
+        width: 200px;
+    }
 
-        .banner-headtext {
-            font-size: 30px;
-            font-weight: 600;
-            color: white;
-        }
+    .intro-banner {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("https://theme.hstatic.net/200000680615/1001104472/14/about01_banner_bkg.jpg");
+        height: 300px;
+    }
 
-        .banner-text {
-            font-weight: 600;
-            color: white;
-        }
+    .banner-headtext {
+        font-size: 30px;
+        font-weight: 600;
+        color: white;
+    }
 
-        .content-text-title-f {
-            letter-spacing: 5px;
-        }
+    .banner-text {
+        font-weight: 600;
+        color: white;
+    }
 
-        .text-column {
-            width: 450px;
-        }
+    .content-text-title-f {
+        letter-spacing: 5px;
+    }
 
-        .content-image {
-            width: 45%;
-            height: 45%;
-        }
+    .text-column {
+        width: 450px;
+    }
 
-        .icon-item {
-            width: 210px;
-        }
+    .content-image {
+        width: 45%;
+        height: 45%;
+    }
 
-        .subscription-container {
-            background-color: #1c4290;
-            height: 80px;
-        }
+    .icon-item {
+        width: 210px;
+    }
 
-        .subscription-input {
-            width: 300px;
-        }
+    .subscription-container {
+        background-color: #1c4290;
+        height: 80px;
+    }
 
-        .subscription-input-container {
-            height: 40px;
-        }
+    .subscription-input {
+        width: 300px;
+    }
 
-        .subscription-title {
-            padding: 0;
-            margin: 0;
-            position: relative;
-            font-size: 15px;
-            font-weight: 700;
-            color: white;
-            line-height: 1.2;
-        }
+    .subscription-input-container {
+        height: 40px;
+    }
 
-        .subscription-input {
-            margin-top: 20px;
-        }
+    .subscription-title {
+        padding: 0;
+        margin: 0;
+        position: relative;
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+        line-height: 1.2;
+    }
 
-        .subscription-button {
-            font-weight: 700;
-            white-space: nowrap;
-            height: 35px;
-            border-radius: 20px;
-            position: relative;
-            display: inline-block;
-            z-index: 1;
-            overflow: hidden;
-            line-height: normal;
-            color: #fff;
-            border: 0;
-            text-align: center;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            outline: none !important;
-            transition: all 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-            background: #161718;
-            font-size: small;
-        }
+    .subscription-input {
+        margin-top: 20px;
+    }
 
-        .social-icon {
-            width: 32px;
-            height: 32px;
-            line-height: 30px;
-            font-size: 14px;
-            background-color: transparent;
-            border: 1px solid white;
-            color: white;
-            display: block;
-            text-align: center;
-            border-radius: 50%;
-            transition: 0.4s;
-            text-decoration: none;
-            outline: none;
-        }
+    .subscription-button {
+        font-weight: 700;
+        white-space: nowrap;
+        height: 35px;
+        border-radius: 20px;
+        position: relative;
+        display: inline-block;
+        z-index: 1;
+        overflow: hidden;
+        line-height: normal;
+        color: #fff;
+        border: 0;
+        text-align: center;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        outline: none !important;
+        transition: all 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        background: #161718;
+        font-size: small;
+    }
 
-        .social-ul {
-            list-style-type: none;
-            display: flex;
-            flex-direction: row;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            padding-inline-start: 40px;
-            padding-left: 0 !important;
-        }
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        line-height: 30px;
+        font-size: 14px;
+        background-color: transparent;
+        border: 1px solid white;
+        color: white;
+        display: block;
+        text-align: center;
+        border-radius: 50%;
+        transition: 0.4s;
+        text-decoration: none;
+        outline: none;
+    }
 
-        .address-ul {
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            padding-inline-start: 40px;
-            padding-left: 0 !important;
-        }
+    .social-ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+        padding-left: 0 !important;
+    }
 
-        .social-li {
-            margin-right: 5px;
-        }
+    .address-ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+        padding-left: 0 !important;
+    }
 
-        .footer-container {
-            background: #193d87;
-            position: relative;
-            font-size: 16px;
-            color: white;
-            margin: 0;
-            font-weight: 500;
-        }
+    .social-li {
+        margin-right: 5px;
+    }
 
-        .footer-link {
-            color: #ffffff;
-        }
+    .footer-container {
+        background: #193d87;
+        position: relative;
+        font-size: 16px;
+        color: white;
+        margin: 0;
+        font-weight: 500;
+    }
 
-        .footer-end {
-            background: #1c4290;
-        }
-   .dropdown {
-      
-      display: inline-block;
+    .footer-link {
+        color: #ffffff;
+    }
+
+    .footer-end {
+        background: #1c4290;
+    }
+
+    .dropdown {
+
+        display: inline-block;
     }
 
     .dropdown-content {
-      display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 3;
-  margin-right: 5px;
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 3;
+        margin-right: 5px;
     }
 
     .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
     }
 
     .dropdown-content a:hover {
-      background-color: #f1f1f1;
+        background-color: #f1f1f1;
     }
 
     .dropdown:hover .dropdown-content {
-      display: block;
+        display: block;
     }
 
     /* Style cho danh mục con */
     .sub-content {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 100%;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 3;
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 3;
     }
 
-    .dropdown-content a:hover + .sub-content,
+    .dropdown-content a:hover+.sub-content,
     .sub-content:hover {
-      display: block;
+        display: block;
     }
-    
-    </style>
+</style>
 </div>
 <script>
-  
-   function redirectToItem(itemID) {
-    window.location.href = '/products?itemID=' + itemID;
-  }
-   function redirectToCat(catID) {
-    window.location.href = '/products?catID=' + catID;
-  }
-  function showDrop(){
-    document.querySelector('.dropdown-content').style.display = 'block';
-  }
+
+    function redirectToItem(itemID) {
+        window.location.href = '/products?itemID=' + itemID;
+    }
+    function redirectToCat(catID) {
+        window.location.href = '/products?catID=' + catID;
+    }
+    function showDrop() {
+        document.querySelector('.dropdown-content').style.display = 'block';
+    }
     function showSubContent() {
-      document.querySelector('.sub-content').style.display = 'block';
+        document.querySelector('.sub-content').style.display = 'block';
     }
 
     function hideSubContent() {
-      document.querySelector('.sub-content').style.display = 'none';
+        document.querySelector('.sub-content').style.display = 'none';
     }
 </script>

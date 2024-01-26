@@ -35,6 +35,10 @@ module.exports = class Product {
         const data=await db.paging(search,sort,fil,catID,itemID);
         return data;
     }
+    static async count(id) {
+        const data=await db.count(id);
+        return data;
+    }
     static async filter(filter) {
         const data=await db.filter(filter);
         return data;

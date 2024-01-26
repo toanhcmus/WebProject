@@ -27,6 +27,7 @@ router.post('/minus', controller.minus);
 router.post('/paging', controller.paging);
 router.post('/filter', controller.filter);
 router.post('/remove', controller.remove);
+router.post('/checkSoLuong', controller.checkSoLuong);
 //router.get('/admin/product',controller.renderAddProduct);
 
 router.get('/admin/chart', auth.ensureAuthenticatedAdmin, controller.renderChart);
