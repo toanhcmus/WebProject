@@ -98,7 +98,7 @@
             console.log('Giá sản phẩm: ' + productPrice);
             console.log('URL ảnh sản phẩm: ' + productImage);
             console.log('ID sản phẩm: ' + productID);
-            
+
             var countCart = 0;
             $('.cart-body .product-id').each(function () {
                 if ($(this).text() === productID) {
@@ -109,16 +109,16 @@
             $.post('/checkSoLuong', {
                 id: productID,
             }, function (data) {
-                let countAdd=1;
-                if(!isNaN(productCount.val()))
-                    countAdd=parseInt( productCount.val());
+                let countAdd = 1;
+                if (!isNaN(productCount.val()))
+                    countAdd = parseInt(productCount.val());
                 console.log('Response from server:', data.soluong);
-                console.log('Client:',countAdd);
+                console.log('Client:', countAdd);
                 console.log('countCart:', countCart);
-                console.log('total: ', countCart +countAdd);
+                console.log('total: ', countCart + countAdd);
                 soluong = data.soluong;
-                
-                if (soluong <  countCart +countAdd) {
+
+                if (soluong < countCart + countAdd) {
                     alert('Đã vượt qua số lượng trong kho')
                 }
                 else {
@@ -263,13 +263,38 @@
         $('.cart-body').on('click', '#plus', function () {
             var quantityInput = $(this).closest('.d-flex').find('.count');
             var currentQuantity = parseInt(quantityInput.val());
-            quantityInput.val(currentQuantity + 1);
-            const name = $(this).parent().parent().find('.product-name').text();
-            $.post('/plus', {
-                name: name,
-            }, function (data) { }).fail(function () { });
-            calc();
-            updateCartNotification();
+            let productID = $(this).closest('.d-flex').find('.product-id').text();
+            var countCart = 0;
+            $('.cart-body .product-id').each(function () {
+                if ($(this).text() === productID) {
+                    countCart = parseInt($(this).closest('.card').find('.count').val(), 10);
+                }
+            });
+            let soluong = 0;
+            $.post('/checkSoLuong', {
+                id: productID,
+            }, function (data) {
+                console.log('Response from server:', data.soluong);
+                console.log('Client:', 1);
+                console.log('countCart:', countCart);
+                console.log('total: ', countCart + 1);
+                soluong = data.soluong;
+                if (soluong < countCart + 1) {
+                    alert('Đã vượt qua số lượng trong kho')
+                }
+                else {
+                    quantityInput.val(currentQuantity + 1);
+                    const name = $(this).parent().parent().find('.product-name').text();
+                    $.post('/plus', {
+                        name: name,
+                    }, function (data) { }).fail(function () { });
+                    calc();
+                    updateCartNotification();
+                }
+            }).fail(function (error) {
+                console.error(error);
+            });
+
         });
         $('.cart-body').on('click', '#minus', function () {
             var quantityInput = $(this).closest('.d-flex').find('.count');
