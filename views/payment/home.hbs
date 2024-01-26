@@ -1,185 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>DASHBOARD</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" 
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700;900&family=Ubuntu&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/d689e088ff.js" crossorigin="anonymous"></script>
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Thanh toán</title>
+    <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
+
+        .container {
+            text-align: center;
         }
-        
-        h1 {
+
+        .server-title {
             font-size: 2rem;
-            line-height: 1.5;
-            font-weight: 900;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        
-        h2 {
-            font-size: 2rem;
-            line-height: 1.5;
-            font-weight: 900;
-        }
-        
-        h3 {
-            font-size: 1.5rem;
-            line-height: 1;
-            font-weight: 700;
-        }
-        
-        .container-fluid {
-            padding: 2% 10% 0% 10%;
-        }
-        
-        #title {
-            background-color: #62CDFF;
-            color: #fff;
-        }
-        
-        .title-bar {
-            background-color: #62CDFF;
-            color: #fff;
-            padding: 0% 10% 0% 10%;
-            height: 10%;
-            width: 100%;
-        }
-        /* navigation bar */
-        .navbar {
-            padding: 0;
-        }
-        
-        .navbar-brand {
-            font-family: 'Ubuntu';
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        
-        .nav-item {
-            padding: 0 18px;
-        }
-        
-        .nav-link {
-            font-size: 1.2rem;
-            font-family: 'Montserrat';
-        }
-  </style>
+    </style>
 </head>
-
 <body>
-  <header class="container-fluid title-bar">
-      <!-- Nav Bar -->
-          <nav class="navbar navbar-expand-lg navbar-dark">
-            <a class="navbar-brand" href="/">
-                HTTT
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Thông tin tài khoản</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lịch sử giao dịch</a>
-                    </li>
-                </ul>
-            </div>
-
-            {{!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav ms-auto">
-                    
-                </ul>
-            </div> --}}
-        </nav>
-    </header>
-
-    <!-- Balance table -->
-    <div class="container mt-5">
-        <h2>Thông tin tài khoản </h2>
-        <p>Tài khoản: {{user.id}}</p>
-        <p>Số dư: {{user.balance}}</p>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="">
-            Nạp tiền
-        </button>
-        <button type="button" class="btn btn-primary">
-            Nạp tiền
-        </button>
+    <div class="container">
+        <h1 class="server-title">Server Thanh toán đã được khởi tạo!</h1>
     </div>
-    <div class="container mt-5">
-        <h2>Lịch sử giao dịch</h2>
-        <table class="table">
-        <thead>
-            <tr>
-                <th>Mã giao dịch</th>
-                <th>Số tiền</th>
-                <th>Trạng thái</th>
-                <th>Thời gian</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each paymentHistory}}
-                <tr>
-                    <td>{{this.maGiaoDich}}</td>
-                    <td>{{this.money}}</td>
-                    {{#ifCond this.TrangThai 0}}
-                        <td style="color:rgb(0, 255, 64);">Thành công!</td>
-                    {{/ifCond}}
-                    {{#ifCond this.TrangThai 1}}
-                        <td style="color:red;">Chưa thành công!</td>
-                    {{/ifCond}}
-                    <td>{{this.Time}}</td>
-                </tr>
-            {{/each}}
-            
-        </tbody>
-    </table>
-    </div>
-    <div class="container mt-5">
-        <button type="button" class="btn btn-outline-primary">
-            <a href="https://localhost:3000/">Quay lại hệ thống chính</a>
-        </button>
-    </div>
-    
-    
-
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
-        </div>
-        </div>
-    </div>
-    </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

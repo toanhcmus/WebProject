@@ -88,7 +88,8 @@ module.exports = {
             "Products".id,
             "Products".name,
             "Products".price,
-            "Products".images,            
+            "Products".images,
+            "Products".count,            
             COALESCE(SUM("ThongTinHoaDon"."SoLuong"), 0) AS soluong
         FROM 
         "Products" 
