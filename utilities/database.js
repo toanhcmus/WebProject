@@ -101,6 +101,16 @@ module.exports = {
         ORDER BY  soluong DESC
             `
         const data = await db.any(query);
+        return data;
+    },
+    count: async (id) => {
+        let query = `
+        SELECT 
+            "Products".count
+        FROM "Products" WHERE id='${id}'
+
+            `
+        const data = await db.any(query);
         //console.log('bbbb', data)
         return data;
     },

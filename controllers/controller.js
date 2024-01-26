@@ -234,6 +234,16 @@ module.exports = {
             next(error);
         }
     },
+    checkSoLuong: async (req, res, next) => {
+        try {
+            let soluong=await Product.count(req.body.id);
+            console.log('so luong trong ho',soluong[0].count)
+            res.json({soluong:soluong[0].count});
+        }
+        catch (error) {
+            next(error);
+        }
+    },
     plus: async (req, res, next) => {
         try {
             if (!req.session.cart) {
