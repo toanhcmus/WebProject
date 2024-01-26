@@ -263,6 +263,7 @@
         $('.cart-body').on('click', '#plus', function () {
             var quantityInput = $(this).closest('.d-flex').find('.count');
             var currentQuantity = parseInt(quantityInput.val());
+            const name = $(this).parent().parent().find('.product-name').text();
             let productID = $(this).closest('.d-flex').find('.product-id').text();
             var countCart = 0;
             $('.cart-body .product-id').each(function () {
@@ -284,7 +285,7 @@
                 }
                 else {
                     quantityInput.val(currentQuantity + 1);
-                    const name = $(this).parent().parent().find('.product-name').text();
+
                     $.post('/plus', {
                         name: name,
                     }, function (data) { }).fail(function () { });
