@@ -226,7 +226,7 @@
   window.onload = function () {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        if (params.has("delete")) {
+        /*if (params.has("delete")) {
             params.delete("delete");
             url.search = params.toString();
             window.location.href = url.toString();
@@ -245,7 +245,7 @@
 
             url.search = ""
             window.location.href = url.toString();
-        }
+        }*/
     }
 $(() => {      
   const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
@@ -393,32 +393,6 @@ document.querySelector('.catChangee').addEventListener('focus', function (event)
 
 });
 
-function validateCategoryName() {
-  var categoryNameInput = document.getElementById('addCate');
-  var categoryName = categoryNameInput.value.trim();
-  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-      return false; 
-  }
-  return true; 
-}
-
-function handleAdd(event) {
-    if (validateCategoryName()) {
-    event.preventDefault(); 
-    let CatName = document.getElementById("addCate").value;
-    let url = new URL(window.location.href);
-    url.search = "";
-    
-    let params = new URLSearchParams(url.search);
-
-    params.set("add", CatName);
-    url.search = params.toString();
-
-    //console.log(url)
-    window.location.href = url.toString();
-  }
-}
-
 function handleDelete(event, CatID) {
     event.preventDefault();
     let url = new URL(window.location.href);
@@ -486,6 +460,7 @@ function handleEditItem(event, itemID) {
     window.location.href = url.toString();
     }    
 }
+
 function validateSubcategory() {
    /* const idValue = $("#newID").val();
     const nameValue = $("#newNameItem").val();
@@ -528,7 +503,31 @@ function handleAddItem(event) {
     window.location.href = url.toString();
   }
 }
+function validateCategoryName() {
+  var categoryNameInput = document.getElementById('addCate');
+  var categoryName = categoryNameInput.value.trim();
+  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+      return false; 
+  }
+  return true; 
+}
 
+function handleAdd(event) {
+    if (validateCategoryName()) {
+    event.preventDefault(); 
+    let CatName = document.getElementById("addCate").value;
+    let url = new URL(window.location.href);
+    url.search = "";
+    
+    let params = new URLSearchParams(url.search);
+
+    params.set("add", CatName);
+    url.search = params.toString();
+
+    //console.log(url)
+    window.location.href = url.toString();
+  }
+}
 let currentPage = 1;
 const perPage = 5;
 let maxPage = 1;
@@ -619,7 +618,7 @@ function updateTable() {
                                                               <label class="input-group-text" for="select${item.itemID}" id="basic-addon2">Thuộc danh mục</label>
                                                                 <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select${item.itemID}">
                                                                     <option value="${item.catID}" style="display:none">Chọn danh mục</option>
-                                                                    ${data.cats.map(cat => `
+                                                                    ${data.catsList.map(cat => `
                                                                         <option value="${cat.catID}">${cat.catName}</option>
                                                                     `).join('')}
                                                                 </select>
@@ -628,14 +627,14 @@ function updateTable() {
                                                       </div>
                                                   </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                            <button type="button" class="btn btn-primary" onclick="editItem()">Lưu thay đổi</button>
+                                                            <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
+                                                            <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'${item.itemID}')">Lưu thay đổi</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Nút xóa -->
-                                            <button class="btn btn-danger" onclick="deleteItem(${item.itemID})">Xóa</button>
+                                            <button class="btn btn-danger" onclick="handleDeleteItem(event,'${item.itemID}')">Xóa</button>
                                         </td>
                                     </tr>
                                 `).join('')}
@@ -650,6 +649,8 @@ function updateTable() {
                 maxPage = data.maxPage;
                 document.querySelector('.current-page').value = currentPage;
                 document.querySelector('.max-page').value = data.maxPage;
+                
+
             });
     }
 updateTable();

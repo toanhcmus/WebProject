@@ -414,10 +414,12 @@ module.exports = {
     getCatPage: async (page, perPage) => {
         const getCatPageQuery = 'SELECT * FROM "Categories" ORDER BY "catID" ASC LIMIT $1 OFFSET $2';
         const getCatPageValues = [perPage, (page - 1) * perPage];
+        const getCats = 'SELECT * FROM "Categories" ORDER BY "catID" ASC';
         try {
             const getCatPageResult = await db.any(getCatPageQuery, getCatPageValues);
             const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Categories"')).count / perPage);
-            return { cats: getCatPageResult, maxPage };
+            const getCatsRt = await db.any(getCats);
+            return { cats: getCatPageResult, maxPage, catsList: getCatsRt };
         } catch (error) {
             console.log(error);
             return null;
@@ -1321,9 +1323,9 @@ module.exports = {
                -- ----------------------------
                -- Foreign Keys structure for table Products
                -- ----------------------------
-               ALTER TABLE "Products" ADD CONSTRAINT "FK_Cat" FOREIGN KEY ("item") REFERENCES "CategoryItems" ("itemID");
+               ALTER TABLE "Products" ADD CONSTRAINT "FK_Cat" FOREIGN KEY ("item") REFERENCES "CategoryItems" ("itemID") ON DELETE CASCADE;
                
-               ALTER TABLE "CategoryItems" ADD CONSTRAINT "FK_CatItem" FOREIGN KEY ("catID") REFERENCES "Categories" ("catID");
+               ALTER TABLE "CategoryItems" ADD CONSTRAINT "FK_CatItem" FOREIGN KEY ("catID") REFERENCES "Categories" ("catID") ON DELETE CASCADE;
 
                 `);
 
