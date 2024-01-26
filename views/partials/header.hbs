@@ -106,37 +106,36 @@
             </div>
         </div>
 
-        <div class=" row cart-body w-100">
-            {{#each cart}}
-            <div class="card m-1 ">
-                <div class="d-flex mt-1 " style="height:120px">
-                    <div class="col-5">
-                        <img src=" {{this.image}}" class=" product-image "
-                            style="width: 100%; height: 100%; object-fit: contain;" alt="...">
-                    </div>
-                    <div class="col-5 ">
-                        <div class="text-start  d-flex">
-                            <h5 class="product-name">{{this.name}}</h5>
+                <div class=" row cart-body w-100">
+                    {{#each cart}}
+                    <div class="card m-1 ">
+                        <div class="d-flex mt-1 " style="height:120px">
+                            <div class="col-5">
+                                <img src=" {{this.image}}" class=" product-image "
+                                    style="width: 100%; height: 100%; object-fit: contain;" alt="...">
+                            </div>
+                            <div class="col-5 ">
+                                <div class="text-start  d-flex">
+                                    <h5 class="product-name">{{this.name}}</h5>
+                                </div>
+                                <div class="text-start m-1">
+                                    <span class="product-id">{{this.id}}</span>
+                                </div>
+                                <div class=" text-start ">
+                                    <button class="btn btn-primary" id="minus">-</button>
+                                    <input type="text" class="count text-center" style="width:35px;height:35px" value="{{this.count}}" disabled>
+                                    </input>
+                                    <button class="btn btn-primary" id="plus">+</button>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="pt-1 close">X</div>
+                                <div class="product-price pt-5 fw-bolder"> {{this.price}} vnd</div>
+                            </div>
                         </div>
-                        <div class="text-start m-1">
-                            <span class="product-id">{{this.id}}</span>
-                        </div>
-                        <div class=" text-start ">
-                            <button class="btn btn-primary" id="minus">-</button>
-                            <input type="text" class="count text-center" style="width:35px;height:35px"
-                                value="{{this.count}}" disabled>
-                            </input>
-                            <button class="btn btn-primary" id="plus">+</button>
-                        </div>
                     </div>
-                    <div class="col-2">
-                        <div class="pt-1 close">X</div>
-                        <div class="product-price pt-5 fw-bolder"> {{this.price}} vnd</div>
-                    </div>
+                    {{/each}}
                 </div>
-            </div>
-            {{/each}}
-        </div>
 
         <h3 class="row calc ps-2 pt-1"></h3>
         <div>
@@ -144,19 +143,19 @@
         </div>
     </div>
 
-</div>
+    </div>
 
 
-<style>
-    body {
-        color: #252a2b;
-        line-height: 1.45;
-        font-size: 14px;
-        background: #ffffff;
-        font-family: "Spectral", sans-serif;
-        overflow-x: hidden;
-        position: initial;
-    }
+    <style>
+        body {
+            color: #252a2b;
+            line-height: 1.45;
+            font-size: 14px;
+            background: #ffffff;
+            font-family: "Spectral", sans-serif;
+            overflow-x: hidden;
+            position: initial;
+        }
 
     a {
         color: #252a2b;
@@ -418,16 +417,16 @@
 </style>
 </div>
 <script>
-
-    function redirectToItem(itemID) {
-        window.location.href = '/products?itemID=' + itemID;
-    }
-    function redirectToCat(catID) {
-        window.location.href = '/products?catID=' + catID;
-    }
-    function showDrop() {
-        document.querySelector('.dropdown-content').style.display = 'block';
-    }
+  
+   function redirectToItem(itemID) {
+    window.location.href = '/products?itemID=' + itemID;
+  }
+   function redirectToCat(catID) {
+    window.location.href = '/products?catID=' + catID;
+  }
+  function showDrop(){
+    document.querySelector('.dropdown-content').style.display = 'block';
+  }
     function showSubContent() {
         document.querySelector('.sub-content').style.display = 'block';
     }
