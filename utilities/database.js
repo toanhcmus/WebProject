@@ -48,7 +48,7 @@ module.exports = {
         await db.none(updateQuery, [count, id]);
     },
     allProduct: async () => {
-        const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
+        const data = await db.any(`SELECT * FROM "Products" ORDER BY "name" ASC`);
         return data;
     },
     search: async (name) => {
@@ -348,6 +348,17 @@ module.exports = {
             return false;
         }
     },
+    checkIDExist: async (id) => {
+        const checkIDExistQuery = 'SELECT "itemID" FROM "CategoryItems" WHERE "itemID" = $1';
+        const checkIDExistValues = [id];
+        try {
+            const checkIDExistResult = await db.oneOrNone(checkIDExistQuery, checkIDExistValues);
+            return checkIDExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
     editUser: async (username, newEmail, newPassword) => {
         const editUserQuery = 'UPDATE "Users" SET "Email" = $1, "Password" = $2 WHERE "Username" = $3';
         const editUserValues = [newEmail, newPassword, username];
@@ -421,6 +432,21 @@ module.exports = {
             const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Categories"')).count / perPage);
             const getCatsRt = await db.any(getCats);
             return { cats: getCatPageResult, maxPage, catsList: getCatsRt };
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
+    getProPage: async (page, perPage) => {
+        
+        const getProPageQuery = 'SELECT * FROM "Products" ORDER BY "name" ASC LIMIT $1 OFFSET $2';
+        const getProPageValues = [perPage, (page - 1) * perPage];
+        const getPros = 'SELECT * FROM "CategoryItems" ORDER BY "itemName" ASC';
+        try {
+            const getProPageResult = await db.any(getProPageQuery, getProPageValues);
+            const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Products"')).count / perPage);
+            const getProsRt = await db.any(getPros);
+            return { pros: getProPageResult, maxPage, proList: getProsRt };
         } catch (error) {
             console.log(error);
             return null;

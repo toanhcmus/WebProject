@@ -1,55 +1,31 @@
 <style>
     .product-image {
-        width: 250px;
-        height: 180px;
+        width: 150px;
+        height: 150px;
         align-items: center;
         justify-items: center;
         align-content: center;
         /*background-color: blue;*/
-        padding-bottom: 5px;
-        padding-top: 5px;
+        padding-bottom: 10px;
     }
-    
         /* Sử dụng CSS Grid để tạo lưới */
         .product-grid {
             display: grid;
-            grid-template-rows: repeat(2, 1fr); /* 6 hàng */
-            grid-template-columns: repeat(4, 1fr); /* 4 cột */
-            gap: 5px; /* Khoảng cách giữa các ô */
+            grid-template-rows: repeat(5, 1fr); /* 6 hàng */
+            grid-template-columns: repeat(5, 1fr); /* 4 cột */
+            gap: 10px; /* Khoảng cách giữa các ô */
         }
 
         /* CSS cho mỗi sản phẩm */
         .product-item {
             border: 1px solid #ddd;
-            padding: 5px;
+            padding: 20px;
             text-align: center;
         }
-        .card {
-            width: 300px;
-            height: 300px;
-                    transition: transform 0.3s ease-in-out;
-        position: relative;
-        padding: 0;
-        background: rgba(0, 0, 0, 0);
-        /* Màu trắng có độ trong suốt 0.8 */
-        margin-bottom: 20px;
-        }
-            .card:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    }
-    .product-name {
-    
-   
-    height: 70px; /* Đặt kích thước cho chiều cao */
-    display: flex; /* Sử dụng Flexbox */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    overflow: hidden; /* Ẩn phần nội dung dư thừa */
-    text-overflow: ellipsis; /* Hiển thị dấu chấm elipsis cho nội dung dư */
-    word-wrap: break-word; /* Cho phép từ bị phá vỡ ngang khi không thể hiển thị trên cùng một dòng */
-    }
 </style>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+{{> viewCategory}}
+
+<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addProductModal">
     Thêm sản phẩm
 </button>
 
@@ -90,9 +66,11 @@
                         <label for="items" class="form-label">Danh mục</label>
                          <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items" required>
                             <option value="" style="display:none">Choose an option</option>
-                            {{#each catitem}}
+                            {{#each categories}}
+                                {{#each items}}
                             <option value="{{this.itemID}}">{{this.itemName}}</option>
-s                            {{/each}}
+                            {{/each}}
+                            {{/each}}
                         </select>
                     </div>
                     <div class="mb-3">
@@ -120,23 +98,24 @@ s                            {{/each}}
 
         </div>
     </div>
-</div> 
+</div>
 
 <div class="product-grid pro d-flex justify-content-evenly flex-wrap">
     {{#each products}}
-    <div class="product-item card " style="width: 18rem;margin: 5px;" id="{{this.id}}">
+    <div class="product-item card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
         <div>
              <img src="{{this.images}}"
                 class="product-image" style="width: 100px, height: 100px" alt="...">
         </div>
-        <div class="product-name">{{this.name}}</div>
+        <div>{{this.name}}</div>
         <div class="card-body">
-            <a href="/admin/products/{{this.id}}" class="btn btn-info">Chi tiết</a>
-            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.id}}">
+            <a href="/admin/products/{{this.id}}" class="btn">Xem chi tiết</a>
+            <a onclick= "changUrl('{{this.id}}')" data-product-id="{{this.id}}" class="btn delete-product">Xoá</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.id}}">
                 Chỉnh sửa
             </button>                        
             <div class="modal fade" id="exampleModal{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
@@ -167,9 +146,11 @@ s                            {{/each}}
                     <div class="mb-3">
                         <label for="items" class="form-label">Danh mục</label>
                          <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
-                            <option value="{{this.item}}" style="display:none"> Selected>Choose an option</option>
-                            {{#each ../catitem}}
+                            <option value="{{this.item}}" style="display:none" selected>Choose an option</option>
+                            {{#each ../categories}}
+                                {{#each items}}
                             <option value="{{this.itemID}}">{{this.itemName}}</option>
+                            {{/each}}
                             {{/each}}
                         </select>
                     </div>
@@ -190,20 +171,18 @@ s                            {{/each}}
             </div>
 
         </div>
-                </div>
+    </div>
             </div>
-            <a onclick= "changUrl('{{this.id}}')" data-product-id="{{this.id}}" class="btn delete-product btn-danger">Xoá</a>
         </div>
     </div>
     {{/each}}
 </div>
-   <div class="w-100 d-flex flex-column justify-content-center align-items-center">
-        <div class="w-100 d-flex flex-row justify-content-center align-items-center">
-            <button class="btn btn-info ms-1 me-1 previous-product" style="width:90px;">Previous</button>
-            <input type="number" class="form-control current-page-product" style="width:60px;" min="1" value="1"> /
-            <input type="number" class="form-control current-page-max" style="width:60px;" value="{{max}}" disabled>
-            <button class="btn btn-info next-product ms-1 me-1" style="width:90px;">Next</button>
-        </div>
+    <div class="pagination w-75 d-flex flex-row justify-content-center align-items-center">
+        <button class="btn btn-light previous-page ms-1 me-1" style="width:90px;">Trước</button>
+        <input type="number" class="form-control current-page" style="width:60px;" min="1" value="1"> /
+        <input type="number" class="form-control max-page" style="width:60px;" value="{{max}}" disabled>
+        {{!-- <span class="max-page text-center" style="width:60px;"></span> --}}
+        <button class="btn btn-light next-page ms-1 me-1" style="width:90px;">Sau</button>
     </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -225,7 +204,6 @@ s                            {{/each}}
         }
         else window.location.href = window.location.href + '&delete=' + id;
     }
-    
    /* function getDetail(id){
         if (!window.location.href.includes("?")) {
             // Nếu không có dấu "?", thêm nó vào
@@ -261,6 +239,8 @@ $("#addCate").on("mouseout", async function (e) {
     hideError();
   });
 
+
+  
   const showError1 = (message) => {
     $(".error.newIDD").text(message);
     $(".error.newIDD").css("visibility", "visible");
@@ -278,9 +258,12 @@ $("#addCate").on("mouseout", async function (e) {
     }
   });
 
+
   $("#newID").on("focus", async function (e) {
     hideError1();
 });
+
+
     const showError2 = (message) => {
     $(".error.newNameItemm").text(message);
     $(".error.newNameItemm").css("visibility", "visible");
@@ -301,6 +284,7 @@ $("#addCate").on("mouseout", async function (e) {
   $("#newNameItem").on("focus", async function (e) {
     hideError2();
 });
+
 
   const showError3 = (message) => {
     $(".error.catItemIDD").text(message);
@@ -324,11 +308,12 @@ $("#addCate").on("mouseout", async function (e) {
     hideError3();
   });
 
+
 const showError4 = (message) => {
     $(".error.changeNamee").text(message);
     $(".error.changeNamee").css("visibility", "visible");
   };
-const hideError4 = () => {
+  const hideError4 = () => {
     $(".error.changeNamee").text("");
     $(".error.changeNamee").css("visibility", "hidden");
   };
@@ -346,6 +331,8 @@ document.querySelector('.changee').addEventListener('blur', async function (e) {
 document.querySelector('.changee').addEventListener('focus', function (event) {
     hideError4();
   });
+
+
 const showError5 = (message) => {
     $(".error.newCatNamee").text(message);
     $(".error.newCatNamee").css("visibility", "visible");
@@ -368,6 +355,7 @@ document.querySelector('.catChangee').addEventListener('blur', async function (e
 document.querySelector('.catChangee').addEventListener('focus', function (event) {
     hideError5();
   });
+
 });
 
 function handleDelete(event, CatID) {
@@ -505,134 +493,155 @@ function handleAdd(event) {
     window.location.href = url.toString();
   }
 }
-    document.addEventListener('DOMContentLoaded', function () {
-        const products = document.querySelectorAll('.product');
-
-        products.forEach(product => {
-            product.addEventListener('click', function () {
-                const details = this.querySelector('.details');
-                alert(details.innerText); // Replace this with your logic to show detailed information
-            });
-        });
-    });
-$(document).ready(function () {
-        $('.next-product').on('click', function () {
-            let currentPage = parseInt($('.current-page-product').val());
-            let maxPage = parseInt($('.current-page-max').val());
-            if (currentPage < maxPage) {
-                $('.current-page-product').val(currentPage + 1);
-                paging();
-            }
-        });
-        $('.previous-product').on('click', function () {
-            let currentPage = parseInt($('.current-page-product').val());
-            if (currentPage > 1) {
-                $('.current-page-product').val(currentPage - 1);
-                paging();
-            }
-        });
-        $('.current-page-product').on('change', function () {
-            let currentPage = parseInt($(this).val());
-            let maxPage = parseInt($('.current-page-max').val());
-
-            if (isNaN(currentPage) || currentPage < 1 || currentPage > maxPage) {
-                alert('Vui lòng nhập một số trang hợp lệ.');
-                $(this).val('1');
-                return;
-            }
-            paging();
-
-        });
-        function paging() {
-            fetch('/paging1', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ pagenum: parseInt($('.current-page-product').val()) }),
-            })
-                .then(response => response.json())
-                .then(data => {
+let currentPage = 1;
+const perPage = 20;
+let maxPage = 1;
+function updateTable() {
+        fetch(`/admin/products/page?page=${currentPage}&perPage=${perPage}`)
+            .then(response => response.json())
+            .then(data => {
                     $('.pro').html('');
                     data.pros.forEach(product => {
                         let productHTML = `
-                            <div class="product-item card" style="width: 18rem;margin: 5px;" id="${product.id}">
-                                <div>
-                                    <img src="${product.images}"
-                                        class="product-image" style="width: 100px, height: 100px" alt="...">
-                                </div>
-                                <div class="product-name">${product.name}</div>
-                                <div class="card-body">
-                                    <a href="/admin/products/${product.id}" class="btn btn-info">Chi tiết</a>
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal${product.id}">
-                                        Chỉnh sửa
-                                    </button>                        
-                                    <div class="modal fade" id="exampleModal${product.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form  action="/admin/products/${product.id}" method="post" id="productForm">
-                                                    <div class="mb-3">
-                                                        <label for="inputID" class="form-label">ID</label>
-                                                        <input type="text" class="form-control" id="inputID" name="inputID1" value="${product.id}"placeholder="ID: " readonly>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="inputName" class="form-label">Tên sản phẩm</label>
-                                                        <input type="text" class="form-control" id="inputName" name="inputName1" value="${product.name}" placeholder="Nhập tên sản phẩm">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
-                                                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="${product.tinyDes}" placeholder="Nhập mô tả ngắn" >
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
-                                                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="${product.fullDes}" ></textarea>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="price" class="form-label">Giá</label>
-                                                        <input type="number" class="form-control" id="price" name="price1" value="${product.price}" placeholder="Nhập giá">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="items" class="form-label">Danh mục</label>
-                                                        <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
-                                                            <option value="${product.item}" style="display:none" selected>Choose an option</option>
-                                                        ${data.catitem.map(cat => `
-                                                            <option value="${cat.itemID}">${cat.itemName}</option>
-                                                        `).join('')}
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="count" class="form-label">Số lượng</label>
-                                                        <input class="form-control" id="count" name="count1" value="${product.count}" placeholder="Nhập số lượng">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="producer" class="form-label">Nhà sản xuất</label>
-                                                        <input type="text" class="form-control" id="producer" name="producer1" value="${product.producer}" placeholder="Nhập nhà sản xuất">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>                                        
-                                    </div>                                    
-                                    </div>
-                                    <a onclick= "changUrl('${product.id}')" data-product-id="${product.id}" class="btn delete-product btn-danger">Xoá</a>
+             <div class="product-item card" style="width: 18rem;margin: 5px;" id="${product.id}">
+        <div>
+             <img src="${product.images}"
+                class="product-image" style="width: 100px, height: 100px" alt="...">
+        </div>
+        <div>${product.name}</div>
+        <div class="card-body">
+            <a href="/admin/products/${product.id}" class="btn">Xem chi tiết</a>
+            <a onclick= "changUrl('${product.id}')" data-product-id="${product.id}" class="btn delete-product">Xoá</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${product.id}">
+                Chỉnh sửa
+            </button>                        
+            <div class="modal fade" id="exampleModal${product.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form  action="/admin/products/${product.id}" method="post" id="productForm">
+                    <div class="mb-3">
+                        <label for="inputID" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="inputID" name="inputID1" value="${product.id}"placeholder="ID: " readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputName" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="inputName" name="inputName1" value="${product.name}" placeholder="Nhập tên sản phẩm">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
+                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="${product.tinyDes}" placeholder="Nhập mô tả ngắn" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
+                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="${product.fullDes}" ></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price" name="price1" value="${product.price}" placeholder="Nhập giá">
+                    </div>
+                    <div class="mb-3">
+                        <label for="items" class="form-label">Danh mục</label>
+                         <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
+                            <option value="${product.item}" style="display:none" selected>Choose an option</option>
+                            ${data.proList.map(item => `
+                            <option value="${item.itemID}">${item.itemName}</option>
+                        `).join('')}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="count" class="form-label">Số lượng</label>
+                        <input class="form-control" id="count" name="count1" value="${product.count}" placeholder="Nhập số lượng">
+                    </div>
+                    <div class="mb-3">
+                        <label for="producer" class="form-label">Nhà sản xuất</label>
+                        <input type="text" class="form-control" id="producer" name="producer1" value="${product.producer}" placeholder="Nhập nhà sản xuất">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
+                    </div>
+                </form>
 
-                                </div>
-                            </div>
-            `;
+            </div>
+
+        </div>
+    </div>`;
                         $('.pro').append(productHTML);
                     });
+                      maxPage = data.maxPage;
+                document.querySelector('.current-page').value = currentPage;
+                document.querySelector('.max-page').value = data.maxPage;
                 })
                 .catch(error => {
                     console.error(error);
                 });
 
-        }})
+        }
+updateTable();
+
+document.querySelector('.previous-page').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updateTable();
+    }
+});
+document.querySelector('.next-page').addEventListener('click', () => {
+    if (currentPage < maxPage) {
+        currentPage++;
+        updateTable();
+    }
+});
+document.querySelector('.go-page').addEventListener('click', () => {
+    const inputPage = parseInt(document.querySelector('.current-page').value);
+    console.log(maxPage);
+    if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+        currentPage = inputPage;
+        updateTable();
+    }
+    else if (inputPage < 1) {
+        document.querySelector('.current-page').value = 1;
+        currentPage = 1;
+        updateTable();
+    }
+    else if (inputPage > maxPage) {
+        document.querySelector('.current-page').value = maxPage;
+        currentPage = maxPage;
+        updateTable();
+    }
+});
+$('.current-page').on('change', function () {
+    const inputPage = parseInt(document.querySelector('.current-page').value);
+    console.log(maxPage);
+    if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= maxPage) {
+        currentPage = inputPage;
+        updateTable();
+    }
+    else if (inputPage < 1) {
+        document.querySelector('.current-page').value = 1;
+        currentPage = 1;
+        updateTable();
+    }
+    else if (inputPage > maxPage) {
+        document.querySelector('.current-page').value = maxPage;
+        currentPage = maxPage;
+        updateTable();
+    }
+});
+function toggleSubcategories(button) {
+// Lấy phần tử chứa danh sách danh mục con tương ứng
+    var subcategoriesList = button.nextElementSibling;
+
+    // Kiểm tra hiển thị hoặc ẩn phần tử chứa danh sách
+    if (subcategoriesList.style.display === 'none') {
+        subcategoriesList.style.display = 'block';
+    } else {
+        subcategoriesList.style.display = 'none';
+    }
+}
+
 </script>

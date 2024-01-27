@@ -153,7 +153,7 @@ module.exports = {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render('partials/header',{layout: 'main', categories: dataForHbs});
+            res.render('partials/header',{layout: 'main', categories: dataForHbs, catitem: categoryItems});
         }
         catch (error) {
             next(error);

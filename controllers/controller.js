@@ -37,7 +37,13 @@ module.exports = {
         //     return res.redirect('/');
         // }
         try {
-            res.render('admin/dashboard', {layout: 'admin'});
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('admin/dashboard', {layout: 'admin',categories: dataForHbs});
         }
         catch (error) {
             next(error);
@@ -288,6 +294,22 @@ module.exports = {
             console.log('a',req.session.sort)
             var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
             var data=result.splice((req.body.pagenum-1)*4,4);
+            res.json(data);
+        }
+        catch (error) {
+            next(error);
+        }
+    },
+    paging1: async (req, res, next) => {
+        try {
+            console.log('a',req.session.sort)
+            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
+            var datart=result.splice((req.body.pagenum-1)*8,8);
+            const categoryItems = await Category.allCategoryItem();
+            let data = {
+                pros: datart,
+                catitem: categoryItems,
+            }
             res.json(data);
         }
         catch (error) {

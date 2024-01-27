@@ -2,35 +2,44 @@ const Product = require('../models/Product');
 const fs = require('fs');
 const path = require('path');
 const Category = require('../models/Category');
+
 module.exports = {
     renderProduct: async (req, res, next) => {
         let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
         let urlObj = new URL(url);
         let catID = urlObj.searchParams.get("catID");
         let itemID = urlObj.searchParams.get("itemID");
-        
+        req.session.catID=null;
+        req.session.itemID=null;
         let deleteID = urlObj.searchParams.get("delete");
-        let products = null;
 
         if(deleteID){
             await Product.deleteProduct(deleteID);
         }        
+        let data = null;
         if (catID) {
-            products = await Product.getProductByCategory(parseInt(catID));
+            req.session.catID=catID;
+            req.session.itemID=null;
+            data = await Product.getProductByCategory(parseInt(catID));
         }
         if (itemID) {
-            products = await Product.getProductByCategoryItem(itemID); 
+            req.session.catID=null;
+            req.session.itemID=itemID;
+            data = await Product.getProductByCategoryItem(itemID); 
         }
         if (catID == null && itemID == null){
-            products = await Product.allProduct();
+            data = await Product.allProduct();
         }
-        let categories = await Category.allCategory();       
-        let categoryItems = await Category.allCategoryItem();
-        let dataForHbs = categories.map((categories) => {
+        req.session.search='';
+        req.session.sort ='';
+        req.session.filter ='';
+        const categories = await Category.allCategory();       
+        const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = categories.map((categories) => {
             const items = categoryItems.filter((item) => item.catID === categories.catID);
             return { ...categories, items };
         });
-        res.render("admin/product/viewProduct", {products, categories: dataForHbs, title: "Dashboard", layout: 'admin'});
+        res.render("admin/product/viewProduct", {products: data.splice(0,8), max:Math.ceil(data.length / 8)+1 , categories: dataForHbs, catitem: categoryItems,keyword:'', title: "Dashboard", layout: 'admin'});
     },
     addProduct: async (req, res, next) => {
         try {
@@ -74,5 +83,26 @@ module.exports = {
         } catch (error) {
             console.log(error)
         }
+    },
+    getProPage: async (req, res, next) => {
+        if (!req.isAuthenticated() || req.user == null) {
+            return res.redirect('/login');
+        }
+        if (req.user.isAdmin == false || req.user.isAdmin == null) {
+            return res.redirect('/');
+        }
+        let body = req.query;
+        let page = body.page;
+        let perPage = body.perPage;
+        let catID = null;
+        let itemID = null;
+        let data = await Category.getCatPage(page, perPage);
+        /*const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = data.cats.map((cat) => {
+            const items = categoryItems.filter((item) => item.catID === cat.catID);
+            return { ...cat, items };
+        });*/
+        //console.log(data);
+        res.json(data);
     },
 }
