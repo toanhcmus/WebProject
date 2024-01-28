@@ -225,7 +225,7 @@ s                            {{/each}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button class="btn btn-primary btnChange" type="submit" >Lưu thay đổi</button>
+                        <button class="btn btn-primary btnChangee" type="submit" >Lưu thay đổi</button>
                     </div>
                 </form>
 
@@ -315,6 +315,224 @@ $(document).ready(function () {
             paging();
 
         });
+          const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+        const showError = (message) => {
+          $(".error.newID").text(message);
+          $(".error.newID").css("visibility", "visible");
+        };
+        const hideError = () => {
+          $(".error.newID").text("");
+          $(".error.newID").css("visibility", "hidden");
+        };
+        $("#inputID").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(/^[A-Z]{3}\d{2}$/)) {
+            showError("Mã sản phẩm gồm 5 ký tự, 3 chữ cái in hoa ở đầu và hai số bất kỳ ở sau");
+          } else {
+            hideError();
+          }
+        });
+        $("#inputID").on("focus", async function (e) {
+          hideError();
+        });
+
+        const showError1 = (message) => {
+          $(".error.newName").text(message);
+          $(".error.newName").css("visibility", "visible");
+        };
+        const hideError1 = () => {
+          $(".error.newName").text("");
+          $(".error.newName").css("visibility", "hidden");
+        };
+        $("#inputName").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(str)) {
+            showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+          } else {
+            hideError1();
+          }
+        });
+        $("#inputName").on("focus", async function (e) {
+          hideError1();
+      });
+          
+          const showError2 = (message) => {
+          $(".error.newDes").text(message);
+          $(".error.newDes").css("visibility", "visible");
+        };
+        const hideError2 = () => {
+          $(".error.newDes").text("");
+          $(".error.newDes").css("visibility", "hidden");
+        };
+        $("#fullDes").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(str)) {
+            showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+          } else {
+            hideError2();
+          }
+        });
+        $("#fullDes").on("focus", async function (e) {
+          hideError2();
+      });
+
+          const showError3 = (message) => {
+          $(".error.newPrice").text(message);
+          $(".error.newPrice").css("visibility", "visible");
+        };
+        const hideError3 = () => {
+          $(".error.newPrice").text("");
+          $(".error.newPrice").css("visibility", "hidden");
+        };
+        $("#price").on("blur", async function(e){
+          const value = e.target.value;
+          if (value < 10000) {
+            showError3("Nhập giá lớn hơn hoặc bằng 10.000");
+          } else {
+            hideError3();
+          }
+        });
+        $("#price").on("focus", async function (e) {
+          hideError3();
+      });
+
+          const showError4 = (message) => {
+          $(".error.newCat").text(message);
+          $(".error.newCat").css("visibility", "visible");
+        };
+        const hideError4 = () => {
+          $(".error.newCat").text("");
+          $(".error.newCat").css("visibility", "hidden");
+        };
+        $("#items").on("blur", async function(e){
+          const value = e.target.value;
+          const selectedValue = $("#items").val(); 
+          if (!value.match(/^.+$/)) {
+            showError4("Vui lòng chọn danh mục");
+          } else {
+            hideError4();
+          }
+        });
+        $("#items").on("focus", async function (e) {
+          hideError4();
+      });
+
+          const showError5 = (message) => {
+          $(".error.newCount").text(message);
+          $(".error.newCount").css("visibility", "visible");
+        };
+        const hideError5 = () => {
+          $(".error.newCount").text("");
+          $(".error.newCount").css("visibility", "hidden");
+        };
+        $("#count").on("blur", async function(e){
+          const value = e.target.value;
+          if (value < 1) {
+            showError5("Nhập số lượng lớn hơn 0");
+          } else {
+            hideError5();
+          }
+        });
+        $("#count").on("focus", async function (e) {
+          hideError5();
+      });
+
+          const showError6 = (message) => {
+          $(".error.newProducer").text(message);
+          $(".error.newProducer").css("visibility", "visible");
+        };
+        const hideError6 = () => {
+          $(".error.newProducer").text("");
+          $(".error.newProducer").css("visibility", "hidden");
+        };
+        $("#producer").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(/^.+$/)) {
+            showError6("Không để trống");
+          } else {
+            hideError6();
+          }
+        });
+        $("#producer").on("focus", async function (e) {
+          hideError6();
+      });
+
+
+
+        $("#inputName1").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(str)) {
+            showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+          } else {
+            hideError1();
+          }
+        });
+        $("#inputName1").on("focus", async function (e) {
+          hideError1();
+      });
+          
+        $("#fullDes1").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(str)) {
+            showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+          } else {
+            hideError2();
+          }
+        });
+        $("#fullDes1").on("focus", async function (e) {
+          hideError2();
+      });
+
+        $("#price1").on("blur", async function(e){
+          const value = e.target.value;
+          if (value < 10000) {
+            showError3("Nhập giá lớn hơn hoặc bằng 10.000");
+          } else {
+            hideError3();
+          }
+        });
+        $("#price1").on("focus", async function (e) {
+          hideError3();
+      });
+
+        $("#count1").on("blur", async function(e){
+          const value = e.target.value;
+          if (value < 1) {
+            showError5("Nhập số lượng lớn hơn 0");
+          } else {
+            hideError5();
+          }
+        });
+        $("#count1").on("focus", async function (e) {
+          hideError5();
+      });
+
+        $("#producer1").on("blur", async function(e){
+          const value = e.target.value;
+          if (!value.match(/^.+$/)) {
+            showError6("Không để trống");
+          } else {
+            hideError6();
+          }
+        });
+        $("#producer1").on("focus", async function (e) {
+          hideError6();
+      });
+
+
+          $(document).on('click', '.btnAdd', function (e) {
+              hideError();
+              hideError1();
+              hideError2();
+              hideError3();
+              hideError4();
+              hideError5();
+              hideError6();
+          });
+
+
+
         function paging() {
             fetch('/paging1', {
                 method: 'POST',
@@ -391,7 +609,7 @@ $(document).ready(function () {
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button class="btn btn-primary btnChange" type="submit" >Lưu thay đổi</button>
+                                                        <button class="btn btn-primary btnChangee" type="submit" >Lưu thay đổi</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -401,272 +619,15 @@ $(document).ready(function () {
                                     <a onclick= "changUrl('${product.id}')" data-product-id="${product.id}" class="btn delete-product btn-danger">Xoá</a>
 
                                 </div>
-                            </div>
-            `;
+                            </div>  `;
                         $('.pro').append(productHTML);
                     });
                 })
                 .catch(error => {
                     console.error(error);
                 });
-
         }})
 
-$(() => {      
-  const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
 
-  const showError = (message) => {
-    $(".error.newID").text(message);
-    $(".error.newID").css("visibility", "visible");
-  };
-  const hideError = () => {
-    $(".error.newID").text("");
-    $(".error.newID").css("visibility", "hidden");
-  };
-  $("#inputID").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(/^[A-Z]{3}\d{2}$/)) {
-      showError("Mã sản phẩm gồm 5 ký tự, 3 chữ cái in hoa ở đầu và hai số bất kỳ ở sau");
-    } else {
-      hideError();
-    }
-  });
-  $("#inputID").on("focus", async function (e) {
-    hideError();
-  });
-$("#inputID").on("mouseout", async function (e) {
-    hideError();
-  });
-
-  const showError1 = (message) => {
-    $(".error.newName").text(message);
-    $(".error.newName").css("visibility", "visible");
-  };
-  const hideError1 = () => {
-    $(".error.newName").text("");
-    $(".error.newName").css("visibility", "hidden");
-  };
-  $("#inputName").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError1();
-    }
-  });
-  $("#inputName").on("focus", async function (e) {
-    hideError1();
-});
-    
-    const showError2 = (message) => {
-    $(".error.newDes").text(message);
-    $(".error.newDes").css("visibility", "visible");
-  };
-  const hideError2 = () => {
-    $(".error.newDes").text("");
-    $(".error.newDes").css("visibility", "hidden");
-  };
-  $("#fullDes").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError2();
-    }
-  });
-  $("#fullDes").on("focus", async function (e) {
-    hideError2();
-});
-
-    const showError3 = (message) => {
-    $(".error.newPrice").text(message);
-    $(".error.newPrice").css("visibility", "visible");
-  };
-  const hideError3 = () => {
-    $(".error.newPrice").text("");
-    $(".error.newPrice").css("visibility", "hidden");
-  };
-  $("#price").on("blur", async function(e){
-    const value = e.target.value;
-    if (value < 10000) {
-      showError3("Nhập giá lớn hơn hoặc bằng 10.000");
-    } else {
-      hideError3();
-    }
-  });
-  $("#price").on("focus", async function (e) {
-    hideError3();
-});
-
-    const showError4 = (message) => {
-    $(".error.newCat").text(message);
-    $(".error.newCat").css("visibility", "visible");
-  };
-  const hideError4 = () => {
-    $(".error.newCat").text("");
-    $(".error.newCat").css("visibility", "hidden");
-  };
-  $("#items").on("blur", async function(e){
-    const value = e.target.value;
-    const selectedValue = $("#items").val(); 
-    if (!value.match(/^.+$/)) {
-      showError4("Vui lòng chọn danh mục");
-    } else {
-      hideError4();
-    }
-  });
-  $("#items").on("focus", async function (e) {
-    hideError4();
-});
-
-
-    const showError5 = (message) => {
-    $(".error.newCount").text(message);
-    $(".error.newCount").css("visibility", "visible");
-  };
-  const hideError5 = () => {
-    $(".error.newCount").text("");
-    $(".error.newCount").css("visibility", "hidden");
-  };
-  $("#count").on("blur", async function(e){
-    const value = e.target.value;
-    if (value < 1) {
-      showError5("Nhập số lượng lớn hơn 0");
-    } else {
-      hideError5();
-    }
-  });
-  $("#count").on("focus", async function (e) {
-    hideError5();
-});
-
-
-    const showError6 = (message) => {
-    $(".error.newProducer").text(message);
-    $(".error.newProducer").css("visibility", "visible");
-  };
-  const hideError6 = () => {
-    $(".error.newProducer").text("");
-    $(".error.newProducer").css("visibility", "hidden");
-  };
-  $("#producer").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(/\S/)) {
-      showError6("Không để trống");
-    } else {
-      hideError6();
-    }
-  });
-  $("#producer").on("focus", async function (e) {
-    hideError6();
-});
-
-
-  $("#inputName1").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError1();
-    }
-  });
-  $("#inputName1").on("focus", async function (e) {
-    hideError1();
-});
-    
-  $("#fullDes1").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError2();
-    }
-  });
-  $("#fullDes1").on("focus", async function (e) {
-    hideError2();
-});
-
-
-  $("#price1").on("blur", async function(e){
-    const value = e.target.value;
-    if (value < 10000) {
-      showError3("Nhập giá lớn hơn hoặc bằng 10.000");
-    } else {
-      hideError3();
-    }
-  });
-  $("#price1").on("focus", async function (e) {
-    hideError3();
-});
-
-  $("#count1").on("blur", async function(e){
-    const value = e.target.value;
-    if (value < 1) {
-      showError5("Nhập số lượng lớn hơn 0");
-    } else {
-      hideError5();
-    }
-  });
-  $("#count1").on("focus", async function (e) {
-    hideError5();
-});
-
-
-  $("#producer1").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(/\S/)) {
-      showError6("Không để trống");
-    } else {
-      hideError6();
-    }
-  });
-  $("#producer1").on("focus", async function (e) {
-    hideError6();
-});
-
-$(document).ready(function () {
-    $(document).on('click', '.btnAdd', function (e) {
-        hideError();
-        hideError1();
-        hideError2();
-        hideError3();
-        hideError4();
-        hideError5();
-        hideError6();
-    })
-    $(document).on('click', '.btnChange', function (e) {
-        e.preventDefault();
-        hideError();
-        hideError1();
-        hideError2();
-        hideError3();
-        hideError4();
-        hideError5();
-        hideError6();
-
-        const namee1 = $('#inputName1').val();
-        const des1 = $('#fullDes1').val();
-        const price1 = $('#price1').val();
-        const count1 = $('#count1').val();
-        const producer1 = $('#producer1').val();
-
-        let namee = document.getElementById('inputName1').value;
-        let des = document.getElementById('fullDes1').value;
-        let price = document.getElementById('price1').value;
-        let count = document.getElementById('count1').value;
-        let producer = document.getElementById('producer1').value;
-
-        const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
-
-        if (!(namee1 && des1 && price1 && count1 && producer1)) {
-            alert('Vui lòng điền đầy đủ thông tin');
-        }
-        else if  (!(namee.match(str) && des.match(str) && price > 10000 && count > 1 && producer.match(/\S/))){
-            alert('Vui lòng điền các thông tin hợp lệ');
-        }
-        else $('productForm').submit();
-    })
-});
-});
 
 </script>
