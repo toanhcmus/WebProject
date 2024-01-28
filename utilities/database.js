@@ -1082,15 +1082,7 @@ module.exports = {
                 - Không giặt chung đồ Trắng và đồ Tối màu ',90000,'ATH', 10,'T&T',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/34.jpg?alt=media&token=95d86f7f-b1ec-44dc-aaab-b0266d3d3b82');
 
                INSERT INTO "Products" VALUES ('ATH03','Áo Polo'
-               ,'Áo polo nam đa dạng phong cách, kiểu dáng trẻ trung'
-               ,'⭐Bảng size bên shop các bạn tham khảo ạ:
-               Size S: Dành cho khách dưới 45 kg    
-               Size M: Dành cho khách dưới 50 kg               
-               Size L:  Dành cho khách dưới 60 kg               
-               Size XL : Dành cho khách dưới 70 cân               
-               Size 2XL: Dành cho khách dưới 80 kg                                         
-               Bảng size chỉ mang tính chất tham khảo vì còn tùy thuộc vào cơ địa của mỗi bạn ạ               
-               👉 Bảng size mang tính chất tham khảo bạn có thể lấy size to hơn hoặc nhỏ theo yêu cầu của bạn!              
+               ,'Áo polo nam đa dạng phong cách, kiểu dáng trẻ trung'             
                III. MÔ TẢ SẢN PHẨM               
                ⭐ Tên sản phẩm : Áo Polo thun unisex               
                ⭐ Chất Liệu: chất Cotton               
