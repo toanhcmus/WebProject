@@ -856,8 +856,8 @@ module.exports = {
                CREATE TABLE "Products" (
                  "id" text NOT NULL,
                  "name" varchar(150) NOT NULL,
-                 "tinyDes" varchar(150) NULL,
-                 "fullDes" text NULL,
+                 "tinyDes" varchar(150),
+                 "fullDes" text,
                  "price" integer NOT NULL,
                  "item" text ,
                  "count" integer NOT NULL,

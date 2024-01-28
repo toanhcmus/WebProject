@@ -85,16 +85,16 @@ module.exports = {
             if (deleteID) {
                 await Category.deleteByID(parseInt(deleteID));
             }
-            if (catName && await Category.checkCatNameExist(catName.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }))){
-                    throw(`Tên danh mục ${catName.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} đã tồn tại!`);
+            if (catName && await Category.checkCatNameExist(catName)){
+                    throw(`Tên danh mục ${catName/*.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })*/} đã tồn tại!`);
             }else {
                 if (editID) {
                 
                     await Category.updateCategory(parseInt(editID), catName);
                 }
             }
-            if (add && await Category.checkCatNameExist(add.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }))){
-                throw(`Tên danh mục ${add.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} đã tồn tại!`);
+            if (add && await Category.checkCatNameExist(add)){
+                throw(`Tên danh mục ${add} đã tồn tại!`);
             } else {
                 if (add) {
                     await Category.addCategory(add);
@@ -108,8 +108,8 @@ module.exports = {
             let itemCategory =  urlObj.searchParams.get("catID");
             let deleteItemID = urlObj.searchParams.get("deleteItem");
 
-            if (itemName && await Category.checkItemNameExist(itemName.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })) || addItemName&&await Category.checkItemNameExist(addItemName.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }))){
-                throw(`Tên danh mục ${itemName.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })} đã tồn tại!`);
+            if (itemName && await Category.checkItemNameExist(itemName) || addItemName&&await Category.checkItemNameExist(addItemName)){
+                throw(`Tên danh mục ${itemName})} đã tồn tại!`);
             }
             else if (await Category.checkItemIDExist(addItemID)){
                 throw(`Danh mục có ID này đã tồn tại!`);

@@ -86,7 +86,7 @@
             if (!(id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1)) {
                 alert('Vui lòng điền đầy đủ thông tin');
             }
-            else if ((id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1) && !(id.match(/^[A-Z]{3}\d{2}$/) && namee.match(str) && des.match(str) && price > 10000 && items.match(/^.+$/) && count > 1 && producer.match(/\S/))) {
+            else if ((id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1) && !(id.match(/^[A-Z]{3}\d{2}$/) && namee.match(str) && des.match(str) && price > 10000 && items.match(/^.+$/) && count > 1 && producer.match(/^.+$/))) {
                 alert('Vui lòng điền các thông tin hợp lệ');
             }
             else {
@@ -108,6 +108,33 @@
                 }).catch(console.error);
             }
         })
+    }          
+        });
+    $(document).on('click', '.btnChange', function (e) {
+        console.log('aaaaa')
+        e.preventDefault();
+        const namee1 = $('#inputName1').val();
+        const des1 = $('#fullDes1').val();
+        const price1 = $('#price1').val();
+        const count1 = $('#count1').val();
+        const producer1 = $('#producer1').val();
+
+        let namee = document.getElementById('inputName1').value;
+        let des = document.getElementById('fullDes1').value;
+        let price = document.getElementById('price1').value;
+        let count = document.getElementById('count1').value;
+        let producer = document.getElementById('producer1').value;
+
+        const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+        if (!(namee1 && des1 && price1 && count1 && producer1)) {
+            alert('Vui lòng điền đầy đủ thông tin');
+        }
+        else if (!(namee.match(/^.+$/) && des.match(str) && price > 10000 && count > 1 && producer.match(/^.+$/))) {
+            alert('Vui lòng điền các thông tin hợp lệ');
+        }
+        else $('#productForm').submit();
+    })
     });
 
 </script>
