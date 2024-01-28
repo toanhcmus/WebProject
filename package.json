@@ -1,7 +1,6 @@
 {
   "name": "webproject",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,5 +32,6 @@
     "passport-google-oauth20": "^2.0.0",
     "pg-promise": "^11.5.4",
     "socket.io": "^4.7.2"
-  }
+  },
+  "description": ""
 }

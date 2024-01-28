@@ -49,7 +49,13 @@ module.exports = {
                     ;
 
                     INSERT INTO public."PaymentAccounts" ("id", "balance") VALUES
-                    ('Admin', 0);
+                    ('Admin', 0),
+                    ('12', 0),
+                    ('username1', 0),
+                    ('user1', 0),
+                    ('un1', 0),
+                    ('un2', 0),
+                    ('username2', 0);
                 `);
 
                 console.log(`Tables created inside '${process.env.DBPAY_DB}' database.`);
