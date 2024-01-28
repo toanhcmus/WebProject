@@ -1,19 +1,91 @@
 <style>
     .product-image {
-        width: 150px;
-        height: 150px;
+        width: 250px;
+        height: 180px;
         align-items: center;
         justify-items: center;
         align-content: center;
         /*background-color: blue;*/
-        padding-bottom: 10px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+    
+        /* Sử dụng CSS Grid để tạo lưới */
+        .product-grid {
+            display: grid;
+            grid-template-rows: repeat(2, 1fr); /* 6 hàng */
+            grid-template-columns: repeat(4, 1fr); /* 4 cột */
+            gap: 5px; /* Khoảng cách giữa các ô */
+        }
+
+        /* CSS cho mỗi sản phẩm */
+        .product-item {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+        }
+        .card {
+            width: 300px;
+            height: 300px;
+                    transition: transform 0.3s ease-in-out;
+        position: relative;
+        padding: 0;
+        background: rgba(0, 0, 0, 0);
+        /* Màu trắng có độ trong suốt 0.8 */
+        margin-bottom: 20px;
+        }
+            .card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+    .error-message {
+    color: red;
+    font-size: 0.875rem;
+    display: none;
+}
+.error {
+    color: red;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+}
+    .product-name {
+    
+   
+    height: 70px; /* Đặt kích thước cho chiều cao */
+    display: flex; /* Sử dụng Flexbox */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    overflow: hidden; /* Ẩn phần nội dung dư thừa */
+    text-overflow: ellipsis; /* Hiển thị dấu chấm elipsis cho nội dung dư */
+    word-wrap: break-word; /* Cho phép từ bị phá vỡ ngang khi không thể hiển thị trên cùng một dòng */
     }
 </style>
-{{> viewCategory}}
+<div class="container d-flex flex-column align-items-center mt-2">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-2 mb-3">
+        <strong>{{success}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+    {{#if error}}
+    <div class="alert alert-danger alert-dismissible fade show mt-2 mb-3">
+        <strong>{{error}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+<div class="container-fluid">
+    <div class="row align-items-center"> <!-- Dòng chứa cả hai phần tử, căn giữa theo chiều dọc -->
+        <div class="col text-center"> <!-- Phần tử căn giữa theo chiều ngang -->
+            <h4 class="card-title">Danh sách sản phẩm
+                <button type="button" class="btn btn-primary btnAdd" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                <span class="fas fa-plus"></span> 
+            </button>
+            </h4>
+           
+        </div>
 
-<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addProductModal">
-    Thêm sản phẩm
-</button>
+    </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -28,55 +100,57 @@
                 <form  action="/admin/products" method="post" id="productForm">
                     <div class="mb-3">
                         <label for="inputID" class="form-label">ID</label>
-                        <input type="text" class="form-control" id="inputID" name="inputID" placeholder="Nhập ID" required>
+                        <input type="text" class="form-control inputID" id="inputID" name="inputID" placeholder="Nhập ID" required>
+                        <i class="error newID"></i>
                     </div>
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="inputName" name="inputName"
+                        <input type="text" class="form-control inputName" id="inputName" name="inputName"
                             placeholder="Nhập tên sản phẩm" required>
+                        <i class="error newName"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
-                        <input type="text" class="form-control" id="tinyDes" name="tinyDes"
-                            placeholder="Nhập mô tả ngắn" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
-                        <textarea class="form-control" id="fullDes" name="fullDes" rows="3"></textarea>
+                        <label for="fullDes" class="form-label">Mô tả</label>
+                        <textarea class="form-control fullDes" id="fullDes" name="fullDes" rows="3"></textarea>
+                        <i class="error newDes"></i>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Giá</label>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá"required>
+                        <input type="number" class="form-control price" id="price" name="price" placeholder="Nhập giá"required>
+                        <i class="error newPrice"></i>
                     </div>
                     <div class="mb-3">
                         <label for="items" class="form-label">Danh mục</label>
                          <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items" required>
-                            <option value="" style="display:none">Choose an option</option>
-                            {{#each categories}}
-                                {{#each items}}
+                            <option value="" style="display:none">Chọn danh mục</option>
+                            {{#each catitem}}
                             <option value="{{this.itemID}}">{{this.itemName}}</option>
-                            {{/each}}
-                            {{/each}}
+s                            {{/each}}
                         </select>
+                         <i class="error newCat"></i>
                     </div>
                     <div class="mb-3">
                         <label for="count" class="form-label">Số lượng</label>
                         <input type="number" class="form-control" id="count" name="count" placeholder="Nhập số lượng">
+                        <i class="error newCount"></i>
                     </div>
                     <div class="mb-3">
                         <label for="producer" class="form-label">Nhà sản xuất</label>
                         <input type="text" class="form-control" id="producer" name="producer"
                             placeholder="Nhập nhà sản xuất" required>
+                            <i class="error newProducer"></i>
                     </div>
                     <div>
                         <input type="hidden" id="imageUrl" name="imageUrl">
                         <img id="imagePreview" src="" alt="..."
                             style="display:none; max-width: 200px; max-height: 200px;" />
+                        <i class="error newImage"></i>
                     </div>
                     <input name="Image" id="formFile" type="file" class="file" data-preview-file-type="text" required>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button class="btn btn-primary btnUpload" >Lưu thay đổi</button>
+                        <button class="btn btn-primary btnUpload" >Thêm</button>
                     </div>
                 </form>
 
@@ -84,24 +158,25 @@
 
         </div>
     </div>
-</div>
+</div> 
 
-<div class="d-flex justify-content-evenly flex-wrap">
+<div class="product-grid pro d-flex justify-content-evenly flex-wrap">
     {{#each products}}
-    <div class="card" style="width: 18rem;margin: 5px;" id="{{this.id}}">
+    <div class="product-item card " style="width: 18rem;margin: 5px;" id="{{this.id}}">
         <div>
+            <a href="/admin/products/{{this.id}}">
              <img src="{{this.images}}"
                 class="product-image" style="width: 100px, height: 100px" alt="...">
+            </a>
         </div>
-        <div>{{this.name}}</div>
+        <div class="product-name">{{this.name}}</div>
         <div class="card-body">
-            <a href="/admin/products/{{this.id}}" class="btn">Xem chi tiết</a>
-            <a onclick= "changUrl('{{this.id}}')" data-product-id="{{this.id}}" class="btn delete-product">Xoá</a>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.id}}">
+            <a href="/admin/products/{{this.id}}" class="btn btn-info">Chi tiết</a>
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.id}}">
                 Chỉnh sửa
             </button>                        
             <div class="modal fade" id="exampleModal{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+                <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
@@ -110,59 +185,70 @@
             <div class="modal-body">
                 <form  action="/admin/products/{{this.id}}" method="post" id="productForm">
                     <div class="mb-3">
-                        <label for="inputID" class="form-label">ID</label>
-                        <input type="text" class="form-control" id="inputID" name="inputID1" value="{{this.id}}"placeholder="ID: " readonly>
+                        <label for="inputID1" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="inputID1" name="inputID1" value="{{this.id}}"placeholder="ID: " readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="inputName" class="form-label">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="inputName" name="inputName1" value="{{this.name}}" placeholder="Nhập tên sản phẩm">
+                        <label for="inputName1" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="inputName1" name="inputName1" value="{{this.name}}" placeholder="Nhập tên sản phẩm">
+                        <i class="error newName"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
-                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="{{this.tinyDes}}" placeholder="Nhập mô tả ngắn" >
+                        <label for="fullDes1" class="form-label">Mô tả đầy đủ</label>
+                        <textarea class="form-control" id="fullDes1" name="fullDes11" rows="3" value="{{this.fullDes}}" ></textarea>
+                        <i class="error newDes"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
-                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="{{this.fullDes}}" ></textarea>
+                        <label for="price1" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price1" name="price1" value="{{this.price}}" placeholder="Nhập giá">
+                        <i class="error newPrice"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Giá</label>
-                        <input type="number" class="form-control" id="price" name="price1" value="{{this.price}}" placeholder="Nhập giá">
-                    </div>
-                    <div class="mb-3">
-                        <label for="items" class="form-label">Danh mục</label>
-                         <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
-                            <option value="{{this.item}}" style="display:none" selected>Choose an option</option>
-                            {{#each ../categories}}
-                                {{#each items}}
+                        <label for="items1" class="form-label">Danh mục</label>
+                         <select class="form-select form-select-sm" aria-label="Small select example" id="items1" name="items1" >
+                            <option value="{{this.item}}" style="display:none"> Chọn danh mục</option>
+                            {{#each ../catitem}}
                             <option value="{{this.itemID}}">{{this.itemName}}</option>
                             {{/each}}
-                            {{/each}}
                         </select>
+                        <i class="error newCat"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="count" class="form-label">Số lượng</label>
-                        <input class="form-control" id="count" name="count1" value="{{this.count}}" placeholder="Nhập số lượng">
+                        <label for="count1" class="form-label">Số lượng</label>
+                        <input class="form-control" id="count1" name="count1" value="{{this.count}}" placeholder="Nhập số lượng">
+                        <i class="error newCount"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="producer" class="form-label">Nhà sản xuất</label>
-                        <input type="text" class="form-control" id="producer" name="producer1" value="{{this.producer}}" placeholder="Nhập nhà sản xuất">
+                        <label for="producer1" class="form-label">Nhà sản xuất</label>
+                        <input type="text" class="form-control" id="producer1" name="producer1" value="{{this.producer}}" placeholder="Nhập nhà sản xuất">
+                        <i class="error newProducer"></i>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
+                        <button class="btn btn-primary btnChange" type="submit" >Lưu thay đổi</button>
                     </div>
                 </form>
 
             </div>
 
         </div>
-    </div>
+                </div>
             </div>
+            <a onclick= "changUrl('{{this.id}}')" data-product-id="{{this.id}}" class="btn delete-product btn-danger">Xoá</a>
         </div>
     </div>
     {{/each}}
 </div>
+   <div class="w-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="w-100 d-flex flex-row justify-content-center align-items-center">
+            <button class="btn btn-info ms-1 me-1 previous-product" style="width:90px;">Previous</button>
+            <input type="number" class="form-control current-page-product" style="width:60px;" min="1" value="1"> /
+            <input type="number" class="form-control current-page-max" style="width:60px;" value="{{max}}" disabled>
+            <button class="btn btn-info next-product ms-1 me-1" style="width:90px;">Next</button>
+        </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     window.onload = function () {
         let url = new URL(window.location.href);
@@ -181,10 +267,406 @@
         }
         else window.location.href = window.location.href + '&delete=' + id;
     }
+    
    /* function getDetail(id){
         if (!window.location.href.includes("?")) {
             // Nếu không có dấu "?", thêm nó vào
             window.location.href = window.location.href + '?id=' + id;
         }
         else window.location.href = window.location.href + '&id=' + id;    }*/
+
+  
+
+document.addEventListener('DOMContentLoaded', function () {
+    const products = document.querySelectorAll('.product');
+
+    products.forEach(product => {
+        product.addEventListener('click', function () {
+            const details = this.querySelector('.details');
+            alert(details.innerText); // Replace this with your logic to show detailed information
+        });
+    });
+});
+$(document).ready(function () {
+        $('.next-product').on('click', function () {
+            let currentPage = parseInt($('.current-page-product').val());
+            let maxPage = parseInt($('.current-page-max').val());
+            if (currentPage < maxPage) {
+                $('.current-page-product').val(currentPage + 1);
+                paging();
+            }
+        });
+        $('.previous-product').on('click', function () {
+            let currentPage = parseInt($('.current-page-product').val());
+            if (currentPage > 1) {
+                $('.current-page-product').val(currentPage - 1);
+                paging();
+            }
+        });
+        $('.current-page-product').on('change', function () {
+            let currentPage = parseInt($(this).val());
+            let maxPage = parseInt($('.current-page-max').val());
+
+            if (isNaN(currentPage) || currentPage < 1 || currentPage > maxPage) {
+                alert('Vui lòng nhập một số trang hợp lệ.');
+                $(this).val('1');
+                return;
+            }
+            paging();
+
+        });
+        function paging() {
+            fetch('/paging1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pagenum: parseInt($('.current-page-product').val()) }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    $('.pro').html('');
+                    data.pros.forEach(product => {
+                        let productHTML = `
+                            <div class="product-item card" style="width: 18rem;margin: 5px;" id="${product.id}">
+                                <div>
+                                     <a href="/admin/products/${product.id}">
+                                        <img src="${product.images}"
+                                        class="product-image" style="width: 100px, height: 100px" alt="...">
+                                    </a>
+                                </div>
+                                <div class="product-name">${product.name}</div>
+                                <div class="card-body">
+                                    <a href="/admin/products/${product.id}" class="btn btn-info">Chi tiết</a>
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal${product.id}">
+                                        Chỉnh sửa
+                                    </button>                        
+                                    <div class="modal fade" id="exampleModal${product.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="addProductModalLabel">Chỉnh sửa thông tin sản phẩm</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form  action="/admin/products/${product.id}" method="post" id="productForm">
+                                                    <div class="mb-3">
+                                                        <label for="inputID1" class="form-label">ID</label>
+                                                        <input type="text" class="form-control" id="inputID1" name="inputID1" value="${product.id}"placeholder="ID: " readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="inputName1" class="form-label">Tên sản phẩm</label>
+                                                        <input type="text" class="form-control" id="inputName1" name="inputName1" value="${product.name}" placeholder="Nhập tên sản phẩm">
+                                                        <i class="error newName"></i>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="fullDes1" class="form-label">Mô tả đầy đủ</label>
+                                                        <textarea class="form-control" id="fullDes1" name="fullDes1" rows="3" value="${product.fullDes}" ></textarea>
+                                                        <i class="error newDes"></i>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="price1" class="form-label">Giá</label>
+                                                        <input type="number" class="form-control" id="price1" name="price1" value="${product.price}" placeholder="Nhập giá">
+                                                        <i class="error newPrice"></i>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="items1" class="form-label">Danh mục</label>
+                                                        <select class="form-select form-select-sm" aria-label="Small select example" id="items1" name="items1" >
+                                                            <option value="${product.item}" style="display:none" selected>Choose an option</option>
+                                                        ${data.catitem.map(cat => `
+                                                            <option value="${cat.itemID}">${cat.itemName}</option>
+                                                        `).join('')}
+                                                        </select>
+                                                        <i class="error newCat"></i>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="count1" class="form-label">Số lượng</label>
+                                                        <input class="form-control" id="count1" name="count1" value="${product.count}" placeholder="Nhập số lượng">
+                                                        <i class="error newCount"></i>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="producer1" class="form-label">Nhà sản xuất</label>
+                                                        <input type="text" class="form-control" id="producer1" name="producer1" value="${product.producer}" placeholder="Nhập nhà sản xuất">
+                                                        <i class="error newProducer"></i>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                        <button class="btn btn-primary btnChange" type="submit" >Lưu thay đổi</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>                                        
+                                    </div>                                    
+                                    </div>
+                                    <a onclick= "changUrl('${product.id}')" data-product-id="${product.id}" class="btn delete-product btn-danger">Xoá</a>
+
+                                </div>
+                            </div>
+            `;
+                        $('.pro').append(productHTML);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        }})
+
+$(() => {      
+  const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+  const showError = (message) => {
+    $(".error.newID").text(message);
+    $(".error.newID").css("visibility", "visible");
+  };
+  const hideError = () => {
+    $(".error.newID").text("");
+    $(".error.newID").css("visibility", "hidden");
+  };
+  $("#inputID").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/^[A-Z]{3}\d{2}$/)) {
+      showError("Mã sản phẩm gồm 5 ký tự, 3 chữ cái in hoa ở đầu và hai số bất kỳ ở sau");
+    } else {
+      hideError();
+    }
+  });
+  $("#inputID").on("focus", async function (e) {
+    hideError();
+  });
+$("#inputID").on("mouseout", async function (e) {
+    hideError();
+  });
+
+  const showError1 = (message) => {
+    $(".error.newName").text(message);
+    $(".error.newName").css("visibility", "visible");
+  };
+  const hideError1 = () => {
+    $(".error.newName").text("");
+    $(".error.newName").css("visibility", "hidden");
+  };
+  $("#inputName").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError1();
+    }
+  });
+  $("#inputName").on("focus", async function (e) {
+    hideError1();
+});
+    
+    const showError2 = (message) => {
+    $(".error.newDes").text(message);
+    $(".error.newDes").css("visibility", "visible");
+  };
+  const hideError2 = () => {
+    $(".error.newDes").text("");
+    $(".error.newDes").css("visibility", "hidden");
+  };
+  $("#fullDes").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError2();
+    }
+  });
+  $("#fullDes").on("focus", async function (e) {
+    hideError2();
+});
+
+    const showError3 = (message) => {
+    $(".error.newPrice").text(message);
+    $(".error.newPrice").css("visibility", "visible");
+  };
+  const hideError3 = () => {
+    $(".error.newPrice").text("");
+    $(".error.newPrice").css("visibility", "hidden");
+  };
+  $("#price").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 10000) {
+      showError3("Nhập giá lớn hơn hoặc bằng 10.000");
+    } else {
+      hideError3();
+    }
+  });
+  $("#price").on("focus", async function (e) {
+    hideError3();
+});
+
+    const showError4 = (message) => {
+    $(".error.newCat").text(message);
+    $(".error.newCat").css("visibility", "visible");
+  };
+  const hideError4 = () => {
+    $(".error.newCat").text("");
+    $(".error.newCat").css("visibility", "hidden");
+  };
+  $("#items").on("blur", async function(e){
+    const value = e.target.value;
+    const selectedValue = $("#items").val(); 
+    if (!value.match(/^.+$/)) {
+      showError4("Vui lòng chọn danh mục");
+    } else {
+      hideError4();
+    }
+  });
+  $("#items").on("focus", async function (e) {
+    hideError4();
+});
+
+
+    const showError5 = (message) => {
+    $(".error.newCount").text(message);
+    $(".error.newCount").css("visibility", "visible");
+  };
+  const hideError5 = () => {
+    $(".error.newCount").text("");
+    $(".error.newCount").css("visibility", "hidden");
+  };
+  $("#count").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 1) {
+      showError5("Nhập số lượng lớn hơn 0");
+    } else {
+      hideError5();
+    }
+  });
+  $("#count").on("focus", async function (e) {
+    hideError5();
+});
+
+
+    const showError6 = (message) => {
+    $(".error.newProducer").text(message);
+    $(".error.newProducer").css("visibility", "visible");
+  };
+  const hideError6 = () => {
+    $(".error.newProducer").text("");
+    $(".error.newProducer").css("visibility", "hidden");
+  };
+  $("#producer").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/\S/)) {
+      showError6("Không để trống");
+    } else {
+      hideError6();
+    }
+  });
+  $("#producer").on("focus", async function (e) {
+    hideError6();
+});
+
+
+  $("#inputName1").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError1();
+    }
+  });
+  $("#inputName1").on("focus", async function (e) {
+    hideError1();
+});
+    
+  $("#fullDes1").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError2();
+    }
+  });
+  $("#fullDes1").on("focus", async function (e) {
+    hideError2();
+});
+
+
+  $("#price1").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 10000) {
+      showError3("Nhập giá lớn hơn hoặc bằng 10.000");
+    } else {
+      hideError3();
+    }
+  });
+  $("#price1").on("focus", async function (e) {
+    hideError3();
+});
+
+  $("#count1").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 1) {
+      showError5("Nhập số lượng lớn hơn 0");
+    } else {
+      hideError5();
+    }
+  });
+  $("#count1").on("focus", async function (e) {
+    hideError5();
+});
+
+
+  $("#producer1").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/\S/)) {
+      showError6("Không để trống");
+    } else {
+      hideError6();
+    }
+  });
+  $("#producer1").on("focus", async function (e) {
+    hideError6();
+});
+
+$(document).ready(function () {
+    $(document).on('click', '.btnAdd', function (e) {
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+        hideError6();
+    })
+    $(document).on('click', '.btnChange', function (e) {
+        e.preventDefault();
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+        hideError6();
+
+        const namee1 = $('#inputName1').val();
+        const des1 = $('#fullDes1').val();
+        const price1 = $('#price1').val();
+        const count1 = $('#count1').val();
+        const producer1 = $('#producer1').val();
+
+        let namee = document.getElementById('inputName1').value;
+        let des = document.getElementById('fullDes1').value;
+        let price = document.getElementById('price1').value;
+        let count = document.getElementById('count1').value;
+        let producer = document.getElementById('producer1').value;
+
+        const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+        if (!(namee1 && des1 && price1 && count1 && producer1)) {
+            alert('Vui lòng điền đầy đủ thông tin');
+        }
+        else if  (!(namee.match(str) && des.match(str) && price > 10000 && count > 1 && producer.match(/\S/))){
+            alert('Vui lòng điền các thông tin hợp lệ');
+        }
+        else $('productForm').submit();
+    })
+});
+});
+
 </script>

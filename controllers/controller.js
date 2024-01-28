@@ -37,7 +37,13 @@ module.exports = {
         //     return res.redirect('/');
         // }
         try {
-            res.render('admin/dashboard', {layout: 'admin'});
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render('admin/dashboard', {layout: 'admin',categories: dataForHbs});
         }
         catch (error) {
             next(error);
@@ -154,21 +160,6 @@ module.exports = {
         try {
             console.log('search');
             req.session.search=req.body.name;
-            // let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
-            // let urlObj = new URL(url);
-            // let catID = urlObj.searchParams.get("catID");
-            // let itemID = urlObj.searchParams.get("itemID");
-
-            // let data = null;
-            // if (catID) {
-            //     data = await Product.searchByCat(req.body.name,parseInt(catID));
-            // }
-            // if (itemID) {
-            //     data = await Product.searchByItem(req.body.name,itemID); 
-            // }
-            // if (catID == null && itemID == null){
-            //     data = await Product.search(req.body.name)
-            // }
             var data  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
             const cart = req.session.cart;
             console.log(data.length );
@@ -294,6 +285,22 @@ module.exports = {
             next(error);
         }
     },
+    paging1: async (req, res, next) => {
+        try {
+            console.log('a',req.session.sort)
+            var result  = await Product.paging(req.session.search,req.session.sort,req.session.filter,req.session.catID,req.session.itemID);
+            var datart=result.splice((req.body.pagenum-1)*8,8);
+            const categoryItems = await Category.allCategoryItem();
+            let data = {
+                pros: datart,
+                catitem: categoryItems,
+            }
+            res.json(data);
+        }
+        catch (error) {
+            next(error);
+        }
+    },
     remove: async (req, res, next) => {
         try {
             if (!req.session.cart) {
@@ -325,6 +332,12 @@ module.exports = {
             const total=await Product.chart();
             console.log('a',total);
             let tien=new Array(12).fill(0);
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
             for(let i=0;i<12;i++)
             {
                 if(total[i]){
@@ -338,7 +351,7 @@ module.exports = {
                 y: JSON.stringify(tien)
             };
         
-            res.render('./admin/product/chart',{ layout: 'admin', ...data });
+            res.render('./admin/product/chart',{ categories: dataForHbs, layout: 'admin', ...data });
 
         } catch (error) {
             console.log(error)
@@ -471,48 +484,6 @@ module.exports = {
         }
 
     },
-    /*getProductCat: async (req, res, next) => {
-        try {
-            const cart = req.session.cart;
-            let catID = res.params.catID;
-            // console.log("renderPro", req.session);
-            const data = await Product.getProductByCategory(catID);
-            req.session.search='';
-            req.session.sort ='';
-            req.session.filter ='';
-            const categories = await Category.allCategory();       
-            const categoryItems = await Category.allCategoryItem();
-            const dataForHbs = categories.map((categories) => {
-                const items = categoryItems.filter((item) => item.catID === categories.catID);
-                return { ...categories, items };
-            });
-            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , categories: dataForHbs ,cart: cart ,keyword:''});
-        }
-        catch (error) {
-            next(error);
-        }
-    },
-    getProductItem: async (req, res, next) => {
-        try {
-            const cart = req.session.cart;
-            let itemID = res.params.itemID;
-            // console.log("renderPro", req.session);
-            const data = await Product.getProductByCategoryItem(itemID);
-            req.session.search='';
-            req.session.sort ='';
-            req.session.filter ='';
-            const categories = await Category.allCategory();       
-            const categoryItems = await Category.allCategoryItem();
-            const dataForHbs = categories.map((categories) => {
-                const items = categoryItems.filter((item) => item.catID === categories.catID);
-                return { ...categories, items };
-            });
-            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , categories: dataForHbs ,cart: cart ,keyword:''});
-        }
-        catch (error) {
-            next(error);
-        }
-    },*/
     renderAbout: async (req, res, next) => {
         try {
             const cart = req.session.cart;
@@ -530,12 +501,23 @@ module.exports = {
     },
     renderBills: async (req, res, next) => {
         const allBills = await billM.selectAllBills();
-        // console.log(allBills);
-        res.render('admin/billDetail', { layout: 'admin', allBills: allBills });
+        const categories = await Category.allCategory();       
+        const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = categories.map((categories) => {
+            const items = categoryItems.filter((item) => item.catID === categories.catID);
+            return { ...categories, items };
+        });
+        res.render('admin/billDetail', { layout: 'admin', categories: dataForHbs, allBills: allBills });
     },
     renderPaymentHistory: async (req, res, next) => {
         const userAdmin = await paymentM.selectUser('Admin');
         const paymentHistory = await paymentM.selectAllPayments();
-        res.render('admin/paymentHistory', { layout: 'admin', userAdmin: userAdmin, paymentHistory: paymentHistory });
+        const categories = await Category.allCategory();       
+        const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = categories.map((categories) => {
+            const items = categoryItems.filter((item) => item.catID === categories.catID);
+            return { ...categories, items };
+        });
+        res.render('admin/paymentHistory', { layout: 'admin', categories: dataForHbs, userAdmin: userAdmin, paymentHistory: paymentHistory });
     }
 }

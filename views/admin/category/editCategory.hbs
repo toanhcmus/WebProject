@@ -29,53 +29,110 @@
                 <button class="btn" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
             </td>
             <td class="subcategory-list">
-                {{#each items}}
-                    <div>
-                        {{this.itemID}} - {{this.itemName}}                      
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.itemID}}">
-                            Chỉnh sửa
-                        </button>
-                        <button class="btn" onclick="handleDeleteItem(event,'{{this.itemID}}')">Xoá</button>
-                        
-                        <div class="modal fade" id="exampleModal{{this.itemID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="col-md-6">
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon2">Tên</span>
-                                                <input type="text" value="{{this.itemName}}" id="Name{{this.itemID}}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon2">Thuộc danh mục</span>
-                                                <select class="form-select form-select-sm" aria-label="Small select example" id="select{{this.itemID}}">
-                                                    <option value="{{this.catID}}" style="display:none">Choose an option</option>
-                                                     {{#each ../../categories}}
-                                                    <option value="{{this.catID}}">{{this.catName}}</option>
-                                                    {{/each}}
-                                                </select>
-                                            </div>
+            {{!--{{#each categories}}
+            <tr>
+                <td class="align-middle text-center">{{this.catID }}</td>
+                <td class="align-middle text-center" value="{{this.catName}}" id="Name{{this.catID}}">{{this.catName }}</td>
+                <td class="align-middle text-center">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalat{{this.catID}}">Đổi tên</button>
+                    <div class="modal fade" id="exampleModalat{{this.catID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa tên danh mục</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text" for="Cat{{this.catID}}" id="basic-addon2">Tên mới</label>
+                                            <input class="form-control catChangee" name = "catChangee" aria-describedby="basic-addon1"  type="text" value="{{this.catName}}" id="Cat{{this.catID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                            <i class="error newCatNamee"></i>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'{{this.itemID}}')">Lưu thay đổi</button>
-                                    </div>
+                                </div>    
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" onclick="handleEdit(event,{{this.catID}})">Lưu thay đổi</button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                {{/each}}
-            </td>
-        </tr>
-        {{/each}}
+                    <button class="btn btn-danger" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
+                </td>
+                <td class="align-middle subcategory-list text-center">
+                    <button type="button" class="btn btn-info view-subcategories-btn" onclick="toggleSubcategories(this)">Xem chi tiết
+                    </button>
+                    <!-- Phần tử HTML để chứa danh sách danh mục con -->
+                    <div class="subcategories-list " style="display: none;">
+                        <table class="table mt-2 table-secondary align-middle">
+                          <tbody>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên danh mục</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                              {{#each items}}
+                              <tr>
+                                  <td>{{this.itemID}}</td>
+                                  <td>{{this.itemName}}</td>
+                                  <td>
+                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.itemID}}">
+                                          Sửa
+                                      </button>
+                                      <div class="modal fade" id="exampleModal{{this.itemID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa</h1>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <div class="col">
+                                                          <div class="input-group mb-3">
+                                                              <span class="input-group-text" id="basic-addon2">ID</span>
+                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="{{this.itemID}}" readonly disabled="true">
+                                                          </div>
+                                                      </div>
+                                                      <div class="col">
+                                                          <div class="input-group mb-3 ">
+                                                              <label class="input-group-text" for="Name{{this.itemID}}" id="basic-addon2">Tên</label>
+                                                              <input class="form-control changee" name = "changee" aria-describedby="basic-addon1"  type="text" value="{{this.itemName}}" id="Name{{this.itemID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                                          </div>
+                                                          <i class="error changeNamee"></i>
+                                                      </div>
+                                                      <div class="col">
+                                                          <div class="input-group mb-3">
+                                                              <label class="input-group-text" for="select{{this.itemID}}" id="basic-addon2">Thuộc danh mục</label>
+                                                              <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select{{this.itemID}}">
+                                                                  <option value="{{this.catID}}" style="display:none">Chọn danh mục</option>
+                                                                  {{#each ../../categories}}
+                                                                  <option value="{{this.catID}}">{{this.catName}}</option>
+                                                                  {{/each}}
+                                                              </select>
+                                                          </div>
+                                                          <i class="error changeCatt"></i>
+                                                      </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                      <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'{{this.itemID}}')">Lưu thay đổi</button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <button class="btn btn-danger" onclick="handleDeleteItem(event,'{{this.itemID}}')">Xoá</button>
+                                  </td>
+                              </tr>
+                              {{/each}}
+                          </tbody>
+                      </table>
+                    </div>
+                </td>
+              </tr>
+            {{/each}} --}}
     </tbody>
 </table>
 

@@ -276,7 +276,12 @@
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
-                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
+                            {{#ifCon this.count '<=' 0}}
+                                <button class="add-to-cart btn-primary ml-2 mb-3" disabled>Thêm nhanh</button>
+                            {{/ifCon}}
+                            {{#ifCon this.count '>' 0}}
+                                <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
+                            {{/ifCon}}
                         </div>
                     </div>
                 </div>
@@ -299,7 +304,13 @@
                         </a>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
-                            <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
+                            
+                            {{#ifCon this.count '<=' 0}}
+                                <button class="add-to-cart btn-primary ml-2 mb-3" disabled>Thêm nhanh</button>
+                            {{/ifCon}}
+                            {{#ifCon this.count '>' 0}}
+                                <button class="add-to-cart btn-primary ml-2 mb-3">Thêm nhanh</button>
+                            {{/ifCon}}
                         </div>
                     </div>
                 </div>

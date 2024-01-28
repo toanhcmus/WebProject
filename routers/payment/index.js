@@ -8,6 +8,8 @@ const passport = require('passport');
 
 const router = express.Router();
 
+router.get('/', controller.render)
+
 
 // post payment
 const authenticateJWT = (req, res, next) => {

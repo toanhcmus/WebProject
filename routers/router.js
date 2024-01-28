@@ -25,6 +25,7 @@ router.post('/addToCart', controller.addToCart);
 router.post('/plus', controller.plus);
 router.post('/minus', controller.minus);
 router.post('/paging', controller.paging);
+router.post('/paging1', controller.paging1);
 router.post('/filter', controller.filter);
 router.post('/remove', controller.remove);
 router.post('/checkSoLuong', controller.checkSoLuong);
@@ -51,7 +52,6 @@ router.get('/auth/google/callback', passport.authenticate('google', { failureRed
 router.get('/authFail', accountController.renderAuthFail);
 router.get('/logout', accountController.logout);
 router.get('/admin/category', auth.ensureAuthenticatedAdmin, categoryController.renderCat);
-router.get('/admin/category/edit', auth.ensureAuthenticatedAdmin, categoryController.renderEditCat);
 router.get('/admin/account', auth.ensureAuthenticatedAdmin, accountController.renderAccountManager);
 router.get('/admin/category/page', auth.ensureAuthenticatedAdmin, categoryController.getCatPage);
 
@@ -65,6 +65,8 @@ router.get('/admin/account/page', auth.ensureAuthenticatedAdmin, accountControll
 
 router.post('/admin/products', auth.ensureAuthenticatedAdmin, productController.addProduct);
 router.get('/admin/products', auth.ensureAuthenticatedAdmin, productController.renderProduct);
+router.get('/admin/products/page', auth.ensureAuthenticatedAdmin, productController.getProPage);
+
 
 router.get('/admin/products/:id', auth.ensureAuthenticatedAdmin, productController.detailProduct);
 router.post('/admin/products/:id', auth.ensureAuthenticatedAdmin, productController.editProduct);

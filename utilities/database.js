@@ -48,7 +48,7 @@ module.exports = {
         await db.none(updateQuery, [count, id]);
     },
     allProduct: async () => {
-        const data = await db.any(`SELECT * FROM "Products"  ORDER BY "id" ASC`);
+        const data = await db.any(`SELECT * FROM "Products" ORDER BY "name" ASC`);
         return data;
     },
     search: async (name) => {
@@ -88,7 +88,8 @@ module.exports = {
             "Products".id,
             "Products".name,
             "Products".price,
-            "Products".images,            
+            "Products".images,
+            "Products".count,            
             COALESCE(SUM("ThongTinHoaDon"."SoLuong"), 0) AS soluong
         FROM 
         "Products" 
@@ -315,8 +316,20 @@ module.exports = {
         }
     },
     checkCatNameExist: async (catName) => {
-        const checkCatNameExistQuery = 'SELECT "catName" FROM "Categories" WHERE "catName" = $1';
+        catName = catName.toLowerCase();
+        const checkCatNameExistQuery = 'SELECT "catName" FROM "Categories" WHERE LOWER("catName") = $1';
         const checkCatNameExistValues = [catName];
+        try {
+            const checkCatNameExistResult = await db.oneOrNone(checkCatNameExistQuery, checkCatNameExistValues);
+            return checkCatNameExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
+    checkProductExist: async (id) => {
+        const checkCatNameExistQuery = 'SELECT "id" FROM "Products" WHERE "id" = $1';
+        const checkCatNameExistValues = [id];
         try {
             const checkCatNameExistResult = await db.oneOrNone(checkCatNameExistQuery, checkCatNameExistValues);
             return checkCatNameExistResult ? true : false;
@@ -342,6 +355,17 @@ module.exports = {
         try {
             const checkItemIDExistResult = await db.oneOrNone(checkItemIDExistQuery, checkItemIDExistValues);
             return checkItemIDExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
+    checkIDExist: async (id) => {
+        const checkIDExistQuery = 'SELECT "itemID" FROM "CategoryItems" WHERE "itemID" = $1';
+        const checkIDExistValues = [id];
+        try {
+            const checkIDExistResult = await db.oneOrNone(checkIDExistQuery, checkIDExistValues);
+            return checkIDExistResult ? true : false;
         } catch (error) {
             console.log(error);
             return false;
@@ -414,10 +438,27 @@ module.exports = {
     getCatPage: async (page, perPage) => {
         const getCatPageQuery = 'SELECT * FROM "Categories" ORDER BY "catID" ASC LIMIT $1 OFFSET $2';
         const getCatPageValues = [perPage, (page - 1) * perPage];
+        const getCats = 'SELECT * FROM "Categories" ORDER BY "catID" ASC';
         try {
             const getCatPageResult = await db.any(getCatPageQuery, getCatPageValues);
             const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Categories"')).count / perPage);
-            return { cats: getCatPageResult, maxPage };
+            const getCatsRt = await db.any(getCats);
+            return { cats: getCatPageResult, maxPage, catsList: getCatsRt };
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
+    getProPage: async (page, perPage) => {
+        
+        const getProPageQuery = 'SELECT * FROM "Products" ORDER BY "name" ASC LIMIT $1 OFFSET $2';
+        const getProPageValues = [perPage, (page - 1) * perPage];
+        const getPros = 'SELECT * FROM "CategoryItems" ORDER BY "itemName" ASC';
+        try {
+            const getProPageResult = await db.any(getProPageQuery, getProPageValues);
+            const maxPage = Math.ceil((await db.one('SELECT COUNT(*) FROM "Products"')).count / perPage);
+            const getProsRt = await db.any(getPros);
+            return { pros: getProPageResult, maxPage, proList: getProsRt };
         } catch (error) {
             console.log(error);
             return null;
@@ -815,8 +856,8 @@ module.exports = {
                CREATE TABLE "Products" (
                  "id" text NOT NULL,
                  "name" varchar(150) NOT NULL,
-                 "tinyDes" varchar(150) NOT NULL,
-                 "fullDes" text NOT NULL,
+                 "tinyDes" varchar(150) NULL,
+                 "fullDes" text NULL,
                  "price" integer NOT NULL,
                  "item" text ,
                  "count" integer NOT NULL,
@@ -1321,9 +1362,9 @@ module.exports = {
                -- ----------------------------
                -- Foreign Keys structure for table Products
                -- ----------------------------
-               ALTER TABLE "Products" ADD CONSTRAINT "FK_Cat" FOREIGN KEY ("item") REFERENCES "CategoryItems" ("itemID");
+               ALTER TABLE "Products" ADD CONSTRAINT "FK_Cat" FOREIGN KEY ("item") REFERENCES "CategoryItems" ("itemID") ON DELETE CASCADE;
                
-               ALTER TABLE "CategoryItems" ADD CONSTRAINT "FK_CatItem" FOREIGN KEY ("catID") REFERENCES "Categories" ("catID");
+               ALTER TABLE "CategoryItems" ADD CONSTRAINT "FK_CatItem" FOREIGN KEY ("catID") REFERENCES "Categories" ("catID") ON DELETE CASCADE;
 
                 `);
 

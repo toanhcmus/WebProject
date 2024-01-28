@@ -77,4 +77,13 @@ module.exports = class Product {
     static async searchByItem(name, itemID) {
         return await db.searchByItem(name, itemID);
     }
+    static async checkIDExist(id){
+        return await db.checkIDExist(id);
+   }
+   static async getProPage(page, perPage){
+        return await db.getProPage(page, perPage);
+   }
+   static async checkProductExist(id){
+    return await db.checkProductExist(id);
+}
 };

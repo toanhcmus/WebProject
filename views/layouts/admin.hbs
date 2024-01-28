@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,23 +60,50 @@
         $(document).on('click', '.btnUpload', function (e) {
             console.log('aaaaa')
             e.preventDefault();
-            const file = document.getElementById('formFile').files[0];
-            const metadata = {
-                contentType: file.type,
-            }
-            const name = file.name;
-            const storage = getStorage();
-            const storageReference = storageRef(storage, file.name);
-            const uploadImg = uploadBytes(storageReference, file, metadata);
-            uploadImg.then(snapshot => {
-                return getDownloadURL(storageReference);
-            }).then(url => {
-                console.log(url);
-                $('#imageUrl').val(url);
-                $('#productForm').submit();
-                alert('Thêm sản phẩm thành công')
-            }).catch(console.error);
+            const id1 = $('#inputID').val();
+            const namee1 = $('#inputName').val();
+            const des1 = $('#fullDes').val();
+            const price1 = $('#price').val();
+            const items1 = $('#items').val();
+            const count1 = $('#count').val();
+            const producer1 = $('#producer').val();
+            const file1 = $('#formFile').prop('files')[0];
 
+            let id = document.getElementById('inputID').value;
+            let namee = document.getElementById('inputName').value;
+            let des = document.getElementById('fullDes').value;
+            let price = document.getElementById('price').value;
+            let items = document.getElementById('items').value;
+            let count = document.getElementById('count').value;
+            let producer = document.getElementById('producer').value;
+            let file = document.getElementById('formFile').files[0];
+
+            const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+            if (!(id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1)) {
+                alert('Vui lòng điền đầy đủ thông tin');
+            }
+            else if  ((id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1) && !(id.match(/^[A-Z]{3}\d{2}$/) && namee.match(str) && des.match(str) && price > 10000 && items.match(/^.+$/) && count > 1 && producer.match(/\S/))){
+                alert('Vui lòng điền các thông tin hợp lệ');
+            }
+            else {
+                const file = document.getElementById('formFile').files[0];
+                const metadata = {
+                    contentType: file.type,
+                }
+                const name = file.name;
+                const storage = getStorage();
+                const storageReference = storageRef(storage, file.name);
+                const uploadImg = uploadBytes(storageReference, file, metadata);
+                uploadImg.then(snapshot => {
+                    return getDownloadURL(storageReference);
+                }).then(url => {
+                    console.log(url);
+                    $('#imageUrl').val(url);
+                    $('#productForm').submit();
+                    alert('Thêm sản phẩm thành công')
+                }).catch(console.error);
+            }          
         })
     });
 

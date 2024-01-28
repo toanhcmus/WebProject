@@ -17,10 +17,10 @@
         </div>
     </div>
     <div class="w-75 d-flex flex-row justify-content-end mt-2 mb-2" style="display: flex; gap: 10px;">
-        <button type="button" class="btn btn-primary" style="width:150px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary btnAddCat" style="width:150px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Thêm danh mục
         </button>
-        <button type="button" class="btn btn-primary" style="width:180px;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        <button type="button" class="btn btn-primary btnAddItem" style="width:180px;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
         Thêm danh mục con
         </button>
     </div>
@@ -38,110 +38,7 @@
             <th class="align-middle text-center">Danh mục con</th>
         </thead>
         <tbody>
-            {{!--{{#each categories}}
-            <tr>
-                <td class="align-middle text-center">{{this.catID }}</td>
-                <td class="align-middle text-center" value="{{this.catName}}" id="Name{{this.catID}}">{{this.catName }}</td>
-                <td class="align-middle text-center">
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalat{{this.catID}}">Đổi tên</button>
-                    <div class="modal fade" id="exampleModalat{{this.catID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa tên danh mục</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text" for="Cat{{this.catID}}" id="basic-addon2">Tên mới</label>
-                                            <input class="form-control catChangee" name = "catChangee" aria-describedby="basic-addon1"  type="text" value="{{this.catName}}" id="Cat{{this.catID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
-                                            <i class="error newCatNamee"></i>
-                                        </div>
-                                    </div>
-                                </div>    
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-primary" onclick="handleEdit(event,{{this.catID}})">Lưu thay đổi</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger" onclick="handleDelete(event,{{this.catID}})">Xoá</button>
-                </td>
-                <td class="align-middle subcategory-list text-center">
-                    <button type="button" class="btn btn-info view-subcategories-btn" onclick="toggleSubcategories(this)">Xem chi tiết
-                    </button>
-                    <!-- Phần tử HTML để chứa danh sách danh mục con -->
-                    <div class="subcategories-list " style="display: none;">
-                        <table class="table mt-2 table-secondary align-middle">
-                          <tbody>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                              {{#each items}}
-                              <tr>
-                                  <td>{{this.itemID}}</td>
-                                  <td>{{this.itemName}}</td>
-                                  <td>
-                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{this.itemID}}">
-                                          Sửa
-                                      </button>
-                                      <div class="modal fade" id="exampleModal{{this.itemID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                  <div class="modal-header">
-                                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa</h1>
-                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                      <div class="col">
-                                                          <div class="input-group mb-3">
-                                                              <span class="input-group-text" id="basic-addon2">ID</span>
-                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="{{this.itemID}}" readonly disabled="true">
-                                                          </div>
-                                                      </div>
-                                                      <div class="col">
-                                                          <div class="input-group mb-3 ">
-                                                              <label class="input-group-text" for="Name{{this.itemID}}" id="basic-addon2">Tên</label>
-                                                              <input class="form-control changee" name = "changee" aria-describedby="basic-addon1"  type="text" value="{{this.itemName}}" id="Name{{this.itemID}}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
-                                                          </div>
-                                                          <i class="error changeNamee"></i>
-                                                      </div>
-                                                      <div class="col">
-                                                          <div class="input-group mb-3">
-                                                              <label class="input-group-text" for="select{{this.itemID}}" id="basic-addon2">Thuộc danh mục</label>
-                                                              <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select{{this.itemID}}">
-                                                                  <option value="{{this.catID}}" style="display:none">Chọn danh mục</option>
-                                                                  {{#each ../../categories}}
-                                                                  <option value="{{this.catID}}">{{this.catName}}</option>
-                                                                  {{/each}}
-                                                              </select>
-                                                          </div>
-                                                          <i class="error changeCatt"></i>
-                                                      </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                      <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'{{this.itemID}}')">Lưu thay đổi</button>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <button class="btn btn-danger" onclick="handleDeleteItem(event,'{{this.itemID}}')">Xoá</button>
-                                  </td>
-                              </tr>
-                              {{/each}}
-                          </tbody>
-                      </table>
-                    </div>
-                </td>
-              </tr>
-            {{/each}} --}}
+
         </tbody>
     </table>
     <div class="pagination w-75 d-flex flex-row justify-content-center align-items-center">
@@ -203,7 +100,7 @@
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="catItemID" id="basic-addon2">Thuộc danh mục</label>
                         <select class="form-select form-select-sm tmp" aria-label="Small select example" id="catItemID" required>
-                            <option value="" style="display:none">Choose an option</option>
+                            <option value="" style="display:none">Chọn danh mục</option>
                             {{#each categories}}
                             <option value="{{this.catID}}">{{this.catName}}</option>
                             {{/each}}
@@ -226,7 +123,7 @@
   window.onload = function () {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
-        if (params.has("delete")) {
+        /*if (params.has("delete")) {
             params.delete("delete");
             url.search = params.toString();
             window.location.href = url.toString();
@@ -245,7 +142,7 @@
 
             url.search = ""
             window.location.href = url.toString();
-        }
+        }*/
     }
 $(() => {      
   const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
@@ -270,12 +167,6 @@ $(() => {
   $("#addCate").on("focus", async function (e) {
     hideError();
   });
-$("#addCate").on("mouseout", async function (e) {
-    hideError();
-  });
-
-
-  
   const showError1 = (message) => {
     $(".error.newIDD").text(message);
     $(".error.newIDD").css("visibility", "visible");
@@ -293,12 +184,9 @@ $("#addCate").on("mouseout", async function (e) {
     }
   });
 
-
   $("#newID").on("focus", async function (e) {
     hideError1();
 });
-
-
     const showError2 = (message) => {
     $(".error.newNameItemm").text(message);
     $(".error.newNameItemm").css("visibility", "visible");
@@ -319,7 +207,6 @@ $("#addCate").on("mouseout", async function (e) {
   $("#newNameItem").on("focus", async function (e) {
     hideError2();
 });
-
 
   const showError3 = (message) => {
     $(".error.catItemIDD").text(message);
@@ -343,7 +230,6 @@ $("#addCate").on("mouseout", async function (e) {
     hideError3();
   });
 
-
 const showError4 = (message) => {
     $(".error.changeNamee").text(message);
     $(".error.changeNamee").css("visibility", "visible");
@@ -366,8 +252,6 @@ document.querySelector('.changee').addEventListener('blur', async function (e) {
 document.querySelector('.changee').addEventListener('focus', function (event) {
     hideError4();
   });
-
-
 const showError5 = (message) => {
     $(".error.newCatNamee").text(message);
     $(".error.newCatNamee").css("visibility", "visible");
@@ -390,34 +274,45 @@ document.querySelector('.catChangee').addEventListener('blur', async function (e
 document.querySelector('.catChangee').addEventListener('focus', function (event) {
     hideError5();
   });
-
+$(document).ready(function () {
+    $(document).on('click', '.btnAddCat', function (e) {
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+    })
+    $(document).on('click', '.btnAddItem', function (e) {
+        e.preventDefault();
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+    })
+    $(document).on('click', '.btnChangeCat', function (e) {
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+    })
+    $(document).on('click', '.btnChangeItem', function (e) {
+        e.preventDefault();
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+    })
 });
 
-function validateCategoryName() {
-  var categoryNameInput = document.getElementById('addCate');
-  var categoryName = categoryNameInput.value.trim();
-  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-      return false; 
-  }
-  return true; 
-}
 
-function handleAdd(event) {
-    if (validateCategoryName()) {
-    event.preventDefault(); 
-    let CatName = document.getElementById("addCate").value;
-    let url = new URL(window.location.href);
-    url.search = "";
-    
-    let params = new URLSearchParams(url.search);
-
-    params.set("add", CatName);
-    url.search = params.toString();
-
-    //console.log(url)
-    window.location.href = url.toString();
-  }
-}
+});
 
 function handleDelete(event, CatID) {
     event.preventDefault();
@@ -460,7 +355,8 @@ function handleEdit(event, CatID) {
         params.set("catName", CatName);
         url.search = params.toString();
         window.location.href = url.toString();
-    }    
+    }  
+
 }
 function validateEditItem(itemID){
     let itemNamenew = document.getElementById("Name" + itemID).value;
@@ -486,11 +382,8 @@ function handleEditItem(event, itemID) {
     window.location.href = url.toString();
     }    
 }
+
 function validateSubcategory() {
-   /* const idValue = $("#newID").val();
-    const nameValue = $("#newNameItem").val();
-    const selectedCategory = $("#catItemID").val();
-    const value = e.target.value;*/
     let idValue = document.getElementById("newID").value;
     let nameValue = document.getElementById("newNameItem").value;
     let selectedCategory = document.getElementById("catItemID").value;
@@ -528,130 +421,197 @@ function handleAddItem(event) {
     window.location.href = url.toString();
   }
 }
+function validateCategoryName() {
+  var categoryNameInput = document.getElementById('addCate');
+  var categoryName = categoryNameInput.value.trim();
+  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+      return false; 
+  }
+  return true; 
+}
 
+function handleAdd(event) {
+    if (validateCategoryName()) {
+    event.preventDefault(); 
+    let CatName = document.getElementById("addCate").value;
+    let url = new URL(window.location.href);
+    url.search = "";
+    
+    let params = new URLSearchParams(url.search);
+
+    params.set("add", CatName);
+    url.search = params.toString();
+
+    //console.log(url)
+    window.location.href = url.toString();
+  }
+}
 let currentPage = 1;
-const perPage = 5;
+const perPage = 7;
 let maxPage = 1;
 function updateTable() {
-        fetch(`/admin/category/page?page=${currentPage}&perPage=${perPage}`)
-            .then(response => response.json())
-            .then(data => {
-                const tbody = document.querySelector('tbody');
-                tbody.innerHTML = '';
-                data.cats.forEach(cat => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                   <tr>
-                <td class="align-middle text-center">${cat.catID}</td>
-                <td class="align-middle text-center" value="${cat.catName}" id="Name${cat.catID}">${cat.catName}</td>
-                <td class="align-middle text-center">
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalat${cat.catID}">Đổi tên</button>
-                    <div class="modal fade" id="exampleModalat${cat.catID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa tên danh mục</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="col">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text" for="Cat${cat.catID}" id="basic-addon2">Tên mới</label>
-                                            <input class="form-control catChangee" name = "catChangee" aria-describedby="basic-addon1"  type="text" value="${cat.catName}" id="Cat${cat.catID}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
-                                            <i class="error newCatNamee"></i>
-                                        </div>
+    fetch(`/admin/category/page?page=${currentPage}&perPage=${perPage}`)
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+            data.cats.forEach(cat => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="align-middle text-center">${cat.catID}</td>
+                    <td class="align-middle text-center" value="${cat.catName}" id="Name${cat.catID}">${cat.catName}</td>
+                    <td class="align-middle text-center">
+                        <button type="button" class="btn btn-warning btnChangeCat" data-bs-toggle="modal" data-bs-target="#exampleModalat${cat.catID}">Đổi tên</button>
+                        <div class="modal fade" id="exampleModalat${cat.catID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Sửa tên danh mục</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                </div>    
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
-                                    <button type="button" class="btn btn-primary" onclick="handleEdit(event,${cat.catID})">Lưu thay đổi</button>
+                                    <div class="modal-body">
+                                        <div class="col">
+                                            <div class="input-group mb-3">
+                                                <label class="input-group-text" for="Cat${cat.catID}" id="basic-addon2">Tên mới</label>
+                                                <input class="form-control catChangee" name = "catChangee" aria-describedby="basic-addon1"  type="text" value="${cat.catName}" id="Cat${cat.catID}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                                <i class="error newCatNamee"></i>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" onclick="handleEdit(event,${cat.catID})">Lưu thay đổi</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <button class="btn btn-danger" onclick="handleDelete(event,${cat.catID})">Xoá</button>
-                </td>
-                <td class="align-middle subcategory-list text-center">
-                    <button type="button" class="btn btn-info view-subcategories-btn" onclick="toggleSubcategories(this)">Xem chi tiết
-                    </button>
-                    <!-- Phần tử HTML để chứa danh sách danh mục con -->
-                     <div class="subcategories-list" style="display: none;">
-                        <table class="table mt-2 table-secondary align-middle">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${cat.items.map(item => `
+                        <button class="btn btn-danger" onclick="handleDelete(event,${cat.catID})">Xoá</button>
+                    </td>
+                    <td class="align-middle subcategory-list text-center">
+                        <button type="button" class="btn btn-info view-subcategories-btn" onclick="toggleSubcategories(this)">Xem chi tiết
+                        </button>
+                        <!-- Phần tử HTML để chứa danh sách danh mục con -->
+                            <div class="subcategories-list" style="display: none;">
+                            <table class="table mt-2 table-secondary align-middle">
+                                <thead>
                                     <tr>
-                                        <td>${item.itemID}</td>
-                                        <td>${item.itemName}</td>
-                                        <td>
-                                            <!-- Nút sửa -->
-                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal${item.itemID}">Sửa</button>
-                                            <!-- Modal sửa -->
-                                            <div class="modal fade" id="exampleModal${item.itemID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <th>ID</th>
+                                        <th>Tên danh mục</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${cat.items.map(item => `
+                                        <tr>
+                                            <td>${item.itemID}</td>
+                                            <td>${item.itemName}</td>
+                                            <td>
+                                                <!-- Nút sửa -->
+                                                <button type="button" class="btn btn-warning btnChangeItem" data-bs-toggle="modal" data-bs-target="#exampleModal${item.itemID}">Sửa</button>
+                                                <!-- Modal sửa -->
+                                                <div class="modal fade" id="exampleModal${item.itemID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            <div class="col">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon2">ID</span>
+                                                                    <input class="form-control" aria-describedby="basic-addon1"  type="text" value="${item.itemID}" readonly disabled="true">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-group mb-3 ">
+                                                                    <label class="input-group-text" for="Name${item.itemID}" id="basic-addon2">Tên</label>
+                                                                    <input class="form-control changee" name = "changee" aria-describedby="basic-addon1"  type="text" value="${item.itemName}" id="Name${item.itemID}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
+                                                                </div>
+                                                                <i class="error changeNamee"></i>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="input-group mb-3">
+                                                                    <label class="input-group-text" for="select${item.itemID}" id="basic-addon2">Thuộc danh mục</label>
+                                                                    <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select${item.itemID}">
+                                                                        <option value="${item.catID}" style="display:none">Chọn danh mục</option>
+                                                                        ${data.catsList.map(cat => `
+                                                                            <option value="${cat.catID}">${cat.catName}</option>
+                                                                        `).join('')}
+                                                                    </select>
+                                                                </div>
+                                                                <i class="error changeCatt"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-body">
-                                                      <div class="col">
-                                                          <div class="input-group mb-3">
-                                                              <span class="input-group-text" id="basic-addon2">ID</span>
-                                                              <input class="form-control" aria-describedby="basic-addon1"  type="text" value="${item.itemID}" readonly disabled="true">
-                                                          </div>
-                                                      </div>
-                                                      <div class="col">
-                                                          <div class="input-group mb-3 ">
-                                                              <label class="input-group-text" for="Name${item.itemID}" id="basic-addon2">Tên</label>
-                                                              <input class="form-control changee" name = "changee" aria-describedby="basic-addon1"  type="text" value="${item.itemName}" id="Name${item.itemID}" pattern="^(?!.*\s{2})[a-zA-Z0-9\s_-]{3,50}(?<!\s)$" required>
-                                                          </div>
-                                                          <i class="error changeNamee"></i>
-                                                      </div>
-                                                      <div class="col">
-                                                          <div class="input-group mb-3">
-                                                              <label class="input-group-text" for="select${item.itemID}" id="basic-addon2">Thuộc danh mục</label>
-                                                                <select class="form-select form-select-sm" name="changeCatt" aria-label="Small select example" id="select${item.itemID}">
-                                                                    <option value="${item.catID}" style="display:none">Chọn danh mục</option>
-                                                                    ${data.cats.map(cat => `
-                                                                        <option value="${cat.catID}">${cat.catName}</option>
-                                                                    `).join('')}
-                                                                </select>
-                                                          </div>
-                                                          <i class="error changeCatt"></i>
-                                                      </div>
-                                                  </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                            <button type="button" class="btn btn-primary" onclick="editItem()">Lưu thay đổi</button>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary cancel" data-bs-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn btn-primary" onclick="handleEditItem(event,'${item.itemID}')">Lưu thay đổi</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- Nút xóa -->
-                                            <button class="btn btn-danger" onclick="deleteItem(${item.itemID})">Xóa</button>
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-                `;
+                                                <!-- Nút xóa -->
+                                                <button class="btn btn-danger" onclick="handleDeleteItem(event,'${item.itemID}')">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </td> `;
                 console.log(tr);
-                    tbody.appendChild(tr);
+                tbody.appendChild(tr);
+
+                /*$(tr).find('table tbody tr').each(function() {
+                    // Xử lý sự kiện blur cho tất cả các input có class 'changee' trong bảng nhỏ
+                    $(this).find('.changee').on('blur', function (e) {
+                        const value = e.target.value;
+                        if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+                            showError($(this).siblings(".error.changeNamee"), "Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+                        } else {
+                            hideError($(this).siblings(".error.changeNamee"));
+                        }
+                    });
+                    
+                    // Xử lý sự kiện focus cho tất cả các input có class 'changee' trong bảng nhỏ
+                    $(this).find('.changee').on('focus', function () {
+                        hideError($(this).siblings(".error.changeNamee"));
+                    });
+                });*/
+
+                $(tr).find('.catChangee').on('blur', function (e) {
+                    const value = e.target.value;
+                    if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+                        showError($(this).siblings(".error.newCatNamee"), "Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+                    } else {
+                        hideError($(this).siblings(".error.newCatNamee"));
+                    }
                 });
-                maxPage = data.maxPage;
-                document.querySelector('.current-page').value = currentPage;
-                document.querySelector('.max-page').value = data.maxPage;
+
+                $(tr).find('.catChangee').on('focus', function () {
+                    hideError($(this).siblings(".error.newCatNamee"));
+                });
             });
-    }
+
+           
+            maxPage = data.maxPage;
+            document.querySelector('.current-page').value = currentPage;
+            document.querySelector('.max-page').value = data.maxPage;
+        });
+        
+}
+
+function showError(element, message) {
+    element.text(message);
+    element.css("visibility", "visible");
+}
+
+function hideError(element) {
+    element.text("");
+    element.css("visibility", "hidden");
+}
+
+         
 updateTable();
 
 document.querySelector('.previous-page').addEventListener('click', () => {
@@ -720,9 +680,15 @@ table {
     border: 1px solid #000; /* Viền 4 cạnh với độ dày là 1px và màu đen */
     border-collapse: collapse; /* Đảm bảo việc gộp viền giữa các ô */
 }
-  .error-message {
-        color: red;
-        font-size: 0.875rem;
-        display: none;
-    }
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+    display: none;
+}
+.error {
+    color: red;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+}
 </style>
