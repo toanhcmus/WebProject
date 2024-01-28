@@ -145,7 +145,7 @@
         }*/
     }
 $(() => {      
-  const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+  const str = /^(?!.*  )[^\d]*$/;
 
 
   const showError = (message) => {
@@ -159,7 +159,7 @@ $(() => {
   $("#addCate").on("blur", async function(e){
     const value = e.target.value;
     if (!value.match(str)) {
-      showError("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+      showError("Không chứa số và 2 khoảng trắng liên tiếp");
     } else {
       hideError();
     }
@@ -197,8 +197,8 @@ $(() => {
   };
   $("#newNameItem").on("blur", async function(e){
     const value = e.target.value;
-    if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-      showError2("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    if (!value.match(/^(?!.*  )[^\d]*$/)) {
+      showError2("Không chứa số và 2 khoảng trắng liên tiếp");
     } else {
       hideError2();
     }
@@ -242,7 +242,7 @@ const showError4 = (message) => {
 document.querySelector('.changee').addEventListener('blur', async function (e) {
     const value = e.target.value;
     if (!value.match(str)) {
-      showError4("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+      showError4("Không chứa số và 2 khoảng trắng liên tiếp");
     } else {
       hideError4();
     }
@@ -264,7 +264,7 @@ const showError5 = (message) => {
 document.querySelector('.catChangee').addEventListener('blur', async function (e) {
     const value = e.target.value;
     if (!value.match(str)) {
-      showError5("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+      showError5("Không chứa số và 2 khoảng trắng liên tiếp");
     } else {
       hideError5();
     }
@@ -338,7 +338,7 @@ function handleDeleteItem(event, ItemID){
 }
 function validateEdit(catID){
     let itemNamenew = document.getElementById("Cat" + catID).value;
-    if (!itemNamenew.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
+    if (!itemNamenew.match(/^(?!.*  )[^\d]*$/)){
         return false;
     }
     return true;
@@ -359,7 +359,7 @@ function handleEdit(event, CatID) {
 }
 function validateEditItem(itemID){
     let itemNamenew = document.getElementById("Name" + itemID).value;
-    if (!itemNamenew.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
+    if (!itemNamenew.match(/^(?!.*  )[^\d]*$/)){
         return false;
     }
     return true;
@@ -390,7 +390,7 @@ function validateSubcategory() {
     if (!idValue.match(/^[A-Z]{3}$/)) {
         return false;
     };
-    if (!nameValue.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
+    if (!nameValue.match(/^(?!.*  )[^\d]*$/)){
         return false;
     };
 
@@ -423,7 +423,7 @@ function handleAddItem(event) {
 function validateCategoryName() {
   var categoryNameInput = document.getElementById('addCate');
   var categoryName = categoryNameInput.value.trim();
-  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+  if (!categoryName.match(/^(?!.*  )[^\d]*$/)) {
       return false; 
   }
   return true; 
@@ -565,8 +565,8 @@ function updateTable() {
                     // Xử lý sự kiện blur cho tất cả các input có class 'changee' trong bảng nhỏ
                     $(this).find('.changee').on('blur', function (e) {
                         const value = e.target.value;
-                        if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-                            showError($(this).siblings(".error.changeNamee"), "Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+                        if (!value.match(/^(?=\S)(?!.*\s{6,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+                            showError($(this).siblings(".error.changeNamee"), "Không chứa số và 2 khoảng trắng liên tiếp");
                         } else {
                             hideError($(this).siblings(".error.changeNamee"));
                         }
@@ -580,8 +580,8 @@ function updateTable() {
 
                 $(tr).find('.catChangee').on('blur', function (e) {
                     const value = e.target.value;
-                    if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-                        showError($(this).siblings(".error.newCatNamee"), "Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+                    if (!value.match(/^(?!.*  )[^\d]*$/)) {
+                        showError($(this).siblings(".error.newCatNamee"), "Không chứa số và 2 khoảng trắng liên tiếp");
                     } else {
                         hideError($(this).siblings(".error.newCatNamee"));
                     }
