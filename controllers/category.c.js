@@ -109,7 +109,7 @@ module.exports = {
             let deleteItemID = urlObj.searchParams.get("deleteItem");
 
             if (itemName && await Category.checkItemNameExist(itemName) || addItemName&&await Category.checkItemNameExist(addItemName)){
-                throw(`Tên danh mục ${itemName})} đã tồn tại!`);
+                throw(`Tên danh mục ${itemName} đã tồn tại!`);
             }
             else if (await Category.checkItemIDExist(addItemID)){
                 throw(`Danh mục có ID này đã tồn tại!`);

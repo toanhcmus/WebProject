@@ -1,27 +1,27 @@
 <div id="menu" >
     <div class="container text-center ">
         <ul class="row align-items-start ul-admin ">
-            <li class="col" style="background-color:rgb(172, 203, 255); height:150px; padding-top:50px">
-                <a href="/admin/account">Quản lý tài khoản</a>
+            <li class="col">
+                <a class="button" href="/admin/account">Quản lý tài khoản</a>
             </li>
-            <li class="col " style="background-color:rgb(172, 203, 255); height:150px; padding-top:50px">
-                <a href="/admin/category">Quản lý danh mục</a>
-            </li>
-        </ul>
-        <ul class="row align-items-start ul-admin">
-            <li class="col" style="background-color:rgb(172, 203, 255); height:150px; padding-top:50px">
-                <a class="menu-link"  href="/admin/products">Quản lý sản phẩm</a>
-            </li>
-            <li class="col" style="background-color:rgb(172, 203, 255); height:150px; padding-top:50px">
-                <a class="menu-link" href="/admin/chart">Thống kê</a>
+            <li class="col ">
+                <a class="button" href="/admin/category">Quản lý danh mục</a>
             </li>
         </ul>
         <ul class="row align-items-start ul-admin">
-            <li class="col " style="background-color:rgb(172, 203, 255); height:150px; padding-top:50px">
-                <a class="menu-link"  href="/admin/bills">Danh sách hóa đơn</a>
+            <li class="col">
+                <a class="button"  href="/admin/products">Quản lý sản phẩm</a>
             </li>
-            <li class="col " style="background-color:rgb(172, 203, 255); height:150px; padding-top:50px">
-                <a class="menu-link" href="/admin/paymenthistory">Lịch sử giao dịch</a>
+            <li class="col" >
+                <a class="button" href="/admin/chart">Thống kê</a>
+            </li>
+        </ul>
+        <ul class="row align-items-start ul-admin">
+            <li class="col ">
+                <a class="button"  href="/admin/bills">Danh sách hóa đơn</a>
+            </li>
+            <li class="col ">
+                <a class="button" href="/admin/paymenthistory">Lịch sử giao dịch</a>
             </li>
         </ul>
         
@@ -48,28 +48,23 @@
         padding: 0;
     }
 
-    .col {
-        border: 2px solid #000;
-        margin: 20px;
-        padding: 20px;
-        border-radius: 10px;
-    }
 
-    a {
+    .button {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        padding: 10px 30px;
         text-decoration: none;
-        font-weight: bolder;
-        text-transform: uppercase;
-        color: #000;
+        border-radius: 5px;
+        margin-top: 20px;
         cursor: pointer;
-        transition: color 0.4s linear;
-        position: relative;
+        width: 400px;
+        height: 150px;
+        padding-top: 50px;
+        font-size: 20px;
     }
 
-    a:hover {
-        color: #000;
-    }
-
-    li:hover {
-        background-color: #ccc;
+    .button:hover {
+        background-color: #2980b9;
     }
 </style>

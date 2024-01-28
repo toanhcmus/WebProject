@@ -877,7 +877,7 @@ module.exports = {
                 ('username1', '12/03/2024', 4100000,1),
                 ('un1', '12/04/2024', 3500000,0),
                 ('un1', '12/05/2024', 2900000,0);
-            
+                
                 INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSP", "SoLuong") VALUES
                 (1, 'SDN02', 1),
                 (1, 'DNN03', 2),
