@@ -107,17 +107,15 @@ module.exports = {
             let itemName =  urlObj.searchParams.get("itemName");
             let itemCategory =  urlObj.searchParams.get("catID");
             let deleteItemID = urlObj.searchParams.get("deleteItem");
+            
+            if (editItem && itemName && itemCategory){
+                await Category.updateItem(editItem, itemName, parseInt(itemCategory));
+            };
 
-            if (itemName && await Category.checkItemNameExist(itemName) || addItemName&&await Category.checkItemNameExist(addItemName)){
-                throw(`Tên danh mục ${itemName} đã tồn tại!`);
-            }
-            else if (await Category.checkItemIDExist(addItemID)){
+            if (await Category.checkItemIDExist(addItemID)){
                 throw(`Danh mục có ID này đã tồn tại!`);
             }
             else {
-                if (editItem && itemName && itemCategory){
-                    await Category.updateItem(editItem, itemName, parseInt(itemCategory));
-                }
                 
                 if (addCatID && addItemID && addItemName){
                     await Category.addItem(addItemID, addItemName, parseInt(addCatID));

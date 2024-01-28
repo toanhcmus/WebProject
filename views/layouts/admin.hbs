@@ -101,7 +101,7 @@
                     console.log(url);
                     $('#imageUrl').val(url);
                     $('#productForm').submit();
-                    alert('Thêm sản phẩm thành công')
+                    alert('Thông tin hợp lệ, sẽ tiến hành thêm sản phẩm')
                 }).catch(console.error);
             }          
         });
@@ -125,7 +125,7 @@
             if (!(namee1 && des1 && price1 && count1 && producer1)) {
                 alert('Vui lòng điền đầy đủ thông tin');
             }
-            else if (!(namee.match(/^.+$/) && des.match(str) && price > 10000 && count > 1 && producer.match(/^.+$/))){
+            else if (!(namee.match(/^.+$/) && des.match(/^.+$/) && price > 10000 && count > 1 && producer.match(/^.+$/))){
                 alert('Vui lòng điền các thông tin hợp lệ');
             }
             else $('#productForm').submit();
