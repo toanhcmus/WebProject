@@ -251,6 +251,13 @@
             height: 40px;
             width: 40px;
         }
+
+        .error {
+            color: red;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -272,10 +279,18 @@
         <div class="form-container sign-up-container">
             <form action="/register" method="POST">
                 <h1>Đăng ký</h1>
-                <input type="text" placeholder="Username" name="requsername" value="{{username}}" pattern="^[^\s]*$" required/>
-                <input type="email" placeholder="Email" name="reqemail" value="{{email}}" pattern="^[^\s]*$" required/>
-                <input type="password" placeholder="Password" name="reqpassword" value="{{password}}" pattern="^[^\s]*$" required/>
-                <input type="password" placeholder="Confirm Password" name="reqcpassword" value="{{cpassword}}" pattern="^[^\s]*$" required/>
+                <input type="text" id="reg-username-input" placeholder="Username" name="requsername"
+                    value="{{username}}" pattern="^[^\s]*$" required />
+                <i class="error reg-username"></i>
+                <input type="email" id="reg-email-input" placeholder="Email" name="reqemail" value="{{email}}"
+                    pattern="^[^\s]*$" required />
+                <i class="error reg-email"></i>
+                <input type="password" id="reg-password-input" placeholder="Password" name="reqpassword"
+                    value="{{password}}" pattern="^[^\s]*$" required />
+                <i class="error reg-password"></i>
+                <input type="password" id="reg-confirmpassword-input" placeholder="Confirm Password" name="reqcpassword"
+                    value="{{cpassword}}" pattern="^[^\s]*$" required />
+                <i class="error reg-confirmpassword"></i>
                 <span>hoặc thông qua</span>
                 <div class="social-container mb-1">
                     <a href="/auth/google" class="social"><i class="fab fa-google"></i></a>
@@ -286,8 +301,12 @@
         <div class="form-container sign-in-container">
             <form action="/verify" method="POST">
                 <h1>Đăng nhập</h1>
-                <input type="text" placeholder="Username" name="username" value="{{username}}" pattern="^[^\s]*$" required/>
-                <input type="password" placeholder="Password" name="password" value="{{password}}" pattern="^[^\s]*$" required/>
+                <input type="text" id="login-username-input" placeholder="Username" name="username" value="{{username}}" pattern="^[^\s]*$"
+                    required />
+                <i class="error login-username"></i>
+                <input type="password" id="login-password-input" placeholder="Password" name="password" value="{{password}}" pattern="^[^\s]*$"
+                    required />
+                <i class="error login-password"></i>
                 <span>hoặc thông qua</span>
                 <div class="social-container mb-1">
                     <a href="/auth/google" class="social"><i class="fab fa-google"></i></a>
@@ -325,6 +344,83 @@
 
         signInButton.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
+        });
+        
+        $(document).ready(function () {
+            const str = /^[^\s]*$/;
+            const emailstr = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+            $("#reg-username-input").on("blur", async function (e) {
+                const value = e.target.value;
+                if (!value.match(str)) {
+                    $(".error.reg-username").text("Username không thể chứa cách trắng");
+                } else {
+                    $(".error.reg-username").text("");
+                }
+            });
+            $("#reg-username-input").on("focus", async function (e) {
+                $(".error.reg-username").text("");
+            });
+
+            $("#reg-email-input").on("blur", async function (e) {
+                const value = e.target.value;
+                if (!value.match(emailstr)) {
+                    $(".error.reg-email").text("Email chưa đúng định dạng");
+                } else {
+                    $(".error.reg-email").text("");
+                }
+            });
+            $("#reg-email-input").on("focus", async function (e) {
+                $(".error.reg-email").text("");
+            });
+
+            $("#reg-password-input").on("blur", async function (e) {
+                const value = e.target.value;
+                if (!value.match(str)) {
+                    $(".error.reg-password").text("Password không thể chứa cách trắng");
+                } else {
+                    $(".error.reg-password").text("");
+                }
+            });
+            $("#reg-password-input").on("focus", async function (e) {
+                $(".error.reg-password").text("");
+            });
+
+            $("#reg-confirmpassword-input").on("blur", async function (e) {
+                const value = e.target.value;
+                if (!value.match(str)) {
+                    $(".error.reg-confirmpassword").text("Password nhập lại không thể chứa cách trắng");
+                } else {
+                    $(".error.reg-confirmpassword").text("");
+                }
+            });
+            $("#reg-confirmpassword-input").on("focus", async function (e) {
+                $(".error.reg-confirmpassword").text("");
+            });
+
+            $("#login-username-input").on("blur", async function (e) {
+                const value = e.target.value;
+                if (!value.match(str)) {
+                    $(".error.login-username").text("Username không thể chứa cách trắng");
+                } else {
+                    $(".error.login-username").text("");
+                }
+            });
+            $("#login-username-input").on("focus", async function (e) {
+                $(".error.login-username").text("");
+            });
+
+            $("#login-password-input").on("blur", async function (e) {
+                const value = e.target.value;
+                if (!value.match(str)) {
+                    $(".error.login-password").text("Password không thể chứa cách trắng");
+                } else {
+                    $(".error.login-password").text("");
+                }
+            });
+            $("#login-password-input").on("focus", async function (e) {
+                $(".error.login-password").text("");
+            });
         });
     </script>
 </body>
