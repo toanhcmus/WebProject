@@ -2,6 +2,15 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const User = require('../models/User.js');
 const Category = require('../models/Category.js');
+const Product = require('../models/Product');
+const paymentM = require('../models/Payment');
+const billM = require('../models/Bill');
+const fs = require('fs');
+const path = require('path');
+const billC = require('./bill.c');
+const productM = require('../models/Product');
+const jwt = require('jsonwebtoken');
+
 module.exports = {
     register: async (req, res, next) => {
         const body = req.body;
@@ -90,6 +99,20 @@ module.exports = {
         });
     },
     changePassword: async (req, res, next) => {
+
+        let user;
+        let paymentHistory;
+        let allBills;
+        const categories = await Category.allCategory();       
+        const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = categories.map((categories) => {
+            const items = categoryItems.filter((item) => item.catID === categories.catID);
+            return { ...categories, items };
+        });
+        let token;
+        let userToken;
+        const cart = req.session.cart;
+
         if (req.isAuthenticated() || req.user) {
             const body = req.query;
             let error = null;
@@ -102,11 +125,28 @@ module.exports = {
             }
 
             let rs = await User.getUser(body.cpUsername);
+            allBills = await billM.selectHoaDon(rs.username);
+            user = await paymentM.selectUser(rs.username);
+            paymentHistory = await paymentM.selectPaymentByUser(rs.username);
+            user = await paymentM.selectUser(rs.username);
+            paymentHistory = await paymentM.selectPaymentByUser(rs.username);;
+            const userData = req.user;
+            userToken = {
+                "username": userData.username,
+                "password": userData.password
+            }
+            token = jwt.sign(userToken, 'mysecretkey', { expiresIn: '1h' });
 
             if (error) {
                 res.render('profile', {
                     layout: 'main',
                     account: rs,
+                    allBills: allBills, 
+                    categories: dataForHbs,
+                    cart: cart, 
+                    user: user,
+                    token: token,
+                    paymentHistory: paymentHistory,
                     error: error
                 });
             }
@@ -117,16 +157,43 @@ module.exports = {
                         const pwHashed = await bcrypt.hash(body.cpNewPassword, saltRounds);
                         await User.editUser(body.cpUsername, rs.email, pwHashed);
                         rs = await User.getUser(body.cpUsername);
-                        res.render('profile', {
-                            layout: 'main',
-                            account: rs,
+                        user = await paymentM.selectUser(rs.username);
+                        paymentHistory = await paymentM.selectPaymentByUser(rs.username);
+                        // console.log("payment History");
+                        // console.log(paymentHistory);
+                        const userData = req.user;
+                        userToken = {
+                            "username": userData.username,
+                            "password": userData.password
+                        }
+                        token = jwt.sign(userToken, 'mysecretkey', { expiresIn: '1h' });
+                        
+                        res.render('profile', { layout: 'main', 
+                            account: rs, 
+                            allBills: allBills, 
+                            categories: dataForHbs,
+                            cart: cart, 
+                            user: user,
+                            token: token,
+                            paymentHistory: paymentHistory,
                             success: "Đổi mật khẩu thành công!"
-                        });
+                             });
+                        // res.render('profile', {
+                        //     layout: 'main',
+                        //     account: rs,
+                            
+                        // });
                     }
                     else {
                         res.render('profile', {
                             layout: 'main',
                             account: rs,
+                            allBills: allBills, 
+                            categories: dataForHbs,
+                            cart: cart, 
+                            user: user,
+                            token: token,
+                            paymentHistory: paymentHistory,
                             error: "Lỗi xảy ra! (Sai mật khẩu)"
                         });
                     }
