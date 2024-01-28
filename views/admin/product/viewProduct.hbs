@@ -37,6 +37,17 @@
             .card:hover {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     }
+    .error-message {
+    color: red;
+    font-size: 0.875rem;
+    display: none;
+}
+.error {
+    color: red;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: bold;
+}
     .product-name {
     
    
@@ -49,9 +60,32 @@
     word-wrap: break-word; /* Cho phép từ bị phá vỡ ngang khi không thể hiển thị trên cùng một dòng */
     }
 </style>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
-    Thêm sản phẩm
-</button>
+<div class="container d-flex flex-column align-items-center mt-2">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-2 mb-3">
+        <strong>{{success}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+    {{#if error}}
+    <div class="alert alert-danger alert-dismissible fade show mt-2 mb-3">
+        <strong>{{error}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
+<div class="container-fluid">
+    <div class="row align-items-center"> <!-- Dòng chứa cả hai phần tử, căn giữa theo chiều dọc -->
+        <div class="col text-center"> <!-- Phần tử căn giữa theo chiều ngang -->
+            <h4 class="card-title">Danh sách sản phẩm
+                <button type="button" class="btn btn-primary btnAdd" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                <span class="fas fa-plus"></span> 
+            </button>
+            </h4>
+           
+        </div>
+
+    </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -66,53 +100,57 @@
                 <form  action="/admin/products" method="post" id="productForm">
                     <div class="mb-3">
                         <label for="inputID" class="form-label">ID</label>
-                        <input type="text" class="form-control" id="inputID" name="inputID" placeholder="Nhập ID" required>
+                        <input type="text" class="form-control inputID" id="inputID" name="inputID" placeholder="Nhập ID" required>
+                        <i class="error newID"></i>
                     </div>
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="inputName" name="inputName"
+                        <input type="text" class="form-control inputName" id="inputName" name="inputName"
                             placeholder="Nhập tên sản phẩm" required>
+                        <i class="error newName"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
-                        <input type="text" class="form-control" id="tinyDes" name="tinyDes"
-                            placeholder="Nhập mô tả ngắn" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
-                        <textarea class="form-control" id="fullDes" name="fullDes" rows="3"></textarea>
+                        <label for="fullDes" class="form-label">Mô tả</label>
+                        <textarea class="form-control fullDes" id="fullDes" name="fullDes" rows="3"></textarea>
+                        <i class="error newDes"></i>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Giá</label>
-                        <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá"required>
+                        <input type="number" class="form-control price" id="price" name="price" placeholder="Nhập giá"required>
+                        <i class="error newPrice"></i>
                     </div>
                     <div class="mb-3">
                         <label for="items" class="form-label">Danh mục</label>
                          <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items" required>
-                            <option value="" style="display:none">Choose an option</option>
+                            <option value="" style="display:none">Chọn danh mục</option>
                             {{#each catitem}}
                             <option value="{{this.itemID}}">{{this.itemName}}</option>
 s                            {{/each}}
                         </select>
+                         <i class="error newCat"></i>
                     </div>
                     <div class="mb-3">
                         <label for="count" class="form-label">Số lượng</label>
                         <input type="number" class="form-control" id="count" name="count" placeholder="Nhập số lượng">
+                        <i class="error newCount"></i>
                     </div>
                     <div class="mb-3">
                         <label for="producer" class="form-label">Nhà sản xuất</label>
                         <input type="text" class="form-control" id="producer" name="producer"
                             placeholder="Nhập nhà sản xuất" required>
+                            <i class="error newProducer"></i>
                     </div>
                     <div>
                         <input type="hidden" id="imageUrl" name="imageUrl">
                         <img id="imagePreview" src="" alt="..."
                             style="display:none; max-width: 200px; max-height: 200px;" />
+                        <i class="error newImage"></i>
                     </div>
                     <input name="Image" id="formFile" type="file" class="file" data-preview-file-type="text" required>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button class="btn btn-primary btnUpload" >Lưu thay đổi</button>
+                        <button class="btn btn-primary btnUpload" >Thêm</button>
                     </div>
                 </form>
 
@@ -126,8 +164,10 @@ s                            {{/each}}
     {{#each products}}
     <div class="product-item card " style="width: 18rem;margin: 5px;" id="{{this.id}}">
         <div>
+            <a href="/admin/products/{{this.id}}">
              <img src="{{this.images}}"
                 class="product-image" style="width: 100px, height: 100px" alt="...">
+            </a>
         </div>
         <div class="product-name">{{this.name}}</div>
         <div class="card-body">
@@ -145,45 +185,47 @@ s                            {{/each}}
             <div class="modal-body">
                 <form  action="/admin/products/{{this.id}}" method="post" id="productForm">
                     <div class="mb-3">
-                        <label for="inputID" class="form-label">ID</label>
-                        <input type="text" class="form-control" id="inputID" name="inputID1" value="{{this.id}}"placeholder="ID: " readonly>
+                        <label for="inputID1" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="inputID1" name="inputID1" value="{{this.id}}"placeholder="ID: " readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="inputName" class="form-label">Tên sản phẩm</label>
-                        <input type="text" class="form-control" id="inputName" name="inputName1" value="{{this.name}}" placeholder="Nhập tên sản phẩm">
+                        <label for="inputName1" class="form-label">Tên sản phẩm</label>
+                        <input type="text" class="form-control" id="inputName1" name="inputName1" value="{{this.name}}" placeholder="Nhập tên sản phẩm">
+                        <i class="error newName"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
-                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="{{this.tinyDes}}" placeholder="Nhập mô tả ngắn" >
+                        <label for="fullDes1" class="form-label">Mô tả đầy đủ</label>
+                        <textarea class="form-control" id="fullDes1" name="fullDes11" rows="3" value="{{this.fullDes}}" ></textarea>
+                        <i class="error newDes"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
-                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="{{this.fullDes}}" ></textarea>
+                        <label for="price1" class="form-label">Giá</label>
+                        <input type="number" class="form-control" id="price1" name="price1" value="{{this.price}}" placeholder="Nhập giá">
+                        <i class="error newPrice"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="price" class="form-label">Giá</label>
-                        <input type="number" class="form-control" id="price" name="price1" value="{{this.price}}" placeholder="Nhập giá">
-                    </div>
-                    <div class="mb-3">
-                        <label for="items" class="form-label">Danh mục</label>
-                         <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
-                            <option value="{{this.item}}" style="display:none"> Selected>Choose an option</option>
+                        <label for="items1" class="form-label">Danh mục</label>
+                         <select class="form-select form-select-sm" aria-label="Small select example" id="items1" name="items1" >
+                            <option value="{{this.item}}" style="display:none"> Chọn danh mục</option>
                             {{#each ../catitem}}
                             <option value="{{this.itemID}}">{{this.itemName}}</option>
                             {{/each}}
                         </select>
+                        <i class="error newCat"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="count" class="form-label">Số lượng</label>
-                        <input class="form-control" id="count" name="count1" value="{{this.count}}" placeholder="Nhập số lượng">
+                        <label for="count1" class="form-label">Số lượng</label>
+                        <input class="form-control" id="count1" name="count1" value="{{this.count}}" placeholder="Nhập số lượng">
+                        <i class="error newCount"></i>
                     </div>
                     <div class="mb-3">
-                        <label for="producer" class="form-label">Nhà sản xuất</label>
-                        <input type="text" class="form-control" id="producer" name="producer1" value="{{this.producer}}" placeholder="Nhập nhà sản xuất">
+                        <label for="producer1" class="form-label">Nhà sản xuất</label>
+                        <input type="text" class="form-control" id="producer1" name="producer1" value="{{this.producer}}" placeholder="Nhập nhà sản xuất">
+                        <i class="error newProducer"></i>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
+                        <button class="btn btn-primary btnChange" type="submit" >Lưu thay đổi</button>
                     </div>
                 </form>
 
@@ -234,287 +276,17 @@ s                            {{/each}}
         else window.location.href = window.location.href + '&id=' + id;    }*/
 
   
-$(() => {      
-  const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
 
+document.addEventListener('DOMContentLoaded', function () {
+    const products = document.querySelectorAll('.product');
 
-  const showError = (message) => {
-    $(".error.addCatee").text(message);
-    $(".error.addCatee").css("visibility", "visible");
-  };
-  const hideError = () => {
-    $(".error.addCatee").text("");
-    $(".error.addCatee").css("visibility", "hidden");
-  };
-  $("#addCate").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError();
-    }
-  });
-  $("#addCate").on("focus", async function (e) {
-    hideError();
-  });
-$("#addCate").on("mouseout", async function (e) {
-    hideError();
-  });
-
-  const showError1 = (message) => {
-    $(".error.newIDD").text(message);
-    $(".error.newIDD").css("visibility", "visible");
-  };
-  const hideError1 = () => {
-    $(".error.newIDD").text("");
-    $(".error.newIDD").css("visibility", "hidden");
-  };
-  $("#newID").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(/^[A-Z]{3}$/)) {
-      showError1("Mã danh mục con chỉ chứa 3 ký tự và chỉ có chữ in hoa");
-    } else {
-      hideError1();
-    }
-  });
-
-  $("#newID").on("focus", async function (e) {
-    hideError1();
-});
-    const showError2 = (message) => {
-    $(".error.newNameItemm").text(message);
-    $(".error.newNameItemm").css("visibility", "visible");
-  };
-  const hideError2 = () => {
-    $(".error.newNameItemm").text("");
-    $(".error.newNameItemm").css("visibility", "hidden");
-  };
-  $("#newNameItem").on("blur", async function(e){
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError2("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError2();
-    }
-  });
-
-  $("#newNameItem").on("focus", async function (e) {
-    hideError2();
-});
-
-  const showError3 = (message) => {
-    $(".error.catItemIDD").text(message);
-    $(".error.catItemIDD").css("visibility", "visible");
-  };
-  const hideError3 = () => {
-    $(".error.catItemIDD").text("");
-    $(".error.catItemIDD").css("visibility", "hidden");
-  };
-  $("#catItemID").on("blur", async function(e){
-    const value = e.target.value;
-    const selectedValue = $("#catItemID").val(); 
-    if (!value.match(/^.+$/)) {
-      showError3("Vui lòng chọn danh mục");
-    } else {
-      hideError3();
-    }
-  });
-
-  $("#catItemID").on("focus", async function (e) {
-    hideError3();
-  });
-
-const showError4 = (message) => {
-    $(".error.changeNamee").text(message);
-    $(".error.changeNamee").css("visibility", "visible");
-  };
-const hideError4 = () => {
-    $(".error.changeNamee").text("");
-    $(".error.changeNamee").css("visibility", "hidden");
-  };
-
-document.querySelector('.changee').addEventListener('blur', async function (e) {
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError4("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError4();
-    }
-
-});
-
-document.querySelector('.changee').addEventListener('focus', function (event) {
-    hideError4();
-  });
-const showError5 = (message) => {
-    $(".error.newCatNamee").text(message);
-    $(".error.newCatNamee").css("visibility", "visible");
-  };
-  const hideError5 = () => {
-    $(".error.newCatNamee").text("");
-    $(".error.newCatNamee").css("visibility", "hidden");
-  };
-
-document.querySelector('.catChangee').addEventListener('blur', async function (e) {
-    const value = e.target.value;
-    if (!value.match(str)) {
-      showError5("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
-    } else {
-      hideError5();
-    }
-
-});
-
-document.querySelector('.catChangee').addEventListener('focus', function (event) {
-    hideError5();
-  });
-});
-
-function handleDelete(event, CatID) {
-    event.preventDefault();
-    let url = new URL(window.location.href);
-    url.search = "";
-    let params = new URLSearchParams(url.search);
-    params.set("delete", CatID);        
-    url.search = params.toString();
-    window.location.href = url.toString();
-}
-
-function handleDeleteItem(event, ItemID){
-    event.preventDefault();
-    let url = new URL(window.location.href);
-    url.search = "";
-    
-    let params = new URLSearchParams(url.search);
-
-    params.set("deleteItem", ItemID);
-    url.search = params.toString();
-
-    //console.log(url)
-    window.location.href = url.toString();
-}
-function validateEdit(catID){
-    let itemNamenew = document.getElementById("Cat" + catID).value;
-    if (!itemNamenew.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
-        return false;
-    }
-    return true;
-}
-function handleEdit(event, CatID) {
-    if (validateEdit(CatID)){
-        event.preventDefault();
-        let CatName = document.getElementById("Cat" + CatID).value;
-        let url = new URL(window.location.href);
-        url.search = "";
-        let params = new URLSearchParams(url.search);
-        params.set("edit", CatID);
-        params.set("catName", CatName);
-        url.search = params.toString();
-        window.location.href = url.toString();
-    }    
-}
-function validateEditItem(itemID){
-    let itemNamenew = document.getElementById("Name" + itemID).value;
-    if (!itemNamenew.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
-        return false;
-    }
-    return true;
-}
-function handleEditItem(event, itemID) {
-    if (validateEditItem(itemID)){
-    event.preventDefault();
-    let itemNamenew = document.getElementById("Name" + itemID).value;
-    let itemType = document.getElementById("select"+ itemID).value;
-    let url = new URL(window.location.href);
-    url.search = "";
-    let params = new URLSearchParams(url.search);
-    params.set("editItem", itemID);
-    params.set("itemName", itemNamenew);
-    params.set("catID", itemType);        
-    
-    url.search = params.toString();
-    //console.log(url)
-    window.location.href = url.toString();
-    }    
-}
-
-function validateSubcategory() {
-   /* const idValue = $("#newID").val();
-    const nameValue = $("#newNameItem").val();
-    const selectedCategory = $("#catItemID").val();
-    const value = e.target.value;*/
-    let idValue = document.getElementById("newID").value;
-    let nameValue = document.getElementById("newNameItem").value;
-    let selectedCategory = document.getElementById("catItemID").value;
-
-    if (!idValue.match(/^[A-Z]{3}$/)) {
-        return false;
-    };
-    if (!nameValue.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)){
-        return false;
-    };
-
-    // Kiểm tra danh mục đã chọn
-    if (!selectedCategory.match(/^.+$/)) {
-        return false;
-    };
-
-    return true;
-}
-
-function handleAddItem(event) {
-  if (validateSubcategory()){
-    event.preventDefault();
-    let itemName = document.getElementById("newNameItem").value;
-    let itemID = document.getElementById("newID").value;
-    let catID = document.getElementById("catItemID").value;
-    let url = new URL(window.location.href);
-    url.search = "";
-    let params = new URLSearchParams(url.search);
-    params.set("addtoID", catID);
-    params.set("itemID", itemID);
-    params.set("itemName", itemName);        
-    
-    url.search = params.toString();
-    //console.log(url)
-    window.location.href = url.toString();
-  }
-}
-function validateCategoryName() {
-  var categoryNameInput = document.getElementById('addCate');
-  var categoryName = categoryNameInput.value.trim();
-  if (!categoryName.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-      return false; 
-  }
-  return true; 
-}
-
-function handleAdd(event) {
-    if (validateCategoryName()) {
-    event.preventDefault(); 
-    let CatName = document.getElementById("addCate").value;
-    let url = new URL(window.location.href);
-    url.search = "";
-    
-    let params = new URLSearchParams(url.search);
-
-    params.set("add", CatName);
-    url.search = params.toString();
-
-    //console.log(url)
-    window.location.href = url.toString();
-  }
-}
-    document.addEventListener('DOMContentLoaded', function () {
-        const products = document.querySelectorAll('.product');
-
-        products.forEach(product => {
-            product.addEventListener('click', function () {
-                const details = this.querySelector('.details');
-                alert(details.innerText); // Replace this with your logic to show detailed information
-            });
+    products.forEach(product => {
+        product.addEventListener('click', function () {
+            const details = this.querySelector('.details');
+            alert(details.innerText); // Replace this with your logic to show detailed information
         });
     });
+});
 $(document).ready(function () {
         $('.next-product').on('click', function () {
             let currentPage = parseInt($('.current-page-product').val());
@@ -558,8 +330,10 @@ $(document).ready(function () {
                         let productHTML = `
                             <div class="product-item card" style="width: 18rem;margin: 5px;" id="${product.id}">
                                 <div>
-                                    <img src="${product.images}"
+                                     <a href="/admin/products/${product.id}">
+                                        <img src="${product.images}"
                                         class="product-image" style="width: 100px, height: 100px" alt="...">
+                                    </a>
                                 </div>
                                 <div class="product-name">${product.name}</div>
                                 <div class="card-body">
@@ -577,45 +351,47 @@ $(document).ready(function () {
                                             <div class="modal-body">
                                                 <form  action="/admin/products/${product.id}" method="post" id="productForm">
                                                     <div class="mb-3">
-                                                        <label for="inputID" class="form-label">ID</label>
-                                                        <input type="text" class="form-control" id="inputID" name="inputID1" value="${product.id}"placeholder="ID: " readonly>
+                                                        <label for="inputID1" class="form-label">ID</label>
+                                                        <input type="text" class="form-control" id="inputID1" name="inputID1" value="${product.id}"placeholder="ID: " readonly>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="inputName" class="form-label">Tên sản phẩm</label>
-                                                        <input type="text" class="form-control" id="inputName" name="inputName1" value="${product.name}" placeholder="Nhập tên sản phẩm">
+                                                        <label for="inputName1" class="form-label">Tên sản phẩm</label>
+                                                        <input type="text" class="form-control" id="inputName1" name="inputName1" value="${product.name}" placeholder="Nhập tên sản phẩm">
+                                                        <i class="error newName"></i>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="tinyDes" class="form-label">Mô tả ngắn</label>
-                                                        <input type="text" class="form-control" id="tinyDes" name="tinyDes1" value="${product.tinyDes}" placeholder="Nhập mô tả ngắn" >
+                                                        <label for="fullDes1" class="form-label">Mô tả đầy đủ</label>
+                                                        <textarea class="form-control" id="fullDes1" name="fullDes1" rows="3" value="${product.fullDes}" ></textarea>
+                                                        <i class="error newDes"></i>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="fullDes" class="form-label">Mô tả đầy đủ</label>
-                                                        <textarea class="form-control" id="fullDes" name="fullDes1" rows="3" value="${product.fullDes}" ></textarea>
+                                                        <label for="price1" class="form-label">Giá</label>
+                                                        <input type="number" class="form-control" id="price1" name="price1" value="${product.price}" placeholder="Nhập giá">
+                                                        <i class="error newPrice"></i>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="price" class="form-label">Giá</label>
-                                                        <input type="number" class="form-control" id="price" name="price1" value="${product.price}" placeholder="Nhập giá">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="items" class="form-label">Danh mục</label>
-                                                        <select class="form-select form-select-sm" aria-label="Small select example" id="items" name="items1" >
+                                                        <label for="items1" class="form-label">Danh mục</label>
+                                                        <select class="form-select form-select-sm" aria-label="Small select example" id="items1" name="items1" >
                                                             <option value="${product.item}" style="display:none" selected>Choose an option</option>
                                                         ${data.catitem.map(cat => `
                                                             <option value="${cat.itemID}">${cat.itemName}</option>
                                                         `).join('')}
                                                         </select>
+                                                        <i class="error newCat"></i>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="count" class="form-label">Số lượng</label>
-                                                        <input class="form-control" id="count" name="count1" value="${product.count}" placeholder="Nhập số lượng">
+                                                        <label for="count1" class="form-label">Số lượng</label>
+                                                        <input class="form-control" id="count1" name="count1" value="${product.count}" placeholder="Nhập số lượng">
+                                                        <i class="error newCount"></i>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="producer" class="form-label">Nhà sản xuất</label>
-                                                        <input type="text" class="form-control" id="producer" name="producer1" value="${product.producer}" placeholder="Nhập nhà sản xuất">
+                                                        <label for="producer1" class="form-label">Nhà sản xuất</label>
+                                                        <input type="text" class="form-control" id="producer1" name="producer1" value="${product.producer}" placeholder="Nhập nhà sản xuất">
+                                                        <i class="error newProducer"></i>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button class="btn btn-primary" type="submit" >Lưu thay đổi</button>
+                                                        <button class="btn btn-primary btnChange" type="submit" >Lưu thay đổi</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -635,4 +411,262 @@ $(document).ready(function () {
                 });
 
         }})
+
+$(() => {      
+  const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+  const showError = (message) => {
+    $(".error.newID").text(message);
+    $(".error.newID").css("visibility", "visible");
+  };
+  const hideError = () => {
+    $(".error.newID").text("");
+    $(".error.newID").css("visibility", "hidden");
+  };
+  $("#inputID").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/^[A-Z]{3}\d{2}$/)) {
+      showError("Mã sản phẩm gồm 5 ký tự, 3 chữ cái in hoa ở đầu và hai số bất kỳ ở sau");
+    } else {
+      hideError();
+    }
+  });
+  $("#inputID").on("focus", async function (e) {
+    hideError();
+  });
+$("#inputID").on("mouseout", async function (e) {
+    hideError();
+  });
+
+  const showError1 = (message) => {
+    $(".error.newName").text(message);
+    $(".error.newName").css("visibility", "visible");
+  };
+  const hideError1 = () => {
+    $(".error.newName").text("");
+    $(".error.newName").css("visibility", "hidden");
+  };
+  $("#inputName").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError1();
+    }
+  });
+  $("#inputName").on("focus", async function (e) {
+    hideError1();
+});
+    
+    const showError2 = (message) => {
+    $(".error.newDes").text(message);
+    $(".error.newDes").css("visibility", "visible");
+  };
+  const hideError2 = () => {
+    $(".error.newDes").text("");
+    $(".error.newDes").css("visibility", "hidden");
+  };
+  $("#fullDes").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError2();
+    }
+  });
+  $("#fullDes").on("focus", async function (e) {
+    hideError2();
+});
+
+    const showError3 = (message) => {
+    $(".error.newPrice").text(message);
+    $(".error.newPrice").css("visibility", "visible");
+  };
+  const hideError3 = () => {
+    $(".error.newPrice").text("");
+    $(".error.newPrice").css("visibility", "hidden");
+  };
+  $("#price").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 10000) {
+      showError3("Nhập giá lớn hơn hoặc bằng 10.000");
+    } else {
+      hideError3();
+    }
+  });
+  $("#price").on("focus", async function (e) {
+    hideError3();
+});
+
+    const showError4 = (message) => {
+    $(".error.newCat").text(message);
+    $(".error.newCat").css("visibility", "visible");
+  };
+  const hideError4 = () => {
+    $(".error.newCat").text("");
+    $(".error.newCat").css("visibility", "hidden");
+  };
+  $("#items").on("blur", async function(e){
+    const value = e.target.value;
+    const selectedValue = $("#items").val(); 
+    if (!value.match(/^.+$/)) {
+      showError4("Vui lòng chọn danh mục");
+    } else {
+      hideError4();
+    }
+  });
+  $("#items").on("focus", async function (e) {
+    hideError4();
+});
+
+
+    const showError5 = (message) => {
+    $(".error.newCount").text(message);
+    $(".error.newCount").css("visibility", "visible");
+  };
+  const hideError5 = () => {
+    $(".error.newCount").text("");
+    $(".error.newCount").css("visibility", "hidden");
+  };
+  $("#count").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 1) {
+      showError5("Nhập số lượng lớn hơn 0");
+    } else {
+      hideError5();
+    }
+  });
+  $("#count").on("focus", async function (e) {
+    hideError5();
+});
+
+
+    const showError6 = (message) => {
+    $(".error.newProducer").text(message);
+    $(".error.newProducer").css("visibility", "visible");
+  };
+  const hideError6 = () => {
+    $(".error.newProducer").text("");
+    $(".error.newProducer").css("visibility", "hidden");
+  };
+  $("#producer").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/\S/)) {
+      showError6("Không để trống");
+    } else {
+      hideError6();
+    }
+  });
+  $("#producer").on("focus", async function (e) {
+    hideError6();
+});
+
+
+  $("#inputName1").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError1();
+    }
+  });
+  $("#inputName1").on("focus", async function (e) {
+    hideError1();
+});
+    
+  $("#fullDes1").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(str)) {
+      showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+    } else {
+      hideError2();
+    }
+  });
+  $("#fullDes1").on("focus", async function (e) {
+    hideError2();
+});
+
+
+  $("#price1").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 10000) {
+      showError3("Nhập giá lớn hơn hoặc bằng 10.000");
+    } else {
+      hideError3();
+    }
+  });
+  $("#price1").on("focus", async function (e) {
+    hideError3();
+});
+
+  $("#count1").on("blur", async function(e){
+    const value = e.target.value;
+    if (value < 1) {
+      showError5("Nhập số lượng lớn hơn 0");
+    } else {
+      hideError5();
+    }
+  });
+  $("#count1").on("focus", async function (e) {
+    hideError5();
+});
+
+
+  $("#producer1").on("blur", async function(e){
+    const value = e.target.value;
+    if (!value.match(/\S/)) {
+      showError6("Không để trống");
+    } else {
+      hideError6();
+    }
+  });
+  $("#producer1").on("focus", async function (e) {
+    hideError6();
+});
+
+$(document).ready(function () {
+    $(document).on('click', '.btnAdd', function (e) {
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+        hideError6();
+    })
+    $(document).on('click', '.btnChange', function (e) {
+        e.preventDefault();
+        hideError();
+        hideError1();
+        hideError2();
+        hideError3();
+        hideError4();
+        hideError5();
+        hideError6();
+
+        const namee1 = $('#inputName1').val();
+        const des1 = $('#fullDes1').val();
+        const price1 = $('#price1').val();
+        const count1 = $('#count1').val();
+        const producer1 = $('#producer1').val();
+
+        let namee = document.getElementById('inputName1').value;
+        let des = document.getElementById('fullDes1').value;
+        let price = document.getElementById('price1').value;
+        let count = document.getElementById('count1').value;
+        let producer = document.getElementById('producer1').value;
+
+        const str = /^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/;
+
+        if (!(namee1 && des1 && price1 && count1 && producer1)) {
+            alert('Vui lòng điền đầy đủ thông tin');
+        }
+        else if  (!(namee.match(str) && des.match(str) && price > 10000 && count > 1 && producer.match(/\S/))){
+            alert('Vui lòng điền các thông tin hợp lệ');
+        }
+        else $('productForm').submit();
+    })
+});
+});
+
 </script>

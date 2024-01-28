@@ -83,4 +83,7 @@ module.exports = class Product {
    static async getProPage(page, perPage){
         return await db.getProPage(page, perPage);
    }
+   static async checkProductExist(id){
+    return await db.checkProductExist(id);
+}
 };

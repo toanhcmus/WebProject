@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const User = require('../models/User.js');
-
+const Category = require('../models/Category.js');
 module.exports = {
     register: async (req, res, next) => {
         const body = req.body;
@@ -92,11 +92,6 @@ module.exports = {
     changePassword: async (req, res, next) => {
         if (req.isAuthenticated() || req.user) {
             const body = req.query;
-            // console.log(body.cpOldPassword);
-            // console.log(body.cpNewPassword);
-            // console.log(body.cpConfirmNewPassword);
-            // console.log(body.cpUsername);
-
             let error = null;
 
             if (body.cpOldPassword == '' || body.cpNewPassword == '' || body.cpConfirmNewPassword == '') {
@@ -156,11 +151,18 @@ module.exports = {
         if (req.user.isAdmin == false || req.user.isAdmin == null) {
             return res.redirect('/');
         }
+        const categories = await Category.allCategory();       
+        const categoryItems = await Category.allCategoryItem();
+        const dataForHbs = categories.map((categories) => {
+            const items = categoryItems.filter((item) => item.catID === categories.catID);
+            return { ...categories, items };
+        });
         let accountList = await User.getAllUsers();
         console.log(accountList);
         res.render('account_manager', {
             layout: 'admin',
-            accountList: accountList
+            accountList: accountList,
+            categories: dataForHbs,
         });
     },
     managerRemoveUser: async (req, res, next) => {

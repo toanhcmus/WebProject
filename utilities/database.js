@@ -316,8 +316,20 @@ module.exports = {
         }
     },
     checkCatNameExist: async (catName) => {
-        const checkCatNameExistQuery = 'SELECT "catName" FROM "Categories" WHERE "catName" = $1';
+        catName = catName.toLowerCase();
+        const checkCatNameExistQuery = 'SELECT "catName" FROM "Categories" WHERE LOWER("catName") = $1';
         const checkCatNameExistValues = [catName];
+        try {
+            const checkCatNameExistResult = await db.oneOrNone(checkCatNameExistQuery, checkCatNameExistValues);
+            return checkCatNameExistResult ? true : false;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    },
+    checkProductExist: async (id) => {
+        const checkCatNameExistQuery = 'SELECT "id" FROM "Products" WHERE "id" = $1';
+        const checkCatNameExistValues = [id];
         try {
             const checkCatNameExistResult = await db.oneOrNone(checkCatNameExistQuery, checkCatNameExistValues);
             return checkCatNameExistResult ? true : false;
@@ -844,8 +856,8 @@ module.exports = {
                CREATE TABLE "Products" (
                  "id" text NOT NULL,
                  "name" varchar(150) NOT NULL,
-                 "tinyDes" varchar(150) NOT NULL,
-                 "fullDes" text NOT NULL,
+                 "tinyDes" varchar(150) NULL,
+                 "fullDes" text NULL,
                  "price" integer NOT NULL,
                  "item" text ,
                  "count" integer NOT NULL,

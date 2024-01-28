@@ -43,12 +43,54 @@ module.exports = {
     },
     addProduct: async (req, res, next) => {
         try {
-            console.log(req.body);
-            await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
-           
-            res.redirect('back');
+            let id = req.body.inputID;
+            if (await Product.checkProductExist(id)){
+                throw(`Đã tồn tại sản phẩm có ID là ${id}`)
+            }
+            else {
+                console.log(req.body);
+                await Product.addProduct(req.body.inputID,req.body.inputName,req.body.tinyDes, req.body.fullDes,req.body.price,req.body.items,req.body.count,req.body.producer,req.body.imageUrl );
+               
+                res.redirect('back');
+            }
+
         } catch (error) {
             console.log(error)
+            let url = `${req.protocol}://${req.hostname}${req.originalUrl}`;
+            let urlObj = new URL(url);
+            let catID = urlObj.searchParams.get("catID");
+            let itemID = urlObj.searchParams.get("itemID");
+            req.session.catID=null;
+            req.session.itemID=null;
+            let deleteID = urlObj.searchParams.get("delete");
+
+            if(deleteID){
+                await Product.deleteProduct(deleteID);
+            }        
+            let data = null;
+            if (catID) {
+                req.session.catID=catID;
+                req.session.itemID=null;
+                data = await Product.getProductByCategory(parseInt(catID));
+            }
+            if (itemID) {
+                req.session.catID=null;
+                req.session.itemID=itemID;
+                data = await Product.getProductByCategoryItem(itemID); 
+            }
+            if (catID == null && itemID == null){
+                data = await Product.allProduct();
+            }
+            req.session.search='';
+            req.session.sort ='';
+            req.session.filter ='';
+            const categories = await Category.allCategory();       
+            const categoryItems = await Category.allCategoryItem();
+            const dataForHbs = categories.map((categories) => {
+                const items = categoryItems.filter((item) => item.catID === categories.catID);
+                return { ...categories, items };
+            });
+            res.render("admin/product/viewProduct", {products: data.splice(0,8), max:Math.ceil(data.length / 8)+1 , categories: dataForHbs, catitem: categoryItems,keyword:'',error, title: "Dashboard", layout: 'admin'});
         }
 
     },
