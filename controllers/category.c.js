@@ -81,16 +81,17 @@ module.exports = {
             let catName = urlObj.searchParams.get("catName");
             let add = urlObj.searchParams.get("add");
             
-
+            let success = null;
             if (deleteID) {
                 await Category.deleteByID(parseInt(deleteID));
+                success = `Đã xoá danh mục có ID là ${deleteID} thành công`;
             }
             if (catName && await Category.checkCatNameExist(catName)){
                     throw(`Tên danh mục ${catName/*.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); })*/} đã tồn tại!`);
             }else {
-                if (editID) {
-                
+                if (editID) {                
                     await Category.updateCategory(parseInt(editID), catName);
+                    success = `Đã chỉnh sửa danh mục ${catName} thành công`;
                 }
             }
             if (add && await Category.checkCatNameExist(add)){
@@ -98,6 +99,7 @@ module.exports = {
             } else {
                 if (add) {
                     await Category.addCategory(add);
+                    success = `Đã thêm danh mục ${add} thành công`;
                 }
             }
             let addCatID = urlObj.searchParams.get("addtoID");
@@ -110,6 +112,7 @@ module.exports = {
             
             if (editItem && itemName && itemCategory){
                 await Category.updateItem(editItem, itemName, parseInt(itemCategory));
+                success = `Đã chỉnh sửa danh mục thành công`;
             };
 
             if (await Category.checkItemIDExist(addItemID)){
@@ -119,9 +122,11 @@ module.exports = {
                 
                 if (addCatID && addItemID && addItemName){
                     await Category.addItem(addItemID, addItemName, parseInt(addCatID));
+                    success = `Đã thêm mới danh mục ${addItemName}`;
                 }
                 if (deleteItemID) {
                     await Category.deleteItemByID(deleteItemID);
+                    success = `Đã xoá danh mục ${deleteItemID}`;
                 }
             }         
             
@@ -131,7 +136,7 @@ module.exports = {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render("admin/category/viewCategory", { layout: 'admin', categories: dataForHbs, title: "Edit" });
+            res.render("admin/category/viewCategory", { layout: 'admin', categories: dataForHbs, success, title: "Edit"});
 
         } catch (error) {
             let categories = await Category.allCategory();       
