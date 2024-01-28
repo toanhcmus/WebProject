@@ -197,7 +197,7 @@ $(() => {
   };
   $("#newNameItem").on("blur", async function(e){
     const value = e.target.value;
-    if (!value.match(str)) {
+    if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
       showError2("Tên danh mục phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
     } else {
       hideError2();
