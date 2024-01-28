@@ -808,7 +808,34 @@ module.exports = {
                     "TrangThai" int4
                 )
                 ;
-
+                INSERT INTO "HoaDon" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES
+                ('12', '01/12/2023', 5300000, 0),
+                ('12', '01/25/2023', 6000000, 0),
+                ('usernam1', '02/03/2023', 1500000, 0),                
+                ('user1', '02/08/2023', 260000, 0),
+                ('usernam1', '03/01/2023',10000000 ,0 ),
+                ('user1', '03/12/2023', 200000, 1),          
+                ('usernam1', '04/07/2023',380000 ,1 ),
+                ('user1', '04/14/2023', 750000, 0),
+                ('user1', '05/05/2023', 2250000, 0),
+                ('un1', '06/02/2023',950000 , 0),
+                ('un1', '06/15/2023', 650000, 0),
+                ('user1', '07/09/2023', 7000000,1),
+                ('un1', '07/26/2023',460000 , 1),
+                ('user1', '08/07/2023', 8500000, 0),
+                ('user1', '08/17/2023', 350000, 1),
+                ('un1', '09/03/2023',4500000 , 1),
+                ('un1', '09/12/2023', 5000000, 0),
+                ('usernam1', '10/06/2023',6000000 ,0 ),
+                ('un2', '10/11/2023',420000 , 0),
+                ('username2', '11/02/2023', 7000000,0),
+                ('user1', '11/15/2023', 9000000, 0),
+                ('username2', '12/05/2023',10000000 ,0),
+                ('user1', '12/18/2023', 7000000, 0),                               
+                ('usernam1', '12/29/2023',6000000 ,0 );
+                
+                
+                
                 ---------CREATE TABLE ThongTinHoaDon
                 DROP TABLE IF EXISTS "ThongTinHoaDon";
                 CREATE TABLE "ThongTinHoaDon" (
@@ -1376,7 +1403,15 @@ module.exports = {
            
                 INSERT INTO "Users" ("Username", "Password", "isAdmin", "Email") VALUES
                 ('12', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, '123@ok'),
-                ('Admin', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL);
+                ('usernam1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example@gmail.com'),
+                ('user1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example1@gmail.com'),
+                ('un1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example2@gmail.com'),
+                ('un2', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'markjohn@gmail.com'),
+                ('username2', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'davidle@gmail.com'),
+                ('Admin', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL),
+                ('Admin1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL),
+                ('Admin2', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL),
+                ('Admin3', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', true, NULL);
 
                 -- ----------------------------
                 -- Table structure for GoogleAccount
