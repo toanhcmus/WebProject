@@ -808,44 +808,153 @@ module.exports = {
                     "TrangThai" int4
                 )
                 ;
-                INSERT INTO "HoaDon" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES
-                ('12', '01/12/2023', 5300000, 0),
-                ('12', '01/25/2023', 6000000, 0),
-                ('usernam1', '02/03/2023', 1500000, 0),                
-                ('user1', '02/08/2023', 260000, 0),
-                ('usernam1', '03/01/2023',10000000 ,0 ),
-                ('user1', '03/12/2023', 200000, 1),          
-                ('usernam1', '04/07/2023',380000 ,1 ),
-                ('user1', '04/14/2023', 750000, 0),
-                ('user1', '05/05/2023', 2250000, 0),
-                ('un1', '06/02/2023',950000 , 0),
-                ('un1', '06/15/2023', 650000, 0),
-                ('user1', '07/09/2023', 7000000,1),
-                ('un1', '07/26/2023',460000 , 1),
-                ('user1', '08/07/2023', 8500000, 0),
-                ('user1', '08/17/2023', 350000, 1),
-                ('un1', '09/03/2023',4500000 , 1),
-                ('un1', '09/12/2023', 5000000, 0),
-                ('usernam1', '10/06/2023',6000000 ,0 ),
-                ('un2', '10/11/2023',420000 , 0),
-                ('username2', '11/02/2023', 7000000,0),
-                ('user1', '11/15/2023', 9000000, 0),
-                ('username2', '12/05/2023',10000000 ,0),
-                ('user1', '12/18/2023', 7000000, 0),                               
-                ('usernam1', '12/29/2023',6000000 ,0 );
-                
-                
+
                 
                 ---------CREATE TABLE ThongTinHoaDon
                 DROP TABLE IF EXISTS "ThongTinHoaDon";
                 CREATE TABLE "ThongTinHoaDon" (
-                "MaHoaDon" int4 NOT NULL,
-                    "MaThongTinHD" serial PRIMARY KEY,
+                
+                "MaThongTinHD" serial PRIMARY KEY,     
+                "MaHoaDon" int4 NOT NULL,             
                     "MaSP" text,
                     "SoLuong" int4
                 )
                 ;
 
+                INSERT INTO "HoaDon" ("username", "NgayLap", "ThanhTien", "TrangThai") VALUES
+                ('username1', '02/01/2024', 3250000,0),
+                ('user1', '02/02/2024', 1100000,1),
+                ('12', '02/03/2024', 2420000,1),
+                ('un1', '02/04/2024', 3630000,0),
+                ('12', '02/05/2024', 2750000,0),
+                ('un2', '03/01/2024', 2780000,0),
+                ('un1', '03/02/2024', 1950000,0),
+                ('un2', '03/03/2024', 3100000,0),
+                ('user1', '03/04/2024', 2500000,0),
+                ('12', '03/05/2024', 4100000,0),
+                ('user1', '04/01/2024', 3400000,0),
+                ('username1', '04/02/2024', 4100000,0),
+                ('12', '04/03/2024', 2900000,0),
+                ('un1', '04/04/2024', 3600000,0),
+                ('user1', '04/05/2024', 2800000,1),
+                ('user1', '05/01/2024', 4200000,0),
+                ('un1', '05/02/2024', 3100000,0),
+                ('12', '05/03/2024', 3800000,1),
+                ('un2', '05/04/2024', 2900000,1),
+                ('username1', '05/05/2024', 3500000,0),
+                ('un1', '06/01/2024', 4100000,0),
+                ('un2', '06/02/2024', 3200000,0),
+                ('un2', '06/03/2024', 3900000,0),
+                ('12', '06/04/2024', 3000000,0),
+                ('username2', '06/05/2024', 3600000,0),
+                ('12', '07/01/2024', 3100000,0),
+                ('un2', '07/02/2024', 4200000,0),
+                ('12', '07/03/2024', 3300000,0),
+                ('user1', '07/04/2024', 3800000,0),
+                ('user1', '07/05/2024', 2900000,0),
+                ('un2', '08/01/2024', 4500000,0),
+                ('username2', '08/02/2024', 2800000,0),
+                ('username2', '08/03/2024', 4100000,1),
+                ('un2', '08/04/2024', 3300000,0),
+                ('username2', '08/05/2024', 3700000,0),
+                ('username1', '09/01/2024', 4900000,0),
+                ('12', '09/02/2024', 3100000,0),
+                ('username1', '09/03/2024', 4200000,1),
+                ('un2', '09/04/2024', 3400000,0),
+                ('un2', '09/05/2024', 3900000,0),
+                ('un1', '10/01/2024', 4800000,0),
+                ('un1', '10/02/2024', 3200000,0),
+                ('user1', '10/03/2024', 4100000,0),
+                ('12', '10/04/2024', 3300000,0),
+                ('username1', '10/05/2024', 4000000,1),
+                ('un1', '11/01/2024', 2800000,0),
+                ('username1', '11/02/2024', 4100000,0),
+                ('12', '11/03/2024', 3500000,0),
+                ('username2', '11/04/2024', 2900000,1),
+                ('user1', '11/05/2024', 3800000,1),
+                ('user1', '12/01/2024', 3200000,0),
+                ('12', '12/02/2024', 2800000,0),
+                ('username1', '12/03/2024', 4100000,1),
+                ('un1', '12/04/2024', 3500000,0),
+                ('un1', '12/05/2024', 2900000,0);
+            
+                INSERT INTO "ThongTinHoaDon" ("MaHoaDon", "MaSP", "SoLuong") VALUES
+                (1, 'SDN02', 1),
+                (1, 'DNN03', 2),
+                (2, 'BLN04', 1),
+                (3, 'VDT01', 3),
+                (4, 'BAN02', 1),
+                (5, 'DHA04', 2),
+                (5, 'DNU02', 1),
+                (6, 'DNN04', 2),
+                (6, 'BLN03', 1),
+                (7, 'VDT02', 1),
+                (8, 'PKT01', 3),
+                (9, 'TDC01', 2),
+                (10, 'BVM03', 1),
+                (10, 'DHA05', 1),
+                (11, 'DNN01', 2),
+                (11, 'SDN02', 1),
+                (12, 'BVM05', 1),
+                (13, 'BLN01', 3),
+                (14, 'TDC03', 2),
+                (15, 'DNU03', 1),
+                (15, 'PKT04', 1),
+                (16, 'DNN03', 2),
+                (16, 'SDN04', 1),
+                (17, 'BVM02', 1),
+                (18, 'BLN02', 2),
+                (19, 'TDC04', 1),
+                (20, 'DNU04', 1),
+                (20, 'PKT05', 1),
+                (21, 'DNN04', 2),
+                (21, 'SDN05', 1),
+                (22, 'BVM03', 1),
+                (23, 'BLN03', 2),
+                (24, 'TDC05', 1),
+                (25, 'DNU05', 1),
+                (25, 'PKT01', 1),
+                (26, 'DNU03', 1),
+                (26, 'TDC02', 2),
+                (27,'BVM02', 1),
+                (28,'VDT03', 1),
+                (29, 'BAN03', 2),
+                (30,'PKT04', 1),
+                (30,'DHA05', 1),
+                (31, 'DNU02', 1),
+                (32, 'VDT01', 2),
+                (32, 'PKT05', 1),
+                (33, 'BAN04', 1),
+                (34, 'VDT04', 2),
+                (35, 'BVM05', 1),
+                (35,'PKT01', 1),
+                (36, 'DNU03', 1),
+                (36, 'VDT02', 2),
+                (37, 'PKT04', 1),
+                (38, 'BAN03', 1),
+                (38,'VDT03', 2),
+                (39, 'BVM04', 1),
+                (40, 'PKT02', 1),
+                (41, 'DNU05', 1),
+                (42, 'VDT01', 2),
+                (42,'PKT01', 1),
+                (43,'BAN04', 1),
+                (44,'VDT04', 2),
+                (45,'BVM05', 1),
+                (45,'PKT03', 1),
+                (46,'TDC02', 1),
+                (47,'BVM03', 2),
+                (18,'DNU03', 1),
+                (49, 'VDT03', 1),
+                (50, 'PKT05', 2),
+                (50, 'BLN02', 1),
+                (51,'DHA03', 1),
+                (52,'BVM04', 2),
+                (53,'TDC01', 1),
+                (54,'BLN03', 1),
+                (55,'VDT04', 2),
+                (55, 'PKT01', 1);
+                
 
                -- ----------------------------
                -- Table structure for Categories
@@ -973,15 +1082,7 @@ module.exports = {
                 - Không giặt chung đồ Trắng và đồ Tối màu ',90000,'ATH', 10,'T&T',0.0,'https://firebasestorage.googleapis.com/v0/b/webproject-646b5.appspot.com/o/34.jpg?alt=media&token=95d86f7f-b1ec-44dc-aaab-b0266d3d3b82');
 
                INSERT INTO "Products" VALUES ('ATH03','Áo Polo'
-               ,'Áo polo nam đa dạng phong cách, kiểu dáng trẻ trung'
-               ,'⭐Bảng size bên shop các bạn tham khảo ạ:
-               Size S: Dành cho khách dưới 45 kg    
-               Size M: Dành cho khách dưới 50 kg               
-               Size L:  Dành cho khách dưới 60 kg               
-               Size XL : Dành cho khách dưới 70 cân               
-               Size 2XL: Dành cho khách dưới 80 kg                                         
-               Bảng size chỉ mang tính chất tham khảo vì còn tùy thuộc vào cơ địa của mỗi bạn ạ               
-               👉 Bảng size mang tính chất tham khảo bạn có thể lấy size to hơn hoặc nhỏ theo yêu cầu của bạn!              
+               ,'Áo polo nam đa dạng phong cách, kiểu dáng trẻ trung'             
                III. MÔ TẢ SẢN PHẨM               
                ⭐ Tên sản phẩm : Áo Polo thun unisex               
                ⭐ Chất Liệu: chất Cotton               
@@ -1403,7 +1504,7 @@ module.exports = {
            
                 INSERT INTO "Users" ("Username", "Password", "isAdmin", "Email") VALUES
                 ('12', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, '123@ok'),
-                ('usernam1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example@gmail.com'),
+                ('username1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example@gmail.com'),
                 ('user1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example1@gmail.com'),
                 ('un1', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'example2@gmail.com'),
                 ('un2', '$2b$10$7u5D8nN.a.ffUYmnjkrs9uiSnkKHCQK3t5M/KD1hhyaLRnMbgdFXe', false, 'markjohn@gmail.com'),
