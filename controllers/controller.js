@@ -126,16 +126,19 @@ module.exports = {
             let itemID = urlObj.searchParams.get("itemID");
             req.session.catID=null;
             req.session.itemID=null;
+            let catt = null;  
             let data = null;
             if (catID) {
                 req.session.catID=catID;
                 req.session.itemID=null;
                 data = await Product.getProductByCategory(parseInt(catID));
+                catt = await Product.getCatId(catID);
             }
             if (itemID) {
                 req.session.catID=null;
                 req.session.itemID=itemID;
                 data = await Product.getProductByCategoryItem(itemID); 
+                catt = await Product.getCatItemById(itemID);
             }
             if (catID == null && itemID == null){
                 data = await Product.allProduct();
@@ -150,7 +153,8 @@ module.exports = {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , categories: dataForHbs ,cart: cart ,keyword:''});
+            catt = catt ? catt[0] : {};
+            res.render('products', { products: data.splice(0,4), max:Math.ceil(data.length / 4)+1 , catt, categories: dataForHbs ,cart: cart ,keyword:''});
         }
         catch (error) {
             next(error);
@@ -473,12 +477,13 @@ module.exports = {
             const items = categoryItems.filter((item) => item.catID === categories.catID);
             return { ...categories, items };
         });
+        catt = await Product.getCatByID(id);
         const cart = req.session.cart;
         let productCon = await Product.getProductCon(id);
         let productSuggest = await Product.getProductSuggest(id);
         product = product ? product[0] : {};
-
-        res.render("details", {product: product,categories: dataForHbs, productCon, productSuggest,cart:cart,title: "Product" });
+        catt = catt ? catt[0] : {};
+        res.render("details", {product: product,categories: dataForHbs, productCon, productSuggest,catt,cart:cart,title: "Product" });
         } catch (error) {
             console.log(error)
         }

@@ -85,5 +85,14 @@ module.exports = class Product {
    }
    static async checkProductExist(id){
     return await db.checkProductExist(id);
-}
+    }
+    static async getCatByID(id){
+        return await db.getCatByID(id);
+    }
+    static async getCatItemById(id){
+        return await db.getCatItemByID(id);
+    }
+    static async getCatId(id){
+        return await db.getCatId(id);
+    }
 };

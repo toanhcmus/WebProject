@@ -197,7 +197,20 @@
         color: white;
     }
 </style>
-
+<div>
+<a href="/products">
+    Sản phẩm
+    </a>
+    /
+    <a href="/products?catID={{catt.catID}}">
+    {{catt.catName}}
+    </a>
+     / 
+     <a href="/products?itemID={{catt.itemID}}">
+     {{catt.itemName}} 
+     </a>
+     / {{product.name}}
+</div>
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <div class="container">
         <div class="row justify-content-center">

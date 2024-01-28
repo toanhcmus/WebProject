@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-light fixed-header">
   <div class="container-fluid">
     <a class="navbar-brand" href="/admin">ADMIN</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,11 +100,22 @@
     .dropdown-content a:hover+.sub-content,
     .sub-content:hover {
         display: block;
+        
     }
+    .fixed-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-weight: bold;
+    z-index: 1000; /* Đảm bảo header hiển thị trên các phần tử khác */
+    background-color: #ffffff; /* Màu nền của header */
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng cho header nếu cần */*/
+}
 </style>
 
 <script>
-  
+ 
    function redirectToItem(itemID) {
     window.location.href = '/admin/products?itemID=' + itemID;
   }

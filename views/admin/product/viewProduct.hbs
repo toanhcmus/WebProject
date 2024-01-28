@@ -86,7 +86,27 @@
 
     </div>
 </div>
-
+<div>
+<a href="/admin/products">
+    Sản phẩm
+    </a>
+{{#unless catt.catName}}
+    
+{{else}}
+    /
+    <a href="/admin/products?catID={{catt.catID}}">
+        {{catt.catName}}
+    </a>
+    {{#unless catt.itemName}}
+        
+    {{else}}
+        / 
+        <a href="/admin/products?itemID={{catt.itemID}}">
+            {{catt.itemName}} 
+        </a>
+    {{/unless}}
+{{/unless}}
+</div>
 <!-- Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -530,9 +550,6 @@ $(document).ready(function () {
               hideError5();
               hideError6();
           });
-
-
-
         function paging() {
             fetch('/paging1', {
                 method: 'POST',

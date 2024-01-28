@@ -423,6 +423,55 @@ module.exports = {
             return null;
         }
     },
+    getCatItemByID: async (id) => {
+        try {
+            const res = await db.query(
+                `
+                SELECT *
+                FROM "CategoryItems" c JOIN "Categories" ca ON ca."catID" = c."catID"
+                WHERE c."itemID" = $1
+            `,
+                [id],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    getCatId: async (catID) => {
+        try {
+            const res = await db.query(
+                `
+                SELECT *
+                FROM "Categories" ca 
+                WHERE "catID" = $1
+            `,
+                [catID],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    getCatByID: async (id) => {
+        try {
+            const res = await db.query(
+                `
+                SELECT *
+                FROM "CategoryItems" c JOIN "Products" p ON c."itemID" = p."item"
+                JOIN "Categories" ca ON ca."catID" = c."catID"
+                WHERE p."id" = $1
+            `,
+                [id],
+            );
+            return res;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
     getUsersPage: async (page, perPage) => {
         const getUsersPageQuery = 'SELECT * FROM "Users" ORDER BY "isAdmin" DESC LIMIT $1 OFFSET $2';
         const getUsersPageValues = [perPage, (page - 1) * perPage];

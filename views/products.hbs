@@ -58,6 +58,27 @@
         padding-top: 5px;
     }
 </style>
+<div>
+<a href="/products">
+    Sản phẩm
+    </a>
+{{#unless catt.catName}}
+    
+{{else}}
+    /
+    <a href="/products?catID={{catt.catID}}">
+        {{catt.catName}}
+    </a>
+    {{#unless catt.itemName}}
+        
+    {{else}}
+        / 
+        <a href="/products?itemID={{catt.itemID}}">
+            {{catt.itemName}} 
+        </a>
+    {{/unless}}
+{{/unless}}
+</div>
 
 <div class="container-fluid text-center">
     <div class="row pt-5">

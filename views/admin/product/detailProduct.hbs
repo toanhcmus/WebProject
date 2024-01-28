@@ -122,7 +122,20 @@ p {
 font-size: 20px;
     }
 </style>
-
+<div>
+<a href="/admin/products">
+    Sản phẩm
+    </a>
+    /
+    <a href="/admin/products?catID={{catt.catID}}">
+    {{catt.catName}}
+    </a>
+     / 
+     <a href="/admin/products?itemID={{catt.itemID}}">
+     {{catt.itemName}} 
+     </a>
+     / {{product.name}}
+</div>
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <div class="container">
         <div class="row justify-content-center">
@@ -249,9 +262,9 @@ font-size: 20px;
                             <img src="{{this.images}}"
                                 class=" product-imagee product-image" alt="...">
                         </a>
-                        <a href="/admin/products/{{this.id}}">
+                       
                             <div class="product-namee product-name text-left">{{this.name}}</div>
-                        </a>
+                        
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
                         </div>
@@ -271,9 +284,9 @@ font-size: 20px;
                             <img src="{{this.images}}"
                                 class=" product-imagee product-image" alt="...">
                         </a>
-                        <a href="/admin/products/{{this.id}}">
+                       
                             <div class="product-namee product-name text-left">{{this.name}}</div>
-                        </a>
+                       
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="product-price">{{this.price}}</span>
                         </div>

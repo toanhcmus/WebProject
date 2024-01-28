@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container fixed-header">
     <div class="topbar">
         <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide carousel-fade"
             data-bs-ride="true" data-bs-touch="true">
@@ -147,6 +147,18 @@
 
 
     <style>
+        .fixed-header {
+    
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Đảm bảo header hiển thị trên các phần tử khác */
+    background-color: #ffffff; /* Màu nền của header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng cho header nếu cần */
+    position: sticky;
+   
+}
+
         body {
             color: #252a2b;
             line-height: 1.45;
@@ -435,4 +447,6 @@
     function hideSubContent() {
         document.querySelector('.sub-content').style.display = 'none';
     }
+
+
 </script>

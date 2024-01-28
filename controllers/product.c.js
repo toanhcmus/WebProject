@@ -15,17 +15,20 @@ module.exports = {
 
         if(deleteID){
             await Product.deleteProduct(deleteID);
-        }        
+        }      
+        let catt = null;  
         let data = null;
         if (catID) {
             req.session.catID=catID;
             req.session.itemID=null;
             data = await Product.getProductByCategory(parseInt(catID));
+            catt = await Product.getCatId(catID);
         }
         if (itemID) {
             req.session.catID=null;
             req.session.itemID=itemID;
             data = await Product.getProductByCategoryItem(itemID); 
+            catt = await Product.getCatItemById(itemID);
         }
         if (catID == null && itemID == null){
             data = await Product.allProduct();
@@ -39,7 +42,8 @@ module.exports = {
             const items = categoryItems.filter((item) => item.catID === categories.catID);
             return { ...categories, items };
         });
-        res.render("admin/product/viewProduct", {products: data.splice(0,8), max:Math.ceil(data.length / 8)+1 , categories: dataForHbs, catitem: categoryItems,keyword:'', title: "Dashboard", layout: 'admin'});
+        catt = catt ? catt[0] : {};
+        res.render("admin/product/viewProduct", {products: data.splice(0,8), max:Math.ceil(data.length / 8)+1 , categories: dataForHbs, catt,catitem: categoryItems,keyword:'', title: "Dashboard", layout: 'admin'});
     },
     addProduct: async (req, res, next) => {
         try {
@@ -67,16 +71,19 @@ module.exports = {
             if(deleteID){
                 await Product.deleteProduct(deleteID);
             }        
+            let catt = null;  
             let data = null;
             if (catID) {
                 req.session.catID=catID;
                 req.session.itemID=null;
                 data = await Product.getProductByCategory(parseInt(catID));
+                catt = await Product.getCatId(catID);
             }
             if (itemID) {
                 req.session.catID=null;
                 req.session.itemID=itemID;
                 data = await Product.getProductByCategoryItem(itemID); 
+                catt = await Product.getCatItemById(itemID);
             }
             if (catID == null && itemID == null){
                 data = await Product.allProduct();
@@ -90,7 +97,8 @@ module.exports = {
                 const items = categoryItems.filter((item) => item.catID === categories.catID);
                 return { ...categories, items };
             });
-            res.render("admin/product/viewProduct", {products: data.splice(0,8), max:Math.ceil(data.length / 8)+1 , categories: dataForHbs, catitem: categoryItems,keyword:'',error, title: "Dashboard", layout: 'admin'});
+            catt = catt ? catt[0] : {};
+            res.render("admin/product/viewProduct", {products: data.splice(0,8), max:Math.ceil(data.length / 8)+1 , categories: dataForHbs, catitem: categoryItems,keyword:'',error, catt,title: "Dashboard", layout: 'admin'});
         }
 
     },
@@ -109,18 +117,19 @@ module.exports = {
         try {
         let id = req.params.id;
         let product = await Product.getProductByID(id);
-        
+
+        catt = await Product.getCatByID(id);
         let categories = await Category.allCategory();       
         let categoryItems = await Category.allCategoryItem();
         let dataForHbs = categories.map((categories) => {
             const items = categoryItems.filter((item) => item.catID === categories.catID);
             return { ...categories, items };
         });
-
         let productCon = await Product.getProductCon(id);
         let productSuggest = await Product.getProductSuggest(id);
+        catt = catt ? catt[0] : {};
         product = product ? product[0] : {};
-        res.render("admin/product/detailProduct", {product: product, categories: dataForHbs, productCon, productSuggest,title: "Product" ,layout: 'admin'});
+        res.render("admin/product/detailProduct", {product: product, categories: dataForHbs, productCon, productSuggest,title: "Product" ,catt, layout: 'admin'});
 
         } catch (error) {
             console.log(error)
