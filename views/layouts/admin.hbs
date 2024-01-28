@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,13 +26,17 @@
             padding: 0;
             margin: 0;
         }
+
+        * {
+            font-family: 'Spectral', sans-serif;
+        }
     </style>
 </head>
 
-<body >
+<body>
     {{> headerAdmin}}
     <hr>
-    <div class="container" >
+    <div class="container">
         {{{body}}}
     </div>
 </body>
@@ -83,7 +86,7 @@
             if (!(id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1)) {
                 alert('Vui lòng điền đầy đủ thông tin');
             }
-            else if  ((id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1) && !(id.match(/^[A-Z]{3}\d{2}$/) && namee.match(str) && des.match(str) && price > 10000 && items.match(/^.+$/) && count > 1 && producer.match(/\S/))){
+            else if ((id1 && namee1 && des1 && price1 && items1 && count1 && producer1 && file1) && !(id.match(/^[A-Z]{3}\d{2}$/) && namee.match(str) && des.match(str) && price > 10000 && items.match(/^.+$/) && count > 1 && producer.match(/\S/))) {
                 alert('Vui lòng điền các thông tin hợp lệ');
             }
             else {
@@ -103,7 +106,7 @@
                     $('#productForm').submit();
                     alert('Thêm sản phẩm thành công')
                 }).catch(console.error);
-            }          
+            }
         })
     });
 
