@@ -438,7 +438,7 @@ module.exports = {
     renderFail: async (req, res, next) => {
         try {
             const id = req.params.id;
-            if (id === 0) {
+            if (parseInt(id) === 0) {
                 const allTranstions = await paymentM.selectAllPayments();
                 let maxxMaGD = 0;
                 allTranstions.forEach((element) => {
