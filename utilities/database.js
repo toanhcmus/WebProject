@@ -122,6 +122,7 @@ module.exports = {
             SUM("ThanhTien") AS ThanhTien
         FROM
             "HoaDon"
+        WHERE "TrangThai"=0
         GROUP BY
             EXTRACT(MONTH FROM "NgayLap"::date)
         ORDER BY EXTRACT(MONTH FROM "NgayLap"::date) ASC
