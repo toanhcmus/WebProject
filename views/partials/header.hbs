@@ -1,60 +1,33 @@
 <div class="container fixed-header">
-    <div class="topbar">
-        <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide carousel-fade"
-            data-bs-ride="true" data-bs-touch="true">
-            <div class="carousel-inner ">
-                <div class="carousel-item active">
-                    <span class="topbar-text d-block w-100">Khuyến mãi khủng giảm tới <strong>35%</strong> tất cả
-                        sản phẩm</span>
-                </div>
-                <div class="carousel-item">
-                    <span class="topbar-text d-block w-100">SALE hot chào lương về - Freeship đơn 0đ</span>
-                </div>
-                <div class="carousel-item">
-                    <span class="topbar-text d-block w-100">Miễn phí vận chuyển với đơn hàng trên <b>500k</b></span>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
     <div class="topbar-bottom">
         <div class="container-fluid">
             <div class="box-content d-flex align-items-center justify-content-center">
                 <div class="box-left d-flex flex-wrap align-items-center">
                     <div class="hotline">
-                        <span>Hotline: <a href="tel:1900636000">1900.636.000</a> (8h - 12h, 13h30 - 17h)</span>
+                        <span>Hotline: <a href="tel:1900636000">0389.956.755</a> (8h - 12h, 13h30 - 17h)</span>
                     </div>
                     <div class="contact" style="border-left: 1px solid gray; margin-left: 15px; padding-left: 15px">
-                        <a href="/pages/lien-he">Liên hệ</a>
+                        <span>Liên hệ</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="navbar">
-        <div class="container-fluid">
-            <div class="box-content d-flex align-items-between justify-content-between w-100">
-                <div class="home fs-4 col-3">
-                    <a href="/"><b>Home</b></a>
-                </div>
-                <div class="nav-box box-left d-flex flex-wrap justify-content-around align-items-between">
-                    <div class="nav-item fs-6 d-flex align-items-center">
-                        <a href="/">Trang chủ</a>
-                    </div>
-                    <div class="nav-item fs-6 d-flex align-items-center">
-                        <a href="/products">Sản phẩm</a>
-                    </div>
-                    <div class="nav-item fs-6 d-flex align-items-center">
-                        <div class="dropdown">
+    <div class="container-fluid">
+        <div class="box-content d-flex align-items-center justify-content-between">
+            <div class="home fs-4 col-3">
+                <a href="/"><b>HTTN Shop</b></a>
+            </div>
+            <div class="nav-box d-flex justify-content-between align-items-center">
+                    <div class="nav-items fs-6 d-flex">
+                        <div class="nav-item" style="margin-right: 30px;margin-left: 200px;">
+                            <a href="/">Trang chủ</a>
+                        </div>
+                        <div class="nav-item" style="margin-right: 30px;">
+                            <a href="/products">Sản phẩm</a>
+                        </div>
+                        <div class="nav-item dropdown" style="margin-right: 30px;">
                             <a href="/products" class="dropbtn">Danh mục</a>
                             <div class="dropdown-content">
                                 {{#each categories}}
@@ -70,32 +43,30 @@
                                 {{/each}}
                             </div>
                         </div>
+                        <div class="nav-item">
+                            <a href="/about">Giới thiệu</a>
+                        </div>
                     </div>
-                    <div class="nav-item fs-6 d-flex align-items-center">
-                        <a href="/about">Giới thiệu</a>
-                    </div>
-                    <div class="util d-flex flex-wrap justify-content-around align-items-between">
 
-                        <form action="/search" class="util-item d-flex align-items-center m-1" method="POST">
-                            <input type="text" class="form-control" name="name" placeholder="Search">
-                            <button type="submit" class="btn btn-primary"><i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                        <div class="util-item d-flex align-items-center">
-                            <a href="/login"><i class="fa-solid fa-user"></i></a>
-                        </div>
-                        <div class="util-item d-flex align-items-center cart-icon">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="cart-notify-badge bg-danger rounded-circle text-center text-white"
-                                style="width:20px; height:20px;display:none">0</span>
-                        </div>
+                <div class="util d-flex align-items-center">
+                    <form action="/search" class="util-item d-flex align-items-center m-1"  method="POST">
+                        <input type="text" class="form-control" style="width:500px" name="name" placeholder="Tìm kiếm sản phẩm">
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                    <div class="util-item d-flex align-items-center " style="margin-left:20px">
+                        <a href="/login"><i class="fa-solid fa-user"></i></a>
+                    </div>
+                    <div class="util-item d-flex align-items-center cart-icon" style="margin-left:20px">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="cart-notify-badge bg-danger rounded-circle text-center text-white"
+                            style="width:20px; height:20px;display:none">0</span>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
+</div>
+
     <div class="toast-addToCart"></div>
     <div class="cart overflow-y-auto  "
         style="position: fixed; right: -550px;top:0px;z-index:10; width: 550px; height: 100%; background-color: #b7f0f3;">
@@ -418,7 +389,7 @@
         left: 100%;
         background-color: #f9f9f9;
         min-width: 170px;
-        height: 350px;
+        height: 400px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 3;
     }

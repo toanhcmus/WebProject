@@ -128,6 +128,10 @@
             <div class="row gutters mt-3 text-center mb-3">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="">
+                        {{#if account.isAdmin}}
+                        <a type="button" class="btn btn-secondary" href="/admin" style="width:150px">Đến trang admin
+                        </a>
+                        {{else}}{{/if}}
                         {{#if account.Avatar}}
                         <button type="button" class="btn btn-secondary" style="width:130px">Đổi mật khẩu</button>
                         {{else}}

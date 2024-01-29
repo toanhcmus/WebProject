@@ -76,7 +76,7 @@
 <div class="container-fluid">
     <div class="row align-items-center"> <!-- Dòng chứa cả hai phần tử, căn giữa theo chiều dọc -->
         <div class="col text-center"> <!-- Phần tử căn giữa theo chiều ngang -->
-            <h4 class="card-title">Danh sách sản phẩm
+            <h4 class="card-title"style="font-weight: bold;">DANH SÁCH SẢN PHẨM
                 <button type="button" class="btn btn-primary btnAdd" data-bs-toggle="modal" data-bs-target="#addProductModal">
                 <span class="fas fa-plus"></span> 
             </button>
@@ -367,7 +367,7 @@ $(document).ready(function () {
         };
         $("#inputName").on("blur", async function(e){
           const value = e.target.value;
-          if (!value.match(str)) {
+          if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
             showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
           } else {
             hideError1();
@@ -495,7 +495,7 @@ $(document).ready(function () {
         $("#fullDes1").on("blur", async function(e){
           const value = e.target.value;
           if (!value.match(str)) {
-            showError2("Mô tả phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+            showError2("Vui lòng nhập mô tả");
           } else {
             hideError2();
           }

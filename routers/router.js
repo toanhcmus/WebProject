@@ -21,6 +21,7 @@ router.get('/products', controller.products);
 // router.get('/products/za', controller.za);
 router.post('/register', accountController.register);
 router.post('/search', controller.search);
+//router.post('/admin/search', controller.search1);
 router.post('/addToCart', controller.addToCart);
 router.post('/plus', controller.plus);
 router.post('/minus', controller.minus);
