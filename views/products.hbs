@@ -34,7 +34,10 @@
         transition: transform 0.3s ease-in-out;
         position: relative;
         z-index: 1;
-        margin: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top:5px;
+        margin-bottom: 0;
         padding: 0;
         background: rgba(0, 0, 0, 0);
         /* Màu trắng có độ trong suốt 0.8 */
@@ -50,7 +53,7 @@
 
     .product:hover {
         z-index: 2;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
     }
 
     .card {
@@ -58,40 +61,40 @@
         padding-top: 5px;
     }
 </style>
-<div>
-<a href="/products">
+<div class="pt-1" style="margin-left:50px">
+<a href="/products" style="font-weight:bold;font-size:18px">
     Sản phẩm
     </a>
 {{#unless catt.catName}}
     
 {{else}}
-    /
-    <a href="/products?catID={{catt.catID}}">
-        {{catt.catName}}
+    
+    <a href="/products?catID={{catt.catID}} " style="font-weight:bold;font-size:15px">
+     >   {{catt.catName}}
     </a>
     {{#unless catt.itemName}}
         
     {{else}}
-        / 
-        <a href="/products?itemID={{catt.itemID}}">
-            {{catt.itemName}} 
+         
+        <a href="/products?itemID={{catt.itemID}}" style="font-weight:bold;font-size:15px">
+        >    {{catt.itemName}} 
         </a>
     {{/unless}}
 {{/unless}}
 </div>
 
 <div class="container-fluid text-center">
-    <div class="row pt-5">
-        <div class="row text-center pt-5">
+    <div class="row">
+        <div class="row text-center">
             {{#if keyword}}
-            <h1> 
+            <h2> 
                 Tìm kiếm: {{keyword}}
-            </h1>
+            </h2>
 
             {{else}}
-            <h1>
+            <h2>
                 Tất cả sản phẩm
-            </h1>
+            </h2>
             {{/if}}
         </div>
         <div class="filter-line">
@@ -223,10 +226,10 @@
     </div>
     <div class="w-100 d-flex flex-column justify-content-center align-items-center">
         <div class="w-100 d-flex flex-row justify-content-center align-items-center">
-            <button class="btn btn-info ms-1 me-1 previous-product" style="width:90px;">Previous</button>
+            <button class="btn btn-info ms-1 me-1 previous-product" style="width:90px;">Trước</button>
             <input type="number" class="form-control current-page-product" style="width:60px;" min="1" value="1"> /
             <input type="number" class="form-control current-page-max" style="width:60px;" value="{{max}}" disabled>
-            <button class="btn btn-info next-product ms-1 me-1" style="width:90px;">Next</button>
+            <button class="btn btn-info next-product ms-1 me-1" style="width:90px;">Sau</button>
         </div>
     </div>
 </div>

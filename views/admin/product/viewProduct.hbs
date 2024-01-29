@@ -367,8 +367,8 @@ $(document).ready(function () {
         };
         $("#inputName").on("blur", async function(e){
           const value = e.target.value;
-          if (!value.match(/^(?=\S)(?!.*\s{2,})[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
-            showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+          if (!value.match(/^(?=\S)[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ]{5,}(?<=\S)$/)) {
+            showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không bắt đầu hay kết thúc bằng khoảng trắng");
           } else {
             hideError1();
           }
@@ -483,7 +483,7 @@ $(document).ready(function () {
         $("#inputName1").on("blur", async function(e){
           const value = e.target.value;
           if (!value.match(str)) {
-            showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không có nhiều hơn 1 khoảng trắng giữa các từ, không bắt đầu hay kết thúc bằng khoảng trắng");
+            showError1("Tên sản phẩm phải nhiều hơn 5 ký tự, chỉ chứa chữ và số (nếu có), không bắt đầu hay kết thúc bằng khoảng trắng");
           } else {
             hideError1();
           }

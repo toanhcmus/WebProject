@@ -86,13 +86,13 @@
     .productCart {
         margin-top: 20px;
         width: 1200px;
-        height: 550px;
+        height: 460px;
         /*background-color: black;*/
     }
 
     .aaa {
-        width: 500px;
-        height: 500px;
+        width: 450px;
+        height: 450px;
     }
 
     .rowCustom {
@@ -197,19 +197,19 @@
         color: white;
     }
 </style>
-<div>
-<a href="/products">
+<div class="pt-2" style="margin-left:100px">
+<a href="/products" style="font-weight:bold;font-size:15px">
     Sản phẩm
     </a>
-    /
-    <a href="/products?catID={{catt.catID}}">
-    {{catt.catName}}
+    
+    <a href="/products?catID={{catt.catID}}" style="font-weight:bold;font-size:15px">
+    > {{catt.catName}}
     </a>
-     / 
-     <a href="/products?itemID={{catt.itemID}}">
-     {{catt.itemName}} 
+      
+     <a href="/products?itemID={{catt.itemID}}" style="font-weight:bold;font-size:15px">
+     > {{catt.itemName}} 
      </a>
-     / {{product.name}}
+     > {{product.name}}
 </div>
 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
     <div class="container">
@@ -219,8 +219,10 @@
                     <div class="column">
                         <img src="{{product.images}}" class="product-image aaa" alt="...">
                     </div>
-                    <div class="column">
-                        <h2 class="product-name text-left" style="text-align: left;font-weight: bold">{{product.name}}
+                    <div class="column" style="width:650px">
+                        <h2 class="product-name text-left" style="text-align: left; font-weight: bold; white-space: normal;">
+                            {{product.name}}
+                        </h2>
                         </h2>
                         <p>Mã sản phẩm:
                             <span class="product-id" style="font-weight: bold;">{{product.id}}</span>
@@ -253,7 +255,7 @@
                             </span>
                         </p>
                         {{#moreThanZero product.count}}
-                        <button class="add-to-cart add-btn ml-2 mb-3">THÊM VÀO GIỎ</button>
+                        <button class="add-to-cart add-btn ml-2 mb-3" style="width: 100%; padding: 10px;margin-top:20px;">THÊM VÀO GIỎ</button>
                         {{else}}
                         <h4>Sản phẩm này đã hết hàng</h4>
                         <h4>Vui lòng quay lại sau!</h4>
